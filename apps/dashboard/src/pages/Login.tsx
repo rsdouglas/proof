@@ -45,7 +45,7 @@ export default function Login() {
       <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 40, width: '100%', maxWidth: 380 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Proof</h1>
+          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Vouch</h1>
           <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 14 }}>
             {mode === 'login' ? 'Sign in to your account' : 'Create your free account'}
           </p>
