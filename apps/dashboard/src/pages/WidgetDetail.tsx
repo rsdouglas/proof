@@ -89,238 +89,189 @@ export default function WidgetDetail() {
     } finally {
       setLoading(false)
     }
-  }, [id, request])
+  }, [id])
 
   useEffect(() => { loadData() }, [loadData])
 
-  async function updateWidget() {
-    if (!widget) return
+  async function saveSettings() {
     setSaving(true)
     try {
-      await request(`/widgets/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ name, theme, layout }),
-      })
+      await request(`/widgets/${id}`, { method: 'PATCH', body: { name, theme, layout } })
       setWidget(w => w ? { ...w, name, theme, layout } : w)
-      showToast('Widget saved!', 'success')
+      showToast('Settings saved!', 'success')
     } catch (e) {
-      showToast((e as Error).message)
+      showToast((e as Error).message, 'error')
     } finally {
       setSaving(false)
     }
   }
 
-  async function setStatus(testimonialId: string, status: 'approved' | 'rejected') {
+  async function updateStatus(testimonialId: string, newStatus: 'approved' | 'rejected' | 'pending') {
     setActionLoading(testimonialId)
     try {
-      await request(`/testimonials/${testimonialId}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ status }),
-      })
-      setTestimonials(ts => ts.map(t => t.id === testimonialId ? { ...t, status } : t))
+      await request(`/testimonials/${testimonialId}`, { method: 'PATCH', body: { status: newStatus } })
+      setTestimonials(ts => ts.map(t => t.id === testimonialId ? { ...t, status: newStatus } : t))
+      showToast(`Testimonial ${newStatus}`, 'success')
     } catch (e) {
-      showToast((e as Error).message)
+      showToast((e as Error).message, 'error')
     } finally {
       setActionLoading(null)
     }
   }
 
   async function deleteWidget() {
-    if (!confirm(`Delete widget "${widget?.name}"? This cannot be undone.`)) return
+    if (!confirm('Delete this widget? This cannot be undone.')) return
     try {
       await request(`/widgets/${id}`, { method: 'DELETE' })
       navigate('/widgets')
     } catch (e) {
-      showToast((e as Error).message)
+      showToast((e as Error).message, 'error')
     }
   }
 
-  if (loading) return <div style={{ padding: 40, color: '#6b7280' }}>Loading…</div>
-  if (!widget) return <div style={{ padding: 40 }}><Link to="/widgets">← Back to widgets</Link> — Widget not found.</div>
+  const embedCode = widget?
+    `<script src="https://proof.vouch.app/widget.js" data-widget="${widget.id}"></script>` : ''
 
-  const WIDGET_URL = `https://cdn.socialproof.dev`
-  const isPopup = layout === 'popup'
-  const embedCode = isPopup
-    ? `<!-- Vouch activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
-    : `<div id="vouch-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
-  const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
-  const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
+  const wallUrl = widget ? `https://proof.vouch.app/wall/${widget.id}` : ''
 
   const filtered = testimonials.filter(t => t.status === tab)
 
-  const tabStyle = (t: Tab) => ({
-    padding: '8px 16px',
-    borderRadius: 6,
-    border: 'none',
-    cursor: 'pointer',
-    fontWeight: tab === t ? 600 : 400,
-    background: tab === t ? '#2563eb' : 'transparent',
-    color: tab === t ? '#fff' : '#6b7280',
-    fontSize: 14,
-  })
+  if (loading) return (
+    <div style={{ display: 'flex', justifyContent: 'center', padding: 40 }}>
+      Loading...
+    </div>
+  )
+
+  if (!widget) return <div>Widget not found</div>
 
   return (
     <div>
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {Toast && toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-        <Link to="/widgets" style={{ color: '#6b7280', textDecoration: 'none', fontSize: 14 }}>← Widgets</Link>
+      { /* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+        <Link to="/widgets" style={{ color: '#6374af', textDecoration: 'none', fontSize: 14 }}>
+← Widgets
+        </Link>
         <span style={{ color: '#d1d5db' }}>/</span>
         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{widget.name}</h1>
+        <span style={{ background: '#f3f4f6', padding: '4px 10px', borderRadius: 12, fontSize: 12, color: '#6b7280' }}>
+          {widget.layout} • {widget.theme}
+        </span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
-        {/* Settings */}
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
-          <h2 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 600 }}>Widget settings</h2>
+      {/* Embed Code */}
+      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 24 }}>
+        <h2 style={{ margin: '0 0 12px', fontSize: 15, fontWeight: 600 }}>Embed Code</h2>
+        <pre style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: '12px 16px', fontSize: 12, overflowX: 'auto', margin: '0 0 12px' }}>{embedCode}</pre>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <CopyButton text={embedCode} label="Copy embed code" />
+          <CopyButton text={wallUrl} label="Copy wall URL" />
+        </div>
+      </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Name</label>
-            <input
-              value={name}
-              onChange={e => setName(e.target.value)}
-              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14, boxSizing: 'border-box' }}
-            />
-          </div>
-
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Theme</label>
-            <div style={{ display: 'flex', gap: 8 }}>
-              {THEME_OPTIONS.map(t => (
-                <button
-                  key={t}
-                  onClick={() => setTheme(t)}
-                  style={{
-                    padding: '6px 14px', borderRadius: 6, border: '1px solid',
-                    borderColor: theme === t ? '#2563eb' : '#d1d5db',
-                    background: theme === t ? '#eff6ff' : '#fff',
-                    color: theme === t ? '#2563eb' : '#374151',
-                    cursor: 'pointer', fontSize: 13, fontWeight: theme === t ? 600 : 400,
-                  }}
-                >{t}</button>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Layout</label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {LAYOUT_OPTIONS.map(l => (
-                <label key={l} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer', fontSize: 13 }}>
-                  <input type="radio" checked={layout === l} onChange={() => setLayout(l)} style={{ marginTop: 2 }} />
-                  <span style={{ color: layout === l ? '#2563eb' : '#374151' }}>{LAYOUT_LABELS[l]}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
+      {/* Settings */}
+      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 24 }}>
+        <h2 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 600 }}>Settings</h2>
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6 }}>Widget name</label>
+          <input value={name} onChange={e => setName(e.target.value)} style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14, boxSizing: 'border-box' }} />
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6 }}>Theme</label>
           <div style={{ display: 'flex', gap: 8 }}>
-            <button
-              onClick={updateWidget}
-              disabled={saving}
-              style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: saving ? 'not-allowed' : 'pointer', fontSize: 14, fontWeight: 500, opacity: saving ? 0.7 : 1 }}
-            >{saving ? 'Saving…' : 'Save changes'}</button>
-            <button
-              onClick={deleteWidget}
-              style={{ padding: '8px 16px', background: '#fff', color: '#ef4444', border: '1px solid #fecaca', borderRadius: 6, cursor: 'pointer', fontSize: 14 }}
-            >Delete widget</button>
+            {THEME_OPTIONS.map(t => (
+              <button key={t} onClick={() => setTheme(t)} style={{
+                padding: '6px 16px', borderRadius: 6,
+                background: theme === t ? '#2563eb' : '#f3f4f6',
+                color: theme === t ? '#fff' : '#374151',
+                border: theme === t ? '1px solid #2563eb' : '1px solid #e5e7eb',
+                cursor: 'pointer', fontSize: 13, fontWeight: 500,
+              }}>
+                {t[0].toUpperCase() + t.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
-
-        {/* Embed */}
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
-          <h2 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 600 }}>Embed &amp; share</h2>
-
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Embed snippet</label>
-              <CopyButton text={embedCode} label="Copy code" />
-            </div>
-            <pre style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 12, fontSize: 12, overflow: 'auto', margin: 0, color: '#374151', whiteSpace: 'pre-wrap' }}>{embedCode}</pre>
+        <div style={{ marginBottom: 20 }}>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6 }}>Layout</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {LAYOUT_OPTIONS.map(l => (
+              <label key={l} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                <input type="radio" name="layout" value={l} checked={layout === l} onChange={() => setLayout(l)} />
+                <span style={{ fontSize: 13 }}>{LAYOUT_LABELS[l]}</span>
+              </label>
+            ))}
           </div>
-
-          <div style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Collection form URL</label>
-              <CopyButton text={collectUrl} />
-            </div>
-            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{collectUrl}</div>
-          </div>
-
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Public testimonial wall</label>
-              <CopyButton text={wallUrl} />
-            </div>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <div style={{ flex: 1, background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{wallUrl}</div>
-              <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#2563eb', whiteSpace: 'nowrap' }}>Open ↗</a>
-            </div>
-          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <button onClick={saveSettings} disabled={saving} style={{
+            padding: '8px 16px', background: '#2563eb', color: '#fff',
+            border: 'none', borderRadius: 6, cursor: saving ? 'default' : 'pointer',
+            fontSize: 13, fontWeight: 600, opacity: saving ? 0.7 : 1,
+          }}>
+            {saving ? 'Saving...' : 'Save settings'}
+          </button>
+          <button onClick={deleteWidget} style={{
+            padding: '8px 16px', background: '#fff', color: '#ef4444',
+            border: '1px solid #fecaca', borderRadius: 6, cursor: 'pointer', fontSize: 13, fontWeight: 600,
+          }}>
+            Delete widget
+          </button>
         </div>
       </div>
 
-      {/* Testimonials */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <h2 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Testimonials</h2>
-          <a href={collectUrl} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: '#2563eb', textDecoration: 'none' }}>+ Share form ↗</a>
-        </div>
-
-        <div style={{ display: 'flex', gap: 4, marginBottom: 16, borderBottom: '1px solid #f3f4f6', paddingBottom: 8 }}>
-          {(['pending', 'approved', 'rejected'] as Tab[]).map(t => (
-            <button key={t} onClick={() => setTab(t)} style={tabStyle(t)}>
-              {t.charAt(0).toUpperCase() + t.slice(1)} ({testimonials.filter(x => x.status === t).length})
-            </button>
-          ))}
+      {/* Testimonials tabs */}
+      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid #e5e7eb', paddingBottom: 12 }}>
+          {['Pending', 'Approved', 'Rejected'].map(label => {
+            const value = label.toLowerCase() as Tab
+            const count = testimonials.filter(t => t.status === value).length
+            return (
+              <button key={value} onClick={() => setTab(value)} style={{
+                padding: '6px 12px', borderRadius: 6,
+                background: tab === value ? '#2563eb' : 'transparent',
+                color: tab === value ? '#fff' : '#6b7280',
+                border: 'unset', cursor: 'pointer', fontSize: 13, fontWeight: 500,
+              }}>
+                {label} {count > 0 && <span style={{ opacity: 0.7 }}>({count})</span>}
+              </button>
+            )
+          })}
         </div>
 
         {filtered.length === 0 ? (
-          <div style={{ color: '#9ca3af', fontSize: 14, padding: '20px 0', textAlign: 'center' }}>
-            {tab === 'pending' ? 'No pending testimonials. Share your collection form to get some!' : `No ${tab} testimonials.`}
+          <div style={{ color: '#9ca3af', fontSize: 14, padding: '32px 0', textAlign: 'center' }}>
+            No {tab} testimonials yet
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div>
             {filtered.map(t => (
-              <div key={t.id} style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+              <div key={t.id} style={{ borderBottom: '1px solid #f3f4f6', padding: '16px 0', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontWeight: 600, fontSize: 14 }}>{t.display_name}</span>
-                    <Stars rating={t.rating} />
-                  </div>
-                  <p style={{ margin: 0, fontSize: 14, color: '#374151', lineHeight: 1.5 }}>{t.display_text}</p>
-                  <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 6 }}>
-                    {new Date(t.created_at).toLocaleDateString()}
-                  </div>
+                  <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 4 }}>{t.display_name}</div>
+                  <Stars rating={t.rating} />
+                  <div style={{ fontSize: 14, color: '#374151', marginTop: 6, lineHeight: 1.5 }}>"{s.t.text}"</div>
+                  <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 4 }}>{new Date(t.created_at).toLocaleDateString()}</div>
                 </div>
-                {tab === 'pending' && (
-                  <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                    <button
-                      onClick={() => setStatus(t.id, 'approved')}
-                      disabled={actionLoading === t.id}
-                      style={{ padding: '6px 12px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 5, cursor: 'pointer', fontSize: 12, fontWeight: 500 }}
-                    >✓ Approve</button>
-                    <button
-                      onClick={() => setStatus(t.id, 'rejected')}
-                      disabled={actionLoading === t.id}
-                      style={{ padding: '6px 12px', background: '#fff', color: '#ef4444', border: '1px solid #fecaca', borderRadius: 5, cursor: 'pointer', fontSize: 12 }}
-                    >✗ Reject</button>
-                  </div>
-                )}
-                {tab === 'approved' && (
-                  <button
-                    onClick={() => setStatus(t.id, 'rejected')}
-                    disabled={actionLoading === t.id}
-                    style={{ padding: '6px 12px', background: '#fff', color: '#6b7280', border: '1px solid #e5e7eb', borderRadius: 5, cursor: 'pointer', fontSize: 12 }}
-                  >Un-approve</button>
-                )}
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {tab !== 'approved' && (
+                    <button onClick={() => updateStatus(t.id, 'approved')} disabled={actionLoading === t.id} style={{
+                      padding: '4px 10px', background: '#dcfce7', color: '#166534',
+                      border: '1px solid #a7f3d0', borderRadius: 5, cursor: 'pointer', fontSize: 12,
+                    }}>
+                      {actionLoading === t.id ? '...' : '☓ Approve'}
+                    </button>
+                  )}
+                  {tab !== 'rejected' && (
+                    <button onClick={() => updateStatus(t.id, 'rejected')} disabled={actionLoading === t.id} style={{
+                      padding: '4px 10px', background: '#fef2f2', color: '#ef4444',
+                      border: '1px solid #fecaca', borderRadius: 5, cursor: 'pointer', fontSize: 12,
+                    }}>
+                      {actionLoading === t.id ? '...' : '✗ Reject'}
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
