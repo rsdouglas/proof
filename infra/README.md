@@ -5,32 +5,32 @@
 ```
 [Customer Sites]
      │
-     │  <script src="https://proof-widget.*.workers.dev/v1/proof.js">
+     │  <script src="https://vouch-widget.*.workers.dev/v1/proof.js">
      ▼
-[proof-widget Worker]  ←→  [WIDGET_KV namespace]
+[vouch-widget Worker]  ←→  [WIDGET_KV namespace]
      │                         (5-min cache)
      │  GET /w/:widgetId
      ▼
-[proof-worker Worker]  ←→  [proof-db D1 database]
+[vouch-worker Worker]  ←→  [vouch-db D1 database]
      ▲
      │  authenticated API
      │
-[proof-dashboard Pages]  (React SPA — app.socialproof.dev)
-[proof-landing Pages]    (Static HTML — socialproof.dev)
+[vouch-dashboard Pages]  (React SPA — app.socialproof.dev)
+[vouch-landing Pages]    (Static HTML — socialproof.dev)
 ```
 
 ## Cloudflare Resources
 
 | Resource | Name | Type | Free Tier Limit |
 |---|---|---|---|
-| Worker | `proof-worker` | Worker | 100k req/day |
-| Worker | `proof-widget` | Worker | 100k req/day |
-| Database | `proof-db` | D1 | 5GB storage, 25M reads/day |
+| Worker | `vouch-worker` | Worker | 100k req/day |
+| Worker | `vouch-widget` | Worker | 100k req/day |
+| Database | `vouch-db` | D1 | 5GB storage, 25M reads/day |
 | Cache | `WIDGET_KV` | KV | 100k reads/day, 1k writes/day |
-| Dashboard | `proof-dashboard` | Pages | Unlimited req |
-| Landing | `proof-landing` | Pages | Unlimited req |
+| Dashboard | `vouch-dashboard` | Pages | Unlimited req |
+| Landing | `vouch-landing` | Pages | Unlimited req |
 
-**Both workers share one KV namespace.** `proof-worker` writes widget cache; `proof-widget` reads it.
+**Both workers share one KV namespace.** `vouch-worker` writes widget cache; `vouch-widget` reads it.
 
 ## Provisioning
 
@@ -54,7 +54,7 @@ Set these in the repo settings before CI/CD workflows run:
 ### Variables
 | Name | Example | Description |
 |---|---|---|
-| `VITE_API_URL` | `https://proof-worker.abc.workers.dev` | Dashboard → Worker API URL |
+| `VITE_API_URL` | `https://vouch-worker.abc.workers.dev` | Dashboard → Worker API URL |
 
 ## CI/CD Workflows
 
@@ -83,10 +83,10 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 
 ## Resource Checklist
 
-- [ ] D1 database `proof-db` created
+- [ ] D1 database `vouch-db` created
 - [ ] KV namespace `WIDGET_KV` created  
-- [ ] Pages project `proof-dashboard` created
-- [ ] Pages project `proof-landing` created
+- [ ] Pages project `vouch-dashboard` created
+- [ ] Pages project `vouch-landing` created
 - [ ] `apps/worker/wrangler.toml` updated with real IDs
 - [ ] `apps/widget/wrangler.toml` updated with real KV ID
 - [ ] JWT_SECRET set as Worker secret
@@ -100,13 +100,13 @@ These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is
 
 | Record | Type | Target |
 |---|---|---|
-| `app.socialproof.dev` | CNAME | `proof-dashboard.pages.dev` (or custom domain on Pages) |
-| `socialproof.dev` | CNAME | `proof-landing.pages.dev` (or custom domain on Pages) |
-| `api.socialproof.dev` | Worker Route | Route `api.socialproof.dev/*` → `proof-worker` |
+| `app.socialproof.dev` | CNAME | `vouch-dashboard.pages.dev` (or custom domain on Pages) |
+| `socialproof.dev` | CNAME | `vouch-landing.pages.dev` (or custom domain on Pages) |
+| `api.socialproof.dev` | Worker Route | Route `api.socialproof.dev/*` → `vouch-worker` |
 
 **To set up Worker route for `api.socialproof.dev`:**
 1. Add the domain to your Cloudflare zone
-2. In Workers & Pages → proof-worker → Settings → Triggers, add custom domain `api.socialproof.dev`
+2. In Workers & Pages → vouch-worker → Settings → Triggers, add custom domain `api.socialproof.dev`
 3. Or add to `apps/worker/wrangler.toml`:
    ```toml
    routes = [
@@ -116,6 +116,6 @@ These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is
 
 Add to resource checklist:
 - [ ] DNS zone for `socialproof.dev` in Cloudflare
-- [ ] Worker route: `api.socialproof.dev` → proof-worker
-- [ ] Custom domain: `app.socialproof.dev` → proof-dashboard Pages
-- [ ] Custom domain: `socialproof.dev` → proof-landing Pages
+- [ ] Worker route: `api.socialproof.dev` → vouch-worker
+- [ ] Custom domain: `app.socialproof.dev` → vouch-dashboard Pages
+- [ ] Custom domain: `socialproof.dev` → vouch-landing Pages
