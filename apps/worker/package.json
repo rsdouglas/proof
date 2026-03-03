@@ -1,0 +1,17 @@
+{
+  "name": "@proof/worker",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply proof-db"
+  },
+  "dependencies": {
+    "hono": "^4.4.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240910.0",
+    "wrangler": "^3.72.0"
+  }
+}
