@@ -12,7 +12,7 @@ submit.get('/submit/:formId', async (c) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${form ? `Leave a review for ${form.business_name}` : 'Not Found'}</title>
+<title>${form ? `How was your experience with ${form.business_name}?` : 'Not Found'}</title>
 <style>
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:40px 16px}
   .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px;max-width:480px;margin:0 auto}
@@ -30,8 +30,8 @@ submit.get('/submit/:formId', async (c) => {
 <body>
 ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
 <div class="card">
-  <h1>Share your experience</h1>
-  <p>Leave a review for <strong>${form.business_name}</strong></p>
+  <h1>How was your experience with ${form.business_name}?</h1>
+  <p>Your honest words help others find them — and mean the world to a small business.</p>
   <div id="form">
     <input id="name" placeholder="Your name" required />
     <input id="email" type="email" placeholder="Email (optional)" />
@@ -40,14 +40,14 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     <div class="stars" id="stars">
       ${[1,2,3,4,5].map(i => `<span class="star" data-v="${i}" onclick="setRating(${i})">★</span>`).join('')}
     </div>
-    <textarea id="text" placeholder="Your testimonial..." required></textarea>
+    <textarea id="text" placeholder="What was it like working with them? What would you tell a friend who was considering them?" required></textarea>
     <div id="error" class="error" style="display:none"></div>
-    <button onclick="submit()">Submit testimonial</button>
+    <button onclick="submit()">Share my experience →</button>
   </div>
   <div class="success" id="success" style="display:none">
     <div style="font-size:48px">🎉</div>
-    <h2>Thank you!</h2>
-    <p>Your testimonial has been submitted for review.</p>
+    <h2 id="success-heading">Thank you!</h2>
+    <p>${form.business_name} will review your testimonial shortly. Your words make a real difference for a small business.</p>
   </div>
 </div>
 <script>
@@ -74,6 +74,8 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     if (rating) body.rating = rating;
     var res = await fetch('/c/submit/${formId}', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     if (res.ok) {
+      var firstName = document.getElementById('name').value.trim().split(' ')[0];
+      document.getElementById('success-heading').textContent = 'Thank you, ' + firstName + '!';
       document.getElementById('form').style.display = 'none';
       document.getElementById('success').style.display = 'block';
     } else {
