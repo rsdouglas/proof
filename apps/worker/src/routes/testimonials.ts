@@ -91,3 +91,34 @@ testimonials.delete('/:id', async (c) => {
   await c.env.DB.prepare('DELETE FROM testimonials WHERE id = ? AND account_id = ?').bind(id, accountId).run()
   return c.json({ ok: true })
 })
+
+// Manual add testimonial (from dashboard)
+testimonials.post('/', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{
+    display_name: string; display_text: string; rating?: number;
+    company?: string; title?: string; submitter_email?: string;
+    status?: string; source?: string; widget_id?: string;
+  }>()
+
+  if (!body.display_name || !body.display_text) {
+    return c.json({ error: 'display_name and display_text are required' }, 400)
+  }
+
+  const id = crypto.randomUUID()
+  const now = new Date().toISOString()
+  const status = body.status || 'approved'
+  const source = body.source || 'manual'
+
+  await c.env.DB.prepare(
+    `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
+  ).bind(
+    id, accountId, body.widget_id ?? null,
+    body.display_name, body.display_text,
+    body.rating ?? null, body.company ?? null, body.title ?? null,
+    body.submitter_email ?? null, source, status, now, now
+  ).run()
+
+  return c.json({ testimonial: { id, status } }, 201)
+})
