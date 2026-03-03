@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "vouch-db"
-database_id = "placeholder-need-d1-create-permission"
+database_id = "1f4ebaa7-6a2b-4842-85c4-115e42af7345"
 migrations_dir = "migrations"
 
 [[kv_namespaces]]
