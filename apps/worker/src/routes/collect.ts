@@ -1,3 +1,4 @@
+import { fireWebhooks } from './webhooks'
 import { sendEmail, buildTestimonialReceivedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env } from '../index'
@@ -66,6 +67,20 @@ collect.post('/submit/:formId', async (c) => {
       c.env
     )
   }
+
+  // Fire webhooks for this account
+  await fireWebhooks(c.env.DB, form.account_id, 'testimonial.submitted', {
+    id,
+    display_name: body.display_name.trim(),
+    display_text: body.display_text.trim(),
+    rating: body.rating ?? null,
+    company: body.company ?? null,
+    title: body.title ?? null,
+    submitter_email: body.submitter_email ?? null,
+    source: 'form',
+    status: 'pending',
+    created_at: now,
+  })
 
   return c.json({ ok: true, message: 'Thank you! Your testimonial has been submitted for review.' }, 201)
 })

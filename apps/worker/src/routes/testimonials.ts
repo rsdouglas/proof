@@ -1,3 +1,4 @@
+import { fireWebhooks } from './webhooks'
 import { sendEmail, buildTestimonialApprovedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
@@ -80,6 +81,12 @@ testimonials.patch('/:id', async (c) => {
         c.env
       )
     }
+  }
+
+  // Fire webhook for status changes
+  if (body.status === 'approved' || body.status === 'rejected') {
+    const accountId = c.get('accountId')
+    await fireWebhooks(c.env.DB, accountId, `testimonial.${body.status}`, { id, status: body.status })
   }
 
   return c.json({ ok: true })
