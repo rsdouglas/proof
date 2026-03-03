@@ -11,6 +11,7 @@ import { accounts } from './routes/accounts'
 import { collectWidget } from './routes/collect_widget'
 import { billing } from './routes/billing'
 import { analytics } from './routes/analytics'
+import { wall } from './routes/wall'
 
 export interface Env {
   DB: D1Database
@@ -49,6 +50,8 @@ app.use('*', cors({
 // ── Public routes ─────────────────────────────────────────────────────────────
 // Embeddable widget JSON (served by widget worker too, this is a fallback)
 app.route('/w', widget)
+// Public testimonial wall (server-rendered HTML)
+app.route('/wall', wall)
 // Hosted collection form
 app.route('/c', collect)
 // Collection form submission (public)

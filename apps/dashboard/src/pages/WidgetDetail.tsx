@@ -147,6 +147,7 @@ export default function WidgetDetail() {
     ? `<!-- Proof activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
     : `<div id="proof-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
+  const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
 
   return (
     <div>
@@ -264,6 +265,19 @@ export default function WidgetDetail() {
               whiteSpace: 'pre-wrap', wordBreak: 'break-all',
             }}>{embedCode}</pre>
             <CopyButton text={embedCode} label="Copy snippet" />
+          </div>
+
+          {/* Public wall */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <a
+              href={wallUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+            >{wallUrl}</a>
+            <CopyButton text={wallUrl} label="Copy wall URL" />
           </div>
 
           {/* Widget config */}
