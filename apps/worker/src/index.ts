@@ -8,6 +8,7 @@ import { collect } from './routes/collect'
 import { submit } from './routes/submit'
 import { auth, verifyToken } from './routes/auth'
 import { accounts } from './routes/accounts'
+import { collectWidget } from './routes/collect_widget'
 
 export interface Env {
   DB: D1Database
@@ -45,6 +46,9 @@ app.route('/w', widget)
 app.route('/c', collect)
 // Collection form submission (public)
 app.route('/', submit)
+// Widget-based collection form
+app.route('/collect', collectWidget)
+app.route('/api/collect', collectWidget)
 
 // ── Auth routes (no JWT required) ────────────────────────────────────────────
 app.route('/api/auth', auth)
