@@ -49,6 +49,105 @@ function CopyButton({ text, label }: { text: string; label?: string }) {
   )
 }
 
+
+type Platform = 'html' | 'webflow' | 'shopify' | 'squarespace' | 'wordpress'
+
+const PLATFORMS: { id: Platform; label: string }[] = [
+  { id: 'html', label: 'HTML / Custom' },
+  { id: 'webflow', label: 'Webflow' },
+  { id: 'shopify', label: 'Shopify' },
+  { id: 'squarespace', label: 'Squarespace' },
+  { id: 'wordpress', label: 'WordPress' },
+]
+
+const INSTALL_STEPS: Record<Platform, { title: string; steps: string[] }> = {
+  html: {
+    title: 'Any HTML website',
+    steps: [
+      'Open your HTML file or template in a code editor.',
+      'Paste the snippet just before the closing </body> tag.',
+      'Save and upload. The widget appears immediately.',
+    ],
+  },
+  webflow: {
+    title: 'Webflow',
+    steps: [
+      'Open your Webflow project and go to Project Settings → Custom Code.',
+      'Paste the snippet into the "Footer Code" field.',
+      'Click Save Changes, then Publish your site.',
+      'Tip: you can also use an Embed element on a specific page instead of site-wide.',
+    ],
+  },
+  shopify: {
+    title: 'Shopify',
+    steps: [
+      'In your Shopify admin, go to Online Store → Themes.',
+      'Click Actions → Edit Code on your active theme.',
+      'Open theme.liquid (in the Layout folder).',
+      'Paste the snippet just before the closing </body> tag.',
+      'Click Save. The widget is now live on all pages.',
+    ],
+  },
+  squarespace: {
+    title: 'Squarespace',
+    steps: [
+      'In your Squarespace dashboard, go to Settings → Advanced → Code Injection.',
+      'Paste the snippet into the "Footer" field.',
+      'Click Save. Changes go live immediately.',
+      'Note: Code Injection requires a Business plan or higher.',
+    ],
+  },
+  wordpress: {
+    title: 'WordPress',
+    steps: [
+      'Install the "Insert Headers and Footers" plugin (free, by WPCode).',
+      'Go to Settings → Insert Headers and Footers → Scripts in Footer.',
+      'Paste the snippet and click Save.',
+      'Alternatively, add directly to your theme footer.php before </body>.',
+    ],
+  },
+}
+
+function InstallGuide({ embedCode }: { embedCode: string }) {
+  const [platform, setPlatform] = useState<Platform>('html')
+  const guide = INSTALL_STEPS[platform]
+  return (
+    <div>
+      {/* Platform tabs */}
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 14 }}>
+        {PLATFORMS.map(p => (
+          <button
+            key={p.id}
+            onClick={() => setPlatform(p.id)}
+            style={{
+              padding: '5px 10px', fontSize: 12, borderRadius: 4, cursor: 'pointer',
+              border: '1px solid',
+              borderColor: platform === p.id ? '#2563eb' : '#d1d5db',
+              background: platform === p.id ? '#eff6ff' : '#fff',
+              color: platform === p.id ? '#1d4ed8' : '#374151',
+              fontWeight: platform === p.id ? 600 : 400,
+              transition: 'all 0.1s',
+            }}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+      {/* Steps */}
+      <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: '14px 16px' }}>
+        <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 600, color: '#374151' }}>{guide.title}</p>
+        <ol style={{ margin: 0, paddingLeft: 18 }}>
+          {guide.steps.map((step, i) => (
+            <li key={i} style={{ fontSize: 12, color: '#4b5563', marginBottom: 6, lineHeight: 1.5 }}>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )
+}
+
 function Stars({ rating }: { rating: number | null }) {
   if (!rating) return null
   return <span style={{ color: '#f59e0b', fontSize: 13 }}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
@@ -255,16 +354,22 @@ export default function WidgetDetail() {
             <CopyButton text={collectUrl} label="Copy link" />
           </div>
 
-          {/* Embed code */}
+          {/* Embed code + install guide */}
           <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Embed code</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>Paste into your website's HTML</p>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>Copy the snippet below and paste it into your site</p>
             <pre style={{
               background: '#1e1e2e', color: '#cdd6f4', borderRadius: 6, padding: 12,
               fontSize: 11, overflow: 'auto', margin: '0 0 8px', lineHeight: 1.6,
               whiteSpace: 'pre-wrap', wordBreak: 'break-all',
             }}>{embedCode}</pre>
             <CopyButton text={embedCode} label="Copy snippet" />
+
+            {/* Platform install guide */}
+            <div style={{ marginTop: 20 }}>
+              <h4 style={{ margin: '0 0 10px', fontSize: 13, fontWeight: 600, color: '#374151' }}>Installation guide</h4>
+              <InstallGuide embedCode={embedCode} />
+            </div>
           </div>
 
           {/* Public wall */}
