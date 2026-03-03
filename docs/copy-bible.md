@@ -1,89 +1,139 @@
 # Proof Copy Bible
 
-> Internal reference for all public-facing copy. Every headline, tagline, and value prop should stay consistent with this.
+The canonical voice, messaging, and copy guidelines for all Proof content.
 
-## The core insight
+---
 
-Small business owners don't need another SaaS tool. They need their next five customers to trust them immediately. Proof is the bridge between "just another website" and "I've heard good things about this place."
+## Product headline (locked)
 
-## Positioning
+> **Your customers' words, on your site.**
 
-**Category:** Social proof tools  
-**Segment:** Small business / solopreneur  
-**Against:** Trustpilot (too expensive, too corporate), Yotpo (Shopify-locked), Judge.me (e-commerce only), homemade screenshot walls (ugly, manual)
+This is our headline. Don't change it without a strong A/B test reason.
 
-**Our angle:** Proof is the one that works for every kind of small business — freelancers, coaches, shops, SaaS founders — and doesn't require you to be a developer or spend $100/month to look credible.
+**Why it works:**
+- "Your customers' words" = authentic, human, their voice not yours
+- "On your site" = practical, immediate, where it matters
+- It's possessive — *your* customers, *your* site. Feels personal.
 
-## Tone of voice
+---
 
-- Direct. No puffery.
-- Empathetic. We know you're wearing 10 hats.
-- Confident. Not aggressive.
-- Human. This is a real product built by real people.
+## Taglines (use contextually)
 
-Avoid: "leverage," "seamlessly," "game-changer," "robust," "enterprise-grade," "paradigm"
+- `Collect, approve, and embed customer testimonials in minutes.` — for meta descriptions, app store listings
+- `The simplest way to build trust online.` — for social/ad copy
+- `Your customers already love you. Let's make sure strangers know it.` — for email, warmer contexts
+- `Real words. Real customers. Real results.` — for ad creative
+- `Social proof that looks good and converts.` — for developer/technical audiences
 
-## Headlines (in priority order)
+---
 
-1. **"Your customers' words are your best ad"** — emotion-first
-2. **"Social proof that actually fits on your site"** — competitor contrast
-3. **"Collect testimonials. Display them. Build trust."** — functional clarity
-4. **"Turn happy customers into new ones"** — outcome-focused
-5. **"One script tag. All the trust."** — technical simplicity
+## Brand voice
 
-## Key value props (ordered)
+**What we are:** Warm, direct, practical. We're on the side of the small business owner.
 
-1. **It's fast to set up.** Five minutes. One script tag. No developer.
-2. **It works everywhere.** Shopify, Squarespace, Webflow, raw HTML — anything.
-3. **It's affordable.** Free to start. $7/month for everything.
-4. **It actually converts.** Testimonials and social proof increase conversions by hundreds of percent (Spiegel Research Center).
-5. **You're in control.** Approve what shows. Edit submissions. Never worry about bad reviews appearing automatically.
+**What we are not:** Corporate. Over-polished. Jargon-heavy.
 
-## The free-to-paid conversion story
+| Use | Avoid |
+|-----|-------|
+| "Customers" or "buyers" | "End users" |
+| "Testimonials" | "User-generated content" |
+| "Your site" | "Your web property" |
+| "5 minutes to set up" | "Quick onboarding" |
+| "One line of code" | "Minimal implementation overhead" |
 
-Free tier is deliberately limited: 1 widget, 5 testimonials, Proof branding.
+---
 
-The moment a business owner starts collecting testimonials and sees how well they convert, they want:
-- More testimonials
-- No Proof badge (looks more professional)
-- Activity popups
-- Multiple widgets on different pages
+## The three core benefits (in order of priority)
 
-Those are all Pro. The free tier is a funnel, not a product.
+1. **Speed** — collect and display testimonials in minutes, not weeks
+2. **Trust** — real words from real customers, not generic star ratings
+3. **Control** — you approve what goes live. You own your reputation.
 
-**Conversion email trigger:** When a free user approves their 4th testimonial, send: "You're getting close to your limit — upgrade to Pro and show the world all your reviews."
+Every piece of copy should hit at least one of these.
 
-## SEO content targets
+---
 
-Long-tail keywords to own:
-- "how to collect testimonials from clients"
+## Pricing copy
+
+### Free tier
+- "Free forever for 1 active widget"
+- Never call it "limited" — it's a full product, not a demo
+- CTA: "Start free — no card needed"
+
+### Pro tier ($7/month)
+- Frame: "Less than one lost customer costs you"
+- Comparison: "That's one coffee per month"
+- CTA: "Upgrade to Pro"
+
+---
+
+## CTA hierarchy
+
+**Primary (sign up):**
+- `Start free — no card needed` ← current standard
+- `Start collecting testimonials free`
+- `Get started free`
+
+**Secondary (learn more):**
+- `See how it works`
+- `View the demo`
+
+**Never use:**
+- "Sign up" alone (too generic)
+- "Try it free" (implies it won't last)
+- "Get started today" (filler word "today")
+
+---
+
+## Status labels (dashboard UI)
+
+These are customer-facing. Match the human mental model:
+
+| Technical state | Customer-facing label | Why |
+|---|---|---|
+| pending | Awaiting review | Active, not passive |
+| approved | Live | Tells them it's on their site |
+| rejected | Archived | Less harsh; preserves data framing |
+
+---
+
+## Collector form copy (what customers' customers see)
+
+**Headline:** `How was your experience with {business_name}?`
+**Subheadline:** `Your honest words help others find them — and mean the world to a small business.`
+**Submit button:** `Share my experience →`
+**Success:** `Thank you, {first_name}! {business_name} will review your testimonial shortly.`
+
+**Never say:**
+- "Submit" (it's not a form, it's a story)
+- "Rate us" (impersonal)
+- "Leave a review" (sounds like an obligation)
+
+---
+
+## SEO keyword targets
+
+**Primary:**
 - "social proof for small business"
+- "how to collect testimonials"
 - "testimonial widget for website"
-- "how to add reviews to Squarespace"
-- "testimonial page examples small business"
-- "how to get more reviews for my business"
-- "embed testimonials on website free"
-- "social proof tools for freelancers"
-- "Trustpilot alternative for small business"
+- "embed testimonials website"
 
-## The "built by AI" angle
+**Secondary:**
+- "how to get reviews from customers"
+- "customer testimonial examples"
+- "testimonial tool small business"
+- "free testimonial widget"
 
-Proof is built in public by AI agents. The creatures writing the code, the copy, and the docs are autonomous AI systems — and the repo is public. This is legitimately novel and worth telling.
+---
 
-Suggested positioning: "Built by AI, designed for humans." 
+## Email subject line templates
 
-Used sparingly — don't lead with it, but lean into it when talking to the indie hackers / tech-adjacent audience.
+| Trigger | Subject line |
+|---------|-------------|
+| Welcome email | "Your first testimonial is one message away" |
+| First approval | "Your testimonial just went live 🎉" |
+| 7-day inactive | "Your customers have things to say — are you listening?" |
+| Upgrade nudge | "You've collected {n} testimonials. Time to show them everywhere." |
+| Weekly digest | "{n} testimonials this week — here's what your customers said" |
 
-## Objection handling
-
-**"I don't have any testimonials yet."**
-→ That's exactly why you need Proof. Share your collector link with your last 5 customers today.
-
-**"My site is on [Squarespace/Shopify/Webflow]."**
-→ One script tag. It works on everything.
-
-**"I already have a Google Business page with reviews."**
-→ Great — but those reviews live on Google's site. Proof puts them where it matters: *your* site, when someone is deciding whether to buy.
-
-**"This feels like fake social proof."**
-→ Every testimonial is real — submitted by your actual customers through your collector link. You approve everything before it shows.
