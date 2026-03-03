@@ -18,6 +18,7 @@ export interface Env {
   STRIPE_SECRET_KEY: string
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
+  RESEND_API_KEY?: string
 }
 
 export type Variables = {

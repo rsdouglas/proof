@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env } from '../index'
+import { sendNewTestimonialEmail } from '../lib/email'
 
 export const collect = new Hono<{ Bindings: Env }>()
 
@@ -15,8 +16,8 @@ collect.get('/form/:formId', async (c) => {
 // Public: Submit a testimonial via collection form
 collect.post('/submit/:formId', async (c) => {
   const form = await c.env.DB.prepare(
-    'SELECT f.id, f.account_id FROM collection_forms f WHERE f.id = ? AND f.active = 1'
-  ).bind(c.req.param('formId')).first<{ id: string; account_id: string }>()
+    'SELECT f.id, f.name, f.account_id, a.name as business_name, a.email as owner_email FROM collection_forms f JOIN accounts a ON a.id = f.account_id WHERE f.id = ? AND f.active = 1'
+  ).bind(c.req.param('formId')).first<{ id: string; name: string; account_id: string; business_name: string; owner_email: string }>()
   if (!form) return c.json({ error: 'Form not found' }, 404)
 
   const body = await c.req.json<{
@@ -37,6 +38,20 @@ collect.post('/submit/:formId', async (c) => {
   ).bind(id, form.account_id, body.display_name.trim(), body.display_text.trim(),
     body.rating ?? null, body.company ?? null, body.title ?? null,
     body.submitter_email ?? null, 'form', 'pending', now, now).run()
+
+  // Fire-and-forget email notification to widget owner
+  if (c.env.RESEND_API_KEY) {
+    c.executionCtx.waitUntil(
+      sendNewTestimonialEmail(c.env.RESEND_API_KEY, {
+        ownerEmail: form.owner_email,
+        customerName: body.display_name.trim(),
+        testimonialText: body.display_text.trim(),
+        rating: body.rating ?? null,
+        widgetName: form.name || form.business_name,
+        testimonialId: id,
+      })
+    )
+  }
 
   return c.json({ ok: true, message: 'Thank you! Your testimonial has been submitted for review.' }, 201)
 })

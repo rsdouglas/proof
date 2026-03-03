@@ -8,7 +8,8 @@
     "db:migrate": "wrangler d1 migrations apply proof-db"
   },
   "dependencies": {
-    "hono": "^4.4.0"
+    "hono": "^4.4.0",
+    "resend": "^6.9.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240910.0",

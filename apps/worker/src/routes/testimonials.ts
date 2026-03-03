@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
+import { sendApprovalConfirmationEmail } from '../lib/email'
 
 export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -44,6 +45,15 @@ testimonials.patch('/:id', async (c) => {
   const body = await c.req.json<{ status?: string; featured?: boolean; response?: string }>()
   const now = new Date().toISOString()
 
+  // Fetch current testimonial before update (needed for approval email)
+  const existing = await c.env.DB.prepare(
+    'SELECT * FROM testimonials WHERE id = ? AND account_id = ?'
+  ).bind(id, accountId).first<{
+    id: string; display_name: string; submitter_email: string | null;
+    status: string; account_id: string
+  }>()
+  if (!existing) return c.json({ error: 'Not found' }, 404)
+
   const fields: string[] = []
   const values: unknown[] = []
 
@@ -59,6 +69,23 @@ testimonials.patch('/:id', async (c) => {
   await c.env.DB.prepare(
     `UPDATE testimonials SET ${fields.join(', ')} WHERE id = ? AND account_id = ?`
   ).bind(...values).run()
+
+  // Send approval confirmation email to submitter (fire-and-forget)
+  const approving = body.status === 'approved' && existing.status !== 'approved'
+  if (approving && existing.submitter_email && c.env.RESEND_API_KEY) {
+    // Look up the business name from accounts
+    const account = await c.env.DB.prepare(
+      'SELECT name FROM accounts WHERE id = ?'
+    ).bind(accountId).first<{ name: string }>()
+
+    c.executionCtx.waitUntil(
+      sendApprovalConfirmationEmail(c.env.RESEND_API_KEY, {
+        customerEmail: existing.submitter_email,
+        customerName: existing.display_name,
+        businessName: account?.name ?? 'the business',
+      })
+    )
+  }
 
   return c.json({ ok: true })
 })
