@@ -98,7 +98,7 @@ With Proof, you:
 
 The result: a steady stream of testimonials, properly displayed, without any manual work.
 
-[Start collecting testimonials free →](https://app.proof.app/signup)
+[Start collecting testimonials free →](https://app.socialproof.dev/signup)
 
 ---
 

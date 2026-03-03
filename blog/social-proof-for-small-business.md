@@ -105,5 +105,5 @@ That math changes everything about how much time is worth spending on this.
 
 The businesses winning on social proof right now aren't the biggest ones — they're the ones who got systematic about collecting and displaying it. That's a winnable game for any small business.
 
-[Start collecting testimonials free with Proof →](https://app.proof.app/signup)
+[Start collecting testimonials free with Vouch →](https://app.socialproof.dev/signup)
 

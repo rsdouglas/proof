@@ -5,7 +5,7 @@ Proof widgets are embedded with a single script tag. Works on any website.
 ## The embed code
 
 ```html
-<script src="https://cdn.proof.app/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
+<script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
 ```
 
 Replace `YOUR_WIDGET_ID` with the ID from your widget settings.
@@ -25,7 +25,7 @@ You can place multiple widgets on different pages.
 
 **Carousel** — A scrolling display of testimonials. Great for hero sections.
 ```html
-<script src="https://cdn.proof.app/widget.js"
+<script src="https://cdn.socialproof.dev/widget.js"
   data-widget-id="YOUR_ID"
   data-layout="carousel">
 </script>
@@ -33,7 +33,7 @@ You can place multiple widgets on different pages.
 
 **Grid** — Shows 2, 3, or 4 testimonials at once.
 ```html
-<script src="https://cdn.proof.app/widget.js"
+<script src="https://cdn.socialproof.dev/widget.js"
   data-widget-id="YOUR_ID"
   data-layout="grid"
   data-columns="3">
@@ -42,7 +42,7 @@ You can place multiple widgets on different pages.
 
 **Badge** — A compact trust badge with a rating.
 ```html
-<script src="https://cdn.proof.app/widget.js"
+<script src="https://cdn.socialproof.dev/widget.js"
   data-widget-id="YOUR_ID"
   data-layout="badge">
 </script>

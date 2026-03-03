@@ -100,7 +100,7 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 >
 > If you run a service business and testimonials are on your "I should really do this" list — DM me.
 >
-> Link in bio → app.proof.app/signup
+> Link in bio → app.socialproof.dev/signup
 
 ---
 

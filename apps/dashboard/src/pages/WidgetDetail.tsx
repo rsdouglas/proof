@@ -135,9 +135,9 @@ export default function WidgetDetail() {
   )
 
   const filtered = testimonials.filter(t => t.status === tab)
-  const WIDGET_URL = `https://cdn.useproof.com`
+  const WIDGET_URL = `https://cdn.socialproof.dev`
   const embedCode = `<div id="proof-widget" data-widget="${widget.id}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
-  const collectUrl = `https://useproof.com/collect/${widget.slug || widget.id}`
+  const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
 
   return (
     <div>

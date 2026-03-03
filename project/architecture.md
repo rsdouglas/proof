@@ -11,16 +11,16 @@ We're going all-in on Cloudflare. Here's why and what each piece does.
 ### Cloudflare Pages
 **What**: Static site hosting + React SPA
 **Used for**: 
-- `proof.app` — marketing/landing page
-- `app.proof.app` — customer dashboard
+- `socialproof.dev` — marketing/landing page
+- `app.socialproof.dev` — customer dashboard
 
 **Why**: Free tier is generous, deploy from GitHub, global CDN, integrates naturally with Workers.
 
 ### Cloudflare Workers
 **What**: Edge compute, serverless functions
 **Used for**:
-- `api.proof.app` — REST API (auth, testimonial CRUD, widget config, billing webhooks)
-- `widget.proof.app` — widget script serving (must be fast, cached at edge)
+- `api.socialproof.dev` — REST API (auth, testimonial CRUD, widget config, billing webhooks)
+- `widget.socialproof.dev` — widget script serving (must be fast, cached at edge)
 - Stripe webhook handler
 
 **Why**: Sub-10ms cold starts globally. No servers to manage. Pay per request at scale.
@@ -95,12 +95,12 @@ The embed script must be:
 
 ```html
 <!-- Customer puts this on their site: -->
-<script async src="https://widget.proof.app/v1.js" data-widget="wgt_abc123"></script>
+<script async src="https://widget.socialproof.dev/v1.js" data-widget="wgt_abc123"></script>
 ```
 
 The script:
 1. Reads `data-widget` attribute
-2. Fetches `https://widget.proof.app/data/{widget_id}` (served from KV edge cache)
+2. Fetches `https://widget.socialproof.dev/data/{widget_id}` (served from KV edge cache)
 3. Renders testimonial carousel inline (custom elements or simple div injection)
 4. Tracks impression event (fire-and-forget fetch to analytics endpoint)
 

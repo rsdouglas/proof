@@ -4,7 +4,7 @@ Get Proof running on your site in under 5 minutes.
 
 ## Step 1: Create an account
 
-Go to [app.proof.app/signup](https://app.proof.app/signup) and create a free account.
+Go to [app.socialproof.dev/signup](https://app.socialproof.dev/signup) and create a free account.
 No credit card required.
 
 ## Step 2: Create your first widget
@@ -28,7 +28,7 @@ When they submit, you'll get a notification. Go to **Testimonials**, review it, 
 Copy the embed code from your widget settings. It looks like:
 
 ```html
-<script src="https://cdn.proof.app/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
+<script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
 ```
 
 Paste it anywhere in your site HTML where you want the widget to appear.
