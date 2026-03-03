@@ -1,77 +1,81 @@
-# Proof — Infrastructure
+# Proof — Cloudflare Infrastructure
 
 ## Architecture
 
 ```
-Customer Site
-    └── <script> embed
-         └── Cloudflare Worker (proof-worker.*.workers.dev)
-              ├── Hono REST API
-              ├── D1 database (proof-db) — accounts, testimonials, widgets, forms
-              └── KV namespace (WIDGET_KV) — cached widget JSON for fast reads
-
-Dashboard
-    └── Cloudflare Pages (proof-dashboard.pages.dev)
-         └── React SPA → calls Worker API
+[Customer Sites]
+     │
+     │  <script src="https://proof-widget.*.workers.dev/v1/proof.js">
+     ▼
+[proof-widget Worker]  ←→  [WIDGET_KV namespace]
+     │                         (5-min cache)
+     │  GET /w/:widgetId
+     ▼
+[proof-worker Worker]  ←→  [proof-db D1 database]
+     ▲
+     │  authenticated API
+     │
+[proof-dashboard Pages]  (React SPA)
 ```
 
-## One-time Setup
+## Cloudflare Resources
+
+| Resource | Name | Type | Free Tier Limit |
+|---|---|---|---|
+| Worker | `proof-worker` | Worker | 100k req/day |
+| Worker | `proof-widget` | Worker | 100k req/day |
+| Database | `proof-db` | D1 | 5GB storage, 25M reads/day |
+| Cache | `WIDGET_KV` | KV | 100k reads/day, 1k writes/day |
+| Dashboard | `proof-dashboard` | Pages | Unlimited req |
+
+**Both workers share one KV namespace.** `proof-worker` writes widget cache; `proof-widget` reads it.
+
+## Provisioning
 
 ```bash
-# 1. Install wrangler and authenticate
-npm install -g wrangler
-wrangler login
-
-# 2. Run setup script
+# One-time setup (requires wrangler login)
 bash infra/setup.sh
-
-# 3. Update wrangler.toml with IDs from step 2, then commit
-
-# 4. Run initial migration
-cd apps/worker
-wrangler d1 migrations apply proof-db --remote
-
-# 5. Set Worker secrets
-wrangler secret put JWT_SECRET   # generate: openssl rand -base64 32
 ```
 
-## GitHub Secrets Required
+Then update both `wrangler.toml` files with the real IDs the script outputs.
 
-| Secret | Description |
-|--------|-------------|
-| `CLOUDFLARE_API_TOKEN` | API token with Workers, D1, Pages, KV edit permissions |
+## GitHub Secrets & Variables
+
+Set these in the repo settings before CI/CD workflows run:
+
+### Secrets
+| Name | Description |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | CF API token with Workers:Edit, D1:Edit, Pages:Edit, KV:Edit |
 | `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
 
-## GitHub Variables Required
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `VITE_API_URL` | Worker URL for dashboard | `https://proof-worker.acme.workers.dev` |
+### Variables
+| Name | Example | Description |
+|---|---|---|
+| `VITE_API_URL` | `https://proof-worker.abc.workers.dev` | Dashboard → Worker API URL |
 
 ## CI/CD Workflows
 
-| Workflow | Trigger | What it does |
-|----------|---------|--------------|
-| `ci.yml` | PR / push to main | Typecheck, preview deploy |
-| `deploy.yml` | Push to main | Deploy worker + dashboard |
-| `migrate.yml` | Manual | Run D1 migrations |
+See `.github/workflows/` (on branch `ops/ci-cd-cloudflare` — pending `workflows` permission grant):
 
-## Cloudflare API Token Permissions
+- **`ci.yml`** — runs on every PR: typecheck worker, widget, dashboard; preview deploy
+- **`deploy.yml`** — runs on merge to main: deploy worker, widget, dashboard
+- **`migrate.yml`** — manual trigger: run D1 migrations against production
 
-Create a token at https://dash.cloudflare.com/profile/api-tokens with:
-- **Workers Scripts**: Edit
-- **Workers D1**: Edit  
-- **Cloudflare Pages**: Edit
-- **Workers KV Storage**: Edit
-- **Account**: Read (for account ID lookup)
+## Cost Estimate
 
-## Costs (Free Tier)
+At 0 customers: **$0/month** (all within free tier)
 
-| Resource | Free Tier Limit | Expected Usage |
-|----------|----------------|----------------|
-| Workers | 100k req/day | Fine until ~1k customers |
-| D1 | 5GB storage, 25M row reads/day | Fine until scale |
-| KV | 100k reads/day, 1GB | Abundant |
-| Pages | Unlimited sites, 500 builds/month | Fine |
+At 1,000 customers, 100 widget impressions/day each = 100k widget requests/day: **still $0** (Workers free tier is 100k/day)
 
-All free until meaningful scale. Review when DAU > 1k.
+Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
+
+## Deployment Order
+
+For first deploy:
+1. `bash infra/setup.sh` — provision resources
+2. Update `apps/worker/wrangler.toml` with real DB + KV IDs
+3. Update `apps/widget/wrangler.toml` with real KV ID
+4. `cd apps/worker && wrangler secret put JWT_SECRET`
+5. Set GitHub secrets + variables
+6. Push to main → CI/CD deploys everything
