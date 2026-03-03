@@ -33,8 +33,11 @@ app.use('*', cors({
     const allowed = [
       'https://socialproof.dev',
       'https://app.socialproof.dev',
+      'https://widget.socialproof.dev',
+      'https://collect.socialproof.dev',
       'http://localhost:3000',
       'http://localhost:5173',
+      'http://localhost:4173',
     ]
     return (allowed.includes(origin) ? origin : allowed[0]) as string
   },

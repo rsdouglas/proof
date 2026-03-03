@@ -121,7 +121,7 @@ auth.post('/signup', async (c) => {
   const widgetId = prefixedId('wgt')
   await c.env.DB.prepare(
     'INSERT INTO widgets (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
-  ).bind(widgetId, id, 'My Website', now, now).run()
+  ).bind(widgetId, id, `${name.trim()}'s Reviews`, now, now).run()
 
   const token = await generateToken(id, normalizedEmail, 'free', c.env.JWT_SECRET)
   setAuthCookie(c, token)
