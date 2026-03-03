@@ -38,7 +38,7 @@ Posts:
 - "How to Add a Testimonial Widget to Your Shopify Store (No Code)"
 - "How to Embed Customer Reviews on Your Squarespace Site"
 - "The Easiest Way to Display Testimonials on Any Website"
-- "Trustpilot vs Proof: Which Is Right for Your Small Business?"
+- "Trustpilot vs Vouch: Which Is Right for Your Small Business?"
 
 ### 4. Examples and inspiration
 *Intent: what should my testimonials look like?*

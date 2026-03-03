@@ -1,6 +1,6 @@
 # Collecting Testimonials
 
-Proof makes it easy to collect real, verified testimonials from your customers.
+Vouch makes it easy to collect real, verified testimonials from your customers.
 
 ## Your collector link
 

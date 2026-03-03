@@ -1,6 +1,6 @@
-# Proof Copy Bible
+# Vouch Copy Bible
 
-The canonical voice, messaging, and copy guidelines for all Proof content.
+The canonical voice, messaging, and copy guidelines for all Vouch content.
 
 ---
 
