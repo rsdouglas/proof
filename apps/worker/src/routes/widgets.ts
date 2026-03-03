@@ -15,6 +15,23 @@ widgets.post('/', async (c) => {
   const accountId = c.get('accountId')
   const body = await c.req.json<{ name: string; type?: string; theme?: string; layout?: string; config?: Record<string, unknown> }>()
   if (!body.name?.trim()) return c.json({ error: 'name required' }, 400)
+
+  // Plan enforcement: Free plan limited to 1 widget
+  const account = await c.env.DB.prepare(
+    'SELECT plan FROM accounts WHERE id = ?'
+  ).bind(accountId).first<{ plan: string }>()
+  if (account?.plan !== 'pro') {
+    const { results } = await c.env.DB.prepare(
+      'SELECT COUNT(*) as count FROM widgets WHERE account_id = ?'
+    ).bind(accountId).all<{ count: number }>()
+    const count = results[0]?.count ?? 0
+    if (count >= 1) {
+      return c.json({
+        error: 'Free plan limited to 1 widget. Upgrade to Pro for unlimited widgets.',
+        upgrade: true,
+      }, 402)
+    }
+  }
   const id = crypto.randomUUID()
   const slug = body.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + id.slice(0, 6)
   const now = new Date().toISOString()

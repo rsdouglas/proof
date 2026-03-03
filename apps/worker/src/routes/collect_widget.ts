@@ -135,9 +135,19 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
 collectWidget.post('/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
   const widget = await c.env.DB.prepare(
-    'SELECT id, account_id FROM widgets WHERE id = ? AND active = 1'
-  ).bind(widgetId).first<{ id: string; account_id: string }>()
+    'SELECT w.id, w.account_id, a.plan FROM widgets w JOIN accounts a ON a.id = w.account_id WHERE w.id = ? AND w.active = 1'
+  ).bind(widgetId).first<{ id: string; account_id: string; plan: string }>()
   if (!widget) return c.json({ error: 'Widget not found' }, 404)
+
+  // Plan enforcement: Free plan limited to 20 approved testimonials per widget
+  if (widget.plan !== 'pro') {
+    const countRow = await c.env.DB.prepare(
+      "SELECT COUNT(*) as count FROM testimonials WHERE widget_id = ? AND status = 'approved'"
+    ).bind(widgetId).first<{ count: number }>()
+    if ((countRow?.count ?? 0) >= 20) {
+      return c.json({ error: 'This widget has reached its testimonial limit.' }, 402)
+    }
+  }
 
   const body = await c.req.json<{
     display_name: string

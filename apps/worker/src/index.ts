@@ -9,11 +9,15 @@ import { submit } from './routes/submit'
 import { auth, verifyToken } from './routes/auth'
 import { accounts } from './routes/accounts'
 import { collectWidget } from './routes/collect_widget'
+import { billing } from './routes/billing'
 
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
   JWT_SECRET: string
+  STRIPE_SECRET_KEY: string
+  STRIPE_WEBHOOK_SECRET: string
+  STRIPE_PRO_PRICE_ID: string
 }
 
 export type Variables = {
@@ -53,6 +57,16 @@ app.route('/api/collect', collectWidget)
 // ── Auth routes (no JWT required) ────────────────────────────────────────────
 app.route('/api/auth', auth)
 
+// Stripe webhook (no JWT - validated by signature)
+app.post('/api/billing/webhook', async (c) => {
+  // Route to billing handler directly (bypass JWT)
+  return billing.fetch(new Request(new URL('/webhook', 'https://x.x'), {
+    method: c.req.method,
+    headers: c.req.raw.headers,
+    body: c.req.raw.body,
+  }), c.env, c.executionCtx)
+})
+
 // ── JWT middleware for all other /api/* routes ────────────────────────────────
 app.use('/api/*', async (c, next) => {
   // Check cookie first, then Authorization Bearer header
@@ -74,6 +88,7 @@ app.use('/api/*', async (c, next) => {
 app.route('/api/testimonials', testimonials)
 app.route('/api/widgets', widgets)
 app.route('/api/accounts', accounts)
+app.route('/api/billing', billing)
 
 // Collection forms
 app.get('/api/collection-forms', async (c) => {

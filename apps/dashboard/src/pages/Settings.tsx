@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { useAuth } from '../lib/auth'
-import { useApi } from '../lib/auth'
+import { useState, useEffect } from 'react'
+import { useAuth, useApi } from '../lib/auth'
 
 export default function Settings() {
   const { account, setAccount, logout } = useAuth()
@@ -10,7 +9,21 @@ export default function Settings() {
   const [currentPw, setCurrentPw] = useState('')
   const [newPw, setNewPw] = useState('')
   const [saving, setSaving] = useState(false)
+  const [billingLoading, setBillingLoading] = useState(false)
   const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+
+  // Check for redirect from Stripe
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('upgraded') === '1') {
+      setMsg({ type: 'ok', text: '🎉 Welcome to Proof Pro! Your plan has been upgraded.' })
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+    if (params.get('canceled') === '1') {
+      setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault()
@@ -50,6 +63,30 @@ export default function Settings() {
     }
   }
 
+  async function handleUpgrade() {
+    setBillingLoading(true)
+    setMsg(null)
+    try {
+      const data = await request<{ url: string }>('/billing/checkout', { method: 'POST' })
+      window.location.href = data.url
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
+      setBillingLoading(false)
+    }
+  }
+
+  async function handleManageBilling() {
+    setBillingLoading(true)
+    setMsg(null)
+    try {
+      const data = await request<{ url: string }>('/billing/portal')
+      window.location.href = data.url
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
+      setBillingLoading(false)
+    }
+  }
+
   const inputStyle: React.CSSProperties = {
     display: 'block', width: '100%', padding: '9px 12px',
     border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14,
@@ -57,6 +94,7 @@ export default function Settings() {
   }
 
   const plan = account?.plan || 'free'
+  const isPro = plan === 'pro'
 
   return (
     <div style={{ maxWidth: 600 }}>
@@ -74,30 +112,69 @@ export default function Settings() {
         </div>
       )}
 
-      {/* Plan badge */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* Billing / Plan */}
+      <div style={{ background: '#fff', border: isPro ? '1px solid #fbbf24' : '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
           <div>
-            <h2 style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 600 }}>Current plan</h2>
+            <h2 style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 600 }}>
+              {isPro ? '✨ Proof Pro' : 'Free plan'}
+            </h2>
             <p style={{ margin: 0, color: '#6b7280', fontSize: 13 }}>
-              {plan === 'pro' ? 'Unlimited widgets, priority support' : '1 widget, up to 50 testimonials'}
+              {isPro
+                ? 'Unlimited widgets and testimonials. Priority support.'
+                : '1 widget, up to 20 approved testimonials. Upgrade for more.'}
             </p>
           </div>
           <span style={{
-            padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 600,
-            background: plan === 'pro' ? '#fef3c7' : '#f3f4f6',
-            color: plan === 'pro' ? '#92400e' : '#374151',
+            padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+            background: isPro ? '#fef3c7' : '#f3f4f6',
+            color: isPro ? '#92400e' : '#6b7280',
+            flexShrink: 0, marginLeft: 12,
           }}>
-            {plan.toUpperCase()}
+            {isPro ? 'PRO' : 'FREE'}
           </span>
         </div>
-        {plan === 'free' && (
-          <button style={{
-            marginTop: 14, padding: '8px 16px', background: '#2563eb', color: '#fff',
-            border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
-          }}>
-            Upgrade to Pro — $19/mo
-          </button>
+
+        {isPro ? (
+          <div>
+            <p style={{ margin: '0 0 12px', color: '#6b7280', fontSize: 13 }}>
+              Manage your subscription, view invoices, or cancel anytime.
+            </p>
+            <button
+              onClick={handleManageBilling}
+              disabled={billingLoading}
+              style={{
+                padding: '8px 16px', background: '#fff', color: '#111827',
+                border: '1px solid #d1d5db', borderRadius: 6, fontWeight: 600, fontSize: 13,
+                cursor: 'pointer', fontFamily: 'inherit',
+              }}
+            >
+              {billingLoading ? 'Loading…' : 'Manage billing →'}
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div style={{ background: '#fafafa', border: '1px solid #e5e7eb', borderRadius: 6, padding: '12px 16px', marginBottom: 14 }}>
+              <p style={{ margin: '0 0 8px', fontWeight: 600, fontSize: 13 }}>Pro plan — $29/month</p>
+              <ul style={{ margin: 0, paddingLeft: 16, color: '#374151', fontSize: 13, lineHeight: 1.8 }}>
+                <li>Unlimited widgets</li>
+                <li>Unlimited testimonials</li>
+                <li>Priority support</li>
+                <li>All future features</li>
+              </ul>
+            </div>
+            <button
+              onClick={handleUpgrade}
+              disabled={billingLoading}
+              style={{
+                padding: '10px 20px', background: '#2563eb', color: '#fff',
+                border: 'none', borderRadius: 6, fontWeight: 700, fontSize: 14,
+                cursor: 'pointer', fontFamily: 'inherit',
+              }}
+            >
+              {billingLoading ? 'Loading…' : '⚡ Upgrade to Pro — $29/mo'}
+            </button>
+          </div>
         )}
       </div>
 
@@ -105,14 +182,14 @@ export default function Settings() {
       <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
         <h2 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 600 }}>Profile</h2>
         <form onSubmit={saveProfile}>
-          <label style={{ fontSize: 12, fontWeight: 500, color: '#374151', display: 'block', marginBottom: 4 }}>Full name</label>
+          <label style={{ fontSize: 12, fontWeight: 500, color: '#374151', display: 'block', marginBottom: 4 }}>Name</label>
           <input value={name} onChange={e => setName(e.target.value)} style={inputStyle} required />
 
           <label style={{ fontSize: 12, fontWeight: 500, color: '#374151', display: 'block', marginBottom: 4 }}>Email</label>
-          <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} required />
+          <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={{ ...inputStyle, marginBottom: 16 }} required />
 
           <button type="submit" disabled={saving} style={{
-            padding: '8px 16px', background: '#2563eb', color: '#fff',
+            padding: '8px 16px', background: '#111827', color: '#fff',
             border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
           }}>
             {saving ? 'Saving…' : 'Save changes'}
@@ -139,7 +216,7 @@ export default function Settings() {
         </form>
       </div>
 
-      {/* Danger zone */}
+      {/* Sign out */}
       <div style={{ background: '#fff', border: '1px solid #fee2e2', borderRadius: 8, padding: 20 }}>
         <h2 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600, color: '#dc2626' }}>Sign out</h2>
         <p style={{ margin: '0 0 12px', color: '#6b7280', fontSize: 13 }}>You'll need to log back in.</p>
