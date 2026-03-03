@@ -1,6 +1,7 @@
 import { sendEmail, buildTestimonialReceivedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env } from '../index'
+import { checkRateLimit } from '../lib/ratelimit'
 
 export const collect = new Hono<{ Bindings: Env }>()
 
@@ -19,6 +20,12 @@ collect.post('/submit/:formId', async (c) => {
     'SELECT f.id, f.account_id FROM collection_forms f WHERE f.id = ? AND f.active = 1'
   ).bind(c.req.param('formId')).first<{ id: string; account_id: string }>()
   if (!form) return c.json({ error: 'Form not found' }, 404)
+
+  // Rate limit: 10 submissions per IP per hour per form
+  const ip = c.req.header('CF-Connecting-IP') || c.req.header('X-Forwarded-For') || 'unknown'
+  const rateLimitKey = `submit:${c.req.param('formId')}:${ip}`
+  const allowed = await checkRateLimit(c.env.WIDGET_KV, rateLimitKey, 10, 3600)
+  if (!allowed) return c.json({ error: 'Too many submissions. Try again later.' }, 429)
 
   const body = await c.req.json<{
     display_name: string; display_text: string; rating?: number;
