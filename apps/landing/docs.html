@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Docs — Proof</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f0f0f0; -webkit-font-smoothing: antialiased; }
+    nav { padding: 20px 24px; border-bottom: 1px solid #2a2a2a; display: flex; justify-content: space-between; }
+    nav a { color: #f0f0f0; font-weight: 600; text-decoration: none; }
+    .container { max-width: 720px; margin: 80px auto; padding: 0 24px; }
+    h1 { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; }
+    p { color: #888; font-size: 18px; margin-bottom: 24px; }
+    .card { background: #111; border: 1px solid #2a2a2a; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+    .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .card p { color: #888; font-size: 14px; margin: 0; }
+    code { background: #1a1a1a; border: 1px solid #333; padding: 2px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #a5b4fc; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">← Proof</a>
+    <a href="https://app.proof.app/signup" style="background:#6366f1;color:#fff;padding:8px 16px;border-radius:8px;font-size:14px;">Get started</a>
+  </nav>
+  <div class="container">
+    <h1>Documentation</h1>
+    <p>Everything you need to add social proof to your site.</p>
+
+    <div class="card">
+      <h2>Quick start</h2>
+      <p>1. Sign up at <a href="https://app.proof.app/signup" style="color:#6366f1">app.proof.app</a><br>
+         2. Create a Collection Form and share the link with your customers<br>
+         3. Approve submissions in your dashboard<br>
+         4. Create a Widget and copy the embed code<br>
+         5. Paste <code>&lt;script src="..."&gt;&lt;/script&gt;</code> anywhere on your site</p>
+    </div>
+
+    <div class="card">
+      <h2>Widget embed code</h2>
+      <p>Add this one line where you want testimonials to appear:<br><br>
+         <code>&lt;script src="https://api.proof.app/w/YOUR_WIDGET_ID"&gt;&lt;/script&gt;</code><br><br>
+         The widget auto-renders inside a <code>&lt;div id="proof-widget"&gt;</code> or creates one if not present.</p>
+    </div>
+
+    <div class="card">
+      <h2>Widget types</h2>
+      <p><strong>Grid</strong> — responsive card grid (default)<br>
+         <strong>Wall</strong> — masonry-style wall of quotes<br>
+         <strong>Carousel</strong> — horizontal scrolling carousel (Pro)</p>
+    </div>
+
+    <div class="card">
+      <h2>API access</h2>
+      <p>Proof has a REST API if you need programmatic access. Coming soon: API key management in your dashboard.</p>
+    </div>
+
+    <div class="card">
+      <h2>Need help?</h2>
+      <p>Email us at <a href="mailto:hello@proof.app" style="color:#6366f1">hello@proof.app</a>. We respond fast.</p>
+    </div>
+  </div>
+</body>
+</html>
