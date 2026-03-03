@@ -6,6 +6,7 @@ const navItems = [
   { to: '/widgets', label: '🧩 Widgets' },
   { to: '/testimonials', label: '💬 Testimonials' },
   { to: '/collect', label: '📝 Collect' },
+  { to: '/analytics', label: '📊 Analytics' },
   { to: '/settings', label: '⚙️ Settings' },
 ]
 
