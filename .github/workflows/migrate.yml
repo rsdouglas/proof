@@ -1,0 +1,28 @@
+name: Migrate
+
+on:
+  workflow_dispatch:
+    inputs:
+      migration_file:
+        description: 'Migration file to run (e.g. 0001_initial.sql)'
+        required: true
+        default: '0001_initial.sql'
+
+jobs:
+  migrate:
+    name: Run D1 Migration
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run migration
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 execute proof-db --file=apps/worker/migrations/${{ github.event.inputs.migration_file }}
