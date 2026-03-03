@@ -1,14 +1,19 @@
 {
   "name": "proof",
   "private": true,
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=apps/worker\" \"npm run dev --workspace=apps/dashboard\"",
     "deploy:worker": "npm run deploy --workspace=apps/worker",
-    "deploy:dashboard": "npm run deploy --workspace=apps/dashboard"
+    "deploy:dashboard": "npm run deploy --workspace=apps/dashboard",
+    "test": "npm run test --workspaces --if-present"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4"
   }
 }
