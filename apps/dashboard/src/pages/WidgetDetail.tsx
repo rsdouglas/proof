@@ -145,6 +145,8 @@ export default function WidgetDetail() {
     : `<div id="vouch-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
   const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
+  const badgeUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}/badge`
+  const badgeHtml = `<a href="${wallUrl}">\n  <img src="${badgeUrl}" alt="${widget.name} reviews" width="200" height="56">\n</a>`
 
   const filtered = testimonials.filter(t => t.status === tab)
 
@@ -254,7 +256,7 @@ export default function WidgetDetail() {
             <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{collectUrl}</div>
           </div>
 
-          <div>
+          <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
               <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Public testimonial wall</label>
               <CopyButton text={wallUrl} />
@@ -262,6 +264,17 @@ export default function WidgetDetail() {
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               <div style={{ flex: 1, background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{wallUrl}</div>
               <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#2563eb', whiteSpace: 'nowrap' }}>Open ↗</a>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Rating badge <span style={{ fontWeight: 400, color: '#9ca3af' }}>(embed on your site)</span></label>
+              <CopyButton text={badgeHtml} label="Copy badge HTML" />
+            </div>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10 }}>
+              <img src={badgeUrl} alt="Rating badge preview" width={160} height={44} style={{ flexShrink: 0 }} />
+              <div style={{ fontSize: 11, color: '#6b7280' }}>Embed this on your website or email signature. Updates automatically.</div>
             </div>
           </div>
         </div>

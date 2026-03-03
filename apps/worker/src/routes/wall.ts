@@ -98,6 +98,41 @@ function escapeHtml(s: string): string {
     .replace(/'/g, '&#39;')
 }
 
+
+function buildJsonLd(name: string, widgetId: string, testimonials: Testimonial[]): string {
+  const rated = testimonials.filter(t => t.rating !== null)
+  const avgRating = rated.length > 0
+    ? (rated.reduce((sum, t) => sum + (t.rating ?? 0), 0) / rated.length).toFixed(1)
+    : null
+
+  const reviews = testimonials.slice(0, 20).map(t => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.display_name },
+    datePublished: t.created_at.split('T')[0],
+    reviewBody: t.display_text,
+    ...(t.rating ? { reviewRating: { '@type': 'Rating', ratingValue: t.rating, bestRating: 5, worstRating: 1 } } : {}),
+  }))
+
+  const ld: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name,
+    url: `https://socialproof.dev/wall/${widgetId}`,
+    review: reviews,
+    ...(avgRating ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: avgRating,
+        reviewCount: rated.length,
+        bestRating: 5,
+        worstRating: 1,
+      }
+    } : {}),
+  }
+
+  return JSON.stringify(ld)
+}
+
 function renderCard(t: Testimonial, dark: boolean): string {
   const avatar = t.avatar_url
     ? `<img class="avatar" src="${escapeHtml(t.avatar_url)}" alt="" loading="lazy">`
@@ -161,6 +196,9 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${escapeHtml(ogTitle)}">
   <meta name="twitter:description" content="${escapeHtml(ogDesc)}">
+
+  <!-- JSON-LD Structured Data (Google rich results) -->
+  <script type="application/ld+json">${buildJsonLd(name, widgetId, testimonials)}</script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -388,3 +426,71 @@ function notFoundHtml(): string {
 </body>
 </html>`
 }
+
+// GET /wall/:widgetId/badge — embeddable SVG badge with aggregate rating
+wall.get('/:widgetId/badge', async (c) => {
+  const widgetId = c.req.param('widgetId')
+
+  const cacheKey = `widget:${widgetId}:json`
+  let payload: WidgetPayload | null = null
+
+  const cached = await c.env.WIDGET_KV.get(cacheKey, 'json') as WidgetPayload | null
+  if (cached) {
+    payload = cached
+  } else {
+    const widgetRow = await c.env.DB.prepare(
+      'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
+    ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+
+    if (!widgetRow) {
+      return c.body('Not found', 404)
+    }
+
+    const { results } = await c.env.DB.prepare(
+      `SELECT id, display_name, display_text, rating, company, title, avatar_url, created_at
+       FROM testimonials
+       WHERE account_id = ? AND status = 'approved'
+       ORDER BY featured DESC, created_at DESC
+       LIMIT 100`
+    ).bind(widgetRow.account_id).all<Testimonial>()
+
+    const widgetConfig = JSON.parse(widgetRow.config || '{}') as Record<string, string>
+
+    payload = {
+      testimonials: results,
+      config: {
+        layout: widgetConfig['layout'] ?? widgetRow.type ?? 'grid',
+        theme: widgetConfig['theme'] ?? 'light',
+        name: widgetRow.name,
+      },
+    }
+
+    await c.env.WIDGET_KV.put(cacheKey, JSON.stringify(payload), { expirationTtl: 300 })
+  }
+
+  const { testimonials, config } = payload
+  const rated = testimonials.filter(t => t.rating !== null)
+  const count = testimonials.length
+  const avg = rated.length > 0
+    ? (rated.reduce((sum, t) => sum + (t.rating ?? 0), 0) / rated.length)
+    : null
+
+  const starsText = avg !== null ? '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg)) : '★★★★★'
+  const ratingText = avg !== null ? avg.toFixed(1) : '–'
+  const reviewText = `${count} review${count !== 1 ? 's' : ''}`
+  const businessName = config.name || 'Vouch'
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="56" role="img" aria-label="${businessName}: ${ratingText} stars, ${reviewText}">
+  <title>${businessName}: ${ratingText} stars, ${reviewText}</title>
+  <rect width="200" height="56" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="12" y="20" font-family="-apple-system,sans-serif" font-size="11" fill="#6b7280">${businessName}</text>
+  <text x="12" y="38" font-family="-apple-system,sans-serif" font-size="16" fill="#f59e0b">${starsText}</text>
+  <text x="12" y="50" font-family="-apple-system,sans-serif" font-size="10" fill="#6b7280">${ratingText} · ${reviewText}</text>
+  <text x="150" y="38" font-family="-apple-system,sans-serif" font-size="9" fill="#9ca3af">Vouch</text>
+</svg>`
+
+  return c.body(svg, 200, {
+    'Content-Type': 'image/svg+xml',
+    'Cache-Control': 's-maxage=300, public',
+  })
+})
