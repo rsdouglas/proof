@@ -20,5 +20,8 @@ id = "731e18288e9e4de091e01e0a5d6d3cc4"
 [vars]
 ENVIRONMENT = "production"
 
+[triggers]
+crons = ["0 * * * *"]  # Run hourly for drip email sequence
+
 [dev]
 port = 8787

@@ -1,0 +1,91 @@
+/**
+ * Cloudflare Cron handler for onboarding drip emails.
+ * 
+ * Runs every hour. Sends:
+ * - Email 2 (Nudge) to accounts created 48h ago with no approved testimonials
+ * - Email 3 (Check-in) to accounts created 7 days ago
+ *
+ * Idempotent: tracks sent timestamp in drip_nudge_sent_at / drip_checkin_sent_at columns.
+ */
+
+import { sendNudgeEmail, sendCheckinEmail } from './lib/onboarding'
+import type { Env } from './index'
+
+export async function handleCron(_event: ScheduledController, env: Env): Promise<void> {
+  const { DB, RESEND_API_KEY } = env
+
+  if (!RESEND_API_KEY) {
+    console.error('[drip-cron] RESEND_API_KEY not set — skipping')
+    return
+  }
+
+  const now = new Date()
+
+  // ── Email 2: Nudge (48h after signup, if no approved testimonials yet) ──────
+  const nudge48hAgo = new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString()
+  const nudge49hAgo = new Date(now.getTime() - 49 * 60 * 60 * 1000).toISOString()
+
+  const nudgeCandidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id
+    FROM accounts a
+    WHERE a.created_at >= ? AND a.created_at < ?
+      AND a.drip_nudge_sent_at IS NULL
+      AND NOT EXISTS (
+        SELECT 1 FROM testimonials t
+        WHERE t.account_id = a.id AND t.status = 'approved'
+      )
+  `).bind(nudge49hAgo, nudge48hAgo).all<{
+    id: string; email: string; name: string | null; widget_id: string | null
+  }>()
+
+  for (const acct of nudgeCandidates.results) {
+    if (!acct.widget_id) continue
+    try {
+      await sendNudgeEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        widgetId: acct.widget_id,
+      })
+      await DB.prepare(
+        'UPDATE accounts SET drip_nudge_sent_at = ? WHERE id = ?'
+      ).bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] nudge sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] nudge failed for ${acct.email}:`, err)
+    }
+  }
+
+  // ── Email 3: Check-in (7 days after signup) ───────────────────────────────
+  const checkin7dAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  const checkin7d1hAgo = new Date(now.getTime() - (7 * 24 + 1) * 60 * 60 * 1000).toISOString()
+
+  const checkinCandidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id,
+           (SELECT COUNT(*) FROM testimonials t WHERE t.account_id = a.id AND t.status = 'approved') as testimonial_count
+    FROM accounts a
+    WHERE a.created_at >= ? AND a.created_at < ?
+      AND a.drip_checkin_sent_at IS NULL
+  `).bind(checkin7d1hAgo, checkin7dAgo).all<{
+    id: string; email: string; name: string | null; widget_id: string | null; testimonial_count: number
+  }>()
+
+  for (const acct of checkinCandidates.results) {
+    if (!acct.widget_id) continue
+    try {
+      await sendCheckinEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        widgetId: acct.widget_id,
+        testimonialCount: acct.testimonial_count,
+      })
+      await DB.prepare(
+        'UPDATE accounts SET drip_checkin_sent_at = ? WHERE id = ?'
+      ).bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] checkin sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] checkin failed for ${acct.email}:`, err)
+    }
+  }
+}
