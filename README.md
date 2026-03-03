@@ -1,2 +1,2 @@
 # proof
-AI Proofreading
+Social Proof
