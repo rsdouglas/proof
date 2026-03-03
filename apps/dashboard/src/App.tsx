@@ -5,28 +5,38 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Testimonials from './pages/Testimonials'
 import Widgets from './pages/Widgets'
+import WidgetDetail from './pages/WidgetDetail'
 import Collect from './pages/Collect'
+import Settings from './pages/Settings'
 
-function PrivateRoute({ children }: { children: React.ReactNode }) {
+function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth()
-  return token ? <>{children}</> : <Navigate to="/login" replace />
+  return token ? children : <Navigate to="/login" replace />
 }
 
-function App() {
+function AppRoutes() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<PrivateRoute><Layout><Dashboard /></Layout></PrivateRoute>} />
-          <Route path="/testimonials" element={<PrivateRoute><Layout><Testimonials /></Layout></PrivateRoute>} />
-          <Route path="/widgets" element={<PrivateRoute><Layout><Widgets /></Layout></PrivateRoute>} />
-          <Route path="/collect" element={<PrivateRoute><Layout><Collect /></Layout></PrivateRoute>} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+        <Route index element={<Dashboard />} />
+        <Route path="widgets" element={<Widgets />} />
+        <Route path="widgets/:id" element={<WidgetDetail />} />
+        <Route path="testimonials" element={<Testimonials />} />
+        <Route path="collect" element={<Collect />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
+  )
+}

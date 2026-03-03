@@ -6,12 +6,17 @@ export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 testimonials.get('/', async (c) => {
   const accountId = c.get('accountId')
   const status = c.req.query('status')
-  const limit = parseInt(c.req.query('limit') || '50')
+  const widgetId = c.req.query('widget_id')
+  const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200)
   const offset = parseInt(c.req.query('offset') || '0')
 
   let query = 'SELECT * FROM testimonials WHERE account_id = ?'
   const bindings: unknown[] = [accountId]
 
+  if (widgetId) {
+    query += ' AND widget_id = ?'
+    bindings.push(widgetId)
+  }
   if (status) {
     query += ' AND status = ?'
     bindings.push(status)
