@@ -10,6 +10,7 @@ import { auth, verifyToken } from './routes/auth'
 import { accounts } from './routes/accounts'
 import { collectWidget } from './routes/collect_widget'
 import { billing } from './routes/billing'
+import { analytics } from './routes/analytics'
 
 export interface Env {
   DB: D1Database
@@ -18,6 +19,7 @@ export interface Env {
   STRIPE_SECRET_KEY: string
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
+  RESEND_API_KEY?: string
 }
 
 export type Variables = {
@@ -54,6 +56,15 @@ app.route('/', submit)
 app.route('/collect', collectWidget)
 app.route('/api/collect', collectWidget)
 
+// Public analytics track endpoint (no auth - widget embeds call this)
+app.post('/api/track/:widgetId', async (c) => {
+  return analytics.fetch(new Request(new URL('/track/' + c.req.param('widgetId'), 'https://x.x'), {
+    method: c.req.method,
+    headers: c.req.raw.headers,
+    body: c.req.raw.body,
+  }), c.env, c.executionCtx)
+})
+
 // ── Auth routes (no JWT required) ────────────────────────────────────────────
 app.route('/api/auth', auth)
 
@@ -89,6 +100,7 @@ app.route('/api/testimonials', testimonials)
 app.route('/api/widgets', widgets)
 app.route('/api/accounts', accounts)
 app.route('/api/billing', billing)
+app.route('/api/analytics', analytics)
 
 // Collection forms
 app.get('/api/collection-forms', async (c) => {

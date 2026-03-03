@@ -7,6 +7,7 @@ import Testimonials from './pages/Testimonials'
 import Widgets from './pages/Widgets'
 import WidgetDetail from './pages/WidgetDetail'
 import Collect from './pages/Collect'
+import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
@@ -25,6 +26,7 @@ function AppRoutes() {
         <Route path="testimonials" element={<Testimonials />} />
         <Route path="collect" element={<Collect />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="analytics" element={<Analytics />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
