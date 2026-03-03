@@ -64,3 +64,62 @@ widget.get('/:widgetId', async (c) => {
     'X-Cache': 'MISS',
   })
 })
+
+// Public: serve popup data — recent testimonials for the notification popup
+// GET /w/:widgetId/popup — returns { testimonials: [...], config: {...} }
+widget.get('/:widgetId/popup', async (c) => {
+  const widgetId = c.req.param('widgetId')
+
+  const cacheKey = `widget:${widgetId}:popup`
+  const cached = await c.env.WIDGET_KV.get(cacheKey, 'json')
+  if (cached) {
+    return c.json(cached, 200, { 'Cache-Control': 's-maxage=120, public', 'X-Cache': 'HIT' })
+  }
+
+  const widgetRow = await c.env.DB.prepare(
+    'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
+  ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+
+  if (!widgetRow) {
+    return c.json({ error: 'Widget not found' }, 404)
+  }
+
+  // Only allow popup-type widgets
+  const widgetConfig = JSON.parse(widgetRow.config || '{}') as Record<string, string>
+  if (widgetRow.type !== 'popup' && widgetConfig['layout'] !== 'popup') {
+    return c.json({ error: 'Not a popup widget' }, 400)
+  }
+
+  // Fetch recent approved testimonials (limit 10 for rotation)
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, display_name, display_text, rating, company, title, created_at
+     FROM testimonials
+     WHERE account_id = ? AND status = 'approved'
+     ORDER BY created_at DESC
+     LIMIT 10`
+  ).bind(widgetRow.account_id).all<{
+    id: string
+    display_name: string
+    display_text: string
+    rating: number | null
+    company: string | null
+    title: string | null
+    created_at: string
+  }>()
+
+  const payload = {
+    testimonials: results,
+    config: {
+      theme: widgetConfig['theme'] ?? 'light',
+      position: widgetConfig['position'] ?? 'bottom-left',
+      name: widgetRow.name,
+    },
+  }
+
+  await c.env.WIDGET_KV.put(cacheKey, JSON.stringify(payload), { expirationTtl: 120 })
+
+  return c.json(payload, 200, {
+    'Cache-Control': 's-maxage=120, public',
+    'X-Cache': 'MISS',
+  })
+})

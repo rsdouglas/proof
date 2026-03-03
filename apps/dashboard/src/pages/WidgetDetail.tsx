@@ -23,7 +23,13 @@ interface Widget {
 type Tab = 'pending' | 'approved' | 'rejected'
 
 const THEME_OPTIONS = ['light', 'dark', 'minimal']
-const LAYOUT_OPTIONS = ['grid', 'list', 'carousel']
+const LAYOUT_OPTIONS = ['grid', 'list', 'carousel', 'popup']
+const LAYOUT_LABELS: Record<string, string> = {
+  grid: 'Grid — display testimonials in a card grid',
+  list: 'List — vertical stack of testimonials',
+  carousel: 'Carousel — auto-scrolling slideshow',
+  popup: 'Activity Popup — notification bubble in page corner',
+}
 
 function CopyButton({ text, label }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false)
@@ -136,7 +142,10 @@ export default function WidgetDetail() {
 
   const filtered = testimonials.filter(t => t.status === tab)
   const WIDGET_URL = `https://cdn.socialproof.dev`
-  const embedCode = `<div id="proof-widget" data-widget="${widget.id}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
+  const isPopup = layout === 'popup'
+  const embedCode = isPopup
+    ? `<!-- Proof activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
+    : `<div id="proof-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
 
   return (
@@ -276,7 +285,7 @@ export default function WidgetDetail() {
             <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Layout</label>
             <select value={layout} onChange={e => setLayout(e.target.value)}
               style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}>
-              {LAYOUT_OPTIONS.map(o => <option key={o} value={o}>{o.charAt(0).toUpperCase() + o.slice(1)}</option>)}
+              {LAYOUT_OPTIONS.map(o => <option key={o} value={o}>{LAYOUT_LABELS[o] || o}</option>)}
             </select>
 
             <button onClick={updateWidget} disabled={saving} style={{
