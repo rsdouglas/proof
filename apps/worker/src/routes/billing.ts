@@ -59,7 +59,7 @@ billing.post('/checkout', async (c) => {
 
   const customerId = await getOrCreateCustomer(c.env, accountId, account.email, account.name)
 
-  const origin = c.req.header('origin') || 'https://app.proofwidget.com'
+  const origin = c.req.header('origin') || 'https://app.useproof.com'
 
   const res = await stripePost(c.env, '/checkout/sessions', {
     mode: 'subscription',
@@ -94,7 +94,7 @@ billing.get('/portal', async (c) => {
     return c.json({ error: 'No billing account found. Please upgrade first.' }, 404)
   }
 
-  const origin = c.req.header('origin') || 'https://app.proofwidget.com'
+  const origin = c.req.header('origin') || 'https://app.useproof.com'
 
   const res = await stripePost(c.env, '/billing_portal/sessions', {
     customer: account.stripe_customer_id,
