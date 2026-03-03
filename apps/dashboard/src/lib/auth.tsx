@@ -12,8 +12,10 @@ export interface Account {
 interface AuthCtx {
   account: Account | null
   token: string | null
+  isDemo: boolean
   login: (email: string, password: string) => Promise<void>
   signup: (email: string, password: string, name: string) => Promise<void>
+  loginDemo: () => Promise<void>
   logout: () => Promise<void>
   setAccount: (a: Account) => void
 }
@@ -63,6 +65,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     persist(data.token, data.account)
   }, [])
 
+  const loginDemo = useCallback(async () => {
+    const res = await fetch(`${API_URL}/api/auth/demo`, { credentials: 'include' })
+    const data = await res.json() as { token: string; account: Account; demo: boolean; error?: string }
+    if (!res.ok) throw new Error(data.error || 'Demo login failed')
+    persist(data.token, data.account)
+  }, [])
+
   const logout = useCallback(async () => {
     await fetch(`${API_URL}/api/auth/logout`, { method: 'POST', credentials: 'include' }).catch(() => {})
     setToken(null)
@@ -71,37 +80,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('proof_account')
   }, [])
 
-  const setAccount = useCallback((a: Account) => {
+  const setAccount = (a: Account) => {
     setAccountState(a)
     localStorage.setItem('proof_account', JSON.stringify(a))
-  }, [])
+  }
 
-  const request = useCallback(async <T = unknown>(path: string, options: RequestInit = {}): Promise<T> => {
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string> || {}),
-    }
-    if (token) headers['Authorization'] = `Bearer ${token}`
-
-    const res = await fetch(`${API_URL}/api${path}`, { ...options, headers, credentials: 'include' })
-    if (res.status === 401) {
-      setToken(null); setAccountState(null)
-      localStorage.removeItem('proof_token'); localStorage.removeItem('proof_account')
-      throw new Error('Session expired')
-    }
-    const data = await res.json()
-    if (!res.ok) throw new Error((data as { error?: string }).error || 'Request failed')
-    return data as T
-  }, [token])
+  const isDemo = account?.id === 'demo-account-vouch'
 
   return (
-    <AuthContext.Provider value={{ account, token, login, signup, logout, setAccount }}>
-      <ApiContext.Provider value={{ request }}>
+    <AuthContext.Provider value={{ account, token, isDemo, login, signup, loginDemo, logout, setAccount }}>
+      <ApiContext.Provider value={{ request: async (path, opts) => {
+          const res = await fetch(`${API_URL}${path}`, {
+            ...opts,
+            credentials: 'include',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...(opts?.headers || {}) },
+          })
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({})) as { error?: string }
+            throw new Error(err.error || res.statusText)
+          }
+          return res.json()
+        }}}>
         {children}
       </ApiContext.Provider>
     </AuthContext.Provider>
   )
 }
 
-export const useAuth = () => useContext(AuthContext)
-export const useApi = () => useContext(ApiContext)
+export function useAuth() { return useContext(AuthContext) }
+export function useApi() { return useContext(ApiContext) }
