@@ -119,3 +119,51 @@ Add to resource checklist:
 - [ ] Worker route: `api.useproof.com` → proof-worker
 - [ ] Custom domain: `app.useproof.com` → proof-dashboard Pages
 - [ ] Custom domain: `useproof.com` → proof-landing Pages
+- [ ] Worker route: `widget.useproof.com` → proof-widget (added by PR #29)
+- [ ] DNS verification for `useproof.com` in Resend (for email notifications, PR #30)
+
+## Email (Resend)
+
+PR #30 adds email notifications from `notifications@useproof.com`.
+
+**Resend domain verification DNS records** (add in Cloudflare for `useproof.com`):
+
+| Record | Type | Value |
+|---|---|---|
+| `useproof.com` | TXT | Resend SPF record (get from Resend dashboard) |
+| `resend._domainkey.useproof.com` | TXT | Resend DKIM key (get from Resend dashboard) |
+
+**Steps:**
+1. Sign up at [resend.com](https://resend.com)
+2. Add domain `useproof.com`, copy the DNS records they provide
+3. Add those DNS records in Cloudflare
+4. Click "Verify" in Resend dashboard
+5. Set Worker secret: `wrangler secret put RESEND_API_KEY`
+
+**Limits:** Free tier = 100 emails/day, 3,000/month. Sufficient for MVP.
+
+## Widget subdomain (widget.useproof.com)
+
+PR #29 sets embed scripts to reference `widget.useproof.com`. Add Worker route:
+
+```toml
+# apps/widget/wrangler.toml
+routes = [
+  { pattern = "widget.useproof.com/*", zone_name = "useproof.com" }
+]
+```
+
+Or set as custom domain in Workers & Pages → proof-widget → Settings → Triggers.
+
+## Secrets Checklist
+
+All secrets required before production deploy:
+
+| Secret | Command | Notes |
+|---|---|---|
+| `JWT_SECRET` | `wrangler secret put JWT_SECRET` (proof-worker) | `openssl rand -hex 32` |
+| `RESEND_API_KEY` | `wrangler secret put RESEND_API_KEY` (proof-worker) | Set AFTER domain verified |
+| `STRIPE_SECRET_KEY` | `wrangler secret put STRIPE_SECRET_KEY` (proof-worker) | When billing goes live |
+| `CLOUDFLARE_API_TOKEN` | GitHub repo secret | CI/CD deploys |
+| `CLOUDFLARE_ACCOUNT_ID` | GitHub repo secret | CI/CD deploys |
+| `VITE_API_URL` | GitHub repo variable | e.g. `https://api.useproof.com` |
