@@ -13,7 +13,7 @@ Get the repo structured, the stack decided, and the team aligned. No features ye
 - [ ] Define data schema (accounts, testimonials, widgets)
 - [ ] Set up auth (Cloudflare Access or simple JWT via Workers)
 - [ ] CI/CD pipeline (GitHub Actions → Cloudflare deploy)
-- [ ] Domain: proof.app or similar
+- [ ] Domain: socialproof.dev or similar
 
 **Milestone**: deploy a "coming soon" page to production URL.
 
@@ -29,7 +29,7 @@ Build the minimum thing a real customer could use.
 - Dashboard: approve / reject / star testimonials
 
 ### Review Widget
-- Embeddable script tag (`<script src="https://widget.proof.app/v1.js" data-id="xxx">`)
+- Embeddable script tag (`<script src="https://widget.socialproof.dev/v1.js" data-id="xxx">`)
 - Displays approved testimonials (carousel or grid)
 - Free tier: Proof branding footer
 - Pro tier: branding removed, custom styling options
@@ -107,7 +107,7 @@ Retention features. Data that makes the product stickier.
 
 ## Open Questions / Decisions Needed
 
-1. **Domain**: `proof.app` is taken. Options: `useproof.co`, `heyproof.io`, `getproof.app`. Need to decide before marketing site goes live.
+1. **Domain**: `socialproof.dev` is taken. Options: `socialproof.dev`, `heyproof.io`, `getsocialproof.dev`. Need to decide before marketing site goes live.
 2. **Auth strategy**: Cloudflare Access (magic link), or custom JWT auth in Workers? Custom is more flexible.
 3. **Widget framework**: vanilla JS (smallest bundle, best performance) vs React? Recommendation: vanilla JS for the widget, React for the dashboard.
 4. **Shopify App first or SEO first?** Shopify = faster distribution but more setup. SEO = slower but compounds. Recommend: ship MVP, do SEO content while waiting for Shopify review.

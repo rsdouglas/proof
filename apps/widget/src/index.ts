@@ -77,11 +77,11 @@ app.get('/v1/:widgetId', async (c) => {
 })
 
 function getWidgetScript(): string {
-  return `/* Proof Widget v1 — https://useproof.com */
+  return `/* Vouch Widget v1 — https://socialproof.dev */
 (function() {
   'use strict';
 
-  var WIDGET_URL = 'https://widget.useproof.com/v1/';
+  var WIDGET_URL = 'https://widget.socialproof.dev/v1/';
 
   function injectStyles(theme, layout) {
     var styleId = 'proof-styles';
@@ -203,7 +203,7 @@ function getWidgetScript(): string {
   }
 
   function attribution() {
-    return '<div class="proof-attribution"><a href="https://useproof.com" target="_blank" rel="noopener">Powered by Proof</a></div>';
+    return '<div class="proof-attribution"><a href="https://socialproof.dev" target="_blank" rel="noopener">Powered by Vouch</a></div>';
   }
 
   function init() {

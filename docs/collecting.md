@@ -4,8 +4,8 @@ Proof makes it easy to collect real, verified testimonials from your customers.
 
 ## Your collector link
 
-Every Proof account gets a unique hosted collector page — something like:
-`https://review.proof.app/your-business-name`
+Every Vouch account gets a unique hosted collector page — something like:
+`https://collect.socialproof.dev/your-business-name`
 
 This page is:
 - Mobile-friendly

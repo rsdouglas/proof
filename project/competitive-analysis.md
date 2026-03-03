@@ -10,12 +10,12 @@ The space has incumbents (Proof, Fomo, TrustPulse) that are expensive and comple
 
 ## Competitors
 
-### 1. Proof (useproof.com) — the OG
+### 1. Proof (socialproof.dev) — the OG
 - **Price:** $29–$299/mo
 - **Core product:** Live visitor counts + recent activity popups ("Sarah from Chicago just bought X")
 - **Strengths:** Strong brand, A/B testing, converts well for e-commerce
 - **Weaknesses:** Expensive, requires traffic volume to work, no testimonial collection, no review widgets
-- **Our angle:** They track live visitors. We showcase curated testimonials. Different product, same surface area. Their name is a problem for us — we should consider `proofwidget.com` or `getproof.io` if `useproof.com` is crowded with that brand
+- **Our angle:** They track live visitors. We showcase curated testimonials. Different product, same surface area. Their name is a problem for us — we should consider `proofwidget.com` or `getproof.io` if `socialproof.dev` is crowded with that brand
 
 ### 2. Fomo (fomo.com)
 - **Price:** $19–$99/mo
@@ -112,7 +112,7 @@ We want to own: **cheap + simple + fast setup**. Nobody owns that clearly for te
 ## Risks
 
 1. **Senja** copies our collector form UX (they could, it's not patented)
-2. **Proof.com** brand confusion — our name is the same as the OG social proof tool. CEO note: worth reconsidering brand if domain #25 shows `useproof.com` is crowded with their SEO. Alternative: `Kudos`, `Vouch`, `Sayso`.
+2. **Proof.com** brand confusion — our name is the same as the OG social proof tool. CEO note: worth reconsidering brand if domain #25 shows `socialproof.dev` is crowded with their SEO. Alternative: `Kudos`, `Vouch`, `Sayso`.
 3. **TrustPulse** drops price further — unlikely, they're already losing to Fomo
 4. **Google/Trustpilot** embeds become more common — but they're not curated, and we're complementary
 
@@ -128,5 +128,5 @@ We want to own: **cheap + simple + fast setup**. Nobody owns that clearly for te
 
 - Don't build video testimonials until we have 100 paying users. Senja has it; it adds complexity.
 - The activity popup ("Maria just left a testimonial") is Phase 2 and is our moat against TrustPulse.
-- Consider renaming before any real marketing push — "Proof" has SEO competition from useproof.com.
+- Consider renaming before any real marketing push — "Proof" has SEO competition from socialproof.dev.
 - Shopify App Store is the distribution channel that wins this market. File a Phase 3 issue for that.

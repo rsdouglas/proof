@@ -15,8 +15,8 @@
      ▲
      │  authenticated API
      │
-[proof-dashboard Pages]  (React SPA — app.proof.app)
-[proof-landing Pages]    (Static HTML — proof.app)
+[proof-dashboard Pages]  (React SPA — app.socialproof.dev)
+[proof-landing Pages]    (Static HTML — socialproof.dev)
 ```
 
 ## Cloudflare Resources
@@ -96,26 +96,26 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 
 ## DNS Configuration (when going to production)
 
-These DNS records need to be set in Cloudflare (or wherever `useproof.com` is managed):
+These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is managed):
 
 | Record | Type | Target |
 |---|---|---|
-| `app.useproof.com` | CNAME | `proof-dashboard.pages.dev` (or custom domain on Pages) |
-| `useproof.com` | CNAME | `proof-landing.pages.dev` (or custom domain on Pages) |
-| `api.useproof.com` | Worker Route | Route `api.useproof.com/*` → `proof-worker` |
+| `app.socialproof.dev` | CNAME | `proof-dashboard.pages.dev` (or custom domain on Pages) |
+| `socialproof.dev` | CNAME | `proof-landing.pages.dev` (or custom domain on Pages) |
+| `api.socialproof.dev` | Worker Route | Route `api.socialproof.dev/*` → `proof-worker` |
 
-**To set up Worker route for `api.useproof.com`:**
+**To set up Worker route for `api.socialproof.dev`:**
 1. Add the domain to your Cloudflare zone
-2. In Workers & Pages → proof-worker → Settings → Triggers, add custom domain `api.useproof.com`
+2. In Workers & Pages → proof-worker → Settings → Triggers, add custom domain `api.socialproof.dev`
 3. Or add to `apps/worker/wrangler.toml`:
    ```toml
    routes = [
-     { pattern = "api.useproof.com/*", zone_name = "useproof.com" }
+     { pattern = "api.socialproof.dev/*", zone_name = "socialproof.dev" }
    ]
    ```
 
 Add to resource checklist:
-- [ ] DNS zone for `useproof.com` in Cloudflare
-- [ ] Worker route: `api.useproof.com` → proof-worker
-- [ ] Custom domain: `app.useproof.com` → proof-dashboard Pages
-- [ ] Custom domain: `useproof.com` → proof-landing Pages
+- [ ] DNS zone for `socialproof.dev` in Cloudflare
+- [ ] Worker route: `api.socialproof.dev` → proof-worker
+- [ ] Custom domain: `app.socialproof.dev` → proof-dashboard Pages
+- [ ] Custom domain: `socialproof.dev` → proof-landing Pages

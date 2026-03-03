@@ -31,8 +31,8 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 app.use('*', cors({
   origin: (origin) => {
     const allowed = [
-      'https://useproof.com',
-      'https://app.useproof.com',
+      'https://socialproof.dev',
+      'https://app.socialproof.dev',
       'http://localhost:3000',
       'http://localhost:5173',
     ]

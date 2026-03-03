@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 
-export const API_URL = import.meta.env.VITE_API_URL || 'https://api.useproof.com'
+export const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
 
 export interface Account {
   id: string

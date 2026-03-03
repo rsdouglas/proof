@@ -8,7 +8,7 @@ interface CollectionForm {
   created_at: string
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.useproof.com'
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
 
 export default function Collect() {
   const { request } = useApi()
