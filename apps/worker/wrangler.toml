@@ -7,6 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 binding = "DB"
 database_name = "proof-db"
 database_id = "placeholder-replace-after-create"
+migrations_dir = "migrations"
 
 [[kv_namespaces]]
 binding = "WIDGET_KV"
