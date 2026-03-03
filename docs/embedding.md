@@ -61,3 +61,51 @@ page where you want to add the widget. Paste the script tag where you want it to
 ## Squarespace
 
 In Squarespace, add a **Code block** to any page and paste the script tag inside it.
+
+## Rating badge (SVG)
+
+Vouch generates a live-updating rating badge you can embed anywhere — not just your website.
+
+**Get your badge:**
+1. Go to your widget in the dashboard
+2. Find "Share your rating" → click **Copy badge HTML**
+3. Paste the `<img>` tag wherever you want it
+
+```html
+<img src="https://api.socialproof.dev/wall/YOUR_WIDGET_ID/badge" alt="Vouch Rating" />
+```
+
+The badge shows:
+- Your star rating (e.g. ⭐⭐⭐⭐⭐)
+- Average score (e.g. 4.8)
+- Review count (e.g. 23 reviews)
+
+**Where to use it:**
+- Your homepage or landing page
+- Email signature
+- LinkedIn profile "About" section
+- Proposal documents or pitch decks
+- GitHub README (if you're a developer/agency)
+
+The badge pulls live from your approved testimonials — as you collect more, it updates automatically everywhere it's embedded.
+
+## Google star ratings (JSON-LD rich results)
+
+Every public Vouch wall page includes built-in **JSON-LD structured data** — the technical standard that allows Google to display star ratings directly in search results.
+
+When Google crawls your wall page (`socialproof.dev/wall/YOUR_WIDGET_ID`), it reads your review data and can show your star rating in search results.
+
+**To get your Google star ratings:**
+1. Share your wall page URL publicly (add it to your website footer, email signature, etc.)
+2. Go to [Google Search Console](https://search.google.com/search-console/) → URL Inspection → submit your wall URL for indexing
+3. Verify with the [Rich Results Test](https://search.google.com/test/rich-results)
+4. Wait 2-4 weeks for Google to index and show stars
+
+**Requirements:**
+- At least 1 approved testimonial
+- Your wall page must be publicly accessible
+- Google must crawl and index the page
+
+No code to write. No schema markup to maintain. Vouch handles all of it automatically.
+
+See also: [How to get star ratings in Google search results →](/blog/get-star-ratings-google-search-results)
