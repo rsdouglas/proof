@@ -1,6 +1,6 @@
 # Quick Start
 
-Get Proof running on your site in under 5 minutes.
+Get Vouch running on your site in under 5 minutes.
 
 ## Step 1: Create an account
 

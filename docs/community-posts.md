@@ -14,7 +14,7 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 >
 > What actually works: sending them a short link to a form that takes 90 seconds. They don't need an account, don't need to navigate anywhere. Just fill in their name, a few sentences, done.
 >
-> I built a tool for exactly this — it's called Proof. Free to start, one script tag to display testimonials on your site.
+> I built a tool for exactly this — it's called Vouch. Free to start, one script tag to display testimonials on your site.
 >
 > If you want to try it as a beta user, I'll give you Pro for free in exchange for honest feedback. Happy to jump on a 20-min call to get you set up.
 
@@ -32,21 +32,21 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 >
 > For your own site: the move is having a testimonial collection form you can send customers directly. No friction on their end = much higher completion. Then display them as a widget on your homepage and pricing page.
 >
-> I built a tool called Proof that does exactly this (collect → approve → embed). It's in beta right now and free to try. If you want early access, happy to share a link.
+> I built a tool called Vouch that does exactly this (collect → approve → embed). It's in beta right now and free to try. If you want early access, happy to share a link.
 
 ---
 
 ## Indie Hackers — Product post
 
-**Title:** Show IH: Proof — collect and embed customer testimonials in 5 minutes
+**Title:** Show IH: Vouch — collect and embed customer testimonials in 5 minutes
 
 **Body:**
 
-> Hey IH — I'm building Proof, a simple social proof tool for small businesses.
+> Hey IH — I'm building Vouch, a simple social proof tool for small businesses.
 >
 > **The problem:** Most small businesses know testimonials help, but asking for them is awkward, and displaying them well is either manual (copy/paste) or expensive (enterprise widget tools).
 >
-> **What Proof does:**
+> **What Vouch does:**
 > 1. You send customers a link to a quick form
 > 2. They fill in their name + a testimonial (no account required)
 > 3. You approve it
@@ -85,7 +85,7 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 > That's it.
 
 **Tweet 3:**
-> So we built Proof.
+> So we built Vouch.
 >
 > Send a collection link. Customer fills in their name and a few sentences. You approve. It appears on your site.
 >
@@ -108,7 +108,7 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 
 > We just shipped something I wish existed when I was running a small service business.
 >
-> It's called Proof. It collects testimonials from your customers and displays them on your website.
+> It's called Vouch. It collects testimonials from your customers and displays them on your website.
 >
 > Here's why I think it's needed:
 >
@@ -119,11 +119,11 @@ These are ready-to-post messages for beta user acquisition. Copy, paste, publish
 > - Writing a review is friction-y for them (log into Yelp, find the page, write from scratch...)
 > - Even if you collect them, putting them on your site requires design work or expensive plugins
 >
-> Proof fixes all three. Send a link. Customer fills in 3 fields. You approve. One script tag → it's live on your site.
+> Vouch fixes all three. Send a link. Customer fills in 3 fields. You approve. One script tag → it's live on your site.
 >
 > We're running a beta right now. 10 spots. Free Pro for life.
 >
-> If you run a service business or know someone who does, I'd love to get Proof in front of them.
+> If you run a service business or know someone who does, I'd love to get Vouch in front of them.
 >
 > Comment or DM me and I'll get you set up.
 

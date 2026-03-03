@@ -1,4 +1,4 @@
-# Proof Documentation
+# Vouch Documentation
 
 Welcome to Proof — the simple social proof toolkit for small businesses.
 

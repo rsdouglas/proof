@@ -90,7 +90,7 @@ A single testimonial in the right place beats a wall of them somewhere nobody go
 
 This whole process becomes dramatically simpler with a tool built for it.
 
-With Proof, you:
+With Vouch, you:
 1. Create a collection link — one URL you send to customers
 2. They fill in a simple form (no account, no friction)
 3. You approve what goes live

@@ -1,6 +1,6 @@
 # Embedding Your Widget
 
-Proof widgets are embedded with a single script tag. Works on any website.
+Vouch widgets are embedded with a single script tag. Works on any website.
 
 ## The embed code
 
@@ -50,7 +50,7 @@ You can place multiple widgets on different pages.
 
 ## Performance
 
-Proof widgets are served from Cloudflare's edge network. They load in under 50ms globally.
+Vouch widgets are served from Cloudflare's edge network. They load in under 50ms globally.
 The script is async and won't block your page load.
 
 ## Shopify
