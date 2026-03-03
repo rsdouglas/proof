@@ -12,6 +12,7 @@ import { collectWidget } from './routes/collect_widget'
 import { billing } from './routes/billing'
 import { analytics } from './routes/analytics'
 import { wall } from './routes/wall'
+import { apiKeys, resolveApiKey } from './routes/api_keys'
 
 export interface Env {
   DB: D1Database
@@ -84,10 +85,27 @@ app.post('/api/billing/webhook', async (c) => {
 
 // ── JWT middleware for all other /api/* routes ────────────────────────────────
 app.use('/api/*', async (c, next) => {
-  // Check cookie first, then Authorization Bearer header
+  // Check cookie first, then Authorization Bearer/Token header
   const cookie = getCookie(c, 'proof_token')
-  const header = c.req.header('Authorization')?.replace('Bearer ', '')
-  const token = cookie || header
+  const authHeader = c.req.header('Authorization') ?? ''
+  let token = cookie
+
+  if (!token) {
+    if (authHeader.startsWith('Bearer sk_live_')) {
+      // API key auth: sk_live_... keys bypass JWT
+      const rawKey = authHeader.replace('Bearer ', '')
+      const resolved = await resolveApiKey(rawKey, c.env.DB)
+      if (!resolved) return c.json({ error: 'Invalid API key' }, 401)
+      // Look up plan for this account
+      const acct = await c.env.DB.prepare(
+        'SELECT plan FROM accounts WHERE id = ?'
+      ).bind(resolved.accountId).first<{ plan: string }>()
+      c.set('accountId', resolved.accountId)
+      c.set('plan', acct?.plan ?? 'free')
+      return next()
+    }
+    token = authHeader.replace('Bearer ', '') || undefined
+  }
 
   if (!token) return c.json({ error: 'Authentication required' }, 401)
 
@@ -105,6 +123,7 @@ app.route('/api/widgets', widgets)
 app.route('/api/accounts', accounts)
 app.route('/api/billing', billing)
 app.route('/api/analytics', analytics)
+app.route('/api/keys', apiKeys)
 
 // Collection forms
 app.get('/api/collection-forms', async (c) => {

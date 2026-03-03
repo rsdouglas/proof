@@ -8,6 +8,7 @@ const navItems = [
   { to: '/collect', label: '📝 Collect' },
   { to: '/analytics', label: '📊 Analytics' },
   { to: '/settings', label: '⚙️ Settings' },
+  { to: '/api-keys', label: '🔑 API Keys' },
 ]
 
 export default function Layout() {
