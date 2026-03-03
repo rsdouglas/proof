@@ -3,6 +3,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Env, Variables } from '../index'
 
 import { sendWelcomeEmail } from '../lib/onboarding'
+import { checkRateLimit } from '../lib/ratelimit'
 
 export const auth = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -68,15 +69,6 @@ function prefixedId(prefix: string): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const bytes = crypto.getRandomValues(new Uint8Array(21))
   return prefix + '_' + Array.from(bytes).map(b => chars[b % chars.length]).join('')
-}
-
-/** Rate limit via KV: returns true if request is allowed, false if rate limited */
-async function checkRateLimit(kv: KVNamespace, key: string, limit: number, windowSecs: number): Promise<boolean> {
-  const raw = await kv.get(key)
-  const count = raw ? parseInt(raw, 10) : 0
-  if (count >= limit) return false
-  await kv.put(key, String(count + 1), { expirationTtl: windowSecs })
-  return true
 }
 
 function setAuthCookie(c: any, token: string) {
