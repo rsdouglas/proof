@@ -20,7 +20,7 @@ export default function Layout() {
         {/* Logo */}
         <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid #f3f4f6' }}>
           <div style={{ fontWeight: 800, fontSize: 18, color: '#111827', letterSpacing: '-0.5px' }}>
-            ✓ Proof
+            ✓ Vouch
           </div>
         </div>
 

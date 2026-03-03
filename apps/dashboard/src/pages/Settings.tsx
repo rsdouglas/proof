@@ -16,7 +16,7 @@ export default function Settings() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('upgraded') === '1') {
-      setMsg({ type: 'ok', text: '🎉 Welcome to Proof Pro! Your plan has been upgraded.' })
+      setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
       window.history.replaceState({}, '', window.location.pathname)
     }
     if (params.get('canceled') === '1') {
@@ -117,7 +117,7 @@ export default function Settings() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
           <div>
             <h2 style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 600 }}>
-              {isPro ? '✨ Proof Pro' : 'Free plan'}
+              {isPro ? '✨ Vouch Pro' : 'Free plan'}
             </h2>
             <p style={{ margin: 0, color: '#6b7280', fontSize: 13 }}>
               {isPro
