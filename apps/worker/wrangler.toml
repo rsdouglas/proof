@@ -1,0 +1,23 @@
+name = "proof-worker"
+main = "src/index.ts"
+compatibility_date = "2024-09-10"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "proof-db"
+database_id = "placeholder-replace-after-create"
+migrations_dir = "migrations"
+
+[[kv_namespaces]]
+binding = "WIDGET_KV"
+id = "placeholder-replace-after-create"
+
+# Stripe secrets - set via: wrangler secret put STRIPE_SECRET_KEY
+# Required: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRO_PRICE_ID
+
+[vars]
+ENVIRONMENT = "production"
+
+[dev]
+port = 8787
