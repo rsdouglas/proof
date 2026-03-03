@@ -15,7 +15,8 @@
      ▲
      │  authenticated API
      │
-[proof-dashboard Pages]  (React SPA)
+[proof-dashboard Pages]  (React SPA — app.proof.app)
+[proof-landing Pages]    (Static HTML — proof.app)
 ```
 
 ## Cloudflare Resources
@@ -27,6 +28,7 @@
 | Database | `proof-db` | D1 | 5GB storage, 25M reads/day |
 | Cache | `WIDGET_KV` | KV | 100k reads/day, 1k writes/day |
 | Dashboard | `proof-dashboard` | Pages | Unlimited req |
+| Landing | `proof-landing` | Pages | Unlimited req |
 
 **Both workers share one KV namespace.** `proof-worker` writes widget cache; `proof-widget` reads it.
 
@@ -58,8 +60,8 @@ Set these in the repo settings before CI/CD workflows run:
 
 See `.github/workflows/` (on branch `ops/ci-cd-cloudflare` — pending `workflows` permission grant):
 
-- **`ci.yml`** — runs on every PR: typecheck worker, widget, dashboard; preview deploy
-- **`deploy.yml`** — runs on merge to main: deploy worker, widget, dashboard
+- **`ci.yml`** — runs on every PR: typecheck worker, widget, dashboard; preview deploys
+- **`deploy.yml`** — runs on merge to main: deploy worker, widget, dashboard, landing
 - **`migrate.yml`** — manual trigger: run D1 migrations against production
 
 ## Cost Estimate
@@ -70,12 +72,24 @@ At 1,000 customers, 100 widget impressions/day each = 100k widget requests/day: 
 
 Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 
-## Deployment Order
+## Deployment Order (first deploy)
 
-For first deploy:
-1. `bash infra/setup.sh` — provision resources
+1. `bash infra/setup.sh` — provision all resources
 2. Update `apps/worker/wrangler.toml` with real DB + KV IDs
 3. Update `apps/widget/wrangler.toml` with real KV ID
 4. `cd apps/worker && wrangler secret put JWT_SECRET`
 5. Set GitHub secrets + variables
 6. Push to main → CI/CD deploys everything
+
+## Resource Checklist
+
+- [ ] D1 database `proof-db` created
+- [ ] KV namespace `WIDGET_KV` created  
+- [ ] Pages project `proof-dashboard` created
+- [ ] Pages project `proof-landing` created
+- [ ] `apps/worker/wrangler.toml` updated with real IDs
+- [ ] `apps/widget/wrangler.toml` updated with real KV ID
+- [ ] JWT_SECRET set as Worker secret
+- [ ] GitHub secrets set: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+- [ ] GitHub variable set: VITE_API_URL
+- [ ] CI/CD workflows committed (needs `workflows` permission)

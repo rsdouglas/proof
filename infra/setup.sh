@@ -24,9 +24,13 @@ KV_ID=$(echo "$KV_OUTPUT" | grep -o 'id = "[^"]*"' | cut -d'"' -f2)
 echo "→ KV ID: $KV_ID"
 echo ""
 
-# ── Cloudflare Pages ──────────────────────────────────────────────────────────
-echo "Creating Pages project: proof-dashboard"
+# ── Cloudflare Pages Projects ─────────────────────────────────────────────────
+echo "Creating Pages project: proof-dashboard (React app)"
 wrangler pages project create proof-dashboard --production-branch=main 2>&1 || echo "(project may already exist)"
+echo ""
+
+echo "Creating Pages project: proof-landing (static landing site)"
+wrangler pages project create proof-landing --production-branch=main 2>&1 || echo "(project may already exist)"
 echo ""
 
 # ── Run D1 Migration ──────────────────────────────────────────────────────────
@@ -66,5 +70,5 @@ echo "=== DONE ==="
 echo "Resources created:"
 echo "  D1 database:    proof-db ($DB_ID)"
 echo "  KV namespace:   WIDGET_KV ($KV_ID)"
-echo "  Pages project:  proof-dashboard"
+echo "  Pages projects: proof-dashboard, proof-landing"
 echo "  Workers to deploy: proof-worker, proof-widget (via CI/CD or wrangler deploy)"
