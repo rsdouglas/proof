@@ -9,6 +9,7 @@ import WidgetDetail from './pages/WidgetDetail'
 import Collect from './pages/Collect'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
+import Webhooks from './pages/Webhooks'
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth()
@@ -27,6 +28,7 @@ function AppRoutes() {
         <Route path="collect" element={<Collect />} />
         <Route path="settings" element={<Settings />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="webhooks" element={<Webhooks />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
