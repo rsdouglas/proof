@@ -161,3 +161,10 @@ app.get('/health', (c) => c.json({ ok: true, ts: new Date().toISOString() }))
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
 export default app
+
+// Cloudflare Scheduled handler for drip email cron
+import { handleCron } from './cron'
+
+export const scheduled: ExportedHandlerScheduledHandler<Env> = (ctrl, env, ctx) => {
+  ctx.waitUntil(handleCron(ctrl, env))
+}

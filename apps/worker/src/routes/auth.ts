@@ -2,6 +2,8 @@ import { Hono } from 'hono'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Env, Variables } from '../index'
 
+import { sendWelcomeEmail } from '../lib/onboarding'
+
 export const auth = new Hono<{ Bindings: Env; Variables: Variables }>()
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -122,6 +124,18 @@ auth.post('/signup', async (c) => {
   await c.env.DB.prepare(
     'INSERT INTO widgets (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
   ).bind(widgetId, id, 'My Website', now, now).run()
+
+  // Send welcome email — fire-and-forget (don't block signup if email fails)
+  if (c.env.RESEND_API_KEY) {
+    sendWelcomeEmail(c.env.RESEND_API_KEY, {
+      email: normalizedEmail,
+      name: name.trim(),
+      widgetId,
+    }).catch((err) => console.error('[signup] welcome email failed:', err))
+    // Record send timestamp
+    c.env.DB.prepare('UPDATE accounts SET drip_welcome_sent_at = ? WHERE id = ?')
+      .bind(now, id).run().catch(() => {})
+  }
 
   const token = await generateToken(id, normalizedEmail, 'free', c.env.JWT_SECRET)
   setAuthCookie(c, token)
