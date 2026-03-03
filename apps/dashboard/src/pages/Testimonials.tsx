@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useApi } from '../lib/auth'
+import { useApi, API_URL } from '../lib/auth'
 
 interface Testimonial {
   id: string
@@ -66,6 +66,26 @@ export default function Testimonials() {
     load()
   }
 
+
+  async function exportCsv() {
+    const params = new URLSearchParams()
+    if (filter !== 'all') params.set('status', filter)
+    // Use fetch with credentials, then trigger download
+    const token = document.cookie.match(/vouch_token=([^;]+)/)?.[1] || ''
+    const res = await fetch(`${API_URL}/api/testimonials/export/csv?${params}`, {
+      credentials: 'include',
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+    })
+    if (!res.ok) return alert('Export failed')
+    const blob = await res.blob()
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'testimonials.csv'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   const counts = {
     all: testimonials.length,
     pending: testimonials.filter(t => t.status === 'pending').length,
@@ -77,9 +97,14 @@ export default function Testimonials() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>Testimonials</h1>
-        <button onClick={() => setShowAdd(!showAdd)} style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>
-          + Add manually
-        </button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={exportCsv} style={{ padding: '8px 16px', background: '#fff', color: '#374151', border: '1px solid #d1d5db', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>
+            ↓ Export CSV
+          </button>
+          <button onClick={() => setShowAdd(!showAdd)} style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>
+            + Add manually
+          </button>
+        </div>
       </div>
 
       {/* Filter tabs */}

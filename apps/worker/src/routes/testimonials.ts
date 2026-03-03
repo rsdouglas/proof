@@ -29,6 +29,54 @@ testimonials.get('/', async (c) => {
   return c.json({ testimonials: results })
 })
 
+// CSV export — must be before /:id to avoid route conflict
+testimonials.get('/export/csv', async (c) => {
+  const accountId = c.get('accountId')
+  const widgetId = c.req.query('widget_id')
+  const status = c.req.query('status')
+
+  let query = 'SELECT * FROM testimonials WHERE account_id = ?'
+  const bindings: unknown[] = [accountId]
+
+  if (widgetId) {
+    query += ' AND widget_id = ?'
+    bindings.push(widgetId)
+  }
+  if (status) {
+    query += ' AND status = ?'
+    bindings.push(status)
+  }
+  query += ' ORDER BY created_at DESC LIMIT 5000'
+
+  const { results } = await c.env.DB.prepare(query).bind(...bindings).all<{
+    id: string; display_name: string; display_text: string; rating: number | null;
+    company: string | null; title: string | null; submitter_email: string | null;
+    source: string; status: string; featured: number; created_at: string;
+  }>()
+
+  const headers = ['id', 'display_name', 'display_text', 'rating', 'company', 'title', 'submitter_email', 'source', 'status', 'featured', 'created_at']
+  const escape = (v: unknown): string => {
+    if (v === null || v === undefined) return ''
+    const s = String(v)
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"'
+    }
+    return s
+  }
+
+  const rows = results.map(r =>
+    headers.map(h => escape(r[h as keyof typeof r])).join(',')
+  )
+  const csv = [headers.join(','), ...rows].join('\n')
+
+  return new Response(csv, {
+    headers: {
+      'Content-Type': 'text/csv',
+      'Content-Disposition': 'attachment; filename="testimonials.csv"',
+    },
+  })
+})
+
 testimonials.get('/:id', async (c) => {
   const accountId = c.get('accountId')
   const id = c.req.param('id')
