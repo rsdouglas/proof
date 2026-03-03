@@ -1,3 +1,4 @@
+import { sendEmail, buildTestimonialApprovedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
 
@@ -59,6 +60,27 @@ testimonials.patch('/:id', async (c) => {
   await c.env.DB.prepare(
     `UPDATE testimonials SET ${fields.join(', ')} WHERE id = ? AND account_id = ?`
   ).bind(...values).run()
+
+  // If status just changed to 'approved' and the submitter has an email, notify them
+  if (body.status === 'approved') {
+    const t = await c.env.DB.prepare(
+      'SELECT t.submitter_email, t.display_name, t.display_text, w.name as widget_name, w.id as widget_id, w.slug FROM testimonials t JOIN widgets w ON w.account_id = t.account_id WHERE t.id = ? LIMIT 1'
+    ).bind(id).first<{ submitter_email: string | null; display_name: string; display_text: string; widget_name: string; widget_id: string; slug: string | null }>()
+
+    if (t?.submitter_email) {
+      const wallUrl = `https://api.socialproof.dev/wall/${t.slug || t.widget_id}`
+      await sendEmail(
+        buildTestimonialApprovedEmail({
+          customerEmail: t.submitter_email,
+          customerName: t.display_name,
+          widgetName: t.widget_name,
+          text: t.display_text,
+          wallUrl,
+        }),
+        c.env
+      )
+    }
+  }
 
   return c.json({ ok: true })
 })

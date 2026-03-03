@@ -15,6 +15,7 @@ export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
   JWT_SECRET: string
+  ENVIRONMENT?: string
   STRIPE_SECRET_KEY: string
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
