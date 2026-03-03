@@ -1,3 +1,4 @@
+import { sendEmail, buildTestimonialReceivedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env } from '../index'
 
@@ -37,6 +38,27 @@ collect.post('/submit/:formId', async (c) => {
   ).bind(id, form.account_id, body.display_name.trim(), body.display_text.trim(),
     body.rating ?? null, body.company ?? null, body.title ?? null,
     body.submitter_email ?? null, 'form', 'pending', now, now).run()
+
+  // Send email notification to the widget owner
+  const owner = await c.env.DB.prepare(
+    'SELECT a.email, a.name, w.name as widget_name, w.id as widget_id, w.slug FROM accounts a JOIN widgets w ON w.account_id = a.id JOIN collection_forms f ON f.widget_id = w.id WHERE f.id = ? LIMIT 1'
+  ).bind(c.req.param('formId')).first<{ email: string; name: string; widget_name: string; widget_id: string; slug: string | null }>()
+
+  if (owner?.email) {
+    const reviewUrl = `https://app.socialproof.dev/widgets/${owner.widget_id}`
+    await sendEmail(
+      buildTestimonialReceivedEmail({
+        ownerEmail: owner.email,
+        ownerName: owner.name,
+        widgetName: owner.widget_name,
+        customerName: body.display_name.trim(),
+        rating: body.rating ?? 5,
+        text: body.display_text.trim(),
+        reviewUrl,
+      }),
+      c.env
+    )
+  }
 
   return c.json({ ok: true, message: 'Thank you! Your testimonial has been submitted for review.' }, 201)
 })
