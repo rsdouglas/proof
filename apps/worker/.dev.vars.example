@@ -1,0 +1,9 @@
+# Copy this to .dev.vars and fill in your values
+# .dev.vars is gitignored — never commit real secrets
+
+JWT_SECRET=dev-secret-must-be-at-least-32-characters-long
+RESEND_API_KEY=re_xxxx                   # optional in dev — emails log to console
+STRIPE_SECRET_KEY=sk_test_xxxx           # optional in dev — skip billing flows
+STRIPE_WEBHOOK_SECRET=whsec_xxxx         # optional in dev
+STRIPE_PRO_PRICE_ID=price_xxxx           # optional in dev
+ENVIRONMENT=development
