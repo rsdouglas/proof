@@ -1,4 +1,5 @@
 name = "vouch-worker"
+account_id = "6f8a4a1c8a93a311972f002e18f2c8ac"
 main = "src/index.ts"
 compatibility_date = "2024-09-10"
 compatibility_flags = ["nodejs_compat"]
@@ -6,12 +7,12 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "vouch-db"
-database_id = "placeholder-replace-after-create"
+database_id = "1f4ebaa7-6a2b-4842-85c4-115e42af7345"
 migrations_dir = "migrations"
 
 [[kv_namespaces]]
 binding = "WIDGET_KV"
-id = "placeholder-replace-after-create"
+id = "731e18288e9e4de091e01e0a5d6d3cc4"
 
 # Stripe secrets - set via: wrangler secret put STRIPE_SECRET_KEY
 # Required: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRO_PRICE_ID
