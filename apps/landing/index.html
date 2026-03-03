@@ -233,6 +233,20 @@
       .mock-card { width: 100%; max-width: 320px; }
       .pricing-card { width: 100%; max-width: 360px; }
     }
+
+    /* ── LIVE DEMO ── */
+    .live-demo { padding: 96px 24px; text-align: center; background: var(--bg); }
+    .demo-controls { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin: 40px 0 32px; }
+    .demo-toggle-group { display: flex; align-items: center; gap: 8px; background: var(--mid); border-radius: 10px; padding: 4px 4px 4px 12px; }
+    .demo-toggle-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+    .demo-btn { background: none; border: none; padding: 6px 14px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.15s; }
+    .demo-btn.active { background: var(--purple); color: #fff; }
+    .demo-btn:hover:not(.active) { background: rgba(255,255,255,0.06); color: var(--text); }
+    .demo-stage { max-width: 900px; margin: 0 auto; min-height: 200px; padding: 8px; }
+    .demo-code { max-width: 620px; margin: 32px auto 0; text-align: left; }
+    .demo-code-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .demo-code-block { background: var(--mid); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 16px 20px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; color: var(--purple-light); overflow-x: auto; margin: 0; white-space: pre; }
+
   </style>
 </head>
 <body>
@@ -241,6 +255,7 @@
 <nav>
   <a class="nav-logo" href="/">✦ <span>Vouch</span></a>
   <div class="nav-links">
+    <a href="#demo">Demo</a>
     <a href="#pricing">Pricing</a>
     <a href="https://app.socialproof.dev">Log in</a>
     <a class="btn btn-primary" href="https://app.socialproof.dev/register">Start for free</a>
@@ -325,6 +340,41 @@
       <h3>Embed</h3>
       <p>Copy one line of code. Your testimonials appear live on your site instantly.</p>
     </div>
+  </div>
+</section>
+
+
+<!-- LIVE DEMO -->
+<section class="live-demo" id="demo">
+  <div class="section-label">Try it live</div>
+  <h2 class="section-title">See exactly what your visitors will see</h2>
+  <p class="section-sub">This is the real Vouch widget — same code your customers embed. Switch layouts and themes below.</p>
+
+  <div class="demo-controls">
+    <div class="demo-toggle-group">
+      <span class="demo-toggle-label">Layout</span>
+      <button class="demo-btn active" data-layout="grid">Grid</button>
+      <button class="demo-btn" data-layout="carousel">Carousel</button>
+      <button class="demo-btn" data-layout="badge">Badge</button>
+    </div>
+    <div class="demo-toggle-group">
+      <span class="demo-toggle-label">Theme</span>
+      <button class="demo-btn active" data-theme="light">Light</button>
+      <button class="demo-btn" data-theme="dark">Dark</button>
+    </div>
+  </div>
+
+  <div class="demo-stage" id="demo-stage">
+    <div id="vouch-demo-widget" class="proof-widget"></div>
+  </div>
+
+  <div class="demo-code">
+    <div class="demo-code-label">Your embed code (2 lines)</div>
+    <pre class="demo-code-block"><code id="demo-code-text"></code></pre>
+  </div>
+
+  <div style="text-align:center; margin-top: 40px;">
+    <a class="btn btn-primary btn-large" href="https://app.socialproof.dev/register">Get your widget free →</a>
   </div>
 </section>
 
@@ -426,6 +476,173 @@
   </div>
   <div class="footer-copy">© 2026 Vouch. Built on Cloudflare.</div>
 </footer>
+
+
+<script>
+(function() {
+  var DEMO_DATA = {
+    testimonials: [
+      { id: '1', display_name: 'Sarah K.', display_text: 'We added the widget to our homepage and saw a 34% lift in trial signups within two weeks. Dead simple to set up.', rating: 5, company: 'Bloom Bakery', title: 'Founder', avatar_url: null, created_at: '2026-02-15T10:00:00Z' },
+      { id: '2', display_name: 'Marcus T.', display_text: "My customers love the little form. I've collected 40 reviews in a month. Having them on my site is huge for trust.", rating: 5, company: 'Ironclad Fitness', title: 'Owner', avatar_url: null, created_at: '2026-02-20T10:00:00Z' },
+      { id: '3', display_name: 'Jamie L.', display_text: "Finally a testimonial tool that doesn't require a developer. One copy-paste and it matched my site perfectly.", rating: 5, company: 'Studio Lune', title: 'Designer', avatar_url: null, created_at: '2026-02-22T10:00:00Z' },
+      { id: '4', display_name: 'Priya M.', display_text: "Switched from a $49/mo tool. Vouch does everything we need for a fraction of the cost. Our conversion rate is up.", rating: 5, company: 'Chai & Co.', title: 'Co-Founder', avatar_url: null, created_at: '2026-02-25T10:00:00Z' }
+    ],
+    config: { layout: 'grid', theme: 'light', name: 'Demo' }
+  };
+
+  var AVATAR_COLORS = ['#6C5CE7','#00b894','#fd79a8','#fdcb6e','#0984e3','#e17055'];
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function stars(n) {
+    if (!n) return '';
+    return '<div class="proof-stars">' + '★'.repeat(n) + '☆'.repeat(5-n) + '</div>';
+  }
+
+  function avatar(t, i) {
+    var initial = (t.display_name || '?')[0].toUpperCase();
+    var bg = AVATAR_COLORS[i % AVATAR_COLORS.length];
+    return '<div class="proof-avatar-placeholder" style="background:'+bg+';color:#fff;">'+initial+'</div>';
+  }
+
+  function meta(t) {
+    var parts = [];
+    if (t.title) parts.push(esc(t.title));
+    if (t.company) parts.push(esc(t.company));
+    return parts.length ? '<div class="proof-meta">'+parts.join(' · ')+'</div>' : '';
+  }
+
+  function card(t, i) {
+    return ['<div class="proof-card">',
+      stars(t.rating),
+      '<p class="proof-text">\u201c'+esc(t.display_text)+'\u201d</p>',
+      '<div class="proof-author">',
+      avatar(t, i),
+      '<div><div class="proof-name">'+esc(t.display_name)+'</div>',
+      meta(t),'</div></div></div>'
+    ].join('');
+  }
+
+  function injectStyles(theme) {
+    var id = 'vouch-demo-styles';
+    var existing = document.getElementById(id);
+    if (existing) existing.remove();
+    var dark = theme === 'dark';
+    var css = [
+      '.proof-widget { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-sizing: border-box; }',
+      '.proof-widget *, .proof-widget *::before, .proof-widget *::after { box-sizing: border-box; }',
+      '.proof-card { border-radius: 12px; padding: 20px 24px; margin: 8px; }',
+      dark ? '.proof-card { background:#1a1a2e; color:#e2e8f0; border:1px solid #2d3748; }' : '.proof-card { background:#fff; color:#1a202c; border:1px solid #e2e8f0; box-shadow:0 1px 3px rgba(0,0,0,0.08); }',
+      '.proof-text { font-size:15px; line-height:1.6; margin:0 0 16px; }',
+      '.proof-author { display:flex; align-items:center; gap:10px; }',
+      '.proof-avatar-placeholder { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex-shrink:0; }',
+      '.proof-name { font-weight:600; font-size:14px; }',
+      dark ? '.proof-name { color:#f7fafc; }' : '.proof-name { color:#1a202c; }',
+      '.proof-meta { font-size:12px; }',
+      dark ? '.proof-meta { color:#a0aec0; }' : '.proof-meta { color:#718096; }',
+      '.proof-stars { color:#f59e0b; font-size:13px; margin-bottom:12px; letter-spacing:1px; }',
+      '.proof-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:0; }',
+      '.proof-carousel-wrap { overflow:hidden; position:relative; }',
+      '.proof-carousel-track { display:flex; transition:transform 0.5s ease; }',
+      '.proof-carousel-track .proof-card { min-width:300px; max-width:400px; flex-shrink:0; }',
+      '.proof-carousel-dots { text-align:center; margin-top:12px; }',
+      '.proof-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin:0 3px; cursor:pointer; }',
+      dark ? '.proof-dot { background:#4a5568; } .proof-dot.active { background:#6366f1; }' : '.proof-dot { background:#e2e8f0; } .proof-dot.active { background:#6366f1; }',
+      '.proof-badge { max-width:420px; margin:0 auto; }',
+      dark ? '.demo-stage { background:#12121e; border-radius:16px; padding:24px; border:1px solid #2d2d3e; }' : '.demo-stage { background:#f8f8fb; border-radius:16px; padding:24px; border:1px solid #e8e8f0; }',
+    ].join('\n');
+    var el = document.createElement('style');
+    el.id = id;
+    el.textContent = css;
+    document.head.appendChild(el);
+  }
+
+  var currentLayout = 'grid';
+  var currentTheme = 'light';
+  var carouselInterval = null;
+
+  function renderDemo() {
+    var el = document.getElementById('vouch-demo-widget');
+    if (!el) return;
+    injectStyles(currentTheme);
+
+    var stage = document.getElementById('demo-stage');
+    if (stage) {
+      if (currentTheme === 'dark') {
+        stage.style.background = '#12121e';
+        stage.style.border = '1px solid #2d2d3e';
+      } else {
+        stage.style.background = '#f8f8fb';
+        stage.style.border = '1px solid #e8e8f0';
+      }
+      stage.style.borderRadius = '16px';
+      stage.style.padding = '24px';
+    }
+
+    if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; }
+
+    if (currentLayout === 'grid') {
+      el.innerHTML = '<div class="proof-grid">' + DEMO_DATA.testimonials.map(function(t,i){ return card(t,i); }).join('') + '</div>';
+    } else if (currentLayout === 'badge') {
+      el.innerHTML = '<div class="proof-badge">' + card(DEMO_DATA.testimonials[0], 0) + '</div>';
+    } else {
+      // Carousel
+      var items = DEMO_DATA.testimonials;
+      var current = 0;
+      var trackId = 'vouch-demo-track';
+      var dotsId = 'vouch-demo-dots';
+      el.innerHTML = '<div class="proof-carousel-wrap"><div class="proof-carousel-track" id="'+trackId+'">' +
+        items.map(function(t,i){ return card(t,i); }).join('') +
+        '</div></div><div class="proof-carousel-dots" id="'+dotsId+'">' +
+        items.map(function(_,i){ return '<span class="proof-dot'+(i===0?' active':'')+'" data-i="'+i+'"></span>'; }).join('') +
+        '</div>';
+
+      var trackEl = document.getElementById(trackId);
+      var dotEls = document.querySelectorAll('#'+dotsId+' .proof-dot');
+      var cardWidth = 316;
+
+      function goTo(i) {
+        current = ((i % items.length) + items.length) % items.length;
+        trackEl.style.transform = 'translateX(-'+(current * cardWidth)+'px)';
+        dotEls.forEach(function(d,j){ d.classList.toggle('active', j===current); });
+      }
+      dotEls.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.i)); }); });
+      carouselInterval = setInterval(function(){ goTo(current+1); }, 4000);
+    }
+
+    // Update embed code
+    var codeEl = document.getElementById('demo-code-text');
+    if (codeEl) {
+      codeEl.textContent = '<div id="vouch-widget" data-layout="'+currentLayout+'" data-theme="'+currentTheme+'"></div>\n<script src="https://widget.socialproof.dev/v1/vouch.js"><\/script>';
+    }
+  }
+
+  // Wire up buttons
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.demo-btn[data-layout]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.demo-btn[data-layout]').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentLayout = btn.dataset.layout;
+        renderDemo();
+      });
+    });
+    document.querySelectorAll('.demo-btn[data-theme]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.demo-btn[data-theme]').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentTheme = btn.dataset.theme;
+        renderDemo();
+      });
+    });
+    renderDemo();
+  });
+})();
+</script>
 
 </body>
 </html>
