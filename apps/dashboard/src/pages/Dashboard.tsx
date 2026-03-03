@@ -65,43 +65,31 @@ export default function Dashboard() {
           <div style={{ fontWeight: 600, marginBottom: 4 }}>Collect Testimonials</div>
           <div style={{ fontSize: 13, opacity: 0.85 }}>Share a form link with your customers</div>
         </Link>
-        <Link to="/widgets" style={{ display: 'block', background: '#8b5cf6', color: '#fff', borderRadius: 8, padding: 20, textDecoration: 'none' }}>
+        <Link to="/widgets" style={{ display: 'block', background: '#f0fdf4', border: '1px solid #a7f3d0', borderRadius: 8, padding: 20, textDecoration: 'none' }}>
           <div style={{ fontSize: 20, marginBottom: 6 }}>🧩</div>
-          <div style={{ fontWeight: 600, marginBottom: 4 }}>Embed a Widget</div>
-          <div style={{ fontSize: 13, opacity: 0.85 }}>Add testimonials to your website</div>
+          <div style={{ fontWeight: 600, marginBottom: 4, color: '#111827' }}>Embed Widgets</div>
+          <div style={{ fontSize: 13, color: '#6b7280' }}>Add social proof to your site</div>
         </Link>
       </div>
 
-      {/* Recent submissions */}
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-          <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Recent submissions</h2>
-          <Link to="/testimonials" style={{ color: '#2563eb', fontSize: 14 }}>View all →</Link>
-        </div>
-        {recent.length === 0 && (
-          <p style={{ color: '#9ca3af', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24, textAlign: 'center' }}>
-            No testimonials yet. <Link to="/collect">Create a collection form</Link> to get started.
-          </p>
-        )}
-        {recent.map(t => (
-          <div key={t.id} style={{
-            background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, marginBottom: 8,
-            display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'
-          }}>
-            <div>
-              <strong>{t.display_name}</strong>
-              <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 14 }}>{t.display_text.slice(0, 100)}{t.display_text.length > 100 ? '…' : ''}</p>
+      {recent.length > 0 && (
+        <div>
+          <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Recent testimonials</h2>
+          {recent.map(t => (
+            <div key={t.id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '12px 16px', marginBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontWeight: 500, fontSize: 14 }}>{t.display_name}</div>
+                <div style={{ fontSize: 13, color: '#6b7280', marginTop: 2, maxWidth: 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>"{t.display_text}"</div>
+              </div>
+              <span style={{
+                background: t.status === 'approved' ? '#dcfce7' : '#fef3c0',
+                color: t.status === 'approved' ? '#166534' : '#92400e',
+                padding: '3px 10px', borderRadius: 12, fontSize: 12, fontWeight: 500
+              }}>{t.status}</span>
             </div>
-            <span style={{
-              padding: '2px 8px', borderRadius: 4, fontSize: 12, marginLeft: 12, flexShrink: 0,
-              background: t.status === 'approved' ? '#d1fae5' : t.status === 'rejected' ? '#fee2e2' : '#fef3c7',
-              color: t.status === 'approved' ? '#065f46' : t.status === 'rejected' ? '#991b1b' : '#92400e'
-            }}>
-              {t.status}
-            </span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
