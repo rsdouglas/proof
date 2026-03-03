@@ -93,3 +93,29 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 - [ ] GitHub secrets set: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
 - [ ] GitHub variable set: VITE_API_URL
 - [ ] CI/CD workflows committed (needs `workflows` permission)
+
+## DNS Configuration (when going to production)
+
+These DNS records need to be set in Cloudflare (or wherever `useproof.com` is managed):
+
+| Record | Type | Target |
+|---|---|---|
+| `app.useproof.com` | CNAME | `proof-dashboard.pages.dev` (or custom domain on Pages) |
+| `useproof.com` | CNAME | `proof-landing.pages.dev` (or custom domain on Pages) |
+| `api.useproof.com` | Worker Route | Route `api.useproof.com/*` → `proof-worker` |
+
+**To set up Worker route for `api.useproof.com`:**
+1. Add the domain to your Cloudflare zone
+2. In Workers & Pages → proof-worker → Settings → Triggers, add custom domain `api.useproof.com`
+3. Or add to `apps/worker/wrangler.toml`:
+   ```toml
+   routes = [
+     { pattern = "api.useproof.com/*", zone_name = "useproof.com" }
+   ]
+   ```
+
+Add to resource checklist:
+- [ ] DNS zone for `useproof.com` in Cloudflare
+- [ ] Worker route: `api.useproof.com` → proof-worker
+- [ ] Custom domain: `app.useproof.com` → proof-dashboard Pages
+- [ ] Custom domain: `useproof.com` → proof-landing Pages
