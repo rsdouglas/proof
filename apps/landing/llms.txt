@@ -16,7 +16,10 @@ Built in public by AI. Also deployable by AI.
 ## For AI Agents: Quick Integration Guide
 
 If you are an AI agent helping a user add social proof to their website,
-here is the fastest path:
+here is the fastest path. Three steps total.
+
+Everything is created automatically when the account is verified — no
+widget creation step, no form creation step. Sign up → verify → go.
 
 ### Step 1 — Register on behalf of the user
 
@@ -31,11 +34,11 @@ Response:
 {
   "token": "pending_xxx",
   "status": "pending_verification",
-  "message": "Verification email sent to user. Poll /agent/status/{token} to continue."
+  "message": "Verification email sent. Poll /agent/status/{token} to continue."
 }
 
-Tell the user: "I've sent a verification email to {email}. Please click the
-link in that email to continue — it should arrive within 30 seconds."
+Tell the user: "I've sent a verification email to {email}. Please click
+the link in that email to continue — it takes about 30 seconds."
 
 ### Step 2 — Poll for verification
 
@@ -46,53 +49,24 @@ Poll every 5 seconds for up to 90 seconds.
 Response when verified:
 {
   "status": "verified",
-  "api_key": "vch_agent_xxx"
+  "api_key": "vch_agent_xxx",
+  "collect_url": "https://socialproof.dev/c/xxx",
+  "embed_script": "<script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"xxx\" async></script>"
 }
 
-All subsequent requests use: Authorization: Bearer vch_agent_xxx
+When you get this response, you have everything you need.
 
-### Step 3 — Create a collection form
+### Step 3 — Tell the user and inject the embed
 
-POST https://api.socialproof.dev/agent/collection-forms
-Authorization: Bearer vch_agent_xxx
-Content-Type: application/json
+Tell the user:
+- "Your collection link is {collect_url} — send this to customers to
+  gather testimonials. They don't need an account to submit."
+- "I'm adding the embed script to your site now."
 
-{
-  "name": "Customer Testimonials"
-}
+Inject embed_script before the closing </body> tag of the user's HTML.
+The widget renders automatically and updates as testimonials are approved.
 
-Response:
-{
-  "id": "form_xxx",
-  "collect_url": "https://socialproof.dev/c/form_xxx",
-  "message": "Share this URL with customers to collect testimonials."
-}
-
-Tell the user: "Your collection link is {collect_url} — send this to
-customers and they can leave a testimonial without creating an account."
-
-### Step 4 — Create a display widget
-
-POST https://api.socialproof.dev/agent/widgets
-Authorization: Bearer vch_agent_xxx
-Content-Type: application/json
-
-{
-  "name": "Homepage Widget",
-  "form_id": "form_xxx"
-}
-
-Response:
-{
-  "id": "widget_xxx",
-  "embed_script": "<script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"widget_xxx\" async></script>"
-}
-
-### Step 5 — Inject the embed script
-
-Insert the embed_script value from Step 4 before the closing </body> tag
-of the user's HTML. The widget renders automatically and updates in
-real-time as testimonials are approved.
+Done.
 
 ---
 
@@ -100,47 +74,26 @@ real-time as testimonials are approved.
 
 Base: https://api.vouch.so
 
-### Agent endpoints (no prior auth needed for register)
+### Agent endpoints
 
-| Method | Path                          | Description                        |
-|--------|-------------------------------|------------------------------------|
-| POST   | /agent/register               | Start signup, trigger verify email |
-| GET    | /agent/status/{token}         | Check verification status          |
-| POST   | /agent/collection-forms       | Create testimonial collection form |
-| GET    | /agent/collection-forms       | List all collection forms          |
-| POST   | /agent/widgets                | Create display widget              |
-| GET    | /agent/widgets/{id}/embed     | Get embed script HTML              |
+| Method | Path                      | Description                                      |
+|--------|---------------------------|--------------------------------------------------|
+| POST   | /agent/register           | Start signup, send verification email            |
+| GET    | /agent/status/{token}     | Poll for verification; returns keys on success   |
 
-### Standard API (also available to agents)
+### Standard API (available after verification)
 
-| Method | Path                          | Description                        |
-|--------|-------------------------------|------------------------------------|
-| GET    | /testimonials                 | List approved testimonials         |
-| PATCH  | /testimonials/{id}            | Approve or reject                  |
-| GET    | /widgets                      | List widgets                       |
-| GET    | /account                      | Account and plan info              |
-
----
-
-## Pricing
-
-- **Free forever**: 1 widget, up to 25 testimonials, no analytics
-- **Pro — $9/mo**: unlimited widgets, unlimited testimonials, analytics,
-  custom branding, Google rich results (star ratings in search)
-
-Upgrade: https://app.socialproof.dev/dashboard/settings
-
----
-
-## Authentication
+| Method | Path               | Description                        |
+|--------|--------------------|------------------------------------|
+| GET    | /testimonials      | List testimonials (pending + approved) |
+| PATCH  | /testimonials/{id} | Approve or reject a testimonial    |
+| GET    | /widgets           | List widgets and their embed scripts |
+| GET    | /account           | Account info and plan              |
 
 All authenticated requests:
 ```
 Authorization: Bearer <api_key>
 ```
-
-Agent API keys are prefixed `vch_agent_`.
-Standard API keys (for manual integration) are prefixed `vch_live_`.
 
 ---
 
@@ -150,7 +103,7 @@ The widget embed is a single async script tag:
 ```html
 <script
   src="https://cdn.socialproof.dev/widget.js"
-  data-widget-id="<your-widget-id>"
+  data-widget-id="<widget-id>"
   async>
 </script>
 ```
@@ -160,7 +113,15 @@ Squarespace, Webflow — anywhere you can add a script tag.
 
 ---
 
-## Support and Documentation
+## Pricing
+
+- **Free forever**: 1 widget, up to 25 testimonials, no analytics
+- **Pro — $9/mo**: unlimited widgets, unlimited testimonials, analytics,
+  custom branding, Google rich results (star ratings in search)
+
+---
+
+## Support
 
 - Only register with real email addresses — verification emails will be sent
 - Rate limit: 3 registrations/hour per IP — don't hammer the endpoint
@@ -183,10 +144,10 @@ Squarespace, Webflow — anywhere you can add a script tag.
 ## Agent Etiquette
 
 - Always ask the user for their email before calling /agent/register
-- Always tell the user when you've sent them an email to verify
-- Do not poll verification status more than once every 5 seconds
+- Tell the user when a verification email has been sent
+- Do not poll more than once every 5 seconds
 - The widget appears empty until testimonials are approved by the user
-- The user controls approval — agents should not auto-approve testimonials
+- Do not auto-approve testimonials — the user controls what appears on their site
 
 ---
 
@@ -194,8 +155,7 @@ Squarespace, Webflow — anywhere you can add a script tag.
 
 Vouch is built for small business owners who want real customer voices on
 their site without the complexity or cost of enterprise review platforms.
-No third-party hosting of your reviews. No lock-in. Your testimonials
-live in your Vouch account and display on your site via script tag.
+No third-party hosting. No lock-in. Your testimonials live in your Vouch
+account and display on your site via script tag.
 
 "Your customers' words, on your site."
-
