@@ -1,6 +1,6 @@
 # Beta Outreach Scripts
-*Proof — first 10 paying users*
-*CEO draft — 2026-03-04*
+*Vouch — first 10 paying users*
+*CEO draft — 2026-03-04 | Updated — 2026-03-04 (branding: Proof → Vouch)*
 
 ## Context
 
@@ -12,7 +12,7 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 
 **Use for:** Founders who've posted about conversion rate, testimonials, or social proof
 
-> Hey [name] — saw your post about CRO on your landing page. I'm building Proof, a testimonial widget for solo founders. You email your customer a link, they fill out a form, you approve it, it shows up on your site. $9/mo, 5 min setup.
+> Hey [name] — saw your post about CRO on your landing page. I'm building Vouch, a testimonial widget for solo founders. You email your customer a link, they fill out a form, you approve it, it shows up on your site. $9/mo, 5 min setup.
 >
 > Building with Cloudflare Workers so the widget loads in <50ms globally.
 >
@@ -28,11 +28,11 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 
 > **Background:** I've tried every social proof tool. They're either expensive (Senja at $29/mo), complex (Testimonial.to), or don't actually collect — they just pull from Google (Elfsight).
 >
-> **What I built:** Proof — a testimonial widget with a hosted collector form. You email your customer a link. They fill out a text testimonial in 30 seconds (no account, no friction). You approve it in your dashboard. It appears on your site.
+> **What I built:** Vouch — a testimonial widget with a hosted collector form. You email your customer a link. They fill out a text testimonial in 30 seconds (no account, no friction). You approve it in your dashboard. It appears on your site.
 >
 > **The widget:** single `<script>` tag, <5KB, served from Cloudflare edge globally. Works on any site: Webflow, Squarespace, custom HTML, WordPress.
 >
-> **Price:** Free plan (1 widget, Proof branding), Pro at $9/mo (unlimited, no branding, custom styling).
+> **Price:** Free forever for 1 active widget (with Vouch branding). Pro at $9/mo — unlimited widgets, no branding, custom styling.
 >
 > **Looking for:** 10 people to use it free for 60 days and give me honest feedback. I'll add a feature for every piece of feedback that makes sense.
 >
@@ -46,13 +46,13 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 
 > The problem: getting a testimonial onto your landing page takes 10 steps. Email the customer, wait for them to reply, copy it out, format it, paste it into your site builder, deploy. Half the time the customer never replies.
 >
-> My solution: Proof. You send your customer a link. They fill out a 3-field form (30 seconds). You approve it in a dashboard. It shows up instantly on your site via a `<script>` tag.
+> My solution: Vouch. You send your customer a link. They fill out a 3-field form (30 seconds). You approve it in a dashboard. It shows up instantly on your site via a `<script>` tag.
 >
 > No Google reviews. No Trustpilot. No third-party platforms. Your testimonials, on your site, controlled by you.
 >
 > Tech: Cloudflare Workers, D1, KV. Widget is <5KB and loads from edge nodes globally.
 >
-> $9/mo Pro. Free plan available.
+> $9/mo Pro. Free forever plan available (1 widget).
 >
 > Looking for 10 beta users willing to give real feedback. Comment or DM.
 
@@ -65,7 +65,7 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 **One-liner:** Email your customer a link → they fill out a form → you approve it → it appears on your site. Done.
 
 **Description:**
-> Most testimonial tools either require your customer to sign up somewhere (friction), or they pull from Google/Trustpilot (no control). Proof does neither.
+> Most testimonial tools either require your customer to sign up somewhere (friction), or they pull from Google/Trustpilot (no control). Vouch does neither.
 >
 > **For site owners:** A script tag on your site. A dashboard to moderate testimonials. A link to email your customers.
 >
@@ -73,7 +73,7 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 >
 > Built on Cloudflare Workers for sub-50ms global performance. Works on any website.
 >
-> **$9/mo Pro.** Free plan forever.
+> **$9/mo Pro.** Free forever for 1 widget.
 
 ---
 
@@ -85,15 +85,20 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 >
 > I just shipped something I've been wanting for years: a testimonial widget that actually collects testimonials.
 >
-> Here's how it works: I give you a link. You email it to a customer. They fill out a 3-field form (30 seconds, no account needed). You approve it in a dashboard. It shows up on your site.
+> Here's how it works:
+> 1. You add one `<script>` tag to your site
+> 2. You email your customer a link (e.g. vouch.socialproof.dev/collect/yourwidget)
+> 3. They fill out 3 fields in 30 seconds — no account required
+> 4. You approve it in your dashboard
+> 5. It shows up on your site instantly
 >
-> I'm looking for 10 people to use it free for 60 days and tell me what sucks. No commitment. Honest feedback is the only ask.
+> It's called Vouch. Live at socialproof.dev.
 >
-> If you have a site and actual customers, you're who I built this for.
+> I'm looking for 10 people to use it free for 60 days. Honest feedback only — if something's broken or confusing, I want to know. In exchange: 60 days of Pro free, lifetime 50% off if you stay.
 >
-> Want in? Reply to this email.
+> Want in? Just reply yes and I'll send you the link.
 >
-> — [name]
+> [Your name]
 
 ---
 
@@ -123,4 +128,3 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 10 users using the widget actively (collecting at least 1 testimonial) within 2 weeks of launch.
 
 **Stretch goal:** 3 paying users at the end of the 60-day beta.
-
