@@ -91,6 +91,35 @@ app.post('/api/billing/webhook', async (c) => {
   }), c.env, c.executionCtx)
 })
 
+// Public widget beacon (no auth — called by embedded widget scripts)
+app.post('/api/widgets/:id/beacon', async (c) => {
+  const id = c.req.param('id')
+  const origin = c.req.header('origin') || c.req.header('referer') || ''
+  let domain = ''
+  try { domain = origin ? new URL(origin).hostname : '' } catch { domain = '' }
+
+  const row = await c.env.DB.prepare('SELECT id, embed_verified_at FROM widgets WHERE id = ?').bind(id).first<{ id: string; embed_verified_at: string | null }>()
+  if (!row) return c.json({ ok: false }, 404)
+
+  const now = new Date().toISOString()
+  const shouldUpdate = !row.embed_verified_at ||
+    (Date.now() - new Date(row.embed_verified_at).getTime()) > 3_600_000
+
+  if (shouldUpdate) {
+    await c.env.DB.prepare('UPDATE widgets SET embed_verified_at = ?, embed_domain = ? WHERE id = ?')
+      .bind(now, domain || null, id).run()
+  }
+  return c.json({ ok: true })
+})
+
+app.options('/api/widgets/:id/beacon', async (c) => {
+  return c.newResponse(null, { status: 204, headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }})
+})
+
 // ── JWT middleware for all other /api/* routes ────────────────────────────────
 app.use('/api/*', async (c, next) => {
   // Check cookie first, then Authorization Bearer/Token header
