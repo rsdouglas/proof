@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
+import { colors, font, radius, shadow } from '../design'
 
 export default function Login() {
   const { login, signup, token } = useAuth()
@@ -34,19 +35,44 @@ export default function Login() {
   }
 
   const inputStyle: React.CSSProperties = {
-    display: 'block', width: '100%', padding: '10px 12px',
-    border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 12,
+    display: 'block', width: '100%', padding: '10px 14px',
+    border: `1px solid ${colors.gray200}`, borderRadius: radius.md, marginBottom: 12,
     fontSize: 14, boxSizing: 'border-box', outline: 'none',
-    fontFamily: 'inherit',
+    fontFamily: font.sans, color: colors.gray900,
+    transition: 'border-color 0.15s',
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f9fafb', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif' }}>
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 40, width: '100%', maxWidth: 380 }}>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: colors.gray50,
+      fontFamily: font.sans,
+    }}>
+      <div style={{
+        background: colors.white,
+        border: `1px solid ${colors.gray200}`,
+        borderRadius: radius.xl,
+        padding: 40,
+        width: '100%', maxWidth: 380,
+        boxShadow: shadow.lg,
+      }}>
+        {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Vouch</h1>
-          <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 14 }}>
+          <div style={{
+            width: 44, height: 44, borderRadius: radius.md,
+            background: colors.brand,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            margin: '0 auto 12px',
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h1 style={{ margin: '0 0 4px', fontSize: 22, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.3px' }}>
+            Vouch
+          </h1>
+          <p style={{ margin: 0, color: colors.gray500, fontSize: 14 }}>
             {mode === 'login' ? 'Sign in to your account' : 'Create your free account'}
           </p>
         </div>
@@ -64,76 +90,48 @@ export default function Login() {
           />
           <input
             type="password" value={password} onChange={e => setPassword(e.target.value)}
-            placeholder="Password" required style={{ ...inputStyle, marginBottom: 20 }}
+            placeholder="Password" required style={{ ...inputStyle, marginBottom: error ? 12 : 20 }}
           />
 
           {error && (
-            <p style={{ color: '#ef4444', fontSize: 13, margin: '-8px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 12px' }}>
-             {error}
+            <p style={{
+              color: colors.danger, fontSize: 13, margin: '0 0 16px',
+              background: colors.dangerLight, border: `1px solid ${colors.dangerBorder}`,
+              borderRadius: radius.md, padding: '8px 12px',
+            }}>
+              {error}
             </p>
           )}
 
           <button type="submit" disabled={loading} style={{
-            width: '100%', padding: '11px', background: '#2563eb',
-            color: '#fff', border: 'none', borderRadius: 6, fontSize: 15,
+            width: '100%', padding: 11,
+            background: loading ? colors.gray400 : colors.brand,
+            color: colors.white, border: 'none',
+            borderRadius: radius.md, fontSize: 15,
             fontWeight: 600, cursor: loading ? 'default' : 'pointer',
-            opacity: loading ? 0.7 : 1, fontFamily: 'inherit',
+            fontFamily: font.sans, transition: 'background 0.15s',
           }}>
-            {loading ? 'Loading...' : mode === 'login' ? 'Sign in' : 'Create account'}
+            {loading ? 'Loading…' : mode === 'login' ? 'Sign in' : 'Create account'}
           </button>
         </form>
 
-
         {mode === 'login' && (
-          <p style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: '#6b7280' }}>
-            <Link to="/forgot-password" style={{ color: '#6b7280', textDecoration: 'none' }}>
+          <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13, color: colors.gray500 }}>
+            <Link to="/forgot-password" style={{ color: colors.gray500, textDecoration: 'none' }}>
               Forgot your password?
             </Link>
           </p>
         )}
-        <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: '#6b7280' }}>
-          {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
+        <p style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: colors.gray500 }}>
+          {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
           <button
-            onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError('') }}
-            style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', fontSize: 14, fontFamily: 'inherit', padding: 0 }}
+            onClick={() => { setMode(m => m === 'login' ? 'signup' : 'login'); setError('') }}
+            style={{ background: 'none', border: 'none', color: colors.brand, cursor: 'pointer', fontWeight: 600, fontSize: 13, fontFamily: font.sans, padding: 0 }}
           >
             {mode === 'login' ? 'Sign up free' : 'Sign in'}
           </button>
         </p>
-        {/* Forgot password */}
-        {mode === 'login' && (
-          <div style={{ textAlign: 'center', marginTop: 12 }}>
-            <a href="/forgot-password" style={{ fontSize: 13, color: '#6374af', textDecoration: 'none' }}>
-              Forgot password?
-            </a>
-          </div>
-        )}
-
-        {/* Demo link */}
-        <div style={{ textAlign: 'center', marginTop: 16 }}>
-          <a href="/demo" style={{
-            fontSize: 13, color: '#763aed', textDecoration: 'none',
-            fontWeight: 500,
-          }}>
-            ✓ Try live demo →
-          </a>
-        </div>
-
-        <div style={{ textAlign: 'center', marginTop: 24, fontSize: 13 }}>
-          {mode === 'login' ? (
-            <>
-              <span style={{ color: '#6b7280' }}>Don't have an account? </span>
-              <a href="#" onClick={e => { e.preventDefault(); setMode('signup') }}
-style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign up</a>
-            </>
-          ) : (
-            <>
-              <span style={{ color: '#6b7280' }}>Already have an account? </span>
-              <a href="#" onClick={e => { e.preventDefault(); setMode('login') }}
-style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign in</a>
-            </>
-          )}
-        </div>      </div>
+      </div>
     </div>
   )
 }
