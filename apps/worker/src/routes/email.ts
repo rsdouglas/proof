@@ -19,6 +19,11 @@ export interface EmailPayload {
 /**
  * Send an email via MailChannels (Cloudflare Workers native).
  * Falls back to a no-op in development.
+ * 
+ * DKIM signing: if DKIM_PRIVATE_KEY and DKIM_DOMAIN env vars are set,
+ * DKIM headers are included so emails pass spam filters.
+ * Generate with: openssl genrsa 2048 | openssl pkcs8 -topk8 -nocrypt -out dkim.key
+ * Then: wrangler secret put DKIM_PRIVATE_KEY
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendEmail(payload: EmailPayload, env: any): Promise<void> {
@@ -27,15 +32,26 @@ export async function sendEmail(payload: EmailPayload, env: any): Promise<void> 
     return
   }
 
+  // Build personalizations — include DKIM if configured
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const personalization: Record<string, any> = {
+    to: [{ email: payload.to, name: payload.toName || payload.to }],
+  }
+
+  // Mailchannels DKIM support: pass dkim_domain, dkim_selector, dkim_private_key
+  // in the personalization block when env vars are set.
+  // Ref: https://support.mailchannels.com/hc/en-us/articles/7122849237389
+  if (env?.DKIM_PRIVATE_KEY && env?.DKIM_DOMAIN) {
+    personalization.dkim_domain = env.DKIM_DOMAIN || 'socialproof.dev'
+    personalization.dkim_selector = env.DKIM_SELECTOR || 'mailchannels'
+    personalization.dkim_private_key = env.DKIM_PRIVATE_KEY
+  }
+
   const body = {
-    personalizations: [
-      {
-        to: [{ email: payload.to, name: payload.toName || payload.to }],
-      },
-    ],
+    personalizations: [personalization],
     from: {
       email: 'notifications@socialproof.dev',
-      name: 'SocialProof',
+      name: 'Vouch',
     },
     subject: payload.subject,
     content: [
