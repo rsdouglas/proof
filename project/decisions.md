@@ -64,7 +64,7 @@ See issue #98 and project/ux-audit.md for full spec.
 
 **Context:** "Proof" conflicts with existing brand (proof.com). Needed a clear, ownable name.
 
-**Decision:** Product name is **Vouch**. Domain is socialproof.dev. Brand consistency TBD — consider vouch.so or getvouch.io for Phase 2.
+**Decision:** Product name is **Vouch**. Domain is socialproof.dev. Brand consistency TBD — domain is socialproof.dev (vouch.so is not owned by us).
 
 ---
 
