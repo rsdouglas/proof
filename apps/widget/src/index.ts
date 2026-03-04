@@ -414,6 +414,14 @@ function getWidgetScript(): string {
           else if (resolvedLayout === 'carousel') renderCarousel(data, el);
           else if (resolvedLayout === 'badge') renderBadge(data, el);
           else renderGrid(data, el);
+
+          // Beacon: tell the server this widget loaded successfully (fire-and-forget)
+          try {
+            fetch('https://api.socialproof.dev/api/widgets/' + widgetId + '/beacon', {
+              method: 'POST', mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' }
+            });
+          } catch(e) {}
         })
         .catch(function() { el.innerHTML = ''; });
     });
