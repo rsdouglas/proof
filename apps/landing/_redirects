@@ -1,1 +1,2 @@
-/c/:id  https://api.socialproof.dev/submit/:id  302
+# /c/:id is handled by Pages Function (functions/c/[id].js)
+# which proxies to api.socialproof.dev without changing the URL
