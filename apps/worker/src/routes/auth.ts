@@ -2,6 +2,9 @@ import { Hono } from 'hono'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Env, Variables } from '../index'
 
+import { sendWelcomeEmail } from '../lib/onboarding'
+import { checkRateLimit } from '../lib/ratelimit'
+
 export const auth = new Hono<{ Bindings: Env; Variables: Variables }>()
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -68,15 +71,6 @@ function prefixedId(prefix: string): string {
   return prefix + '_' + Array.from(bytes).map(b => chars[b % chars.length]).join('')
 }
 
-/** Rate limit via KV: returns true if request is allowed, false if rate limited */
-async function checkRateLimit(kv: KVNamespace, key: string, limit: number, windowSecs: number): Promise<boolean> {
-  const raw = await kv.get(key)
-  const count = raw ? parseInt(raw, 10) : 0
-  if (count >= limit) return false
-  await kv.put(key, String(count + 1), { expirationTtl: windowSecs })
-  return true
-}
-
 function setAuthCookie(c: any, token: string) {
   setCookie(c, 'proof_token', token, {
     httpOnly: true,
@@ -121,7 +115,19 @@ auth.post('/signup', async (c) => {
   const widgetId = prefixedId('wgt')
   await c.env.DB.prepare(
     'INSERT INTO widgets (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
-  ).bind(widgetId, id, 'My Website', now, now).run()
+  ).bind(widgetId, id, `${name.trim()}'s Reviews`, now, now).run()
+
+  // Send welcome email — fire-and-forget (don't block signup if email fails)
+  if (c.env.RESEND_API_KEY) {
+    sendWelcomeEmail(c.env.RESEND_API_KEY, {
+      email: normalizedEmail,
+      name: name.trim(),
+      widgetId,
+    }).catch((err) => console.error('[signup] welcome email failed:', err))
+    // Record send timestamp
+    c.env.DB.prepare('UPDATE accounts SET drip_welcome_sent_at = ? WHERE id = ?')
+      .bind(now, id).run().catch(() => {})
+  }
 
   const token = await generateToken(id, normalizedEmail, 'free', c.env.JWT_SECRET)
   setAuthCookie(c, token)
@@ -195,3 +201,196 @@ auth.get('/me', async (c) => {
 })
 
 export { verifyToken }
+
+
+// ── Password Reset ─────────────────────────────────────────────────────────
+
+/** POST /api/auth/forgot-password */
+auth.post('/forgot-password', async (c) => {
+  let body: { email?: string }
+  try { body = await c.req.json() } catch { return c.json({ error: 'Invalid JSON' }, 400) }
+  const email = (body.email || '').trim().toLowerCase()
+  if (!email) return c.json({ error: 'Email required' }, 400)
+
+  // Always return success to prevent email enumeration
+  const account = await c.env.DB.prepare(
+    'SELECT id, name FROM accounts WHERE email = ?'
+  ).bind(email).first<{ id: string; name: string }>()
+
+  if (account && c.env.RESEND_API_KEY) {
+    // Generate a secure reset token
+    const tokenBytes = crypto.getRandomValues(new Uint8Array(32))
+    const token = Array.from(tokenBytes).map(b => b.toString(16).padStart(2, '0')).join('')
+
+    // Store in KV with 1-hour TTL
+    await c.env.WIDGET_KV.put(
+      `pwd_reset:${token}`,
+      JSON.stringify({ accountId: account.id, email }),
+      { expirationTtl: 3600 }
+    )
+
+    // Send email
+    const resetUrl = `https://app.socialproof.dev/reset-password?token=${token}`
+    const first = (account.name || 'there').split(' ')[0]
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+<div style="max-width:560px;margin:40px auto;padding:0 16px">
+  <div style="background:#fff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden">
+    <div style="background:#6C5CE7;padding:24px 32px">
+      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ Vouch</span>
+    </div>
+    <div style="padding:32px">
+      <h2 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#111827">Reset your password</h2>
+      <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.6">
+        Hey ${first} — someone (hopefully you) requested a password reset for your Vouch account.
+        Click the button below to choose a new password. This link expires in 1 hour.
+      </p>
+      <a href="${resetUrl}" style="display:inline-block;padding:12px 28px;background:#6C5CE7;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">
+        Reset password →
+      </a>
+      <p style="margin:24px 0 0;color:#6b7280;font-size:13px">
+        If you didn't request this, you can safely ignore this email. Your password won't change.
+      </p>
+    </div>
+  </div>
+</div>
+</body></html>`
+
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${c.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Vouch <team@socialproof.dev>',
+        to: email,
+        subject: 'Reset your Vouch password',
+        html,
+      }),
+    })
+  }
+
+  return c.json({ ok: true, message: 'If that email exists, a reset link is on its way.' })
+})
+
+/** POST /api/auth/reset-password */
+auth.post('/reset-password', async (c) => {
+  let body: { token?: string; password?: string }
+  try { body = await c.req.json() } catch { return c.json({ error: 'Invalid JSON' }, 400) }
+  const { token, password } = body
+
+  if (!token || !password) return c.json({ error: 'Token and password required' }, 400)
+  if (password.length < 8) return c.json({ error: 'Password must be at least 8 characters' }, 400)
+
+  const stored = await c.env.WIDGET_KV.get(`pwd_reset:${token}`)
+  if (!stored) return c.json({ error: 'Reset link is invalid or expired' }, 400)
+
+  const { accountId } = JSON.parse(stored) as { accountId: string; email: string }
+
+  // Hash new password
+  const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map(b => b.toString(16).padStart(2, '0')).join('')
+  const hash = await hashPassword(password, salt)
+
+  await c.env.DB.prepare(
+    'UPDATE accounts SET password_hash = ?, password_salt = ? WHERE id = ?'
+  ).bind(hash, salt, accountId).run()
+
+  // Invalidate the token
+  await c.env.WIDGET_KV.delete(`pwd_reset:${token}`)
+
+  // Issue new session token so they're logged in immediately
+  const account = await c.env.DB.prepare(
+    'SELECT id, email, plan FROM accounts WHERE id = ?'
+  ).bind(accountId).first<{ id: string; email: string; plan: string }>()
+
+  if (!account || !c.env.JWT_SECRET) {
+    return c.json({ ok: true, message: 'Password updated. Please log in.' })
+  }
+
+  const jwt = await generateToken(account.id, account.email, account.plan, c.env.JWT_SECRET)
+  setAuthCookie(c, jwt)
+  return c.json({ ok: true, token: jwt })
+})
+
+/** GET /api/auth/demo — returns a read-only demo JWT and seeds demo data if needed */
+auth.get('/demo', async (c) => {
+  const DEMO_ACCOUNT_ID = 'demo-account-vouch'
+  const DEMO_EMAIL = 'demo@vouch.example'
+  const DEMO_WIDGET_ID = 'demo-widget-001'
+
+  // Ensure demo account exists
+  const existing = await c.env.DB.prepare(
+    'SELECT id FROM accounts WHERE id = ?'
+  ).bind(DEMO_ACCOUNT_ID).first()
+
+  if (!existing) {
+    // Seed demo account
+    await c.env.DB.prepare(
+      `INSERT OR IGNORE INTO accounts (id, email, name, plan, password_hash, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`
+    ).bind(
+      DEMO_ACCOUNT_ID,
+      DEMO_EMAIL,
+      'Acme Store (Demo)',
+      'pro',
+      'demo-no-login',
+      new Date(Date.now() - 30 * 86400 * 1000).toISOString()
+    ).run()
+
+    // Seed demo widget
+    await c.env.DB.prepare(
+      `INSERT OR IGNORE INTO widgets (id, account_id, name, slug, settings, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`
+    ).bind(
+      DEMO_WIDGET_ID,
+      DEMO_ACCOUNT_ID,
+      'Product Reviews',
+      'acme-store-demo',
+      JSON.stringify({ theme: 'light', position: 'bottom-right', delay: 3000 }),
+      new Date(Date.now() - 25 * 86400 * 1000).toISOString()
+    ).run()
+
+    // Seed 10 realistic demo testimonials
+    const demoTestimonials = [
+      { name: 'Sarah K.', email: 'sarah@example.com', text: 'This product completely transformed how I work. I save at least 2 hours every day. Absolutely worth every penny!', rating: 5, company: 'TechStart Inc', status: 'approved' },
+      { name: 'Marcus Chen', email: 'marcus@example.com', text: 'Best investment we made this quarter. Our conversion rate jumped 34% after adding social proof to our checkout page.', rating: 5, company: 'GrowthLab', status: 'approved' },
+      { name: 'Priya Sharma', email: 'priya@example.com', text: "Setup took 5 minutes. The widget looks great and matches our brand perfectly. Customer support is also incredible.", rating: 5, company: 'Bloom Beauty', status: 'approved' },
+      { name: 'Alex Rivera', email: 'alex@example.com', text: 'We went from 0 to 50 reviews in two weeks using the automated request emails. Game changer for building trust.', rating: 5, company: 'Coastal Apparel', status: 'approved' },
+      { name: 'Jordan Lee', email: 'jordan@example.com', text: 'Love the popup widget. Visitors see real-time social proof and it has noticeably reduced our bounce rate.', rating: 4, company: 'Nimbus SaaS', status: 'approved' },
+      { name: 'Taylor Wong', email: 'taylor@example.com', text: 'Really solid product. Would love more customization options for the widget colors but overall very happy.', rating: 4, company: 'Pixel Studios', status: 'approved' },
+      { name: 'Sam Patel', email: 'sam@example.com', text: 'Does exactly what it says on the tin. Simple, fast, and the CSV export is super useful for our reporting.', rating: 5, company: 'DataPoint Analytics', status: 'approved' },
+      { name: 'Chris Morgan', email: 'chris@example.com', text: 'Great tool! One suggestion: it would be nice to have Slack notifications when new testimonials come in.', rating: 4, company: 'Remote First Co', status: 'pending' },
+      { name: 'Dana Foster', email: 'dana@example.com', text: 'The wall of love page looks amazing. We linked it from our pricing page and it definitely helps close deals.', rating: 5, company: 'Venture Labs', status: 'approved' },
+      { name: 'Riley Adams', email: 'riley@example.com', text: "Excellent product. I've tried three other social proof tools and this is by far the easiest to set up and maintain.", rating: 5, company: 'Solo Founder', status: 'approved' },
+    ]
+
+    const nowMs = Date.now()
+    for (let i = 0; i < demoTestimonials.length; i++) {
+      const t = demoTestimonials[i]
+      const id = `demo-t-${String(i + 1).padStart(3, '0')}`
+      const daysAgo = (demoTestimonials.length - i) * 2.5
+      await c.env.DB.prepare(
+        `INSERT OR IGNORE INTO testimonials (id, account_id, widget_id, name, email, company, text, rating, status, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(
+        id, DEMO_ACCOUNT_ID, DEMO_WIDGET_ID,
+        t.name, t.email, t.company, t.text, t.rating, t.status,
+        new Date(nowMs - daysAgo * 86400 * 1000).toISOString()
+      ).run()
+    }
+  }
+
+  // Issue demo JWT
+  const token = await generateToken(DEMO_ACCOUNT_ID, DEMO_EMAIL, 'pro', c.env.JWT_SECRET)
+  setAuthCookie(c, token)
+
+  return c.json({
+    token,
+    demo: true,
+    account: { id: DEMO_ACCOUNT_ID, email: DEMO_EMAIL, name: 'Acme Store (Demo)', plan: 'pro' },
+  })
+})
+
+export default auth

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useApi } from '../lib/auth'
+import { Toast } from '../components/Toast'
 
 interface Widget {
   id: string
@@ -19,6 +20,7 @@ export default function Widgets() {
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: 'error' | 'success' } | null>(null)
 
   useEffect(() => {
     request<{ widgets: Widget[] }>('/widgets')
@@ -39,8 +41,9 @@ export default function Widgets() {
       setWidgets(ws => [data.widget, ...ws])
       setNewName('')
       setShowForm(false)
+      setToast({ message: 'Widget created!', type: 'success' })
     } catch (err) {
-      alert((err as Error).message)
+      setToast({ message: (err as Error).message, type: 'error' })
     } finally {
       setCreating(false)
     }
@@ -48,6 +51,14 @@ export default function Widgets() {
 
   return (
     <div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
           <h1 style={{ margin: '0 0 4px', fontSize: 22, fontWeight: 700 }}>Widgets</h1>
@@ -91,43 +102,46 @@ export default function Widgets() {
           <h3 style={{ margin: '0 0 8px', color: '#374151' }}>No widgets yet</h3>
           <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>Create your first widget to start collecting testimonials.</p>
           <button onClick={() => setShowForm(true)} style={{
-            padding: '9px 18px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+            padding: '9px 18px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 14, fontFamily: 'inherit',
           }}>
-            Create first widget
+            + Create your first widget
           </button>
         </div>
       )}
 
-      {!loading && widgets.length > 0 && (
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
-                <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, color: '#6b7280', fontWeight: 500 }}>NAME</th>
-                <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, color: '#6b7280', fontWeight: 500 }}>THEME</th>
-                <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, color: '#6b7280', fontWeight: 500 }}>LAYOUT</th>
-                <th style={{ padding: '10px 16px', textAlign: 'left', fontSize: 12, color: '#6b7280', fontWeight: 500 }}>CREATED</th>
-                <th style={{ padding: '10px 16px', textAlign: 'right', fontSize: 12, color: '#6b7280', fontWeight: 500 }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              {widgets.map(w => (
-                <tr key={w.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                  <td style={{ padding: '12px 16px', fontSize: 14, fontWeight: 500, color: '#111827' }}>
-                    <Link to={`/widgets/${w.id}`} style={{ color: '#2563eb', textDecoration: 'none' }}>{w.name}</Link>
-                  </td>
-                  <td style={{ padding: '12px 16px', fontSize: 13, color: '#6b7280', textTransform: 'capitalize' }}>{w.theme || 'light'}</td>
-                  <td style={{ padding: '12px 16px', fontSize: 13, color: '#6b7280', textTransform: 'capitalize' }}>{w.layout || 'grid'}</td>
-                  <td style={{ padding: '12px 16px', fontSize: 13, color: '#9ca3af' }}>{new Date(w.created_at).toLocaleDateString()}</td>
-                  <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                    <Link to={`/widgets/${w.id}`} style={{ fontSize: 13, color: '#2563eb', textDecoration: 'none' }}>Manage →</Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+        {widgets.map(w => (
+          <Link key={w.id} to={`/widgets/${w.id}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+            <div style={{
+              background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20,
+              transition: 'border-color 0.15s, box-shadow 0.15s',
+            }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = '#2563eb'
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 8px rgba(37,99,235,0.1)'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = '#e5e7eb'
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: '#111827' }}>{w.name}</h3>
+                <span style={{
+                  fontSize: 11, padding: '3px 8px', borderRadius: 20, fontWeight: 500,
+                  background: '#eff6ff', color: '#2563eb',
+                }}>{w.layout || 'grid'}</span>
+              </div>
+              <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 12 }}>
+                Theme: {w.theme || 'light'} · {w.testimonial_count ?? 0} testimonials
+              </div>
+              <div style={{ fontSize: 12, color: '#9ca3af' }}>
+                Created {new Date(w.created_at).toLocaleDateString()}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

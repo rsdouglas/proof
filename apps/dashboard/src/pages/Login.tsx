@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 
 export default function Login() {
@@ -45,7 +45,7 @@ export default function Login() {
       <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 40, width: '100%', maxWidth: 380 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Proof</h1>
+          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Vouch</h1>
           <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 14 }}>
             {mode === 'login' ? 'Sign in to your account' : 'Create your free account'}
           </p>
@@ -68,20 +68,29 @@ export default function Login() {
           />
 
           {error && (
-            <p style={{ color: '#ef4444', fontSize: 13, margin: '-8px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 10px' }}>
-              {error}
+            <p style={{ color: '#ef4444', fontSize: 13, margin: '-8px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 12px' }}>
+             {error}
             </p>
           )}
 
           <button type="submit" disabled={loading} style={{
-            display: 'block', width: '100%', padding: '11px', background: '#2563eb', color: '#fff',
-            border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer',
+            width: '100%', padding: '11px', background: '#2563eb',
+            color: '#fff', border: 'none', borderRadius: 6, fontSize: 15,
+            fontWeight: 600, cursor: loading ? 'default' : 'pointer',
             opacity: loading ? 0.7 : 1, fontFamily: 'inherit',
           }}>
-            {loading ? 'Please wait…' : mode === 'login' ? 'Sign in' : 'Create account'}
+            {loading ? 'Loading...' : mode === 'login' ? 'Sign in' : 'Create account'}
           </button>
         </form>
 
+
+        {mode === 'login' && (
+          <p style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: '#6b7280' }}>
+            <Link to="/forgot-password" style={{ color: '#6b7280', textDecoration: 'none' }}>
+              Forgot your password?
+            </Link>
+          </p>
+        )}
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: '#6b7280' }}>
           {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
           <button
@@ -91,7 +100,40 @@ export default function Login() {
             {mode === 'login' ? 'Sign up free' : 'Sign in'}
           </button>
         </p>
-      </div>
+        {/* Forgot password */}
+        {mode === 'login' && (
+          <div style={{ textAlign: 'center', marginTop: 12 }}>
+            <a href="/forgot-password" style={{ fontSize: 13, color: '#6374af', textDecoration: 'none' }}>
+              Forgot password?
+            </a>
+          </div>
+        )}
+
+        {/* Demo link */}
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <a href="/demo" style={{
+            fontSize: 13, color: '#763aed', textDecoration: 'none',
+            fontWeight: 500,
+          }}>
+            ✓ Try live demo →
+          </a>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: 24, fontSize: 13 }}>
+          {mode === 'login' ? (
+            <>
+              <span style={{ color: '#6b7280' }}>Don't have an account? </span>
+              <a href="#" onClick={e => { e.preventDefault(); setMode('signup') }}
+style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign up</a>
+            </>
+          ) : (
+            <>
+              <span style={{ color: '#6b7280' }}>Already have an account? </span>
+              <a href="#" onClick={e => { e.preventDefault(); setMode('login') }}
+style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign in</a>
+            </>
+          )}
+        </div>      </div>
     </div>
   )
 }

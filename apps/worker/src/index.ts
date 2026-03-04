@@ -10,14 +10,20 @@ import { auth, verifyToken } from './routes/auth'
 import { accounts } from './routes/accounts'
 import { collectWidget } from './routes/collect_widget'
 import { billing } from './routes/billing'
-
+import { analytics } from './routes/analytics'
+import { wall } from './routes/wall'
+import { webhooks } from './routes/webhooks'
+import { apiKeys, resolveApiKey } from './routes/api_keys'
+import waitlist from './routes/waitlist'
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
   JWT_SECRET: string
+  ENVIRONMENT?: string
   STRIPE_SECRET_KEY: string
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
+  RESEND_API_KEY?: string
 }
 
 export type Variables = {
@@ -46,6 +52,8 @@ app.use('*', cors({
 // ── Public routes ─────────────────────────────────────────────────────────────
 // Embeddable widget JSON (served by widget worker too, this is a fallback)
 app.route('/w', widget)
+// Public testimonial wall (server-rendered HTML)
+app.route('/wall', wall)
 // Hosted collection form
 app.route('/c', collect)
 // Collection form submission (public)
@@ -54,8 +62,20 @@ app.route('/', submit)
 app.route('/collect', collectWidget)
 app.route('/api/collect', collectWidget)
 
+// Public analytics track endpoint (no auth - widget embeds call this)
+app.post('/api/track/:widgetId', async (c) => {
+  return analytics.fetch(new Request(new URL('/track/' + c.req.param('widgetId'), 'https://x.x'), {
+    method: c.req.method,
+    headers: c.req.raw.headers,
+    body: c.req.raw.body,
+  }), c.env, c.executionCtx)
+})
+
 // ── Auth routes (no JWT required) ────────────────────────────────────────────
 app.route('/api/auth', auth)
+
+// Waitlist (public, no auth required)
+app.route('/api/waitlist', waitlist)
 
 // Stripe webhook (no JWT - validated by signature)
 app.post('/api/billing/webhook', async (c) => {
@@ -69,10 +89,27 @@ app.post('/api/billing/webhook', async (c) => {
 
 // ── JWT middleware for all other /api/* routes ────────────────────────────────
 app.use('/api/*', async (c, next) => {
-  // Check cookie first, then Authorization Bearer header
+  // Check cookie first, then Authorization Bearer/Token header
   const cookie = getCookie(c, 'proof_token')
-  const header = c.req.header('Authorization')?.replace('Bearer ', '')
-  const token = cookie || header
+  const authHeader = c.req.header('Authorization') ?? ''
+  let token = cookie
+
+  if (!token) {
+    if (authHeader.startsWith('Bearer sk_live_')) {
+      // API key auth: sk_live_... keys bypass JWT
+      const rawKey = authHeader.replace('Bearer ', '')
+      const resolved = await resolveApiKey(rawKey, c.env.DB)
+      if (!resolved) return c.json({ error: 'Invalid API key' }, 401)
+      // Look up plan for this account
+      const acct = await c.env.DB.prepare(
+        'SELECT plan FROM accounts WHERE id = ?'
+      ).bind(resolved.accountId).first<{ plan: string }>()
+      c.set('accountId', resolved.accountId)
+      c.set('plan', acct?.plan ?? 'free')
+      return next()
+    }
+    token = authHeader.replace('Bearer ', '') || undefined
+  }
 
   if (!token) return c.json({ error: 'Authentication required' }, 401)
 
@@ -89,7 +126,9 @@ app.route('/api/testimonials', testimonials)
 app.route('/api/widgets', widgets)
 app.route('/api/accounts', accounts)
 app.route('/api/billing', billing)
-
+app.route('/api/analytics', analytics)
+app.route('/api/webhooks', webhooks)
+app.route('/api/keys', apiKeys)
 // Collection forms
 app.get('/api/collection-forms', async (c) => {
   const accountId = c.get('accountId')
@@ -145,3 +184,10 @@ app.get('/health', (c) => c.json({ ok: true, ts: new Date().toISOString() }))
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
 export default app
+
+// Cloudflare Scheduled handler for drip email cron
+import { handleCron } from './cron'
+
+export const scheduled: ExportedHandlerScheduledHandler<Env> = (ctrl, env, ctx) => {
+  ctx.waitUntil(handleCron(ctrl, env))
+}

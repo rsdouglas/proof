@@ -41,6 +41,15 @@ app.get('/v1/proof.js', async (c) => {
   })
 })
 
+// Canonical URL: widget.js (proof.js kept for backward compat)
+app.get('/v1/widget.js', async (c) => {
+  const widgetJs = getWidgetScript()
+  return c.text(widgetJs, 200, {
+    'Content-Type': 'application/javascript; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600',
+  })
+})
+
 // Serve widget data as JSON
 app.get('/v1/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
@@ -73,6 +82,35 @@ app.get('/v1/:widgetId', async (c) => {
     })
   } catch (err) {
     return c.json({ error: 'Failed to load widget' }, 500)
+  }
+})
+
+// Serve popup widget data (subset of full widget: testimonials for notification display)
+app.get('/v1/:widgetId/popup', async (c) => {
+  const widgetId = c.req.param('widgetId')
+
+  const cacheKey = `widget-popup:${widgetId}`
+  const cached = await c.env.WIDGET_KV.get(cacheKey, 'json')
+  if (cached) {
+    return c.json(cached, 200, { 'Cache-Control': 's-maxage=60, public', 'X-Cache': 'HIT' })
+  }
+
+  try {
+    const apiUrl = `${c.env.WORKER_API_URL}/w/${widgetId}`
+    const res = await fetch(apiUrl)
+    if (!res.ok) return c.json({ error: 'Widget not found' }, 404)
+    const data = await res.json() as WidgetData
+
+    // For popup: return last 10 testimonials + config
+    const popupData = {
+      testimonials: (data.testimonials || []).slice(0, 10),
+      config: data.config,
+    }
+
+    await c.env.WIDGET_KV.put(cacheKey, JSON.stringify(popupData), { expirationTtl: 60 })
+    return c.json(popupData, 200, { 'Cache-Control': 's-maxage=60, public', 'X-Cache': 'MISS' })
+  } catch {
+    return c.json({ error: 'Failed to load popup data' }, 500)
   }
 })
 
@@ -206,6 +244,141 @@ function getWidgetScript(): string {
     return '<div class="proof-attribution"><a href="https://socialproof.dev" target="_blank" rel="noopener">Powered by Vouch</a></div>';
   }
 
+
+  // ── Activity Popup Widget ─────────────────────────────────────────────────
+  function injectPopupStyles(theme, position) {
+    var styleId = 'proof-popup-styles';
+    if (document.getElementById(styleId)) return;
+    var dark = theme === 'dark';
+    var isRight = position === 'bottom-right' || position === 'top-right';
+    var isTop = position && position.indexOf('top') === 0;
+    var css = [
+      '#proof-popup-container {',
+      '  position: fixed;',
+      '  z-index: 999999;',
+      '  pointer-events: none;',
+      isRight ? '  right: 20px;' : '  left: 20px;',
+      isTop ? '  top: 20px;' : '  bottom: 20px;',
+      '}',
+      '.proof-popup {',
+      '  pointer-events: auto;',
+      '  display: flex;',
+      '  align-items: center;',
+      '  gap: 12px;',
+      '  padding: 12px 16px;',
+      '  border-radius: 12px;',
+      '  box-shadow: 0 4px 20px rgba(0,0,0,0.12);',
+      '  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;',
+      '  font-size: 14px;',
+      '  max-width: 320px;',
+      '  min-width: 240px;',
+      '  margin-top: 8px;',
+      '  opacity: 0;',
+      '  transform: translateY(10px);',
+      '  transition: opacity 0.35s ease, transform 0.35s ease;',
+      '  cursor: default;',
+      dark ? '  background: #1e1e2e; color: #cdd6f4; border: 1px solid #313244;' : '  background: #fff; color: #1a1a2e; border: 1px solid #e8e8f0;',
+      '}',
+      '.proof-popup.visible { opacity: 1; transform: translateY(0); }',
+      '.proof-popup-avatar {',
+      '  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;',
+      '  display: flex; align-items: center; justify-content: center;',
+      dark ? '  background: #313244; color: #cdd6f4;' : '  background: #f0f0fa; color: #5f5faf;',
+      '  font-weight: 700; font-size: 16px;',
+      '}',
+      '.proof-popup-body { flex: 1; min-width: 0; }',
+      '.proof-popup-name { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }',
+      '.proof-popup-text { font-size: 12px; opacity: 0.75; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }',
+      '.proof-popup-time { font-size: 11px; opacity: 0.5; margin-top: 4px; }',
+      '.proof-popup-stars { color: #f59e0b; font-size: 12px; margin-top: 2px; }',
+      '.proof-popup-close { opacity: 0.4; cursor: pointer; flex-shrink: 0; font-size: 16px; line-height: 1; background: none; border: none; padding: 0; ',
+      dark ? 'color: #cdd6f4;' : 'color: #1a1a2e;',
+      '}',
+      '.proof-popup-close:hover { opacity: 0.8; }',
+    ].join('\\n');
+    var style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  function renderStars(rating) {
+    if (!rating) return '';
+    var stars = '';
+    for (var i = 1; i <= 5; i++) stars += i <= rating ? '★' : '☆';
+    return '<div class="proof-popup-stars">' + stars + '</div>';
+  }
+
+  function timeAgo(dateStr) {
+    var diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return Math.floor(diff / 86400) + 'd ago';
+  }
+
+  function initPopup(widgetId, positionOverride, themeOverride) {
+    fetch(WIDGET_URL + widgetId + '/popup')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.testimonials || data.testimonials.length === 0) return;
+        var position = positionOverride || (data.config && data.config.position) || 'bottom-left';
+        var theme = themeOverride || (data.config && data.config.theme) || 'light';
+        injectPopupStyles(theme, position);
+
+        var container = document.createElement('div');
+        container.id = 'proof-popup-container';
+        document.body.appendChild(container);
+
+        var items = data.testimonials;
+        var idx = 0;
+        var popup = null;
+        var hideTimer = null;
+        var dismissed = false;
+
+        function showNext() {
+          if (dismissed || items.length === 0) return;
+          var item = items[idx % items.length];
+          idx++;
+          var initial = item.display_name ? item.display_name.charAt(0).toUpperCase() : '?';
+          var el = document.createElement('div');
+          el.className = 'proof-popup';
+          el.innerHTML = [
+            '<div class="proof-popup-avatar">' + initial + '</div>',
+            '<div class="proof-popup-body">',
+            '  <div class="proof-popup-name">' + (item.display_name || 'Someone') + (item.company ? ' · ' + item.company : '') + '</div>',
+            renderStars(item.rating),
+            '  <div class="proof-popup-text">' + (item.display_text || '').slice(0, 120) + (item.display_text && item.display_text.length > 120 ? '…' : '') + '</div>',
+            '  <div class="proof-popup-time">' + timeAgo(item.created_at) + '</div>',
+            '</div>',
+            '<button class="proof-popup-close" aria-label="Close">×</button>',
+          ].join('');
+
+          el.querySelector('.proof-popup-close').addEventListener('click', function() {
+            dismissed = true;
+            el.classList.remove('visible');
+            setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
+            if (hideTimer) clearTimeout(hideTimer);
+          });
+
+          container.appendChild(el);
+          if (popup && popup.parentNode) popup.parentNode.removeChild(popup);
+          popup = el;
+          setTimeout(function() { el.classList.add('visible'); }, 50);
+
+          hideTimer = setTimeout(function() {
+            el.classList.remove('visible');
+            setTimeout(function() {
+              if (el.parentNode) el.parentNode.removeChild(el);
+              if (!dismissed) setTimeout(showNext, 4000);
+            }, 400);
+          }, 5000);
+        }
+
+        setTimeout(showNext, 3000);
+      })
+      .catch(function() {});
+  }
+
   function init() {
     var divs = document.querySelectorAll('[data-widget-id]');
     divs.forEach(function(el, idx) {
@@ -228,11 +401,21 @@ function getWidgetScript(): string {
             return;
           }
 
-          if (resolvedLayout === 'carousel') renderCarousel(data, el);
+          if (resolvedLayout === 'popup') { return; } // popup handled separately
+          else if (resolvedLayout === 'carousel') renderCarousel(data, el);
           else if (resolvedLayout === 'badge') renderBadge(data, el);
           else renderGrid(data, el);
         })
         .catch(function() { el.innerHTML = ''; });
+    });
+
+    // Also scan for popup widgets (data-widget-popup attribute)
+    var popupEls = document.querySelectorAll('[data-widget-popup]');
+    popupEls.forEach(function(el) {
+      var widgetId = el.getAttribute('data-widget-popup');
+      var position = el.getAttribute('data-popup-position') || null;
+      var theme = el.getAttribute('data-theme') || null;
+      if (widgetId) initPopup(widgetId, position, theme);
     });
   }
 

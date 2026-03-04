@@ -13,7 +13,7 @@ collectWidget.get('/:widgetId', async (c) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${widget ? `Leave a review for ${widget.business_name}` : 'Not Found'} — Proof</title>
+<title>${widget ? `How was your experience with ${widget.business_name}?` : 'Not Found'} — Vouch</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:40px 16px;min-height:100vh}
@@ -40,8 +40,8 @@ collectWidget.get('/:widgetId', async (c) => {
 <body>
 ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">This collection link is no longer active.</p></div>' : `
 <div class="card">
-  <h1>Share your experience</h1>
-  <p class="sub">Leave a review for <strong>${widget.business_name}</strong></p>
+  <h1>How was your experience with ${widget.business_name}?</h1>
+  <p class="sub">Your honest words help others find them — and mean the world to a small business.</p>
   <div id="form">
     <label>Your name <span class="required">*</span></label>
     <input id="name" placeholder="Jane Smith" autocomplete="name" />
@@ -55,15 +55,15 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
     <div class="stars" id="stars">
       ${[1,2,3,4,5].map(i => `<span class="star" data-v="${i}">★</span>`).join('')}
     </div>
-    <label>Your testimonial <span class="required">*</span></label>
-    <textarea id="text" placeholder="Tell us about your experience…"></textarea>
+    <label>Your experience <span class="required">*</span></label>
+    <textarea id="text" placeholder="What was it like working with them? What would you tell a friend who was considering them?"></textarea>
     <div id="error" class="err" style="display:none"></div>
-    <button id="btn" onclick="doSubmit()">Submit testimonial</button>
+    <button id="btn" onclick="doSubmit()">Share my experience →</button>
   </div>
   <div class="success" id="success" style="display:none">
     <div style="font-size:52px;margin-bottom:12px">🎉</div>
-    <h2 style="margin:0 0 8px">Thank you!</h2>
-    <p style="color:#6b7280;margin:0">Your testimonial has been submitted for review.</p>
+    <h2 style="margin:0 0 8px" id="success-heading">Thank you!</h2>
+    <p style="color:#6b7280;margin:0">${widget.business_name} will review your testimonial shortly. Your words make a real difference for a small business.</p>
   </div>
 </div>
 <script>
@@ -109,22 +109,24 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
     try {
       var res = await fetch('/api/collect/${widgetId}', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
       if (res.ok) {
+        var firstName = document.getElementById('name').value.trim().split(' ')[0];
+        document.getElementById('success-heading').textContent = 'Thank you, ' + firstName + '!';
         document.getElementById('form').style.display = 'none';
         document.getElementById('success').style.display = 'block';
       } else {
         var data = await res.json();
         errEl.textContent = data.error || 'Something went wrong. Please try again.';
         errEl.style.display = 'block';
-        btn.disabled = false; btn.textContent = 'Submit testimonial';
+        btn.disabled = false; btn.textContent = 'Share my experience →';
       }
     } catch(e) {
       errEl.textContent = 'Network error. Please try again.';
       errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Submit testimonial';
+      btn.disabled = false; btn.textContent = 'Share my experience →';
     }
   }
 </script>`}
-<div class="brand">Powered by <a href="https://socialproof.dev">Proof</a></div>
+<div class="brand">Powered by <a href="https://socialproof.dev">Vouch</a></div>
 </body>
 </html>`
 

@@ -60,7 +60,7 @@ Every piece of copy should hit at least one of these.
 - Never call it "limited" — it's a full product, not a demo
 - CTA: "Start free — no card needed"
 
-### Pro tier ($7/month)
+### Pro tier ($9/month)
 - Frame: "Less than one lost customer costs you"
 - Comparison: "That's one coffee per month"
 - CTA: "Upgrade to Pro"

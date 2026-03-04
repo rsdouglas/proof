@@ -8,7 +8,7 @@
 
 > "Free Pro plan for life if you're one of our first 10 beta users. 30-min onboarding call included."
 
-This is genuinely compelling. Vouch Pro normally costs $7/month. If they stick around 2 years, that's $168 in free value. For us, 10 loyal early adopters who give real feedback is worth far more than $168.
+This is genuinely compelling. Vouch Pro normally costs $9/month. If they stick around 2 years, that's $216 in free value. For us, 10 loyal early adopters who give real feedback is worth far more than $216.
 
 ## Outreach message (DM/comment version — 3 sentences)
 
