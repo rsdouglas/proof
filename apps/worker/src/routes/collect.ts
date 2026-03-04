@@ -48,9 +48,10 @@ collect.post('/submit/:formId', async (c) => {
     body.submitter_email ?? null, 'form', 'pending', now, now).run()
 
   // Send email notification to the widget owner
+  // NOTE: collection_forms.widget_id may be NULL (for auto-created forms), so we join via account_id
   const owner = await c.env.DB.prepare(
-    'SELECT a.email, a.name, w.name as widget_name, w.id as widget_id, w.slug FROM accounts a JOIN widgets w ON w.account_id = a.id JOIN collection_forms f ON f.widget_id = w.id WHERE f.id = ? LIMIT 1'
-  ).bind(c.req.param('formId')).first<{ email: string; name: string; widget_name: string; widget_id: string; slug: string | null }>()
+    'SELECT a.email, a.name, w.name as widget_name, w.id as widget_id FROM accounts a JOIN widgets w ON w.account_id = a.id WHERE a.id = ? ORDER BY w.created_at ASC LIMIT 1'
+  ).bind(form.account_id).first<{ email: string; name: string; widget_name: string; widget_id: string }>()
 
   if (owner?.email) {
     const reviewUrl = `https://app.socialproof.dev/widgets/${owner.widget_id}`

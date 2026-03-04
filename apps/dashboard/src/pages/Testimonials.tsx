@@ -41,16 +41,21 @@ export default function Testimonials() {
 
   const load = useCallback(async () => {
     setLoading(true)
-    const [tData, wData] = await Promise.all([
-      request('/testimonials') as Promise<{ testimonials: Testimonial[] }>,
-      request('/widgets') as Promise<{ widgets: Widget[] }>,
-    ])
-    setTestimonials(tData.testimonials)
-    setWidgets(wData.widgets)
-    if (wData.widgets.length > 0 && !reqForm.widget_id) {
-      setReqForm(f => ({ ...f, widget_id: wData.widgets[0].id }))
+    try {
+      const [tData, wData] = await Promise.all([
+        request('/testimonials') as Promise<{ testimonials: Testimonial[] }>,
+        request('/widgets') as Promise<{ widgets: Widget[] }>,
+      ])
+      setTestimonials(tData.testimonials)
+      setWidgets(wData.widgets)
+      if (wData.widgets.length > 0 && !reqForm.widget_id) {
+        setReqForm(f => ({ ...f, widget_id: wData.widgets[0].id }))
+      }
+    } catch {
+      // ignore — show empty state
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }, [])
 
   useEffect(() => { load() }, [])

@@ -132,9 +132,20 @@ app.route('/api/keys', apiKeys)
 // Collection forms
 app.get('/api/collection-forms', async (c) => {
   const accountId = c.get('accountId')
-  const { results } = await c.env.DB.prepare(
+  let { results } = await c.env.DB.prepare(
     'SELECT id, name, active, created_at FROM collection_forms WHERE account_id = ? ORDER BY created_at DESC'
   ).bind(accountId).all()
+
+  // Lazy-init: create a default form for accounts that predate auto-creation on signup
+  if (results.length === 0) {
+    const id = 'frm_' + crypto.randomUUID().replace(/-/g, '').slice(0, 12)
+    const now = new Date().toISOString()
+    await c.env.DB.prepare(
+      'INSERT INTO collection_forms (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
+    ).bind(id, accountId, 'Default', now, now).run()
+    results = [{ id, name: 'Default', active: 1, created_at: now }]
+  }
+
   return c.json({ forms: results })
 })
 
