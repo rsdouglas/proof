@@ -3,7 +3,7 @@ import { useApi, API_URL, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import UpgradeModal from '../components/UpgradeModal'
 import { colors, font, shadow, radius, card, btn, C, spacing, fontSize } from '../design'
-import { CheckCircle2, XCircle, Trash2, Download, Mail, Plus, Star } from 'lucide-react'
+import { CheckCircle2, XCircle, Trash2, Download, Mail, Plus, Star, Share2 } from 'lucide-react'
 
 interface Testimonial {
   id: string
@@ -338,6 +338,16 @@ function MessageSquareEmpty() {
   )
 }
 
+
+function shareOnTwitter(t: Testimonial) {
+  const maxLen = 240
+  let quote = t.display_text
+  if (quote.length > 120) quote = quote.slice(0, 119) + '…'
+  const text = `"${quote}" — ${t.display_name}${t.company ? `, ${t.company}` : ''}\n\nCollected with Vouch ✨ socialproof.dev`
+  const trimmed = text.length > maxLen ? text.slice(0, maxLen - 1) + '…' : text
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(trimmed)}`, '_blank', 'noopener,noreferrer,width=600,height=400')
+}
+
 function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured }: {
   t: Testimonial
   onStatus: (id: string, status: string) => void
@@ -455,6 +465,22 @@ function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured }: {
 
           {/* Secondary actions */}
           <div style={{ display: 'flex', gap: 4 }}>
+            {t.status === 'approved' && (
+              <button
+                onClick={() => shareOnTwitter(t)}
+                title="Share on Twitter/X"
+                style={{
+                  padding: '5px 8px', background: 'none', color: colors.gray400,
+                  border: 'none', borderRadius: radius.md, cursor: 'pointer', fontFamily: font.sans,
+                  display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500,
+                  transition: 'color 0.15s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#1da1f2')}
+                onMouseLeave={e => (e.currentTarget.style.color = colors.gray400)}
+              >
+                <Share2 size={14} />
+              </button>
+            )}
             <button
               onClick={() => onToggleFeatured(t.id, t.featured)}
               title={t.featured ? 'Remove from featured' : 'Mark as featured'}
