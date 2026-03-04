@@ -351,6 +351,19 @@ export default function WidgetDetail() {
             <CopyButton text={wallUrl} label="Copy wall URL" />
           </div>
 
+          {/* Public wall */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <a
+              href={wallUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+            >{wallUrl}</a>
+            <CopyButton text={wallUrl} label="Copy wall URL" />
+          </div>
+
           {/* Widget config */}
           <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
             <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 600 }}>Widget settings</h3>
