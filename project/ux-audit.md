@@ -1,89 +1,123 @@
 # Vouch — UX Audit
+
 **Date:** 2026-03-04  
 **Author:** CEO  
-**Trigger:** Issue #97 from rsdouglas
+**Trigger:** Issue #97 from rsdouglas  
+**Updated:** 2026-03-04 (model corrected after discussion with rsdouglas)
 
 ---
 
 ## TL;DR
 
-The product has solid bones but a confusing information architecture. The core problem: too many top-level concepts that users have to wire together manually. The fix is to make **Widget** the single organizing concept for everything.
+The product has solid bones but a confusing information architecture. The core problem: too many coupled concepts. The fix is to fully decouple **collecting** from **displaying**.
 
 ---
 
-## The 5 UX problems I found
+## The correct mental model (final)
 
-### Problem 1: Two creation flows to do one thing (HIGH)
-**Current:** User must (a) create a Widget, then (b) create a Collection Form separately, then somehow understand these are related.  
-**Reality:** They should be one thing. A widget IS both the display and the collection point.  
-**Fix:** Filed as issue #98. Auto-create collect link on widget creation. Remove "Collect" nav item. Add "Share" tab to widget detail.
+```
+Account
+  ├── Collection link (auto-exists on signup — how testimonials get IN)
+  ├── Testimonials (single pool, belong to account not to any widget)
+  └── Widgets (optional display surfaces — how testimonials get OUT)
+```
 
-### Problem 2: "Testimonials" page vs "Widget" tabs — duplicate moderation UI (MEDIUM)
-**Current:** You can approve/reject testimonials from:
-- `/testimonials` (global list, all widgets)
-- `/widgets/:id` (widget-specific tabs: Pending | Approved | Rejected)
+**Three principles:**
+1. Testimonials belong to the **account**, not to a widget
+2. Collection link is **account-level**, auto-created on signup, no setup required
+3. Widgets are **display surfaces only** — they read from the pool, they don't own it
 
-This means there are two places to do the same action. Confusing.  
-**Fix short-term:** Make `/testimonials` clearly labeled "All testimonials — across all widgets" and add a "Widget" column/filter.  
-**Fix long-term:** Probably kill the global testimonials page and do everything from within the widget. But that's a bigger refactor — hold for v2.
+**Users should never have to create a widget to collect testimonials.** Collecting and displaying are independent actions.
 
-### Problem 3: Dashboard "Getting Started" sends users to /collect (MEDIUM)
-**Current:** Step 2 of the getting started checklist is "Collect your first testimonial → Get collection link →" which links to `/collect`.  
-If we kill `/collect` as part of #98, this link breaks.  
-**Fix:** Update the getting started flow to point users to their widget's Share tab. Filed to be handled in #98.
+---
 
-### Problem 4: The submission form URL is ugly and shows the API domain (LOW)
-**Current:** Collection form URL is `https://api.socialproof.dev/submit/{formId}` — the API subdomain, looks technical, not trust-building.  
-**Better:** Could be `https://submit.socialproof.dev/r/{formId}` or just `https://socialproof.dev/submit/{formId}`.  
-This is blocked on DNS (#90) anyway. File as a follow-up after DNS is live.
+## The 5 UX problems found
 
-### Problem 5: "Analytics" is a graveyard for zero-state users (LOW)
-**Current:** The analytics page shows event data (widget views, impressions). For a brand new user with no embed and no testimonials, it's completely empty.  
-**Fix:** Add a zero-state to analytics that says "Your analytics will appear here once you've embedded a widget on your site" with a link to get embed code. Minor polish item.
+### Problem 1: Two required creation flows to do one thing (HIGH — filing #98)
+
+**Current:** User must (a) create a Widget AND (b) create a Collection Form before they can do anything. The two are not visibly related in the UI.
+
+**Root cause:** The data model has `collection_forms.widget_id` FK, implying forms belong to widgets. But the UI doesn't enforce or explain this relationship — it just creates two separate confusing entry points.
+
+**Correct fix (per #98):**
+- Auto-create one collection link per account on signup — no user action required
+- `/collect` page becomes a simple "here's your link, copy it" page — no create/manage flow
+- Widgets are created only when the user wants to display testimonials on their site
+- Widget display query shows ALL approved account testimonials, not filtered by widget_id
+- Getting started: step 1 = share your link; widget creation is optional step 3
+
+**What NOT to do:** Don't make the form belong to the widget. That couples two things that should be free.
+
+### Problem 2: Duplicate moderation UI (MEDIUM — handle in #98)
+
+**Current:** Testimonials can be approved/rejected from:
+- `/testimonials` — global list
+- `/widgets/:id` — per-widget tabs (Pending | Approved | Rejected)
+
+Under the new model (testimonials don't belong to widgets), the per-widget moderation tabs don't make sense. All moderation should happen in `/testimonials`.
+
+**Fix:** Remove the Pending/Approved/Rejected tabs from the widget detail page. Widget detail = display config only (style, embed code). Moderation lives in `/testimonials`.
+
+### Problem 3: Getting started checklist links to wrong places (MEDIUM — handle in #98)
+
+**Current:** Step 2 of getting started links to `/collect` with a "create collection form" flow that shouldn't exist.
+
+**Fix:** Update checklist to: (1) Share your collection link → /collect (just copy the link), (2) Approve your first testimonial → /testimonials, (3) [Optional] Add to your site → /widgets
+
+### Problem 4: Submission URL shows API subdomain (LOW — blocked on DNS #90)
+
+**Current:** `https://api.socialproof.dev/submit/{formId}` — looks technical and untrustworthy.
+
+**Fix:** Route through main domain. Blocked on DNS. Follow up after #90 resolved.
+
+### Problem 5: Analytics zero-state looks broken (LOW — #100)
+
+**Current:** Empty page for new users, no explanation.
+
+**Fix:** Add zero-state copy + CTA to create a widget (analytics tracks embed activity, so widget is the right CTA here).
 
 ---
 
 ## The correct first-time user flow
 
-**As-is:**
-1. Sign up ✅
-2. ... stare at dashboard
+**Current (broken):**
+1. Sign up
+2. Stare at dashboard
 3. Create a widget (what's a widget?)
-4. Go to "Collect", create a collection form (why do I need to name it?)
-5. Copy a link that goes to `api.socialproof.dev/submit/...` (looks sketchy)
+4. Go to Collect, create a collection form (why do I name it?)
+5. Copy `api.socialproof.dev/submit/...` link (looks sketchy)
 6. Send to customers
-7. Come back, approve testimonials (from /testimonials or /widgets/:id?)
-8. Go back to /widgets, find embed code, copy it
+7. Approve testimonials (from /testimonials or /widgets/:id — unclear)
+8. Go to /widgets, get embed code
 9. Add to site
 
-**After fix (#98):**
-1. Sign up ✅
-2. Getting started checklist: "Create your first widget" → do it
-3. Widget detail shows "Share" tab automatically → copy the link
-4. Send to customers
-5. Testimonials come in → approve from widget tabs
-6. "Embed" tab → copy code, add to site
+**Target (after #98):**
+1. Sign up
+2. Go to Collect — link is already there, copy it
+3. Send to customers
+4. Approve from /testimonials
+5. [When ready] Go to /widgets, create a widget, get embed code, add to site
 
-That's the flow. Four steps instead of nine.
+Collecting testimonials: 2 steps (copy, send).  
+Displaying testimonials: separate, optional, when ready.
 
 ---
 
 ## What's NOT broken
 
-- The dashboard stats (total, approved, pending, widgets deployed) — clear, useful
+- Dashboard stats (total, approved, pending) — clear and useful
 - Widget embed code generation — works, clean
-- Testimonial approve/reject/feature workflow within widget — solid
-- Manual testimonial addition — useful for seeding social proof on day 1
-- Settings page — adequate for now
+- Manual testimonial addition — great for seeding day-1 social proof
+- Settings page — adequate
 - Login/forgot password/reset — clean flow
 
 ---
 
-## Priority order for fixes
+## Issues filed from this audit
 
-1. **#98** — Collapse Collection Forms into Widget (kills the biggest UX confusion)
-2. **#98 follow-up** — Fix getting started checklist to point to widget Share tab
-3. **(New issue)** — Add "widget" column/filter to global testimonials page
-4. **(After DNS #90)** — Clean up submission URL domain
-5. **(Minor)** — Analytics zero state
+| Issue | Status | Description |
+|-------|--------|-------------|
+| #98 | Open | Core fix: decouple collect from widgets, auto-create account link on signup |
+| #99 | Closed | Wrong — based on old model (widget-owned testimonials). Not needed. |
+| #100 | Open | Analytics zero-state polish |
 
