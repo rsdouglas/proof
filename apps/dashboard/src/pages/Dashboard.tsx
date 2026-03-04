@@ -11,6 +11,8 @@ import {
   Copy,
   Check,
   AlertTriangle,
+  Bell,
+  PartyPopper,
 } from 'lucide-react'
 import { colors, font, shadow, radius, card } from '../design'
 
@@ -213,6 +215,72 @@ function NudgeBanner({ collectUrl }: { collectUrl: string }) {
   )
 }
 
+
+function PendingApprovalBanner({ count, firstTime }: { count: number; firstTime: boolean }) {
+  const [dismissed, setDismissed] = useState(false)
+  if (dismissed) return null
+
+  const isFirst = firstTime // no approved yet — this is their first
+
+  return (
+    <div style={{
+      background: isFirst ? '#f0fdf4' : '#eff6ff',
+      border: `1.5px solid ${isFirst ? '#86efac' : '#bfdbfe'}`,
+      borderRadius: radius.lg,
+      padding: '20px 24px',
+      marginBottom: 28,
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: 16,
+    }}>
+      {isFirst
+        ? <PartyPopper size={20} color="#16a34a" style={{ flexShrink: 0, marginTop: 2 }} />
+        : <Bell size={20} color="#2563eb" style={{ flexShrink: 0, marginTop: 2 }} />
+      }
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: 700, fontSize: 15, color: isFirst ? '#14532d' : '#1e3a8a', marginBottom: 4 }}>
+          {isFirst
+            ? '🎉 Your first testimonial is waiting!'
+            : `${count} testimonial${count > 1 ? 's' : ''} waiting for review`
+          }
+        </div>
+        <div style={{ fontSize: 13, color: isFirst ? '#166534' : '#1d4ed8', lineHeight: 1.5, marginBottom: 12 }}>
+          {isFirst
+            ? 'A customer submitted a testimonial — approve it to make it public and start building social proof.'
+            : `You have ${count} pending testimonial${count > 1 ? 's' : ''} to review. Approve the ones you love to display them.`
+          }
+        </div>
+        <Link
+          to="/testimonials"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            padding: '8px 16px',
+            background: isFirst ? '#16a34a' : '#2563eb',
+            color: '#fff',
+            borderRadius: radius.md,
+            fontWeight: 600,
+            fontSize: 13,
+            textDecoration: 'none',
+            fontFamily: font.sans,
+          }}
+        >
+          {isFirst ? 'Approve now' : 'Review testimonials'}
+          <ArrowRight size={13} />
+        </Link>
+      </div>
+      <button
+        onClick={() => setDismissed(true)}
+        style={{
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: 18, color: isFirst ? '#16a34a' : '#2563eb', flexShrink: 0,
+          lineHeight: 1, padding: 0,
+        }}
+        aria-label="Dismiss"
+      >×</button>
+    </div>
+  )
+}
+
 function OnboardingChecklist({ stats }: { stats: Stats }) {
   const steps = [
     {
@@ -378,6 +446,8 @@ export default function Dashboard() {
   const isZeroState = stats !== null && stats.total_testimonials === 0 && !!collectFormId
   const is24hNudge = isZeroState && accountCreatedAt !== null &&
     (Date.now() - new Date(accountCreatedAt).getTime() > 24 * 60 * 60 * 1000)
+  const hasPending = stats !== null && stats.pending > 0
+  const isFirstPending = hasPending && stats!.approved === 0
 
   return (
     <div style={{ maxWidth: 900 }}>
@@ -394,6 +464,7 @@ export default function Dashboard() {
       {/* Zero state / 24h nudge banner */}
       {is24hNudge && <NudgeBanner collectUrl={collectUrl} />}
       {isZeroState && !is24hNudge && <ZeroStateBanner collectUrl={collectUrl} />}
+      {hasPending && <PendingApprovalBanner count={stats!.pending} firstTime={isFirstPending} />}
 
       {/* Stat cards — all use same design language */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 32 }}>
