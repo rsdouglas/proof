@@ -34,16 +34,17 @@ export default function UpgradeModal({ error, onClose }: Props) {
       >
         <div style={{ fontSize: 40, marginBottom: 12 }}>🚀</div>
         <h2 style={{ fontSize: 20, fontWeight: 700, color: '#111827', margin: '0 0 12px' }}>
-          Free plan limit reached
+          You've hit the limit
         </h2>
         <p style={{ fontSize: 15, color: '#6b7280', lineHeight: 1.6, margin: '0 0 8px' }}>
-          You've reached your Free plan limit for {label}.
+          Your Free plan supports {error.max} {label}.
         </p>
         <p style={{ fontSize: 13, color: '#9ca3af', margin: '0 0 28px' }}>
           {error.current} / {error.max} {label} used
         </p>
         <p style={{ fontSize: 15, color: '#374151', lineHeight: 1.6, margin: '0 0 28px' }}>
-          Upgrade to <strong>Pro</strong> for unlimited {label} and more.
+          Go Pro for <strong>$9/mo</strong> and get unlimited {label}, analytics,
+          custom branding, and Google star ratings.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
           <button
@@ -63,7 +64,7 @@ export default function UpgradeModal({ error, onClose }: Props) {
               fontSize: 14, fontWeight: 600,
             }}
           >
-            Upgrade to Pro →
+            Upgrade to Pro — $9/mo →
           </button>
         </div>
       </div>
