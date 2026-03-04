@@ -49,6 +49,11 @@ async function getOrCreateCustomer(env: Env, accountId: string, email: string, n
 // ─── POST /api/billing/checkout ───────────────────────────────────────────────
 
 billing.post('/checkout', async (c) => {
+  // If Stripe not configured, return pro-waitlist signal
+  if (!c.env.STRIPE_SECRET_KEY) {
+    return c.json({ pro_waitlist: true, message: 'Stripe not yet configured — join Pro waitlist' }, 402)
+  }
+
   const accountId = c.get('accountId')
   const account = await c.env.DB.prepare(
     'SELECT id, name, email, plan FROM accounts WHERE id = ?'
@@ -247,6 +252,27 @@ billing.get('/status', async (c) => {
     status: account.plan_status,
     updatedAt: account.plan_updated_at,
   })
+})
+
+
+// ─── POST /api/billing/pro-waitlist ───────────────────────────────────────────
+
+billing.post('/pro-waitlist', async (c) => {
+  let body: { email?: string }
+  try { body = await c.req.json() } catch { return c.json({ error: 'Invalid JSON' }, 400) }
+
+  const email = body.email?.toLowerCase().trim()
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return c.json({ error: 'Valid email required' }, 400)
+  }
+
+  // Store in KV with pro-waitlist prefix (idempotent)
+  await c.env.WIDGET_KV.put(`pro-waitlist:${email}`, JSON.stringify({
+    email,
+    joined_at: new Date().toISOString(),
+  }), { expirationTtl: 60 * 60 * 24 * 365 }) // 1 year TTL
+
+  return c.json({ ok: true, message: 'Added to Pro waitlist' })
 })
 
 // ─── Type stubs ───────────────────────────────────────────────────────────────
