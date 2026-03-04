@@ -133,3 +133,46 @@ export async function sendCheckinEmail(
   `)
   await send(apiKey, opts.email, "How's it going?", html)
 }
+
+/** Email 4: T+1h nudge — sent 1 hour after signup if no testimonials yet */
+export async function send1hNudgeEmail(
+  apiKey: string,
+  opts: { email: string; name: string; collectFormId: string }
+): Promise<void> {
+  const first = opts.name.split(' ')[0]
+  const link = `https://socialproof.dev/c/${opts.collectFormId}`
+  const html = wrap(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your Vouch link is ready — here's who to send it to</h2>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hi ${first},</p>
+    <p style="margin:0 0 8px;color:#374151;font-size:15px">Your collection link is:</p>
+    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
+      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
+    </div>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">The fastest way to get your first testimonial? Send it to 3 people right now:</p>
+    <ul style="margin:0 0 20px;padding-left:20px;color:#374151;font-size:15px;line-height:1.9">
+      <li>A customer who left a positive review somewhere</li>
+      <li>A client who thanked you recently</li>
+      <li>Anyone who said "I love your product"</li>
+    </ul>
+    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">Takes 2 minutes for them. Takes you 10 seconds to forward this.</p>
+    <p style="margin:0 0 8px;color:#374151;font-size:15px">— The Vouch team</p>
+  `)
+  await send(apiKey, opts.email, 'Your Vouch link is ready — here\'s who to send it to', html)
+}
+
+/** Email 5: First testimonial celebration — sent when the first testimonial is submitted */
+export async function sendCelebrationEmail(
+  apiKey: string,
+  opts: { email: string; name: string; submitterName: string }
+): Promise<void> {
+  const first = opts.name.split(' ')[0]
+  const html = wrap(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">🎉 You got your first testimonial!</h2>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
+    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6"><strong>${opts.submitterName}</strong> just left you a testimonial on Vouch.</p>
+    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">Approve it to make it public — then embed it on your site.</p>
+    <a href="https://app.socialproof.dev/testimonials" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Review it now →</a>
+    <p style="margin:16px 0 0;color:#9ca3af;font-size:13px;line-height:1.5">This is the moment that matters. One testimonial, live on your site, is more powerful than a hundred "coming soon" placeholders.</p>
+  `)
+  await send(apiKey, opts.email, '🎉 You got your first testimonial!', html)
+}
