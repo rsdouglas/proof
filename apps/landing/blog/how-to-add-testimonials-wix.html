@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Add Testimonials to Your Wix Website — Vouch</title>
+  <meta name="description" content="Step-by-step guide to adding real customer testimonials to your Wix site. No Wix app store needed — embed a live testimonial widget with one line of code.">
+  <meta property="og:title" content="How to Add Testimonials to Your Wix Website">
+  <meta property="og:description" content="Step-by-step guide to adding real customer testimonials to your Wix site. No Wix app store needed — embed a live testimonial widget with one line of code.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #6C5CE7;
+    --purple-light: #a29bfe;
+    --dark: #0f0e17;
+    --mid: #1e1c2e;
+    --text: #e8e6f0;
+    --muted: #9ca3af;
+    --border: rgba(108,92,231,0.2);
+    --card-bg: rgba(255,255,255,0.04);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--dark); color: var(--text); line-height: 1.7; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 64px;
+    background: rgba(15,14,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.4px; }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .btn-primary { background: var(--purple); color: #fff; }
+  .btn-primary:hover { background: #7c6cf0; transform: translateY(-1px); }
+  main { padding-top: 64px; }
+  footer { border-top: 1px solid var(--border); padding: 40px 6%; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 14px; margin-top: 80px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+  @media (max-width: 640px) { .nav-links .btn { display: none; } footer { flex-direction: column; gap: 16px; text-align: center; } }
+
+  .post-hero { padding: 80px 0 48px; background: linear-gradient(180deg, rgba(108,92,231,0.08) 0%, transparent 100%); border-bottom: 1px solid var(--border); }
+  .post-hero-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .post-meta { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tag { display: inline-block; background: rgba(108,92,231,0.15); color: var(--purple-light); padding: 2px 10px; border-radius: 20px; font-size: 13px; }
+  h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px; }
+  .post-intro { font-size: 18px; color: var(--muted); line-height: 1.6; }
+
+  .post-body { max-width: 760px; margin: 0 auto; padding: 56px 24px; }
+  .post-body h2 { font-size: 26px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -0.5px; }
+  .post-body h3 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
+  .post-body p { margin-bottom: 20px; color: #d1cee8; }
+  .post-body ul, .post-body ol { padding-left: 24px; margin-bottom: 20px; }
+  .post-body li { margin-bottom: 10px; color: #d1cee8; }
+  .post-body strong { color: var(--text); }
+  .post-body a { color: var(--purple-light); text-decoration: underline; }
+
+  .step-block { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
+  .step-number { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--purple-light); margin-bottom: 8px; }
+  .step-block h3 { margin-top: 0; }
+
+  .code-block { background: #0a0914; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; font-family: 'Courier New', monospace; font-size: 14px; color: var(--purple-light); margin: 20px 0; overflow-x: auto; white-space: pre; }
+
+  .callout { background: rgba(108,92,231,0.08); border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; }
+  .callout p { margin: 0; color: var(--text); }
+
+  .comparison-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 15px; }
+  .comparison-table th { background: rgba(108,92,231,0.15); padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+  .comparison-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .check { color: #00b894; } .cross { color: #d63031; }
+
+  .cta-box { background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(108,92,231,0.05)); border: 1px solid var(--border); border-radius: 16px; padding: 48px 40px; text-align: center; margin: 60px 0 0; }
+  .cta-box h2 { margin: 0 0 12px; font-size: 28px; }
+  .cta-box p { color: var(--muted); margin: 0 0 28px; font-size: 16px; }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">Vouch<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.socialproof.dev/register" class="btn btn-primary">Try free</a>
+  </div>
+</nav>
+
+<main>
+  <div class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-meta">
+        <span class="tag">Wix</span>
+        <span class="tag">Tutorials</span>
+        <span>March 7, 2026</span>
+        <span>·</span>
+        <span>8 min read</span>
+      </div>
+      <h1>How to Add Testimonials to Your Wix Website</h1>
+      <p class="post-intro">Wix makes beautiful sites. It doesn't make it easy to collect and display real customer testimonials. Here's the fastest way to do it — no Wix app required.</p>
+    </div>
+  </div>
+
+  <div class="post-body">
+
+    <p>Wix is used by over 200 million people. It's drag-and-drop, it looks great, and it gets non-developers up and running fast. But when it comes to customer testimonials, Wix leaves you with options that all have real problems:</p>
+
+    <ul>
+      <li><strong>Built-in testimonials section</strong> — static text you type yourself. No real customer submissions, no moderation, no live updates.</li>
+      <li><strong>Wix App Market apps</strong> — often expensive, clunky, and add third-party branding to your site.</li>
+      <li><strong>Manual copy-paste</strong> — you beg a customer for a quote, paste it into Wix, update it yourself. Every. Time.</li>
+    </ul>
+
+    <p>There's a better way. You can collect testimonials from real customers, approve them in a dashboard, and have them appear on your Wix site automatically — using a single embed script.</p>
+
+    <p>This guide shows you exactly how.</p>
+
+    <h2>Option 1: Embed Vouch on Your Wix Site (Recommended)</h2>
+
+    <p>Vouch is a testimonial tool built for small businesses. You get a shareable collection link, customers submit testimonials directly, you approve them, and they show up on your site via a one-line embed.</p>
+
+    <p>Here's how to add it to Wix:</p>
+
+    <div class="step-block">
+      <div class="step-number">Step 1</div>
+      <h3>Create your free Vouch account</h3>
+      <p>Sign up at <a href="https://app.socialproof.dev/register">socialproof.dev</a>. Your collection link is created automatically — you don't need to configure anything first.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Step 2</div>
+      <h3>Send your collection link to customers</h3>
+      <p>From your Vouch dashboard, copy your unique collection link. It looks like <code>socialproof.dev/c/your-business</code>. Send it via email, text, or DM — customers click it and submit a testimonial right there. No account needed on their end.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Step 3</div>
+      <h3>Approve testimonials in your dashboard</h3>
+      <p>When a customer submits, you get notified. Log in, read it, approve it. Only approved testimonials show on your site. You're always in control.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Step 4</div>
+      <h3>Create a widget and copy the embed code</h3>
+      <p>In your Vouch dashboard, go to <strong>Widgets</strong> and create a display widget. Copy the embed code — it looks like this:</p>
+      <div class="code-block">&lt;script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"&gt;&lt;/script&gt;</div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Step 5</div>
+      <h3>Add the embed code to your Wix site</h3>
+      <p>This is where Wix is a little different from WordPress or Squarespace. Here's exactly how:</p>
+      <ol>
+        <li>In the Wix Editor, click <strong>Add (+)</strong> in the left sidebar</li>
+        <li>Choose <strong>Embed Code → Embed HTML</strong></li>
+        <li>A blank HTML embed block appears on your page — drag it where you want the testimonials to appear</li>
+        <li>Click the embed block, then click <strong>Enter Code</strong></li>
+        <li>Paste your Vouch embed script and click <strong>Apply</strong></li>
+        <li>Resize the block to fit your testimonials (make it tall enough — around 400–600px depending on how many you have)</li>
+        <li>Click <strong>Publish</strong></li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p>💡 <strong>Tip:</strong> If your testimonial widget is getting cut off, click the embed block and drag the bottom edge down. Wix doesn't auto-resize embedded content — you control the height manually.</p>
+    </div>
+
+    <p>That's it. Every time a customer submits a testimonial and you approve it, it automatically appears in the widget on your Wix site. No republishing needed.</p>
+
+    <h2>Option 2: Wix's Built-In Testimonials Section</h2>
+
+    <p>Wix has a built-in testimonials section you can drag onto any page. Here's how to add it — and why it might not be enough:</p>
+
+    <ol>
+      <li>In the Wix Editor, click <strong>Add (+)</strong></li>
+      <li>Go to <strong>Text → Testimonials</strong></li>
+      <li>Choose a testimonials layout and add it to your page</li>
+      <li>Click each testimonial block and type your customer's quote manually</li>
+    </ol>
+
+    <p><strong>The problem:</strong> This is a static section. You type the testimonials yourself. There's no collection link, no customer submission form, no moderation workflow. Every new testimonial requires you to log into Wix and manually add it.</p>
+
+    <p>For a business getting 1–2 testimonials a year, this is fine. For a business actively collecting testimonials from customers, it's a bottleneck.</p>
+
+    <h2>Option 3: Wix App Market</h2>
+
+    <p>The Wix App Market has several testimonial apps. The most popular ones:</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>App</th>
+          <th>Price</th>
+          <th>Customer submission?</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Elfsight Testimonials</td>
+          <td>From $5/mo</td>
+          <td><span class="cross">✗</span> Manual only</td>
+          <td>Displays reviews, no collection flow</td>
+        </tr>
+        <tr>
+          <td>Trustindex</td>
+          <td>From $9/mo</td>
+          <td><span class="cross">✗</span> Google Reviews only</td>
+          <td>Aggregates third-party reviews</td>
+        </tr>
+        <tr>
+          <td>Vouch (embed)</td>
+          <td>Free / $9/mo</td>
+          <td><span class="check">✓</span> Yes</td>
+          <td>Collection link + embed, no Wix app needed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Most Wix App Market testimonial tools are display-only — they show reviews from Google, Yelp, or Facebook, but they don't give you a way to collect new testimonials directly from customers.</p>
+
+    <h2>What Makes a Good Wix Testimonial Widget?</h2>
+
+    <p>When you're evaluating options, here's what actually matters:</p>
+
+    <ul>
+      <li><strong>Customer submission</strong> — can customers submit a testimonial without creating an account? If not, your completion rate will tank.</li>
+      <li><strong>Moderation</strong> — can you approve before it goes live? Essential. You don't want spam on your homepage.</li>
+      <li><strong>Auto-update</strong> — when you approve a new testimonial, does it appear automatically? Or do you have to republish your Wix site?</li>
+      <li><strong>No third-party branding</strong> — "Powered by [tool name]" on your testimonials looks cheap. Avoid it.</li>
+      <li><strong>Mobile-responsive</strong> — your Wix site looks great on mobile. Your testimonials should too.</li>
+    </ul>
+
+    <h2>Where to Put Testimonials on Your Wix Site</h2>
+
+    <p>Placement matters as much as the testimonials themselves. The highest-converting spots:</p>
+
+    <h3>Homepage — above the fold or just below the hero</h3>
+    <p>Visitors make trust decisions in the first 10 seconds. A strong testimonial near the top of your homepage directly increases conversions. This is the most valuable placement.</p>
+
+    <h3>Service/product pages</h3>
+    <p>Add a testimonials section near your pricing or "Book Now" button. Customers read testimonials right before they decide to buy — be ready for them there.</p>
+
+    <h3>A dedicated /testimonials page</h3>
+    <p>Create a Wix page just for testimonials and link to it from your nav. This ranks in Google ("your business name + reviews") and gives you a place to send customers who want social proof.</p>
+
+    <h3>Contact page</h3>
+    <p>The moment before someone fills out your contact form, they're still deciding. A testimonial here nudges them over the line.</p>
+
+    <h2>How to Get More Testimonials from Customers</h2>
+
+    <p>The embed is the easy part. Getting customers to actually submit is where most businesses struggle.</p>
+
+    <p><strong>Timing is everything.</strong> The best time to ask for a testimonial is right after a customer has a good experience — immediately after a project is completed, after a purchase arrives, after they give you a compliment.</p>
+
+    <p>Here's a simple script that works:</p>
+
+    <div class="callout">
+      <p><em>"Hey [Name] — so glad that worked out! Would you mind leaving a quick testimonial? It takes 2 minutes and really helps us. Here's the link: [your Vouch collection link]"</em></p>
+    </div>
+
+    <p>The link goes directly to your Vouch collection form. No account needed, no friction. They fill it out in under 2 minutes.</p>
+
+    <p><strong>Three places that work well for asking:</strong></p>
+    <ul>
+      <li>A follow-up email after purchase or project completion</li>
+      <li>Your email signature ("Love working with us? Leave a testimonial →")</li>
+      <li>Post-service text message (especially for service businesses)</li>
+    </ul>
+
+    <h2>Wix vs. Other Platforms for Testimonials</h2>
+
+    <p>If you're curious how Wix compares to other platforms for embedding testimonials:</p>
+
+    <ul>
+      <li><strong>Squarespace</strong> — similar embed process via Code Block. Slightly more restricted on JavaScript in some plans.</li>
+      <li><strong>WordPress</strong> — most flexible. Embed anywhere via Custom HTML block. Works identically to Vouch embed.</li>
+      <li><strong>Shopify</strong> — embed via theme liquid files or Shopify's Custom HTML section. Works well for product pages.</li>
+      <li><strong>Wix</strong> — requires the HTML Embed block (Add → Embed Code). Works cleanly. Manual height adjustment needed.</li>
+    </ul>
+
+    <p>All four work with Vouch's embed script. The collection link works independently of your website platform entirely.</p>
+
+    <h2>Common Wix Testimonial Questions</h2>
+
+    <h3>Can I add testimonials to a Wix free plan?</h3>
+    <p>Yes. Wix's free plan allows you to use the HTML Embed block, so you can embed Vouch on a free Wix site. (Note: Wix free plans show Wix branding in the footer, but your testimonial widget is unaffected.)</p>
+
+    <h3>Do I need coding knowledge to embed testimonials on Wix?</h3>
+    <p>No. Copying and pasting a single line of code into Wix's HTML Embed block is all that's needed. No coding experience required.</p>
+
+    <h3>Will testimonials update automatically after I approve them?</h3>
+    <p>Yes — with Vouch, approved testimonials appear in the widget automatically. You don't need to update your Wix site or republish anything.</p>
+
+    <h3>Can customers include photos in their testimonials?</h3>
+    <p>Yes. Vouch's collection form lets customers optionally upload a photo. If they upload one, it appears in the widget alongside their testimonial. This significantly increases how trustworthy the testimonials look.</p>
+
+    <h3>What if I have multiple Wix pages that need testimonials?</h3>
+    <p>You can embed the same widget on multiple Wix pages, or create different widgets with different subsets of testimonials (e.g., a services page widget showing only service testimonials, a product page widget showing product testimonials).</p>
+
+    <div class="cta-box">
+      <h2>Add real testimonials to your Wix site</h2>
+      <p>Free forever for 1 widget. Setup takes under 10 minutes.</p>
+      <a href="https://app.socialproof.dev/register" class="btn btn-primary" style="font-size:16px;padding:14px 32px;">Get started free →</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Vouch · <a href="https://socialproof.dev">socialproof.dev</a></span>
+  <span>
+    <a href="/privacy">Privacy</a> ·
+    <a href="/terms">Terms</a> ·
+    <a href="/blog">Blog</a>
+  </span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Proof for AI Agents: One API Call to Start Collecting Testimonials | Vouch</title>
+  <meta name="description" content="Vouch's /agent/register endpoint gives AI agents a collect URL and widget embed code in one POST request. No UI, no waiting — social proof for autonomous products.">
+  <meta name="keywords" content="social proof API, testimonials for AI agents, programmatic testimonial collection, agent-native API, testimonial API">
+  <link rel="canonical" href="https://socialproof.dev/blog/social-proof-api-ai-agents">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .blog-post { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+    .blog-post h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .blog-post .meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 40px; }
+    .blog-post h2 { font-size: 1.4rem; font-weight: 700; margin: 48px 0 16px; }
+    .blog-post h3 { font-size: 1.15rem; font-weight: 600; margin: 32px 0 12px; }
+    .blog-post p { color: #374151; line-height: 1.75; margin-bottom: 20px; }
+    .blog-post ul, .blog-post ol { color: #374151; line-height: 1.75; margin-bottom: 20px; padding-left: 24px; }
+    .blog-post li { margin-bottom: 8px; }
+    .blog-post pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; line-height: 1.6; margin: 24px 0; }
+    .blog-post code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.875rem; color: #1e293b; }
+    .blog-post pre code { background: none; padding: 0; color: inherit; }
+    .callout { background: #eff6ff; border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 28px 0; }
+    .callout p { margin: 0; color: #1e40af; }
+    .cta-box { background: #0f172a; color: white; padding: 40px; border-radius: 12px; text-align: center; margin: 48px 0; }
+    .cta-box h3 { color: white; margin: 0 0 12px; font-size: 1.5rem; }
+    .cta-box p { color: #94a3b8; margin: 0 0 24px; }
+    .cta-box a { background: #2563eb; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; }
+    .cta-box a:hover { background: #1d4ed8; }
+    .response-block { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 20px 24px; margin: 20px 0; }
+    .response-block p { margin: 0 0 8px; color: #166534; font-size: 0.9rem; font-weight: 600; }
+    .back-link { margin-bottom: 32px; }
+    .back-link a { color: #2563eb; text-decoration: none; font-size: 0.9rem; }
+    .tag { display: inline-block; background: #eff6ff; color: #2563eb; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <nav style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
+    <a href="/" style="font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #0f172a;">Vouch</a>
+    <a href="/blog" style="color: #6b7280; text-decoration: none; font-size: 0.9rem;">← All posts</a>
+  </nav>
+
+  <main class="blog-post">
+    <div class="back-link"><a href="/blog">← Blog</a></div>
+    <span class="tag">Developer</span>
+    <h1>Social Proof for AI Agents: One API Call to Start Collecting Testimonials</h1>
+    <p class="meta">March 4, 2026 · 6 min read · Vouch Team</p>
+
+    <p>Your AI agent can build a product in minutes. But it can't build trust — at least not automatically. Until now.</p>
+
+    <p>Vouch ships a new API endpoint: <code>POST /agent/register</code>. One call. Returns a working testimonial collection link and a website embed code. No UI required, no human setup, no waiting.</p>
+
+    <p>We built this because we kept seeing the same gap: an AI agent scaffolds a SaaS tool, a landing page, an automation — but there's no mechanism for social proof. The agent deploys the product but can't instrument trust.</p>
+
+    <p>Now it can.</p>
+
+    <h2>The Problem: Agents Can't Do Social Proof</h2>
+
+    <p>Traditional testimonial tools are designed around human workflows. You sign up, poke around a dashboard, create a widget, customize colors, copy an embed snippet, paste it into your site. Every step assumes a human at the keyboard.</p>
+
+    <p>But increasingly, products are being built by agents — coding assistants, Cursor, Claude Projects, custom automation flows. These agents can scaffold an entire web app but hit a wall when they need social proof: there's no API, no programmatic path, no way to instrument testimonial collection without a human clicking through a UI.</p>
+
+    <p>This creates an asymmetry. The technical parts of a product — authentication, payments, email — all have developer-friendly APIs. Social proof doesn't. We're fixing that.</p>
+
+    <h2>The Solution: <code>POST /agent/register</code></h2>
+
+    <p>One curl call returns everything an agent needs to start collecting testimonials:</p>
+
+<pre><code>curl -X POST https://api.socialproof.dev/agent/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "builder@example.com",
+    "product_name": "My Agent"
+  }'</code></pre>
+
+    <p>Response (immediate):</p>
+
+<pre><code>{
+  "success": true,
+  "account_id": "acc_01HXYZ...",
+  "collect_url": "https://socialproof.dev/c/abc123",
+  "widget_embed": "&lt;script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"wgt_...\" async&gt;&lt;/script&gt;",
+  "message": "Account created. Check email to verify and access your dashboard."
+}</code></pre>
+
+    <div class="callout">
+      <p><strong>The collect URL works immediately.</strong> No email verification needed to start collecting. Share it with users right away. Verification only gates dashboard access (viewing and moderating testimonials).</p>
+    </div>
+
+    <h3>What you get back</h3>
+
+    <ul>
+      <li><strong>collect_url</strong> — a working form your users can fill out right now. Share it in an email, link from a thank-you page, add it to a confirmation message. No account needed on your users' end.</li>
+      <li><strong>widget_embed</strong> — a script tag that displays approved testimonials on any webpage. Drop it before <code>&lt;/body&gt;</code>. Works with React, Vue, plain HTML, Shopify, Squarespace, anything that can run a script tag.</li>
+      <li><strong>account_id</strong> — reference this if you build further automation on top of the API.</li>
+    </ul>
+
+    <h2>The Agent Integration Pattern</h2>
+
+    <p>Here's the pattern we recommend for agents building products:</p>
+
+    <ol>
+      <li><strong>At product creation time:</strong> call <code>POST /agent/register</code> with the user's email and product name. Store the <code>collect_url</code> and <code>widget_embed</code>.</li>
+      <li><strong>In your onboarding flow:</strong> surface the <code>collect_url</code> prominently. "Share this with your first customers to collect testimonials." Even one testimonial builds trust for the next visitor.</li>
+      <li><strong>On the product's landing page:</strong> embed the widget script. It shows a count of testimonials immediately (no verification needed) and full text once the user verifies their email.</li>
+      <li><strong>Tell the user to check their email:</strong> the Vouch verification email links to their dashboard where they can approve or reject testimonials and customize display settings.</li>
+    </ol>
+
+    <p>The whole loop takes one API call and about 30 lines of scaffolding code.</p>
+
+    <h2>Why We Built This</h2>
+
+    <p>Vouch is built in public — including this blog post, which was written by an AI agent. We think the future of software has a lot more autonomous and semi-autonomous builders in it.</p>
+
+    <p>That means the infrastructure layer for trust needs to keep up. Payments have Stripe. Auth has Auth0. Social proof has... clipboard + browser tab? Not anymore.</p>
+
+    <p>We wanted Vouch to be first-class for any build tool that can make an HTTP request. If your agent can POST JSON, it can instrument social proof.</p>
+
+    <h2>The Full API Spec</h2>
+
+    <h3>Request</h3>
+
+<pre><code>POST https://api.socialproof.dev/agent/register
+Content-Type: application/json
+
+{
+  "email": "string (required)",
+  "product_name": "string (optional, used in emails and collect form header)"
+}</code></pre>
+
+    <h3>Response</h3>
+
+<pre><code>{
+  "success": true,
+  "account_id": "acc_...",
+  "collect_url": "https://socialproof.dev/c/{slug}",
+  "widget_embed": "&lt;script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"wgt_...\" async&gt;&lt;/script&gt;",
+  "message": "string"
+}</code></pre>
+
+    <h3>Rate limits</h3>
+    <p>3 registrations per hour per IP. This is per-IP, not per-user, so agents calling on behalf of multiple users from the same host should be aware. If you're building a multi-tenant product that provisions many Vouch accounts, <a href="mailto:hello@socialproof.dev">reach out</a> — we can raise limits for verified integrators.</p>
+
+    <h3>Error states</h3>
+
+<pre><code>{
+  "success": false,
+  "error": "email_already_registered | rate_limit_exceeded | invalid_email"
+}</code></pre>
+
+    <h2>What Happens Next (The Human Part)</h2>
+
+    <p>The agent can fully automate registration and get the artifacts. The human still needs to:</p>
+
+    <ul>
+      <li>Click the verification email to access their dashboard</li>
+      <li>Approve or reject testimonials as they come in</li>
+      <li>Optionally: customize widget appearance (colors, layout) via the dashboard</li>
+    </ul>
+
+    <p>Everything else — collecting testimonials, displaying them on a site, getting the embed code — can be fully programmatic.</p>
+
+    <h2>Using llms.txt</h2>
+
+    <p>If you're building with an LLM coding assistant (Cursor, Claude, Copilot), point it at our machine-readable guide:</p>
+
+    <pre><code>https://socialproof.dev/llms.txt</code></pre>
+
+    <p>It's a structured plaintext file that explains the full agent integration flow, API shapes, rate limits, and the correct mental model. LLM tools that support <code>llms.txt</code> discovery will use it automatically. For others, you can paste it directly into your context or reference it in your system prompt.</p>
+
+    <div class="cta-box">
+      <h3>Add social proof to your agent's next build</h3>
+      <p>One POST. Works immediately. No UI required.</p>
+      <a href="https://app.socialproof.dev/register">Get your API key →</a>
+    </div>
+
+    <h2>What This Isn't</h2>
+
+    <p>To be clear: Vouch is not an AI-generated testimonials tool. We collect real testimonials from real customers. The agent-native API is about making it easier to instrument that collection, not to fabricate social proof.</p>
+
+    <p>Your users fill out the form. Their words, not the model's.</p>
+
+    <h2>Try It Now</h2>
+
+    <p>You don't need an account to test the endpoint. Run the curl command above with your own email and see what comes back. The account is real, the collect URL works immediately, and you'll receive the verification email.</p>
+
+    <p>If you build something interesting with it — an agent that bootstraps testimonial collection, an integration with a no-code tool, a multi-tenant pattern — we'd love to see it. <a href="mailto:hello@socialproof.dev">Email us</a> or drop a note in the collect form on our own site.</p>
+
+    <p>We're building Vouch in public. Every week, new features. This one shipped because agent-first tooling is where software is going, and social proof shouldn't be left behind.</p>
+  </main>
+
+  <footer style="text-align: center; padding: 40px 24px; color: #9ca3af; font-size: 0.875rem; border-top: 1px solid #e5e7eb;">
+    <p><a href="/" style="color: #2563eb; text-decoration: none;">Vouch</a> · <a href="/blog" style="color: #6b7280; text-decoration: none;">Blog</a> · <a href="/privacy" style="color: #6b7280; text-decoration: none;">Privacy</a> · <a href="/terms" style="color: #6b7280; text-decoration: none;">Terms</a></p>
+  </footer>
+</body>
+</html>
