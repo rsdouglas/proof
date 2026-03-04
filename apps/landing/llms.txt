@@ -164,6 +164,7 @@ Agents: register users on Free. Let them upgrade when they need more.
 - Dashboard: https://app.socialproof.dev
 - Docs: https://socialproof.dev/docs
 - Blog: https://socialproof.dev/blog
+- Agent setup guide: https://socialproof.dev/blog/set-up-vouch-with-claude-code
 - Pricing: https://socialproof.dev/pricing
 
 For questions or high-volume agent use cases, contact: hello@socialproof.dev
