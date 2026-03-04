@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env } from '../index'
+import { sendEmail, buildTestimonialReceivedEmail } from './email'
 
 export const collectWidget = new Hono<{ Bindings: Env }>()
 
@@ -137,8 +138,8 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
 collectWidget.post('/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
   const widget = await c.env.DB.prepare(
-    'SELECT w.id, w.account_id, a.plan FROM widgets w JOIN accounts a ON a.id = w.account_id WHERE w.id = ? AND w.active = 1'
-  ).bind(widgetId).first<{ id: string; account_id: string; plan: string }>()
+    'SELECT w.id, w.account_id, w.name as widget_name, a.plan, a.email as owner_email, a.name as owner_name FROM widgets w JOIN accounts a ON a.id = w.account_id WHERE w.id = ? AND w.active = 1'
+  ).bind(widgetId).first<{ id: string; account_id: string; widget_name: string; plan: string; owner_email: string; owner_name: string }>()
   if (!widget) return c.json({ error: 'Widget not found' }, 404)
 
   // Plan enforcement: Free plan limited to 20 approved testimonials per widget
@@ -181,6 +182,23 @@ collectWidget.post('/:widgetId', async (c) => {
     body.author_email ?? null,
     now, now
   ).run()
+
+  // Send notification email to widget owner
+  if (widget.owner_email) {
+    const reviewUrl = `https://app.socialproof.dev/widgets/${widget.id}`
+    sendEmail(
+      buildTestimonialReceivedEmail({
+        ownerEmail: widget.owner_email,
+        ownerName: widget.owner_name,
+        widgetName: widget.widget_name,
+        customerName: body.display_name.trim(),
+        rating: body.rating ?? 5,
+        text: body.display_text.trim(),
+        reviewUrl,
+      }),
+      c.env
+    ).catch(err => console.error('[collect_widget] notification email failed:', err))
+  }
 
   return c.json({ ok: true, message: 'Thank you! Your testimonial has been submitted for review.' }, 201)
 })
