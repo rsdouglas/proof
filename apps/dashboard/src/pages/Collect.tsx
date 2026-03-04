@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useApi } from '../lib/auth'
+import { Link2, Copy, Check, Lightbulb, Mail, AlertTriangle, RefreshCw } from 'lucide-react'
+import { colors, radius, shadow, font, btn, card } from '../design'
 
 interface CollectionForm {
   id: string
@@ -7,8 +9,6 @@ interface CollectionForm {
   active: number
   created_at: string
 }
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
 
 export default function Collect() {
   const { request } = useApi()
@@ -44,55 +44,65 @@ export default function Collect() {
   return (
     <div>
       <div style={{ marginBottom: 32 }}>
-        <h1 style={{ margin: '0 0 6px', fontSize: 24, fontWeight: 700 }}>Collect Testimonials</h1>
-        <p style={{ margin: 0, color: '#6b7280', fontSize: 15 }}>
+        <h1 style={{ margin: '0 0 6px', fontSize: 24, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.5px' }}>
+          Collect Testimonials
+        </h1>
+        <p style={{ margin: 0, color: colors.gray400, fontSize: 14 }}>
           Share your collection link with customers to gather testimonials.
         </p>
       </div>
 
       {loading && (
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 40, textAlign: 'center' }}>
-          <p style={{ color: '#9ca3af', margin: 0 }}>Loading…</p>
+        <div style={{ ...card, textAlign: 'center', padding: 48 }}>
+          <p style={{ color: colors.gray400, margin: 0 }}>Loading…</p>
         </div>
       )}
 
       {!loading && form && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Main link card */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 32 }}>
-            <div style={{ fontSize: 36, marginBottom: 12 }}>🔗</div>
-            <h2 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700, color: '#111827' }}>
-              Your collection link
-            </h2>
-            <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14, lineHeight: 1.6 }}>
-              Send this link to your customers. They fill in a short form and their testimonial lands in your inbox — ready for you to approve.
-            </p>
+          <div style={card}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <div style={{
+                width: 36, height: 36, borderRadius: radius.md,
+                background: colors.brandLight, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <Link2 size={18} color={colors.brand} />
+              </div>
+              <div>
+                <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: colors.gray900 }}>
+                  Your collection link
+                </h2>
+                <p style={{ margin: 0, fontSize: 13, color: colors.gray400 }}>
+                  Send this to customers — they fill a short form, you approve
+                </p>
+              </div>
+            </div>
 
             {/* URL display + copy */}
             <div style={{
               display: 'flex', gap: 8, alignItems: 'center',
-              background: '#f9fafb', border: '1px solid #e5e7eb',
-              borderRadius: 8, padding: '12px 16px',
-              marginBottom: 16,
+              background: colors.gray50, border: `1px solid ${colors.gray200}`,
+              borderRadius: radius.md, padding: '10px 14px',
+              marginBottom: 14,
             }}>
               <span style={{
-                flex: 1, fontSize: 14, color: '#374151',
-                fontFamily: 'monospace', wordBreak: 'break-all',
+                flex: 1, fontSize: 13, color: colors.gray700,
+                fontFamily: font.mono, wordBreak: 'break-all',
               }}>
                 {collectionUrl}
               </span>
               <button
                 onClick={copyLink}
                 style={{
-                  padding: '8px 18px',
-                  background: copied ? '#16a34a' : '#2563eb',
-                  color: '#fff', border: 'none', borderRadius: 6,
-                  fontWeight: 600, fontSize: 14, cursor: 'pointer',
+                  ...btn.primary,
+                  background: copied ? colors.success : colors.brand,
+                  gap: 6,
                   whiteSpace: 'nowrap', flexShrink: 0,
-                  transition: 'background 0.2s',
                 }}
               >
-                {copied ? '✓ Copied!' : 'Copy link'}
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+                {copied ? 'Copied!' : 'Copy link'}
               </button>
             </div>
 
@@ -100,17 +110,25 @@ export default function Collect() {
               href={collectionUrl}
               target="_blank"
               rel="noreferrer"
-              style={{ fontSize: 13, color: '#6b7280', textDecoration: 'none' }}
+              style={{ fontSize: 13, color: colors.gray400, textDecoration: 'none' }}
             >
               Preview form ↗
             </a>
           </div>
 
           {/* How to use */}
-          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 10, padding: 24 }}>
-            <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700, color: '#1e40af' }}>
-              💡 How to use your link
-            </h3>
+          <div style={{
+            background: colors.brandLight,
+            border: `1px solid ${colors.brandBorder}`,
+            borderRadius: radius.lg,
+            padding: 24,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+              <Lightbulb size={15} color={colors.brand} />
+              <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: colors.brand }}>
+                How to use your link
+              </h3>
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
                 { step: '1', text: 'Copy the link above' },
@@ -120,24 +138,29 @@ export default function Collect() {
               ].map(item => (
                 <div key={item.step} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                   <span style={{
-                    width: 22, height: 22, borderRadius: '50%',
-                    background: '#2563eb', color: '#fff',
-                    fontSize: 12, fontWeight: 700,
+                    width: 22, height: 22, borderRadius: radius.full,
+                    background: colors.brand, color: colors.white,
+                    fontSize: 11, fontWeight: 700,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     flexShrink: 0, marginTop: 1,
                   }}>{item.step}</span>
-                  <span style={{ fontSize: 14, color: '#1e3a5f', lineHeight: 1.5 }}>{item.text}</span>
+                  <span style={{ fontSize: 14, color: colors.gray700, lineHeight: 1.5 }}>{item.text}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Quick share suggestions */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 24 }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, color: '#111827' }}>
-              📬 Quick share ideas
-            </h3>
-            <p style={{ margin: '0 0 16px', fontSize: 13, color: '#6b7280' }}>Copy and paste these into your messages</p>
+          <div style={card}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+              <Mail size={15} color={colors.gray400} />
+              <h3 style={{ margin: 0, fontSize: 14, fontWeight: 700, color: colors.gray900 }}>
+                Quick share ideas
+              </h3>
+            </div>
+            <p style={{ margin: '0 0 16px', fontSize: 13, color: colors.gray400 }}>
+              Copy and paste these into your messages
+            </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <QuickSnippet
                 label="After a purchase"
@@ -153,19 +176,19 @@ export default function Collect() {
       )}
 
       {!loading && !form && (
-        <div style={{
-          background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10,
-          padding: 48, textAlign: 'center',
-        }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
-          <p style={{ color: '#6b7280', margin: '0 0 16px' }}>
+        <div style={{ ...card, padding: 48, textAlign: 'center' }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: radius.lg,
+            background: colors.warningLight, margin: '0 auto 16px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <AlertTriangle size={22} color={colors.warning} />
+          </div>
+          <p style={{ color: colors.gray500, margin: '0 0 20px', fontSize: 14 }}>
             No collection link found. This shouldn't happen — try refreshing.
           </p>
-          <button
-            onClick={load}
-            style={{ padding: '8px 20px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 600 }}
-          >
-            Retry
+          <button onClick={load} style={btn.primary}>
+            <RefreshCw size={14} /> Retry
           </button>
         </div>
       )}
@@ -184,24 +207,28 @@ function QuickSnippet({ label, text }: { label: string; text: string }) {
   }
 
   return (
-    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 8, padding: 14 }}>
+    <div style={{
+      background: colors.gray50, border: `1px solid ${colors.gray200}`,
+      borderRadius: radius.md, padding: 14,
+    }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-        <span style={{ fontSize: 12, fontWeight: 600, color: '#374151', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-          {label}
-        </span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: colors.gray600 }}>{label}</span>
         <button
           onClick={copy}
           style={{
-            padding: '4px 12px', fontSize: 12, fontWeight: 600,
-            background: copied ? '#16a34a' : '#fff',
-            color: copied ? '#fff' : '#374151',
-            border: '1px solid #d1d5db', borderRadius: 5, cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: 4,
+            padding: '4px 10px', background: copied ? colors.successLight : colors.white,
+            color: copied ? colors.success : colors.gray600,
+            border: `1px solid ${copied ? colors.successBorder : colors.gray200}`,
+            borderRadius: radius.sm, fontSize: 12, fontWeight: 500,
+            cursor: 'pointer', fontFamily: font.sans, transition: 'all 0.15s',
           }}
         >
-          {copied ? '✓ Copied' : 'Copy'}
+          {copied ? <Check size={11} /> : <Copy size={11} />}
+          {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
-      <p style={{ margin: 0, fontSize: 13, color: '#6b7280', lineHeight: 1.5 }}>{text}</p>
+      <p style={{ margin: 0, fontSize: 13, color: colors.gray600, lineHeight: 1.5 }}>{text}</p>
     </div>
   )
 }

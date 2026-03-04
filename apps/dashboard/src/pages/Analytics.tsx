@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApi, useAuth } from '../lib/auth'
+import { Eye, MousePointerClick, BarChart2, Layers, TrendingUp, Zap, type LucideIcon } from 'lucide-react'
+import { colors, radius, shadow, font, btn, card, fontSize } from '../design'
 
 interface WidgetStats {
   widget_id: string
@@ -17,64 +19,80 @@ interface AccountStats {
 
 const DAYS_OPTIONS = [7, 30, 90]
 
-function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
+function StatCard({ label, value, sub, icon: Icon }: {
+  label: string
+  value: number | string
+  sub?: string
+  icon?: LucideIcon
+}) {
   return (
     <div style={{
-      background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12,
-      padding: '20px 24px', minWidth: 140,
+      ...card,
+      flex: '1 1 140px',
+      minWidth: 140,
     }}>
-      <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 32, fontWeight: 700, color: '#111827', lineHeight: 1 }}>{value.toLocaleString()}</div>
-      {sub && <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 4 }}>{sub}</div>}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+        {Icon && <Icon size={14} color={colors.gray400} />}
+        <span style={{ fontSize: 12, color: colors.gray400, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {label}
+        </span>
+      </div>
+      <div style={{ fontSize: 32, fontWeight: 800, color: colors.gray900, lineHeight: 1, letterSpacing: '-1px' }}>
+        {typeof value === 'number' ? value.toLocaleString() : value}
+      </div>
+      {sub && <div style={{ fontSize: 12, color: colors.gray400, marginTop: 4 }}>{sub}</div>}
     </div>
   )
 }
 
 function ProGate() {
   const navigate = useNavigate()
+  const features = [
+    { label: 'Widget impressions', icon: Eye },
+    { label: 'View-through rate', icon: TrendingUp },
+    { label: 'CTA click tracking', icon: MousePointerClick },
+    { label: 'Per-widget breakdown', icon: Layers },
+  ]
   return (
     <div style={{
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       justifyContent: 'center', gap: 16, padding: '80px 20px',
-      border: '1px dashed #d1d5db', borderRadius: 16, background: '#fafafa',
-      textAlign: 'center',
+      border: `1.5px dashed ${colors.gray200}`, borderRadius: radius.xl,
+      background: colors.gray50, textAlign: 'center',
     }}>
-      <div style={{ fontSize: 40 }}>📊</div>
-      <h2 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>
+      <div style={{
+        width: 56, height: 56, borderRadius: radius.xl,
+        background: colors.brandLight, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <BarChart2 size={26} color={colors.brand} />
+      </div>
+      <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.5px' }}>
         Analytics are available on Pro
       </h2>
-      <p style={{ margin: 0, fontSize: 15, color: '#6b7280', maxWidth: 380, lineHeight: 1.6 }}>
-        Track impressions, views, and click-through rates across all your widgets. 
+      <p style={{ margin: 0, fontSize: 14, color: colors.gray500, maxWidth: 380, lineHeight: 1.6 }}>
+        Track impressions, views, and click-through rates across all your widgets.
         See exactly which testimonials drive engagement.
       </p>
       <div style={{
-        display: 'flex', gap: 24, marginTop: 8, padding: '16px 24px',
-        background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12,
-        flexWrap: 'wrap', justifyContent: 'center',
+        display: 'flex', gap: 20, marginTop: 8, padding: '16px 24px',
+        background: colors.white, border: `1px solid ${colors.gray200}`,
+        borderRadius: radius.lg, flexWrap: 'wrap', justifyContent: 'center',
+        boxShadow: shadow.sm,
       }}>
-        {[
-          { label: 'Widget impressions', icon: '👁️' },
-          { label: 'View-through rate', icon: '📈' },
-          { label: 'CTA click tracking', icon: '🖱️' },
-          { label: 'Per-widget breakdown', icon: '📋' },
-        ].map(({ label, icon }) => (
-          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#374151' }}>
-            <span>{icon}</span>
+        {features.map(({ label, icon: Icon }) => (
+          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: colors.gray700 }}>
+            <Icon size={14} color={colors.brand} />
             <span>{label}</span>
           </div>
         ))}
       </div>
       <button
         onClick={() => navigate('/dashboard/settings?upgrade=1')}
-        style={{
-          padding: '12px 28px', borderRadius: 8, border: 'none',
-          background: '#6366f1', color: '#fff', cursor: 'pointer',
-          fontSize: 15, fontWeight: 600, marginTop: 8,
-        }}
+        style={{ ...btn.primary, padding: '12px 28px', fontSize: 15, marginTop: 8 }}
       >
-        Upgrade to Pro →
+        <Zap size={16} /> Upgrade to Pro →
       </button>
-      <p style={{ margin: 0, fontSize: 13, color: '#9ca3af' }}>$9/mo · cancel anytime</p>
+      <p style={{ margin: 0, fontSize: 13, color: colors.gray400 }}>$9/mo · cancel anytime</p>
     </div>
   )
 }
@@ -111,23 +129,42 @@ export default function Analytics() {
     { impression: 0, view: 0, click: 0 }
   ) ?? { impression: 0, view: 0, click: 0 }
 
-  const ctr = totals.view > 0 ? ((totals.click / totals.view) * 100).toFixed(1) : '0.0'
+  const ctr = totals.view > 0
+    ? ((totals.click / totals.view) * 100).toFixed(1)
+    : '0.0'
 
   return (
-    <div style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-        <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: '#111827' }}>Analytics</h1>
+    <div>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 32 }}>
+        <div>
+          <h1 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.5px' }}>
+            Analytics
+          </h1>
+          <p style={{ margin: 0, fontSize: 14, color: colors.gray400 }}>
+            Widget performance over the last {days} days
+          </p>
+        </div>
+
+        {/* Day range picker — only show when pro */}
         {isPro && (
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 4, background: colors.gray100, borderRadius: radius.md, padding: 3 }}>
             {DAYS_OPTIONS.map(d => (
               <button
                 key={d}
                 onClick={() => setDays(d)}
                 style={{
-                  padding: '6px 16px', borderRadius: 20, border: '1px solid #e5e7eb',
-                  background: days === d ? '#6C5CE7' : '#fff',
-                  color: days === d ? '#fff' : '#374151',
-                  cursor: 'pointer', fontWeight: 500, fontSize: 13,
+                  padding: '5px 14px',
+                  borderRadius: radius.sm,
+                  border: 'none',
+                  background: days === d ? colors.white : 'transparent',
+                  boxShadow: days === d ? shadow.sm : 'none',
+                  color: days === d ? colors.gray900 : colors.gray500,
+                  cursor: 'pointer',
+                  fontFamily: font.sans,
+                  fontWeight: days === d ? 600 : 400,
+                  fontSize: 13,
+                  transition: 'all 0.1s',
                 }}
               >
                 {d}d
@@ -137,12 +174,16 @@ export default function Analytics() {
         )}
       </div>
 
-      {/* Free plan gate — clean CTA, no mock numbers */}
+      {/* Free plan gate */}
       {!isPro && <ProGate />}
 
       {/* Pro content */}
-      {isPro && loading && <div style={{ color: '#6b7280' }}>Loading…</div>}
-      {isPro && error && <div style={{ color: '#ef4444' }}>{error}</div>}
+      {isPro && loading && (
+        <div style={{ color: colors.gray400, fontSize: 14 }}>Loading…</div>
+      )}
+      {isPro && error && (
+        <div style={{ color: colors.danger, fontSize: 14 }}>{error}</div>
+      )}
 
       {isPro && !loading && !error && stats && (
         <>
@@ -150,24 +191,27 @@ export default function Analytics() {
           {stats.widgets.length === 0 && totals.impression === 0 && (
             <div style={{
               textAlign: 'center', padding: '60px 20px',
-              border: '1px dashed #e5e7eb', borderRadius: 12, color: '#6b7280',
+              border: `1.5px dashed ${colors.gray200}`, borderRadius: radius.xl,
+              color: colors.gray500, background: colors.gray50,
             }}>
-              <div style={{ fontSize: 40, marginBottom: 16 }}>📈</div>
-              <p style={{ fontSize: 16, fontWeight: 500, color: '#374151', margin: '0 0 8px' }}>
+              <div style={{
+                width: 52, height: 52, borderRadius: radius.xl,
+                background: colors.brandLight, margin: '0 auto 16px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <TrendingUp size={24} color={colors.brand} />
+              </div>
+              <p style={{ fontSize: 16, fontWeight: 600, color: colors.gray800, margin: '0 0 8px' }}>
                 Your analytics will appear here once you've added Vouch to your website.
               </p>
-              <p style={{ fontSize: 14, margin: '0 0 24px' }}>
+              <p style={{ fontSize: 14, margin: '0 0 24px', color: colors.gray500 }}>
                 Add the embed snippet to your site to start tracking impressions and clicks.
               </p>
               <button
                 onClick={() => navigate('/dashboard/widgets')}
-                style={{
-                  padding: '10px 24px', borderRadius: 8, border: 'none',
-                  background: '#6366f1', color: '#fff', cursor: 'pointer',
-                  fontSize: 14, fontWeight: 600,
-                }}
+                style={btn.primary}
               >
-                Create a widget →
+                <Layers size={14} /> Create a widget →
               </button>
             </div>
           )}
@@ -175,36 +219,36 @@ export default function Analytics() {
           {/* Summary cards */}
           {totals.impression > 0 && (
             <>
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 36 }}>
-                <StatCard label="Impressions" value={totals.impression} sub="Widget loaded on page" />
-                <StatCard label="Views" value={totals.view} sub="Widget scrolled into view" />
-                <StatCard label="Clicks" value={totals.click} sub="CTA button clicked" />
-                <StatCard label="Click-through rate" value={parseFloat(ctr)} sub={`${ctr}% of views`} />
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 32 }}>
+                <StatCard label="Impressions" value={totals.impression} sub="Widget loaded on page" icon={Eye} />
+                <StatCard label="Views" value={totals.view} sub="Widget scrolled into view" icon={TrendingUp} />
+                <StatCard label="Clicks" value={totals.click} sub="CTA button clicked" icon={MousePointerClick} />
+                <StatCard label="Click-through rate" value={`${ctr}%`} sub={`of ${totals.view.toLocaleString()} views`} icon={BarChart2} />
               </div>
 
               {/* Per-widget breakdown */}
-              <h2 style={{ fontSize: 16, fontWeight: 600, color: '#374151', marginBottom: 12 }}>By widget</h2>
-              <div style={{ border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
+              <h2 style={{ fontSize: 15, fontWeight: 700, color: colors.gray700, marginBottom: 12 }}>By widget</h2>
+              <div style={{ border: `1px solid ${colors.gray200}`, borderRadius: radius.lg, overflow: 'hidden', background: colors.white, boxShadow: shadow.sm }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid #f3f4f6', background: '#f9fafb' }}>
-                      <th style={{ textAlign: 'left', padding: '10px 16px', color: '#6b7280', fontWeight: 500 }}>Widget</th>
-                      <th style={{ textAlign: 'right', padding: '10px 16px', color: '#6b7280', fontWeight: 500 }}>Impressions</th>
-                      <th style={{ textAlign: 'right', padding: '10px 16px', color: '#6b7280', fontWeight: 500 }}>Views</th>
-                      <th style={{ textAlign: 'right', padding: '10px 16px', color: '#6b7280', fontWeight: 500 }}>Clicks</th>
-                      <th style={{ textAlign: 'right', padding: '10px 16px', color: '#6b7280', fontWeight: 500 }}>CTR</th>
+                    <tr style={{ borderBottom: `1px solid ${colors.gray100}`, background: colors.gray50 }}>
+                      <th style={{ textAlign: 'left', padding: '10px 16px', color: colors.gray400, fontWeight: 500, fontSize: 12 }}>Widget</th>
+                      <th style={{ textAlign: 'right', padding: '10px 16px', color: colors.gray400, fontWeight: 500, fontSize: 12 }}>Impressions</th>
+                      <th style={{ textAlign: 'right', padding: '10px 16px', color: colors.gray400, fontWeight: 500, fontSize: 12 }}>Views</th>
+                      <th style={{ textAlign: 'right', padding: '10px 16px', color: colors.gray400, fontWeight: 500, fontSize: 12 }}>Clicks</th>
+                      <th style={{ textAlign: 'right', padding: '10px 16px', color: colors.gray400, fontWeight: 500, fontSize: 12 }}>CTR</th>
                     </tr>
                   </thead>
                   <tbody>
                     {stats.widgets.map((w, i) => {
                       const wCtr = w.view > 0 ? ((w.click / w.view) * 100).toFixed(1) : '0.0'
                       return (
-                        <tr key={w.widget_id} style={{ borderBottom: i < stats.widgets.length - 1 ? '1px solid #f3f4f6' : 'none' }}>
-                          <td style={{ padding: '10px 16px', color: '#111827', fontWeight: 500 }}>{w.widget_name || 'Untitled'}</td>
-                          <td style={{ padding: '10px 16px', textAlign: 'right', color: '#374151' }}>{w.impression.toLocaleString()}</td>
-                          <td style={{ padding: '10px 16px', textAlign: 'right', color: '#374151' }}>{w.view.toLocaleString()}</td>
-                          <td style={{ padding: '10px 16px', textAlign: 'right', color: '#374151' }}>{w.click.toLocaleString()}</td>
-                          <td style={{ padding: '10px 16px', textAlign: 'right', color: '#374151' }}>{wCtr}%</td>
+                        <tr key={w.widget_id} style={{ borderBottom: i < stats.widgets.length - 1 ? `1px solid ${colors.gray100}` : 'none' }}>
+                          <td style={{ padding: '10px 16px', color: colors.gray900, fontWeight: 500 }}>{w.widget_name || 'Untitled'}</td>
+                          <td style={{ padding: '10px 16px', color: colors.gray700, textAlign: 'right' }}>{w.impression.toLocaleString()}</td>
+                          <td style={{ padding: '10px 16px', color: colors.gray700, textAlign: 'right' }}>{w.view.toLocaleString()}</td>
+                          <td style={{ padding: '10px 16px', color: colors.gray700, textAlign: 'right' }}>{w.click.toLocaleString()}</td>
+                          <td style={{ padding: '10px 16px', color: colors.gray700, textAlign: 'right' }}>{wCtr}%</td>
                         </tr>
                       )
                     })}

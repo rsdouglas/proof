@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useApi } from '../lib/auth'
 import { Toast } from '../components/Toast'
+import { Copy, Check, Trash2, Save, Code, Globe, Settings } from 'lucide-react'
+import { colors, radius, shadow, font, btn, card } from '../design'
 
 interface Testimonial {
   id: string
@@ -41,9 +43,9 @@ function CopyButton({ text, label }: { text: string; label?: string }) {
   }
   return (
     <button onClick={copy} style={{
-      padding: '6px 12px', background: copied ? '#10b981' : '#f3f4f6',
-      border: '1px solid #e5e7eb', borderRadius: 5, cursor: 'pointer', fontSize: 12,
-      color: copied ? '#fff' : '#374151', fontWeight: 500, transition: 'all .15s',
+      padding: '6px 12px', background: copied ? colors.success : colors.gray100,
+      border: '1px solid #e5e7eb', borderRadius: radius.sm, cursor: 'pointer', fontSize: 12,
+      color: copied ? colors.white : colors.gray700, fontWeight: 500, transition: 'all .15s',
     }}>
       {copied ? '✓ Copied!' : (label || 'Copy')}
     </button>
@@ -121,11 +123,11 @@ function InstallGuide({ embedCode }: { embedCode: string }) {
             key={p.id}
             onClick={() => setPlatform(p.id)}
             style={{
-              padding: '5px 10px', fontSize: 12, borderRadius: 4, cursor: 'pointer',
+              padding: '5px 10px', fontSize: 12, borderRadius: radius.sm, cursor: 'pointer',
               border: '1px solid',
-              borderColor: platform === p.id ? '#2563eb' : '#d1d5db',
-              background: platform === p.id ? '#eff6ff' : '#fff',
-              color: platform === p.id ? '#1d4ed8' : '#374151',
+              borderColor: platform === p.id ? colors.brand : colors.gray300,
+              background: platform === p.id ? colors.brandLight : colors.white,
+              color: platform === p.id ? colors.brandHover : colors.gray700,
               fontWeight: platform === p.id ? 600 : 400,
               transition: 'all 0.1s',
             }}
@@ -135,11 +137,11 @@ function InstallGuide({ embedCode }: { embedCode: string }) {
         ))}
       </div>
       {/* Steps */}
-      <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: '14px 16px' }}>
-        <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 600, color: '#374151' }}>{guide.title}</p>
+      <div style={{ background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: '14px 16px' }}>
+        <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 600, color: colors.gray700 }}>{guide.title}</p>
         <ol style={{ margin: 0, paddingLeft: 18 }}>
           {guide.steps.map((step, i) => (
-            <li key={i} style={{ fontSize: 12, color: '#4b5563', marginBottom: 6, lineHeight: 1.5 }}>
+            <li key={i} style={{ fontSize: 12, color: colors.gray600, marginBottom: 6, lineHeight: 1.5 }}>
               {step}
             </li>
           ))}
@@ -151,7 +153,7 @@ function InstallGuide({ embedCode }: { embedCode: string }) {
 
 function Stars({ rating }: { rating: number | null }) {
   if (!rating) return null
-  return <span style={{ color: '#f59e0b', fontSize: 13 }}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
+  return <span style={{ color: colors.warning, fontSize: 13 }}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
 }
 
 export default function WidgetDetail() {
@@ -234,7 +236,7 @@ export default function WidgetDetail() {
     }
   }
 
-  if (loading) return <div style={{ padding: 40, color: '#6b7280' }}>Loading…</div>
+  if (loading) return <div style={{ padding: 40, color: colors.gray500 }}>Loading…</div>
   if (!widget) return <div style={{ padding: 40 }}><Link to="/widgets">← Back to widgets</Link> — Widget not found.</div>
 
   const WIDGET_URL = `https://widget.socialproof.dev/v1`
@@ -251,12 +253,12 @@ export default function WidgetDetail() {
 
   const tabStyle = (t: Tab) => ({
     padding: '8px 16px',
-    borderRadius: 6,
+    borderRadius: radius.sm,
     border: 'none',
     cursor: 'pointer',
     fontWeight: tab === t ? 600 : 400,
-    background: tab === t ? '#2563eb' : 'transparent',
-    color: tab === t ? '#fff' : '#6b7280',
+    background: tab === t ? colors.brand : 'transparent',
+    color: tab === t ? colors.white : colors.gray500,
     fontSize: 14,
   })
 
@@ -272,37 +274,37 @@ export default function WidgetDetail() {
 
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-        <Link to="/widgets" style={{ color: '#6b7280', textDecoration: 'none', fontSize: 14 }}>← Widgets</Link>
-        <span style={{ color: '#d1d5db' }}>/</span>
+        <Link to="/widgets" style={{ color: colors.gray500, textDecoration: 'none', fontSize: 14 }}>← Widgets</Link>
+        <span style={{ color: colors.gray300 }}>/</span>
         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{widget.name}</h1>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
         {/* Settings */}
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
+        <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 24 }}>
           <h2 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 600 }}>Widget settings</h2>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Name</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: colors.gray700 }}>Name</label>
             <input
               value={name}
               onChange={e => setName(e.target.value)}
-              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14, boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 14, boxSizing: 'border-box' }}
             />
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Theme</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: colors.gray700 }}>Theme</label>
             <div style={{ display: 'flex', gap: 8 }}>
               {THEME_OPTIONS.map(t => (
                 <button
                   key={t}
                   onClick={() => setTheme(t)}
                   style={{
-                    padding: '6px 14px', borderRadius: 6, border: '1px solid',
-                    borderColor: theme === t ? '#2563eb' : '#d1d5db',
-                    background: theme === t ? '#eff6ff' : '#fff',
-                    color: theme === t ? '#2563eb' : '#374151',
+                    padding: '6px 14px', borderRadius: radius.sm, border: '1px solid',
+                    borderColor: theme === t ? colors.brand : colors.gray300,
+                    background: theme === t ? colors.brandLight : colors.white,
+                    color: theme === t ? colors.brand : colors.gray700,
                     cursor: 'pointer', fontSize: 13, fontWeight: theme === t ? 600 : 400,
                   }}
                 >{t}</button>
@@ -311,23 +313,23 @@ export default function WidgetDetail() {
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: '#374151' }}>Layout</label>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: colors.gray700 }}>Layout</label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {LAYOUT_OPTIONS.map(l => (
                 <label key={l} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, cursor: 'pointer', fontSize: 13 }}>
                   <input type="radio" checked={layout === l} onChange={() => setLayout(l)} style={{ marginTop: 2 }} />
-                  <span style={{ color: layout === l ? '#2563eb' : '#374151' }}>{LAYOUT_LABELS[l]}</span>
+                  <span style={{ color: layout === l ? colors.brand : colors.gray700 }}>{LAYOUT_LABELS[l]}</span>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Embed code + install guide */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Embed code</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>Copy the snippet below and paste it into your site</p>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>Copy the snippet below and paste it into your site</p>
             <pre style={{
-              background: '#1e1e2e', color: '#cdd6f4', borderRadius: 6, padding: 12,
+              background: '#1e1e2e', color: '#cdd6f4', borderRadius: radius.sm, padding: 12,
               fontSize: 11, overflow: 'auto', margin: '0 0 8px', lineHeight: 1.6,
               whiteSpace: 'pre-wrap', wordBreak: 'break-all',
             }}>{embedCode}</pre>
@@ -335,74 +337,74 @@ export default function WidgetDetail() {
 
             {/* Platform install guide */}
             <div style={{ marginTop: 20 }}>
-              <h4 style={{ margin: '0 0 10px', fontSize: 13, fontWeight: 600, color: '#374151' }}>Installation guide</h4>
+              <h4 style={{ margin: '0 0 10px', fontSize: 13, fontWeight: 600, color: colors.gray700 }}>Installation guide</h4>
               <InstallGuide embedCode={embedCode} />
             </div>
           </div>
 
           {/* Public wall */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>A shareable page showing all approved testimonials</p>
             <a
               href={wallUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+              style={{ fontSize: 13, color: colors.brand, wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
             >{wallUrl}</a>
             <CopyButton text={wallUrl} label="Copy wall URL" />
           </div>
 
           {/* Public wall */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>A shareable page showing all approved testimonials</p>
             <a
               href={wallUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+              style={{ fontSize: 13, color: colors.brand, wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
             >{wallUrl}</a>
             <CopyButton text={wallUrl} label="Copy wall URL" />
           </div>
 
           {/* Widget config */}
-          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 600 }}>Widget settings</h3>
 
-            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Name</label>
+            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Name</label>
             <input
               value={name} onChange={e => setName(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, boxSizing: 'border-box', marginBottom: 12, fontFamily: 'inherit' }}
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, boxSizing: 'border-box', marginBottom: 12, fontFamily: font.sans }}
             />
 
-            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Theme</label>
+            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Theme</label>
             <select value={theme} onChange={e => setTheme(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, marginBottom: 12, fontFamily: 'inherit' }}>
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, marginBottom: 12, fontFamily: font.sans }}>
               {THEME_OPTIONS.map(o => <option key={o} value={o}>{o.charAt(0).toUpperCase() + o.slice(1)}</option>)}
             </select>
 
-            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Layout</label>
+            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Layout</label>
             <select value={layout} onChange={e => setLayout(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}>
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, marginBottom: 16, fontFamily: font.sans }}>
               {LAYOUT_OPTIONS.map(o => <option key={o} value={o}>{LAYOUT_LABELS[o] || o}</option>)}
             </select>
 
             <button onClick={updateWidget} disabled={saving} style={{
-              width: '100%', padding: '9px', background: saving ? '#93c5fd' : '#2563eb',
-              color: '#fff', border: 'none', borderRadius: 5, fontWeight: 600, fontSize: 13,
-              cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit',
+              width: '100%', padding: '9px', background: saving ? colors.brandBorder : colors.brand,
+              color: colors.white, border: 'none', borderRadius: radius.sm, fontWeight: 600, fontSize: 13,
+              cursor: saving ? 'not-allowed' : 'pointer', fontFamily: font.sans,
             }}>
               {saving ? 'Saving…' : 'Save changes'}
             </button>
           </div>
 
           {/* Danger zone */}
-          <div style={{ background: '#fff', border: '1px solid #fee2e2', borderRadius: 8, padding: 20 }}>
-            <h3 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: '#dc2626' }}>Danger zone</h3>
+          <div style={{ background: colors.white, border: '1px solid #fee2e2', borderRadius: radius.md, padding: 20 }}>
+            <h3 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: colors.danger }}>Danger zone</h3>
             <button onClick={deleteWidget} style={{
-              width: '100%', padding: '8px', background: '#fff', color: '#dc2626',
-              border: '1px solid #fca5a5', borderRadius: 5, cursor: 'pointer', fontSize: 13, fontFamily: 'inherit',
+              width: '100%', padding: '8px', background: colors.white, color: colors.danger,
+              border: '1px solid #fca5a5', borderRadius: radius.sm, cursor: 'pointer', fontSize: 13, fontFamily: font.sans,
             }}>
               Delete widget
             </button>
@@ -410,54 +412,54 @@ export default function WidgetDetail() {
         </div>
 
         {/* Embed */}
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
+        <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 24 }}>
           <h2 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 600 }}>Embed &amp; share</h2>
 
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Embed snippet</label>
+              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Embed snippet</label>
               <CopyButton text={embedCode} label="Copy code" />
             </div>
-            <pre style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 12, fontSize: 12, overflow: 'auto', margin: 0, color: '#374151', whiteSpace: 'pre-wrap' }}>{embedCode}</pre>
+            <pre style={{ background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: 12, fontSize: 12, overflow: 'auto', margin: 0, color: colors.gray700, whiteSpace: 'pre-wrap' }}>{embedCode}</pre>
           </div>
 
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Collection form URL</label>
+              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Collection form URL</label>
               <CopyButton text={collectUrl} />
             </div>
-            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{collectUrl}</div>
+            <div style={{ background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: 10, fontSize: 12, color: colors.gray700, wordBreak: 'break-all' }}>{collectUrl}</div>
           </div>
 
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Public testimonial wall</label>
+              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Public testimonial wall</label>
               <CopyButton text={wallUrl} />
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <div style={{ flex: 1, background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{wallUrl}</div>
-              <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#2563eb', whiteSpace: 'nowrap' }}>Open ↗</a>
+              <div style={{ flex: 1, background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: 10, fontSize: 12, color: colors.gray700, wordBreak: 'break-all' }}>{wallUrl}</div>
+              <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: colors.brand, whiteSpace: 'nowrap' }}>Open ↗</a>
             </div>
           </div>
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Rating badge <span style={{ fontWeight: 400, color: '#9ca3af' }}>(embed on your site)</span></label>
+              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Rating badge <span style={{ fontWeight: 400, color: colors.gray400 }}>(embed on your site)</span></label>
               <CopyButton text={badgeHtml} label="Copy badge HTML" />
             </div>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10 }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: 10 }}>
               <img src={badgeUrl} alt="Rating badge preview" width={160} height={44} style={{ flexShrink: 0 }} />
-              <div style={{ fontSize: 11, color: '#6b7280' }}>Embed this on your website or email signature. Updates automatically.</div>
+              <div style={{ fontSize: 11, color: colors.gray500 }}>Embed this on your website or email signature. Updates automatically.</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Testimonials */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24 }}>
+      <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Testimonials</h2>
-          <a href={collectUrl} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: '#2563eb', textDecoration: 'none' }}>+ Share form ↗</a>
+          <a href={collectUrl} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: colors.brand, textDecoration: 'none' }}>+ Share form ↗</a>
         </div>
 
         <div style={{ display: 'flex', gap: 4, marginBottom: 16, borderBottom: '1px solid #f3f4f6', paddingBottom: 8 }}>
@@ -469,20 +471,20 @@ export default function WidgetDetail() {
         </div>
 
         {filtered.length === 0 ? (
-          <div style={{ color: '#9ca3af', fontSize: 14, padding: '20px 0', textAlign: 'center' }}>
+          <div style={{ color: colors.gray400, fontSize: 14, padding: '20px 0', textAlign: 'center' }}>
             {tab === 'pending' ? 'No pending testimonials. Share your collection form to get some!' : `No ${tab} testimonials.`}
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {filtered.map(t => (
-              <div key={t.id} style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+              <div key={t.id} style={{ border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 16, display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                     <span style={{ fontWeight: 600, fontSize: 14 }}>{t.display_name}</span>
                     <Stars rating={t.rating} />
                   </div>
-                  <p style={{ margin: 0, fontSize: 14, color: '#374151', lineHeight: 1.5 }}>{t.display_text}</p>
-                  <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 6 }}>
+                  <p style={{ margin: 0, fontSize: 14, color: colors.gray700, lineHeight: 1.5 }}>{t.display_text}</p>
+                  <div style={{ fontSize: 12, color: colors.gray400, marginTop: 6 }}>
                     {new Date(t.created_at).toLocaleDateString()}
                   </div>
                 </div>
@@ -491,12 +493,12 @@ export default function WidgetDetail() {
                     <button
                       onClick={() => setStatus(t.id, 'approved')}
                       disabled={actionLoading === t.id}
-                      style={{ padding: '6px 12px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 5, cursor: 'pointer', fontSize: 12, fontWeight: 500 }}
+                      style={{ padding: '6px 12px', background: colors.success, color: colors.white, border: 'none', borderRadius: radius.sm, cursor: 'pointer', fontSize: 12, fontWeight: 500 }}
                     >✓ Approve</button>
                     <button
                       onClick={() => setStatus(t.id, 'rejected')}
                       disabled={actionLoading === t.id}
-                      style={{ padding: '6px 12px', background: '#fff', color: '#ef4444', border: '1px solid #fecaca', borderRadius: 5, cursor: 'pointer', fontSize: 12 }}
+                      style={{ padding: '6px 12px', background: colors.white, color: colors.danger, border: '1px solid #fecaca', borderRadius: radius.sm, cursor: 'pointer', fontSize: 12 }}
                     >✗ Reject</button>
                   </div>
                 )}
@@ -504,7 +506,7 @@ export default function WidgetDetail() {
                   <button
                     onClick={() => setStatus(t.id, 'rejected')}
                     disabled={actionLoading === t.id}
-                    style={{ padding: '6px 12px', background: '#fff', color: '#6b7280', border: '1px solid #e5e7eb', borderRadius: 5, cursor: 'pointer', fontSize: 12 }}
+                    style={{ padding: '6px 12px', background: colors.white, color: colors.gray500, border: '1px solid #e5e7eb', borderRadius: radius.sm, cursor: 'pointer', fontSize: 12 }}
                   >Un-approve</button>
                 )}
               </div>
