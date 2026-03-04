@@ -59,8 +59,14 @@ Based on the corrected UX model (account-level collection link → testimonials 
 **CTA button:** Create your first widget  
 **Below CTA (small text):** Don't have testimonials yet? [Collect some first →]
 
-### Analytics page — zero events
-**Heading:** Your analytics will appear here  
+### Analytics page — locked on Free (upgrade gate)
+**Heading:** Analytics is a Pro feature
+**Body:** Upgrade to Vouch Pro to see how visitors engage with your testimonial widgets — views, clicks, and impressions per widget.
+**CTA button:** Join the Pro waitlist →
+
+*(Free plan: keep this section visible but gated. Show the heading and a tasteful lock icon or grayed preview.)*
+
+---REMOVE_THESE_LINES---  
 **Body:** Once you add a Vouch widget to your website, you'll see views and interactions here.  
 **CTA button:** Create a widget →  
 **Sub-text:** Analytics tracks how visitors engage with your embedded testimonials.
@@ -86,7 +92,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 *(Interim until Stripe is live — per issue #91)*
 
 **Modal title:** You've hit the Free plan limit  
-**Body:** You're on Vouch Free — 1 active widget, unlimited testimonials. Pro gives you unlimited widgets, custom branding, and Google rich results schema.  
+**Body:** You're on Vouch Free — 1 active widget, up to 25 testimonials. Pro gives you unlimited widgets, unlimited testimonials, custom branding, and Google rich results schema.  
 **Join waitlist CTA:** Join the Pro waitlist  
 **Dismiss:** Stay on Free  
 **Below CTA (small):** You'll be first to know when Pro launches. No credit card required.
@@ -105,15 +111,16 @@ Based on the corrected UX model (account-level collection link → testimonials 
 | | Free | Pro |
 |--|------|-----|
 | Widgets | 1 active | Unlimited |
-| Testimonials | Unlimited | Unlimited |
+| Testimonials | Up to 25 | Unlimited |
 | Collection links | 1 | Unlimited |
+| Analytics | ✗ | ✓ |
 | Custom branding | ✗ | ✓ |
 | Google rich results | ✗ | ✓ |
 | Priority support | ✗ | ✓ |
 | Price | Free forever | $9/month |
 
-**Free plan description:** Perfect for getting started. One widget, all the testimonials you can collect.  
-**Pro plan description:** For businesses serious about social proof. Unlimited everything, custom branding, and SEO superpowers.
+**Free plan description:** Perfect for getting started. One widget, up to 25 testimonials.  
+**Pro plan description:** For businesses serious about social proof. Unlimited widgets, unlimited testimonials, analytics, custom branding, and SEO superpowers.
 
 **Upgrade CTA:** Upgrade to Pro — $9/month  
 **Below CTA:** Cancel anytime. No lock-in.
@@ -211,7 +218,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 **Free plan badge:** Free forever  
 **Pro plan badge:** Pro  
 
-**Free plan text:** You're on the Free plan — 1 active widget, unlimited testimonials collected.  
+**Free plan text:** You're on the Free plan — 1 active widget, up to 25 testimonials.  
 **Upgrade link:** Upgrade to Pro →
 
 **Pro plan text:** You're on Vouch Pro. Thank you for supporting us.  
