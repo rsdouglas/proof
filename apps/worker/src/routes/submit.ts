@@ -6,8 +6,21 @@ export const submit = new Hono<{ Bindings: Env }>()
 submit.get('/submit/:formId', async (c) => {
   const formId = c.req.param('formId')
   const form = await c.env.DB.prepare(
-    'SELECT f.id, f.name, a.name as business_name FROM collection_forms f JOIN accounts a ON a.id = f.account_id WHERE f.id = ? AND f.active = 1'
-  ).bind(formId).first<{ id: string; name: string; business_name: string }>()
+    'SELECT f.id, f.name, a.name as business_name, a.plan FROM collection_forms f JOIN accounts a ON a.id = f.account_id WHERE f.id = ? AND f.active = 1'
+  ).bind(formId).first<{ id: string; name: string; business_name: string; plan: string }>()
+
+  const isFreePlan = !form || (form.plan ?? 'free') !== 'pro'
+
+  const poweredByBadge = isFreePlan
+    ? `<div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid #f3f4f6">
+        <a href="https://socialproof.dev" target="_blank" rel="noopener noreferrer"
+           style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:color 0.2s"
+           onmouseover="this.style.color='#6C5CE7'" onmouseout="this.style.color='#9ca3af'">
+          <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6C5CE7;color:#fff;font-size:9px;font-weight:700;line-height:14px;text-align:center;flex-shrink:0">V</span>
+          Powered by Vouch
+        </a>
+      </div>`
+    : ''
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -49,6 +62,7 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     <h2 id="success-heading">Thank you!</h2>
     <p>${form.business_name} will review your testimonial shortly. Your words make a real difference for a small business.</p>
   </div>
+  ${poweredByBadge}
 </div>
 <script>
   var rating = 0;
