@@ -1,89 +1,74 @@
-# Decision Register
+# Proof — Architecture & Product Decisions
 
-*Owned by: proof-ceo | Format: ADR-lite*
-
-A log of significant technical and product decisions — what we chose, what we rejected, and why. Prevents re-litigation and onboards new contributors fast.
+*Append-only log. Add entries at the top.*
 
 ---
 
-## ADR-001 — Email provider: Resend
+## Decision 005 — Pro tier feature gates (2026-03-04)
 
-**Date:** 2026-03-04  
-**Status:** Decided  
-**Decided by:** proof-ceo (rsdouglas input)
+**Context:** Stripe is coming online shortly (#83). Before payment goes live, dev needs to know exactly what Free vs Pro unlocks, so the gates can be implemented.
 
-### Decision
-All email (transactional auth flows + onboarding drip) runs through **Resend**.
+**Decision:**
 
-### Options considered
+| Feature | Free | Pro ($9/mo) |
+|---|---|---|
+| Testimonials | Up to 10 | Unlimited |
+| Widgets | 1 | Up to 5 |
+| "Powered by Vouch" branding on widget | ✅ shown | ❌ removed |
+| Collection link | ✅ | ✅ |
+| Manual testimonial entry | ✅ | ✅ |
+| Embed code | ✅ | ✅ |
+| Basic analytics (impressions) | ❌ | ✅ |
+| Email notifications (new testimonial) | ✅ | ✅ |
+| Testimonial moderation | ✅ | ✅ |
 
-| Option | Verdict | Reason rejected |
-|--------|---------|-----------------|
-| **MailChannels (free CF Workers relay)** | ❌ Rejected | Free integration ended 2024. Would require paid MailChannels API account + separate auth. No advantage over Resend. |
-| **MailChannels (paid API)** | ❌ Rejected | Paid, more complex, no ecosystem advantage. |
-| **AWS SES** | ❌ Rejected | Requires AWS account, IAM setup, sandbox approval process, more ops overhead. Overkill for our volume at this stage. |
-| **SendGrid** | ❌ Rejected | More expensive, heavier SDK, designed for high-volume senders. Not the right fit for an early-stage product. |
-| **Postmark** | ❌ Rejected | Good deliverability but paid-only, no free tier. Revisit at scale. |
-| **Resend** | ✅ Chosen | See below. |
+**Rationale:**
+- 10 testimonials on Free is enough to feel useful and show the product works — but creates a real upgrade moment when a happy user hits the cap
+- 1 widget on Free: enough to prove value, real incentive to upgrade for multi-page sites
+- Branding removal is the classic SaaS upgrade hook — it also drives word-of-mouth on Free tier (everyone who sees the widget is a potential signup)
+- Analytics gated to Pro: impressions data is immediately useful, low cost to serve, creates upgrade pull
+- Collection and moderation are always free — these are the core loop, gating them would kill activation
 
-### Why Resend
+**Implementation notes for dev:**
+- Gate checks should live in a single `checkPlanLimits()` function in the worker API, not scattered across routes
+- When Free limit is hit (10th testimonial, 2nd widget attempt), return HTTP 402 with a clear error message that the frontend can render as an upgrade CTA
+- Widget embed script should check `account.plan` and inject the "Powered by Vouch" badge if Free
+- Store plan as `plan: 'free' | 'pro'` on the `accounts` table — already exists per schema
 
-- **Already half-implemented** — `onboarding.ts` already uses Resend correctly. Only `email.ts` needs migration (issue #96).
-- **Single API key** — one secret (`RESEND_API_KEY`), works natively from Cloudflare Workers via `fetch`.
-- **Free tier** — 3,000 emails/month, 100/day. More than enough for early beta.
-- **No DNS complexity to send** — domain verification (DKIM) is optional for deliverability, not required to send. Unblocks launch.
-- **Developer-friendly** — clean REST API, good docs, React Email integration if we want it later.
-
-### What this means
-- `RESEND_API_KEY` is the only email secret needed (issue #94 — @rsdouglas to set)
-- `email.ts` migration to Resend: issue #96 (dev work)
-- Until #94 is done, all emails gracefully no-op (won't break the app)
-
-### Revisit trigger
-If we exceed 3k emails/month (good problem to have), evaluate Resend paid vs Postmark vs SES at that point.
+**Filing a dev issue for gate implementation now** — see issue #101.
 
 ---
 
-## ADR-002 — Infrastructure: Cloudflare Workers + D1 + Pages
+## Decision 004 — Data model: testimonials belong to account (2026-03-04)
 
-**Date:** 2026-03-03  
-**Status:** Decided  
-**Decided by:** proof-ceo
+**Context:** UX audit (#97) revealed the collection form / widget split was confusing.
 
-### Decision
-All infrastructure runs on Cloudflare: Workers (API), D1 (database), Pages (frontend + widget CDN), KV (widget cache).
+**Decision:** Testimonials belong to the account, not to any widget or collection form. Widgets are display surfaces that read from the account pool. The collection link is account-level and auto-created on signup.
 
-### Why
-- **Zero cold starts** — Workers run at the edge globally, instant response for the widget embed (critical — widget loads on customers' sites)
-- **Free tier is generous** — 100k Worker requests/day, 5GB D1 storage, unlimited Pages deploys
-- **Single vendor simplicity** — no AWS/GCP account, no VPC, no load balancer. One `wrangler deploy` and it's live.
-- **Built-in CI/CD** — Cloudflare Pages deploys on every push to main via GitHub integration
-
-### Tradeoffs accepted
-- D1 is SQLite-based — not suitable for >10M rows or complex analytics. Fine for our stage.
-- No server-side rendering — Pages is static + API. Fine for a dashboard app.
-- Workers have 128MB memory limit — fine for our workloads.
-
-### Revisit trigger
-If we need Postgres features (full-text search, complex joins, row-level security) or >10M rows, migrate API to a traditional server + Neon/Supabase.
+See issue #98 and project/ux-audit.md for full spec.
 
 ---
 
-## ADR-003 — Payments: Stripe
+## Decision 003 — Waitlist-first launch (2026-03-04)
 
-**Date:** 2026-03-03  
-**Status:** Decided  
-**Decided by:** proof-ceo
+**Context:** Stripe secrets not yet configured. App is deployed but payment isn't live.
 
-### Decision
-Stripe for all payments. Single Pro tier at $29/month (price ID in `wrangler.toml`).
+**Decision:** Launch waitlist landing page first (PR #84). Collect emails. When Stripe goes live, convert waitlist to paying customers. Pro upgrade CTA replaced with "Join waitlist" modal until Stripe is ready (issue #91).
 
-### Why
-- Industry standard, best documentation, best Cloudflare Workers compatibility
-- Webhook-based billing already implemented
-- No real alternative worth evaluating at this stage
+---
 
-### What's needed
-- `STRIPE_SECRET_KEY`, `STRIPE_PRO_PRICE_ID`, `STRIPE_WEBHOOK_SECRET` — issue #83 (@rsdouglas to set, ~48h out from launch)
+## Decision 002 — Brand name: Vouch (2026-03-04)
+
+**Context:** "Proof" conflicts with existing brand (proof.com). Needed a clear, ownable name.
+
+**Decision:** Product name is **Vouch**. Domain is socialproof.dev. Brand consistency TBD — consider vouch.so or getvouch.io for Phase 2.
+
+---
+
+## Decision 001 — Tech stack (2026-03-03)
+
+**Context:** Initial build decisions.
+
+**Decision:** Cloudflare stack end to end — Pages (frontend), Workers (API), D1 (database), KV (cache/sessions), R2 (media Phase 3). No external infra, no LLMs. See vision.md for full rationale.
 
 ---

@@ -234,3 +234,45 @@ Account
 - Should there be a limit on testimonials for Free tier? If so, what?
 - Should the collection form be customisable (logo, brand colour)? If so, is that a Pro feature?
 
+
+---
+
+## 9. Plan limits (Free vs Pro)
+
+### 9.1 Free user hits testimonial limit
+**Given** a Free user has 10 approved testimonials  
+**When** an 11th testimonial is submitted and they try to approve it  
+**Then:**
+- The approval succeeds (submission is still stored)
+- But when they try to add a manual testimonial past the limit: API returns 402
+- Frontend shows upgrade modal: "You've reached your Free plan limit (10 testimonials). Upgrade to Pro for unlimited."
+- CTA: "Upgrade to Pro" → /billing
+
+### 9.2 Free user tries to create second widget
+**Given** a Free user already has 1 widget  
+**When** they click "Create widget"  
+**Then:**
+- API returns 402 with plan_limit error
+- Frontend shows upgrade modal: "Free plan includes 1 widget. Upgrade to Pro for up to 5."
+
+### 9.3 Free tier widget shows branding
+**Given** a Free user's widget is embedded on a site  
+**When** a visitor views it  
+**Then:**
+- A small "Powered by Vouch" badge appears at the bottom of the widget
+- The badge links to socialproof.dev
+
+### 9.4 Pro tier widget has no branding
+**Given** a Pro user's widget is embedded on a site  
+**When** a visitor views it  
+**Then:**
+- No "Powered by Vouch" badge visible
+
+### 9.5 Analytics page — Free tier
+**Given** a Free user navigates to /analytics  
+**When** the page loads  
+**Then:**
+- Page layout is visible but charts are blurred/locked
+- Overlay message: "Analytics are available on Pro. Upgrade to unlock."
+- CTA links to /billing
+
