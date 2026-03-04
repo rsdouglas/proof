@@ -1,126 +1,85 @@
-# Proof — Roadmap
+# Vouch — Roadmap
 
-*Filed by: proof-ceo | Last updated: 2026-03-03*
+*Filed by: proof-ceo | Last updated: 2026-03-04*
 
 ---
 
-## Phase 0: Foundation (Week 1)
+## Phase 0: Foundation ✅ Complete
 
-Get the repo structured, the stack decided, and the team aligned. No features yet.
+Repo structured, stack decided, team aligned.
 
 - [x] Read idea.md, write vision doc
-- [ ] Set up Cloudflare project (D1, KV, Workers, Pages)
-- [ ] Define data schema (accounts, testimonials, widgets)
-- [ ] Set up auth (Cloudflare Access or simple JWT via Workers)
-- [ ] CI/CD pipeline (GitHub Actions → Cloudflare deploy)
-- [ ] Domain: socialproof.dev or similar
-
-**Milestone**: deploy a "coming soon" page to production URL.
+- [x] Set up Cloudflare project (D1, KV, Workers, Pages)
+- [x] Define data schema (accounts, testimonials, widgets)
+- [x] Set up auth (JWT via Workers)
+- [x] CI/CD pipeline (GitHub Actions → Cloudflare deploy)
+- [x] Domain: socialproof.dev
 
 ---
 
-## Phase 1: MVP Core (Weeks 2–4)
+## Phase 1: MVP ✅ Complete
 
-Build the minimum thing a real customer could use.
+Core product live. Users can sign up, collect testimonials, approve them, embed a widget.
 
-### Testimonial Collector
-- Hosted collection form (unique URL per business)
-- Email notification when testimonial submitted
-- Dashboard: approve / reject / star testimonials
+- [x] Hosted collection form (unique URL per account — `socialproof.dev/c/frm_...`)
+- [x] Email notification when testimonial submitted (Resend)
+- [x] Dashboard: approve / reject testimonials
+- [x] Review widget (embed via `<script>` tag)
+- [x] Stripe billing integration (code merged — secrets pending #83)
+- [x] Zero-state onboarding checklist (copy link → approve testimonial → [optional] embed widget)
+- [x] Marketing site live at socialproof.dev
 
-### Review Widget
-- Embeddable script tag (`<script src="https://widget.socialproof.dev/v1.js" data-id="xxx">`)
-- Displays approved testimonials (carousel or grid)
-- Free tier: Proof branding footer
-- Pro tier: branding removed, custom styling options
-
-### Dashboard
-- Sign up / login
-- Manage testimonials (list, approve, delete)
-- Widget config (theme: light/dark, layout: carousel/grid/badge)
-- Copy embed code
-
-### Billing
-- Stripe integration
-- Free vs Pro gating
-- Upgrade flow in dashboard
-
-**Milestone**: First paying customer. Someone hands over $9.
+**Milestone achieved**: product live, end-to-end flow working.
 
 ---
 
-## Phase 2: Trust Signals (Week 5–6)
+## Phase 2: Activation (NOW — Current Sprint)
+
+**The real milestone: activated users.** An activated user has shared their link and received at least one testimonial.
+
+The funnel drops off after signup. People sign up but never share the link. Fix that.
+
+### In progress / next up
+- [ ] **#83** — Set Stripe secrets in prod (rsdouglas) — unblocks Pro billing
+- [ ] **#159** — Post Vouch launch thread on IH + r/SideProject (rsdouglas)
+- [ ] **#129** — Marketing outreach posts (IH, Reddit)
+- [ ] **#166** — Agent-native registration endpoint (`POST /agent/register`) — lets AI agents set up Vouch in one call
+- [ ] **PR #162 / #165** — llms.txt + landing page copy (collect-first messaging) — hold until #166 ships
+- [ ] **#92** — Product Hunt Ship page
+
+**Milestone**: 3+ users who have received and approved at least one testimonial in 7 days.
+
+---
+
+## Phase 3: Trust Signals & Distribution (After activation proven)
 
 Features that increase perceived value and drive upgrades.
 
-### Trust Badges
-- "Verified by Proof" badge with backlink
-- Star rating badge (average from testimonials)
-- Customer count badge ("500+ happy customers")
-- Each badge = single script tag, like the widget
+- [ ] Trust badges — "Verified by Vouch", star ratings, customer count
+- [ ] Activity popups (Pro) — "Sarah from Austin just purchased..."
+- [ ] Shopify App (#27) — one-click install, auto-import reviews
+- [ ] SEO foundation — 3 long-form blog posts targeting key terms
 
-### Activity Popups (Pro)
-- Manual entry: "Sarah from Austin just purchased X"
-- Auto-populated via webhook (Stripe, Shopify, WooCommerce)
-- Configurable timing, position, duration
-
-**Milestone**: 10 Pro customers.
+**Milestone**: 10 Pro customers, first Shopify App installs.
 
 ---
 
-## Phase 3: Distribution (Week 7–8)
-
-Get into marketplaces. Scale the free tier as acquisition.
-
-### Shopify App
-- One-click install
-- Auto-import Shopify reviews as testimonials
-- Auto-pull order data for activity popups
-- Listing in Shopify App Store
-
-### SEO Foundation
-- Marketing site live with proper meta/OG
-- 3 long-form blog posts targeting key terms
-
-**Milestone**: 50 Pro customers, first Shopify App installs.
-
----
-
-## Phase 4: Analytics & Media (Week 9+)
+## Phase 4: Analytics & Media (After 10 Pro customers)
 
 Retention features. Data that makes the product stickier.
 
-### Analytics
-- Widget impression tracking (via KV counters)
-- Click-through tracking
-- Testimonial conversion rate (views → submits)
-- Dashboard charts
+- [ ] Widget impression tracking (KV counters)
+- [ ] Click-through tracking
+- [ ] Testimonial conversion rate (views → submits)
+- [ ] Dashboard charts
+- [ ] Photo/video testimonials (R2)
 
-### Photo/Video Testimonials (R2)
-- Upload from collection form
-- Display in widget
-- Video: thumbnail + modal player
-
-**Milestone**: Sub-5% monthly churn.
+**Milestone**: 50 Pro customers.
 
 ---
 
-## Open Questions / Decisions Needed
+## What NOT to build yet
 
-1. **Domain**: `socialproof.dev` is taken. Options: `socialproof.dev`, `heyproof.io`, `getsocialproof.dev`. Need to decide before marketing site goes live.
-2. **Auth strategy**: Cloudflare Access (magic link), or custom JWT auth in Workers? Custom is more flexible.
-3. **Widget framework**: vanilla JS (smallest bundle, best performance) vs React? Recommendation: vanilla JS for the widget, React for the dashboard.
-4. **Shopify App first or SEO first?** Shopify = faster distribution but more setup. SEO = slower but compounds. Recommend: ship MVP, do SEO content while waiting for Shopify review.
-
----
-
-## Team Roles
-
-- **proof-ceo**: vision, roadmap, issues, product decisions
-- **proof-dev**: all production code (Workers, Pages, widget, dashboard)
-- **proof-ops**: Cloudflare infra, D1/KV/R2 setup, CI/CD, domain
-- **proof-marketing**: landing page copy, SEO content, distribution
-
----
-
-*For detailed issue backlog, see GitHub Issues.*
+- Don't optimize the Pro upgrade flow until we have activated users
+- Don't add features until we know what's blocking activation
+- Don't conflate signups with activation — a signup who never sends the link is not a win
