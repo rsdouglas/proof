@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 Testimonial Page Examples That Actually Convert (2024) — Vouch</title>
+  <meta name="description" content="See 15 real testimonial page examples from small businesses, freelancers, and SaaS companies that drive conversions. Learn what makes each one work.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://socialproof.dev/blog/testimonial-page-examples">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="15 Testimonial Page Examples That Actually Convert (2024)">
+  <meta property="og:description" content="Real examples of testimonial pages that build trust and drive signups. Steal these patterns for your own site.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://socialproof.dev/blog/testimonial-page-examples">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e8f0;
+      --muted: #8888a0;
+      --accent: #7c6af7;
+      --accent-glow: rgba(124,106,247,0.15);
+      --green: #22c55e;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    article {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .post-tag {
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid rgba(124,106,247,0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .post-intro {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 52px 0 16px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      letter-spacing: -0.01em;
+    }
+
+    p { margin-bottom: 20px; }
+
+    ul, ol {
+      padding-left: 28px;
+      margin-bottom: 20px;
+    }
+
+    li { margin-bottom: 10px; }
+
+    .example-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 32px 0;
+      position: relative;
+    }
+
+    .example-number {
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .example-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .example-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+    }
+
+    .example-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .example-card p:last-child { margin-bottom: 0; }
+
+    .why-works {
+      background: var(--accent-glow);
+      border: 1px solid rgba(124,106,247,0.25);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+
+    .why-works-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .why-works p {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) {
+      .anatomy-grid { grid-template-columns: 1fr; }
+    }
+
+    .anatomy-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .anatomy-item .check {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .anatomy-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .anatomy-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 16px 24px;
+      margin: 28px 0;
+      background: var(--accent-glow);
+      border-radius: 0 8px 8px 0;
+    }
+
+    blockquote p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(124,106,247,0.15), rgba(124,106,247,0.05));
+      border: 1px solid rgba(124,106,247,0.3);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin: 56px 0 32px;
+    }
+
+    .cta-box h3 {
+      font-size: 1.4rem;
+      margin: 0 0 12px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .cta-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .toc h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .toc li {
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .toc a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .toc a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">✦ <span>Vouch</span></a>
+  <a class="nav-cta" href="https://app.socialproof.dev/signup">Try free</a>
+</nav>
+
+<article>
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> → <a href="/blog/">Blog</a> → Testimonial Page Examples
+  </div>
+
+  <div class="post-meta">
+    <span class="post-tag">Examples &amp; Inspiration</span>
+    <span>January 2024</span>
+    <span>12 min read</span>
+  </div>
+
+  <h1>15 Testimonial Page Examples That Actually Convert (And What Makes Them Work)</h1>
+
+  <p class="post-intro">
+    Most testimonial pages are an afterthought — a wall of generic five-star quotes that nobody reads. But the best ones are conversion machines. We analyzed dozens of testimonial and social proof pages across industries to find the patterns that actually turn visitors into customers. Here are 15 examples broken down by what works and why.
+  </p>
+
+  <div class="toc">
+    <h4>In this guide</h4>
+    <ol>
+      <li><a href="#anatomy">The anatomy of a high-converting testimonial page</a></li>
+      <li><a href="#examples">15 testimonial page patterns that work</a></li>
+      <li><a href="#mistakes">The 5 most common mistakes (and how to fix them)</a></li>
+      <li><a href="#build">How to build yours in under an hour</a></li>
+    </ol>
+  </div>
+
+  <h2 id="anatomy">The Anatomy of a High-Converting Testimonial Page</h2>
+
+  <p>Before we get to examples, here's what every great testimonial page has in common. Think of these as the non-negotiables:</p>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>Specific outcomes, not vague praise</strong>
+      <p>"Increased conversions 34%" beats "Amazing product!" every time.</p>
+    </div>
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>Real people with real details</strong>
+      <p>Full name, photo, job title, and company name build credibility fast.</p>
+    </div>
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>Variety of customer types</strong>
+      <p>Show testimonials from different industries or use cases so visitors see themselves.</p>
+    </div>
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>A clear next step</strong>
+      <p>Every testimonial page needs a CTA — "Start free trial," "Book a call," "Get a quote."</p>
+    </div>
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>Recency signals</strong>
+      <p>Dates matter. A testimonial from "3 weeks ago" beats one from 2021.</p>
+    </div>
+    <div class="anatomy-item">
+      <div class="check">✓</div>
+      <strong>Scannable layout</strong>
+      <p>Grids and cards > walls of text. People skim before they read.</p>
+    </div>
+  </div>
+
+  <h2 id="examples">15 Testimonial Page Patterns That Work</h2>
+
+  <p>These aren't just pretty designs — each pattern solves a specific conversion problem. Find the one that matches where your customers are in their buying journey.</p>
+
+  <!-- EXAMPLE 1 -->
+  <div class="example-card">
+    <span class="example-number">Example 1</span>
+    <div class="example-label">Pattern: The Results-First Page</div>
+    <h3>Lead with numbers, back them up with stories</h3>
+    <p>This pattern puts the measurable outcome front and center — a bold stat like "Our customers see 2.3x more conversions" — then the testimonials below serve as proof of that claim. Works brilliantly for SaaS, coaching, and marketing services where ROI is the primary concern.</p>
+    <p><strong>What it looks like:</strong> A hero section with 3 headline stats (avg. revenue increase, customer count, average rating), then a grid of testimonials that each echo those numbers with personal stories.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Skeptics get the number first. Skeptics become curious. Then the testimonials turn curiosity into trust. You've answered "does it work?" before they even have to ask.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 2 -->
+  <div class="example-card">
+    <span class="example-number">Example 2</span>
+    <div class="example-label">Pattern: The Video Wall</div>
+    <h3>Short video testimonials, no scripts</h3>
+    <p>A grid of 6–12 short selfie-style videos (30–90 seconds each) where customers talk about their experience in their own words, unscripted. The imperfection is the point — it feels authentic because it is.</p>
+    <p><strong>What it looks like:</strong> Thumbnails showing real faces (not stock photos). Click to play inline. Usually includes a brief text caption with the person's name and what they achieved.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Video builds emotional connection text can't match. Seeing a real person say "this saved my business" is worth 50 written quotes. Visitors who watch at least one video convert at significantly higher rates.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 3 -->
+  <div class="example-card">
+    <span class="example-number">Example 3</span>
+    <div class="example-label">Pattern: The Before/After</div>
+    <h3>Show the transformation, not just the outcome</h3>
+    <p>Each testimonial is structured as a mini case study: "Before [Name] found us, they were struggling with X. Now Y." The transformation arc makes the testimonial a story, and stories stick.</p>
+    <p><strong>What it looks like:</strong> Two-column cards — "Before" on the left in a muted style, "After" on the right in the brand accent color. The customer quote sits beneath the contrast.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>The prospect sees their current situation on the left. They see their desired future on the right. You've shown them the bridge. This pattern works especially well for service businesses and coaches.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 4 -->
+  <div class="example-card">
+    <span class="example-number">Example 4</span>
+    <div class="example-label">Pattern: The Inline Widget (Homepage)</div>
+    <h3>Testimonials woven into the page, not quarantined</h3>
+    <p>Instead of a dedicated testimonial page, testimonials appear inline throughout the homepage — after the hero, after the features section, before the pricing CTA. Each testimonial is placed to answer the objection the visitor likely has at that exact moment.</p>
+    <p><strong>What it looks like:</strong> A rotating testimonial carousel after the hero. A single bold quote between the features and the pricing section. A grid of faces with 1-line quotes at the bottom of the page.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Most visitors never reach a dedicated testimonials page. Inline testimonials meet them where they are. Placement strategy turns social proof into objection-handling.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 5 -->
+  <div class="example-card">
+    <span class="example-number">Example 5</span>
+    <div class="example-label">Pattern: The Industry Filter</div>
+    <h3>Let visitors self-select the testimonials that matter to them</h3>
+    <p>A testimonials page with filter tabs by industry, use case, or customer type. A Shopify store owner clicks "E-commerce." A freelance designer clicks "Creative Services." They only see testimonials from people like them.</p>
+    <p><strong>What it looks like:</strong> Filter chips at the top (All / E-commerce / Freelancers / Agencies / Coaches). The testimonial grid updates instantly on click.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>"People like me use this" is one of the most powerful trust signals that exists. When a visitor filters to their category and sees a page full of people just like them getting results, conversion intent spikes dramatically.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 6 -->
+  <div class="example-card">
+    <span class="example-number">Example 6</span>
+    <div class="example-label">Pattern: The Objection-Crusher</div>
+    <h3>Match each testimonial to a specific concern</h3>
+    <p>This page is organized around customer objections, not random praise. Sections are labeled: "On getting started," "On the price," "On results," "On customer support." Each testimonial in each section directly addresses that objection.</p>
+    <p><strong>What it looks like:</strong> Accordion-style sections or clearly labeled groups. The page reads like a structured FAQ but answered by real customers instead of the company.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Late-stage prospects are full of objections. This page hunts them down and kills them one by one — not with marketing copy, but with social proof. Extremely effective for higher-ticket products.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 7 -->
+  <div class="example-card">
+    <span class="example-number">Example 7</span>
+    <div class="example-label">Pattern: The Logo Wall + Testimonials Combo</div>
+    <h3>Brand-name credibility + human trust</h3>
+    <p>A row of recognizable client logos at the top establishes authority fast. Below it, detailed testimonials from real people provide emotional connection. The logos say "you can trust us with your brand." The testimonials say "here's what that actually felt like."</p>
+    <p><strong>What it looks like:</strong> 8–12 grayscale logos in a horizontal scroll, followed by 3–6 longer testimonials with photos and full attribution.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Logos create authority bias — seeing a recognizable brand name primes visitors to trust everything that follows. The testimonials then deliver the emotional proof. One-two punch.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 8 -->
+  <div class="example-card">
+    <span class="example-number">Example 8</span>
+    <div class="example-label">Pattern: The Mini Case Study Grid</div>
+    <h3>Cards that tell a complete story in 3 sentences</h3>
+    <p>Each testimonial card tells a complete mini story: who the customer is, what problem they had, what result they got. Three sentences max. It's a testimonial that reads like a case study but takes 10 seconds to consume.</p>
+    <p><strong>What it looks like:</strong> Card grid with a headline quote at the top (the result), a short context sentence in the middle ("As a freelance photographer, I was tired of chasing testimonials via email"), then attribution at the bottom.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>The narrative structure works on readers who skim — they see the result headline and if they're intrigued, read the 2-sentence story. The context makes it feel real, not manufactured.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 9 -->
+  <div class="example-card">
+    <span class="example-number">Example 9</span>
+    <div class="example-label">Pattern: The Rotating Ticker</div>
+    <h3>Social proof that moves</h3>
+    <p>A horizontal auto-scrolling strip of brief testimonials (10–20 words each) that loops continuously. Think: "5 stars. Game changer for my Etsy shop. — Sarah T." running in an infinite scroll below the hero.</p>
+    <p><strong>What it looks like:</strong> Two rows scrolling in opposite directions, each containing 8–10 short testimonials. Often used as a section between the hero and features.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Motion captures attention. The variety of names and snippets signals volume — "lots of people love this." Ideal as a trust-building element early on the page before visitors scroll deep.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 10 -->
+  <div class="example-card">
+    <span class="example-number">Example 10</span>
+    <div class="example-label">Pattern: The Screenshot Gallery</div>
+    <h3>Unfiltered proof from real channels</h3>
+    <p>A wall of screenshot testimonials — tweets, DMs, Instagram comments, LinkedIn messages, email replies — displayed in their native format. No polish, no editing. The raw messages look exactly like what they are.</p>
+    <p><strong>What it looks like:</strong> A masonry grid of screenshots, lightly styled with a card border. Often used alongside formatted testimonials for variety.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Screenshots can't be faked (or at least they look too real to question). A DM that says "this is incredible" in someone's actual message thread is more credible than a perfectly formatted quote card. Authenticity wins.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 11 -->
+  <div class="example-card">
+    <span class="example-number">Example 11</span>
+    <div class="example-label">Pattern: The Freelancer/Consultant Wall of Love</div>
+    <h3>Simple, personal, and completely on-brand</h3>
+    <p>For solo operators and freelancers, an elaborate testimonials page can feel over-engineered. The best version is a clean, warm page that feels personal — just a collection of genuine words from people who love working with you. No filters, no fancy layouts.</p>
+    <p><strong>What it looks like:</strong> White background, centered text, 8–12 testimonials in a simple stacked layout with photo, name, company, and quote. Maybe a warm header: "Kind words from clients I've loved working with."</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>People hire freelancers partly on personality fit. A warmly designed, personally curated page signals that this person takes pride in relationships, not just deliverables. The simplicity itself is a trust signal.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 12 -->
+  <div class="example-card">
+    <span class="example-number">Example 12</span>
+    <div class="example-label">Pattern: The Star Rating Aggregate</div>
+    <h3>Lead with the number that matters most</h3>
+    <p>A prominent display of the overall rating — "4.9/5 from 247 customers" — with the testimonials as supporting evidence. The aggregate number is the hero; the individual testimonials are proof of its validity.</p>
+    <p><strong>What it looks like:</strong> A bold "4.9 ★★★★★" headline with the review count in parentheses. Below it, a filterable grid of testimonials with individual star ratings shown on each card.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>The star rating does the trust work immediately — most people will see "4.9/247 reviews" and feel confident before reading a single testimonial. The testimonials then confirm what the number already told them.</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 13 -->
+  <div class="example-card">
+    <span class="example-number">Example 13</span>
+    <div class="example-label">Pattern: The Checkout-Page Trust Strip</div>
+    <h3>Social proof exactly where doubt is highest</h3>
+    <p>Not a testimonials page, but a testimonials placement strategy. A short, highly specific testimonial strip placed directly on the checkout page, cart page, or signup form — right where purchase anxiety is at its peak.</p>
+    <p><strong>What it looks like:</strong> 2–3 mini testimonials directly above or below the payment form. Usually focused on ease ("setup took 5 minutes"), results ("paid for itself in the first month"), or safety ("great support, no hassle cancellation").</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Checkout abandonment is often driven by last-second doubt. A well-chosen testimonial at the point of payment answers "am I making the right choice?" with a real customer saying "yes, I did this too and it was worth it."</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 14 -->
+  <div class="example-card">
+    <span class="example-number">Example 14</span>
+    <div class="example-label">Pattern: The Product-Specific Page</div>
+    <h3>One product, one set of testimonials, total focus</h3>
+    <p>For businesses with multiple products or service tiers, a separate testimonials page for each offering. The page for "Brand Strategy Package" only shows testimonials from brand strategy clients. Maximum relevance, zero noise.</p>
+    <p><strong>What it looks like:</strong> Linked from the product page itself. Usually titled "What [Product Name] customers say." Sometimes includes a filterable grid within the page too.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>A prospect evaluating your premium package doesn't want to read testimonials from your basic tier. Specificity creates relevance. Relevance creates trust. This approach also has strong SEO benefits — each page can rank for "[product type] reviews."</p>
+    </div>
+  </div>
+
+  <!-- EXAMPLE 15 -->
+  <div class="example-card">
+    <span class="example-number">Example 15</span>
+    <div class="example-label">Pattern: The Living Wall</div>
+    <h3>Auto-updating, always-fresh social proof</h3>
+    <p>A testimonials page that pulls in new reviews automatically — from your collect link, from email follow-ups, from integrations. The page updates itself. Every time a customer submits a testimonial, it appears. No manual copy-pasting needed.</p>
+    <p><strong>What it looks like:</strong> A dynamic embed (a single script tag on your site) that renders testimonials as they come in. Latest at the top. Optionally, you moderate before they appear.</p>
+    <div class="why-works">
+      <div class="why-works-label">Why it converts</div>
+      <p>Freshness signals are powerful. "Reviewed 2 weeks ago" beats "Reviewed 2 years ago" for credibility. A living testimonials page that grows over time compounds its own trust — the more customers you serve, the more convincing it becomes, automatically.</p>
+    </div>
+  </div>
+
+  <h2 id="mistakes">The 5 Most Common Testimonial Page Mistakes</h2>
+
+  <p>Even businesses with great customer outcomes sabotage themselves with these avoidable errors:</p>
+
+  <h3>Mistake 1: Keeping testimonials generic</h3>
+  <p>"Great service, would recommend!" tells a prospect nothing. When collecting testimonials, guide customers toward specifics: what problem did they have, what result did they get, what surprised them. A specific testimonial is worth ten vague ones.</p>
+
+  <h3>Mistake 2: No photos or real names</h3>
+  <p>Testimonials attributed to "J.S., New York" look fabricated even when they're real. Full name, photo, company name, and job title are table stakes. If a customer won't let you use their photo, the text testimonial should have enough detail to feel undeniably real.</p>
+
+  <h3>Mistake 3: No CTA on the page</h3>
+  <p>A testimonials page with no next step is a missed opportunity. After convincing someone you're legitimate, tell them what to do next. "Ready to try it?" with a "Start free" button should appear at least twice on the page — middle and bottom.</p>
+
+  <h3>Mistake 4: Stale, outdated testimonials</h3>
+  <p>If your newest testimonial is from 2021, visitors will notice. Recency signals that you're still active, still serving customers, still delivering results. Build a system for collecting testimonials regularly so your page stays current.</p>
+
+  <h3>Mistake 5: One big wall of text</h3>
+  <p>Long testimonials are valuable — but only if they're broken up visually. Use card grids, pull quotes, bold the key phrase, add a headline above each testimonial. Make the page scannable first, readable second.</p>
+
+  <h2 id="build">How to Build Your Testimonial Page in Under an Hour</h2>
+
+  <p>You don't need a developer or a design agency. Here's the fastest path from zero to a live testimonials page that actually works:</p>
+
+  <ol>
+    <li><strong>Collect 5–10 testimonials first.</strong> Send your collect link to your best 20 customers and give it a week. You want specific outcomes, photos, and full names. Don't launch the page with less than 5 good ones.</li>
+    <li><strong>Pick a pattern.</strong> From the examples above, choose the one that fits your business type. Freelancer? Go warm and simple (Example 11). SaaS? Try results-first (Example 1) or living wall (Example 15). E-commerce? Rotating ticker (Example 9) plus inline widget (Example 4).</li>
+    <li><strong>Add a CTA at the top and bottom.</strong> Don't make them work to find the next step. "These results are typical — want to see it for yourself?" + "Start free" button, above the fold and again at the bottom.</li>
+    <li><strong>Link from everywhere.</strong> Homepage, pricing page, about page, footer. Don't bury it. The more visitors who see your testimonials, the more it works.</li>
+    <li><strong>Set up auto-collection.</strong> The living wall pattern only works if testimonials keep coming. Set up a simple 2-email sequence: one right after purchase or project completion, one 30 days later. Most testimonials come from these two touchpoints.</li>
+  </ol>
+
+  <blockquote>
+    <p>The best testimonial page you can build today is one that's honest, specific, and keeps growing. Start with what you have. Improve it as you get more.</p>
+  </blockquote>
+
+  <div class="cta-box">
+    <h3>Build your living testimonials page today</h3>
+    <p>Vouch lets you collect testimonials via a shareable link and embed them on your site with one script tag. Free forever for 1 active widget — no code, no developer needed.</p>
+    <a class="cta-btn" href="https://app.socialproof.dev/signup">Start free — no credit card</a>
+  </div>
+
+  <h2>Related Reading</h2>
+  <ul>
+    <li><a href="/blog/how-to-ask-for-a-testimonial" style="color:var(--accent)">How to Ask for a Testimonial: 7 Email Scripts That Work</a></li>
+    <li><a href="/blog/how-to-get-testimonials-from-customers" style="color:var(--accent)">How to Get Testimonials from Customers (Without Begging)</a></li>
+    <li><a href="/blog/how-to-add-testimonials-shopify" style="color:var(--accent)">How to Add a Testimonial Widget to Your Shopify Store</a></li>
+    <li><a href="/blog/social-proof-for-small-business" style="color:var(--accent)">Social Proof for Small Businesses: What Actually Works</a></li>
+  </ul>
+
+</article>
+
+<footer>
+  <p>© 2024 <a href="/">Vouch</a> · <a href="/blog/">Blog</a> · <a href="https://app.socialproof.dev/signup">Try free</a></p>
+</footer>
+
+</body>
+</html>
