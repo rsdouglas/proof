@@ -312,6 +312,8 @@ auth.post('/reset-password', async (c) => {
   const jwt = await generateToken(account.id, account.email, account.plan, c.env.JWT_SECRET)
   setAuthCookie(c, jwt)
   return c.json({ ok: true, token: jwt })
+})
+
 /** GET /api/auth/demo — returns a read-only demo JWT and seeds demo data if needed */
 auth.get('/demo', async (c) => {
   const DEMO_ACCOUNT_ID = 'demo-account-vouch'
@@ -388,4 +390,7 @@ auth.get('/demo', async (c) => {
     token,
     demo: true,
     account: { id: DEMO_ACCOUNT_ID, email: DEMO_EMAIL, name: 'Acme Store (Demo)', plan: 'pro' },
-  })})
+  })
+})
+
+export default auth
