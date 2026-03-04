@@ -10,7 +10,7 @@
 
 ```
 Account
-  ├── Collection link (auto-exists on signup — 1 per account)
+  ├── Collection link (auto-exists on signup — 1 per account, URL: socialproof.dev/c/frm_xxx)
   ├── Testimonials (single pool — belong to account, not to any widget)
   └── Widgets (optional display surfaces — read from the pool)
 ```
@@ -28,14 +28,14 @@ Account
 **When** signup completes  
 **Then:**
 - They land on the Dashboard
-- A collection link already exists for their account (auto-created, no action required)
+- A collection link already exists for their account (auto-created, no action required) — format: `https://socialproof.dev/c/frm_xxx`
 - The getting started checklist shows: (1) Share your collection link, (2) Approve your first testimonial, (3) [Optional] Add to your site
 
 ### 1.2 Getting started — step 1: share link
 **Given** a new user clicks "Share your collection link" from the checklist  
 **When** they arrive at /collect  
 **Then:**
-- They see their unique collection URL (e.g. `https://socialproof.dev/submit/{linkId}`)
+- They see their unique collection URL (e.g. `https://socialproof.dev/c/frm_xxx`)
 - They can copy it with one click
 - There is NO form creation flow — the link already exists
 - Checklist step 1 marks complete after they visit this page
@@ -54,7 +54,7 @@ Account
 **Then:**
 - They go to /widgets
 - Prompted to create their first widget
-- After creating, they get an embed code
+- After creating, they get an embed code (`<script src="https://cdn.socialproof.dev/widget.js" data-id="wgt_xxx" async></script>`)
 - Checklist step 3 marks complete
 
 ---
@@ -63,217 +63,123 @@ Account
 
 ### 2.1 Customer submits a testimonial
 **Given** a customer receives the collection link and clicks it  
-**When** they arrive at `socialproof.dev/submit/{linkId}`  
+**When** they arrive at `socialproof.dev/c/frm_xxx`  
 **Then:**
 - They see a clean submission form (name, company, testimonial text, optional photo/video)
 - On submit, a success message confirms their submission
 - The testimonial appears in the account owner's /testimonials page with status: Pending
+- The account owner receives an email notification via Resend
 
-### 2.2 Collection link is always available
-**Given** a user logs into their account  
-**When** they navigate to /collect  
+### 2.2 Account owner approves a testimonial
+**Given** a pending testimonial exists in /testimonials  
+**When** the owner clicks Approve  
 **Then:**
-- Their link is always shown — no setup required, no "create a form" step
-- They can copy the URL directly
+- Testimonial status changes to Approved
+- It becomes eligible to display in any widget for this account
+- It appears immediately in all active widgets (no cache delay)
 
-### 2.3 Manual testimonial entry
-**Given** a user has testimonials from email, LinkedIn, etc.  
-**When** they click "Add testimonial manually" from /testimonials  
+### 2.3 Account owner rejects a testimonial
+**Given** a pending testimonial exists  
+**When** the owner clicks Reject  
 **Then:**
-- They can enter name, company, testimonial text, and optional URL/source
-- On save, it appears in their Testimonials list with status: Approved (manual = pre-approved)
-
----
-
-## 3. Moderating testimonials
-
-### 3.1 Approve a testimonial
-**Given** a testimonial is in Pending status  
-**When** the user clicks Approve  
-**Then:**
-- Status changes to Approved
-- It becomes eligible to display in all widgets for this account
-
-### 3.2 Reject a testimonial
-**Given** a testimonial is in Pending status  
-**When** the user clicks Reject  
-**Then:**
-- Status changes to Rejected
+- Testimonial status changes to Rejected
 - It does NOT appear in any widget
-
-### 3.3 Feature a testimonial
-**Given** a testimonial is Approved  
-**When** the user toggles "Featured"  
-**Then:**
-- It appears first / is highlighted in widgets that support featured ordering
-- Featured status is independent of approval
-
-### 3.4 All moderation happens in /testimonials
-**Given** a user wants to moderate testimonials  
-**When** they go to /testimonials  
-**Then:**
-- They see all testimonials across their account (Pending, Approved, Rejected tabs or filter)
-- They can approve/reject/feature from this single location
-- There is NO per-widget moderation — the widget detail page is for display config only
+- It remains in the dashboard for reference
 
 ---
 
-## 4. Displaying testimonials (Widgets)
+## 3. Displaying testimonials (widget)
 
-### 4.1 Create a widget
-**Given** a user navigates to /widgets and clicks "Create widget"  
-**When** they complete the creation form (name, style options)  
+### 3.1 Creating a widget
+**Given** a user is on /widgets with approved testimonials in their account  
+**When** they create a new widget  
 **Then:**
-- A widget is created
-- They land on the widget detail page
-- They see an embed code snippet they can copy
+- They get a widget ID (`wgt_xxx`) and embed code
+- The widget displays ALL approved testimonials for the account (not filtered)
+- Free tier: widget shows "Powered by Vouch" footer
+- Pro tier: branding removed
 
-### 4.2 Widget shows all approved testimonials
-**Given** a widget is embedded on a website  
+### 3.2 Widget live on a site
+**Given** a widget embed code is added to an external site  
 **When** a visitor views the page  
 **Then:**
-- The widget displays ALL approved testimonials for the account
-- It does NOT filter by any collection link or form
-- Featured testimonials appear first (if applicable)
-
-### 4.3 Multiple widgets, same pool
-**Given** a user has 2 widgets on different pages (e.g. homepage + checkout)  
-**When** a new testimonial is approved  
-**Then:**
-- It appears in BOTH widgets automatically
-- No per-widget assignment needed
-
-### 4.4 Widget embed code
-**Given** a user is on the widget detail page  
-**When** they copy the embed code  
-**Then:**
-- The snippet is a `<script>` tag pointing to the CDN
-- It includes the widget ID as a data attribute
-- Works by pasting into any HTML page
+- The widget loads and displays approved testimonials
+- No login required — widget is public-facing
+- Impression is counted (for analytics)
 
 ---
 
-## 5. Dashboard
+## 4. Billing
 
-### 5.1 Dashboard stats
-**Given** a user logs in  
-**When** they view the dashboard  
+### 4.1 Free tier limits
+**Given** a free account  
 **Then:**
-- They see: Total testimonials, Approved, Pending, Widgets deployed
-- Numbers reflect real account-level counts
+- Up to 25 testimonials can be approved (submissions are unlimited)
+- Up to 1 widget can be created
+- Vouch branding appears on widget footer
 
-### 5.2 Zero state dashboard (new user)
-**Given** a user has just signed up and has no testimonials  
-**When** they view the dashboard  
+### 4.2 Upgrading to Pro
+**Given** a user clicks "Upgrade" in the dashboard  
+**When** they complete Stripe checkout  
 **Then:**
-- Stats show 0 across the board — no broken/empty state
-- Getting started checklist is visible and actionable
+- Their account is marked Pro
+- Testimonial and widget limits are removed
+- Vouch branding is removed from widget
+- A "Welcome to Pro" confirmation is shown
+
+### 4.3 Hitting the free tier limit
+**Given** a free account has 25 approved testimonials  
+**When** they try to approve a 26th  
+**Then:**
+- They see an upgrade prompt explaining the limit
+- They can upgrade to Pro to approve more
 
 ---
 
-## 6. Pro tier
+## 5. Agent-native flow (in development — #166)
 
-### 6.1 Pro upgrade CTA (pre-Stripe)
-**Given** Stripe is not yet configured (secrets not set)  
-**When** a user clicks any "Upgrade to Pro" button  
+### 5.1 AI agent registers on behalf of a user
+**Given** an AI agent (Claude Code, Cursor, etc.) wants to set up Vouch for a user  
+**When** the agent calls `POST /agent/register` with `{ "email": "user@example.com", "name": "Jane" }`  
 **Then:**
-- A modal appears: "Join the Pro waitlist"
-- They can enter their email to be notified when Pro launches
-- They do NOT see a Stripe checkout or broken payment flow
+- The agent immediately receives:
+  - `collect_url` — the user's collection link (ready to use now)
+  - `widget_embed` — embed code for a widget (ready to use now)
+  - `status: "verification_pending"`
+- A verification email is sent to the user via Resend
+- Testimonials CAN be collected at the `collect_url` before the user verifies
+- The testimonial count is visible on the dashboard without verification
+- Reading individual testimonial content requires clicking the verification link
 
-### 6.2 Pro upgrade (post-Stripe)
-**Given** Stripe is configured  
-**When** a user clicks "Upgrade to Pro"  
+### 5.2 User verifies after agent setup
+**Given** a user received a Vouch verification email after agent registration  
+**When** they click the verification link  
 **Then:**
-- They are taken to Stripe Checkout for $9/month
-- On success, their account is upgraded to Pro immediately
-- Pro features unlock: unlimited testimonials, unlimited widgets, analytics, no "Powered by Vouch" badge
-- See ADR-005 in project/decisions.md for full feature gate spec
+- Their account is verified
+- They can log in at app.socialproof.dev
+- They can read and approve full testimonial content
+- They can access their dashboard normally
 
 ---
 
-## 7. Analytics
+## 6. Settings
 
-### 7.1 Analytics zero state
-**Given** a user has no embedded widgets live on any site  
-**When** they visit /analytics  
+### 6.1 Account settings
+**Given** a user is on /settings  
 **Then:**
-- They see: "Your analytics will appear here once you've added Vouch to your site"
-- A CTA button links to /widgets
-
-### 7.2 Analytics with data
-**Given** a user has an embedded widget with traffic  
-**When** they visit /analytics  
-**Then:**
-- They see widget view counts, testimonial impression counts
-- Data is per widget (widget is the unit of analytics measurement)
+- They can update their name and email
+- They can see their current plan (Free / Pro)
+- They can access billing management (Stripe portal)
+- They can see their API key (for future integrations)
 
 ---
 
-## 8. Email notifications
+## Edge cases
 
-### 8.1 New testimonial notification
-**Given** a customer submits a testimonial via the collection link  
-**When** the submission is received  
-**Then:**
-- The account owner receives an email: "You got a new testimonial — approve it here"
-- Email links directly to /testimonials
-- Email is sent via Resend from `notifications@socialproof.dev`
-
-### 8.2 Welcome email
-**Given** a new user signs up  
-**When** signup completes  
-**Then:**
-- They receive a welcome email with their collection link and a link to the dashboard
-- Email is sent via Resend
-
----
-
-## Open questions / TBD
-
-~~- What are the concrete Pro tier feature gates?~~ **Resolved — ADR-005 (2026-03-04):** Free = 25 testimonials, 1 widget, analytics locked, branding badge shown. Pro = unlimited testimonials, unlimited widgets, analytics, no badge.  
-~~- Should there be a limit on testimonials for Free tier?~~ **Resolved — ADR-005:** 25 on Free tier.  
-- Should the collection form be customisable (logo, brand colour)? Phase 2 consideration — not in current scope.
-
-
----
-
-## 9. Plan limits (Free vs Pro)
-
-### 9.1 Free user hits testimonial limit
-**Given** a Free user has 25 approved testimonials  
-**When** a 26th testimonial is submitted and they try to approve it  
-**Then:**
-- The approval succeeds (submission is still stored)
-- But when they try to add a manual testimonial past the limit: API returns 402
-- Frontend shows upgrade modal: "You've reached your Free plan limit (25 testimonials). Upgrade to Pro for unlimited."
-- CTA: "Upgrade to Pro" → /billing
-
-### 9.2 Free user tries to create second widget
-**Given** a Free user already has 1 widget  
-**When** they click "Create widget"  
-**Then:**
-- API returns 402 with plan_limit error
-- Frontend shows upgrade modal: "Free plan includes 1 widget. Upgrade to Pro for up to 5."
-
-### 9.3 Free tier widget shows branding
-**Given** a Free user's widget is embedded on a site  
-**When** a visitor views it  
-**Then:**
-- A small "Powered by Vouch" badge appears at the bottom of the widget
-- The badge links to socialproof.dev
-
-### 9.4 Pro tier widget has no branding
-**Given** a Pro user's widget is embedded on a site  
-**When** a visitor views it  
-**Then:**
-- No "Powered by Vouch" badge visible
-
-### 9.5 Analytics page — Free tier
-**Given** a Free user navigates to /analytics  
-**When** the page loads  
-**Then:**
-- Page layout is visible but charts are blurred/locked
-- Overlay message: "Analytics are available on Pro. Upgrade to unlock."
-- CTA links to /billing
-
+| Scenario | Expected behaviour |
+|----------|-------------------|
+| User shares link before any widget exists | Collection works fine — widget is not required |
+| Agent registers with an email that already has an account | Return existing account's `collect_url` + `widget_embed`, resend verification if unverified |
+| Widget embed on page with no approved testimonials | Widget shows empty/hidden state gracefully (no error) |
+| Free user tries to create a 2nd widget | Upgrade prompt shown |
+| User approves testimonial on free tier at limit (25) | Upgrade prompt shown before approval |
