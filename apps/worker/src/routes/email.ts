@@ -180,3 +180,72 @@ SocialProof`
     text,
   }
 }
+
+/**
+ * Email: Testimonial request (sent to a customer, asking them to leave a review)
+ */
+export function buildTestimonialRequestEmail(opts: {
+  customerEmail: string
+  customerName?: string
+  businessName: string
+  ownerName: string
+  personalNote?: string
+  collectUrl: string
+}): EmailPayload {
+  const greeting = opts.customerName ? `Hi ${opts.customerName},` : 'Hi,'
+  const noteHtml = opts.personalNote
+    ? `<div style="background:#f0f9ff;border-left:3px solid #2563eb;padding:12px 16px;margin:0 0 24px;border-radius:0 6px 6px 0;">
+        <p style="margin:0;font-size:14px;color:#374151;line-height:1.6;">${opts.personalNote}</p>
+       </div>`
+    : ''
+  const noteText = opts.personalNote ? `\n${opts.personalNote}\n` : ''
+
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:20px;">
+  <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1);">
+    <div style="background:#2563eb;padding:24px 32px;">
+      <div style="color:#fff;font-size:18px;font-weight:700;">Vouch</div>
+    </div>
+    <div style="padding:32px;">
+      <h2 style="margin:0 0 8px;font-size:20px;color:#111827;">Would you share your experience?</h2>
+      <p style="margin:0 0 20px;color:#6b7280;font-size:14px;">${greeting}</p>
+      ${noteHtml}
+      <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.6;">
+        ${opts.ownerName} from <strong>${opts.businessName}</strong> is asking if you'd be willing to share a quick testimonial about your experience.
+        It only takes a minute, and it means a lot to their small business.
+      </p>
+      <a href="${opts.collectUrl}" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:14px 28px;border-radius:6px;font-size:15px;font-weight:600;">Share your experience →</a>
+    </div>
+    <div style="padding:16px 32px;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;">
+      You received this because ${opts.businessName} uses Vouch to collect customer testimonials.<br>
+      If you'd prefer not to receive these, you can ignore this email.
+    </div>
+  </div>
+</body>
+</html>`
+
+  const text = `Would you share your experience?
+
+${greeting}
+${noteText}
+${opts.ownerName} from ${opts.businessName} is asking if you'd be willing to share a quick testimonial about your experience. It only takes a minute.
+
+Share your experience: ${opts.collectUrl}
+
+--
+You received this because ${opts.businessName} uses Vouch to collect customer testimonials.`
+
+  const subject = opts.personalNote
+    ? `A quick note from ${opts.ownerName} at ${opts.businessName}`
+    : `Would you share your experience with ${opts.businessName}?`
+
+  return {
+    to: opts.customerEmail,
+    toName: opts.customerName,
+    subject,
+    html,
+    text,
+  }
+}

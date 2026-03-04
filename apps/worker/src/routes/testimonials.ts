@@ -1,4 +1,4 @@
-import { sendEmail, buildTestimonialApprovedEmail } from './email'
+import { sendEmail, buildTestimonialApprovedEmail, buildTestimonialRequestEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
 
@@ -170,3 +170,56 @@ testimonials.post('/', async (c) => {
 
   return c.json({ testimonial: { id, status } }, 201)
 })
+
+testimonials.post('/request', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{
+    email: string
+    name?: string
+    widget_id: string
+    personal_note?: string
+  }>()
+
+  if (!body.email?.trim()) return c.json({ error: 'email required' }, 400)
+  if (!body.widget_id?.trim()) return c.json({ error: 'widget_id required' }, 400)
+
+  // Validate email format
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRe.test(body.email.trim())) return c.json({ error: 'invalid email' }, 400)
+
+  // Fetch widget + account info
+  const row = await c.env.DB.prepare(
+    `SELECT w.id, w.name as widget_name, w.slug, a.name as business_name, a.email as owner_email, a.name as owner_name
+     FROM widgets w
+     JOIN accounts a ON a.id = w.account_id
+     WHERE w.id = ? AND w.account_id = ?`
+  ).bind(body.widget_id, accountId).first<{
+    id: string; widget_name: string; slug: string | null;
+    business_name: string; owner_email: string; owner_name: string
+  }>()
+
+  if (!row) return c.json({ error: 'widget not found' }, 404)
+
+  // Find the collection form for this widget
+  const form = await c.env.DB.prepare(
+    'SELECT id FROM collection_forms WHERE account_id = ? AND active = 1 ORDER BY created_at ASC LIMIT 1'
+  ).bind(accountId).first<{ id: string }>()
+
+  const collectPath = form
+    ? `https://api.socialproof.dev/c/form/${form.id}`
+    : `https://api.socialproof.dev/wall/${row.slug || row.id}`
+
+  await sendEmail(
+    buildTestimonialRequestEmail({
+      customerEmail: body.email.trim(),
+      customerName: body.name?.trim(),
+      businessName: row.business_name,
+      ownerName: row.owner_name,
+      personalNote: body.personal_note?.trim(),
+      collectUrl: collectPath,
+    }),
+    c.env
+  )
+
+  // Log the request for dedup / audit (we can add a table later; for now just return ok)
+  return c.json({ ok: true, sent_to: body.email.trim() }, 200)})
