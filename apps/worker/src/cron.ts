@@ -8,7 +8,7 @@
  * Idempotent: tracks sent timestamp in drip_nudge_sent_at / drip_checkin_sent_at columns.
  */
 
-import { sendNudgeEmail, sendCheckinEmail } from './lib/onboarding'
+import { sendNudgeEmail, sendCheckinEmail, send1hNudgeEmail } from './lib/onboarding'
 import type { Env } from './index'
 
 export async function handleCron(_event: ScheduledController, env: Env): Promise<void> {
@@ -20,6 +20,41 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
   }
 
   const now = new Date()
+
+  // ── Email 4: T+1h nudge (1h after signup, if no testimonials yet) ──────────
+  const nudge1hAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000).toISOString()
+  const nudge2hAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000).toISOString()
+
+  const nudge1hCandidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id
+    FROM accounts a
+    WHERE a.created_at >= ? AND a.created_at < ?
+      AND a.drip_1h_nudge_sent_at IS NULL
+      AND NOT EXISTS (
+        SELECT 1 FROM testimonials t
+        WHERE t.account_id = a.id
+      )
+  `).bind(nudge2hAgo, nudge1hAgo).all<{
+    id: string; email: string; name: string | null; widget_id: string | null
+  }>()
+
+  for (const acct of nudge1hCandidates.results) {
+    if (!acct.widget_id) continue
+    try {
+      await send1hNudgeEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        collectFormId: acct.widget_id,
+      })
+      await DB.prepare(
+        'UPDATE accounts SET drip_1h_nudge_sent_at = ? WHERE id = ?'
+      ).bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] 1h-nudge sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] 1h-nudge failed for ${acct.email}:`, err)
+    }
+  }
 
   // ── Email 2: Nudge (48h after signup, if no approved testimonials yet) ──────
   const nudge48hAgo = new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString()
