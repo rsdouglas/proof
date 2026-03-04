@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Copy,
   Check,
+  AlertTriangle,
 } from 'lucide-react'
 import { colors, font, shadow, radius, card } from '../design'
 
@@ -127,6 +128,87 @@ function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
           Create a widget
         </Link>
       </div>
+    </div>
+  )
+}
+
+
+function NudgeBanner({ collectUrl }: { collectUrl: string }) {
+  const [dismissed, setDismissed] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  if (dismissed) return null
+
+  function copyLink() {
+    navigator.clipboard.writeText(collectUrl).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    })
+  }
+
+  return (
+    <div style={{
+      background: '#fffbeb',
+      border: '1.5px solid #fbbf24',
+      borderRadius: radius.lg,
+      padding: '20px 24px',
+      marginBottom: 28,
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: 16,
+    }}>
+      <AlertTriangle size={20} color="#d97706" style={{ flexShrink: 0, marginTop: 2 }} />
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: 700, fontSize: 15, color: '#92400e', marginBottom: 4 }}>
+          Still waiting for your first testimonial
+        </div>
+        <div style={{ fontSize: 13, color: '#b45309', lineHeight: 1.5, marginBottom: 14 }}>
+          You signed up over 24 hours ago but haven't received a testimonial yet.
+          The most common reason? The link never got sent.{' '}
+          <strong>Right now, think of 3 happy customers</strong> and send them this link:
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span style={{
+            flex: 1, fontSize: 13, color: '#1d4ed8',
+            fontFamily: 'monospace', background: '#fff',
+            border: '1px solid #fbbf24', borderRadius: radius.md,
+            padding: '8px 12px', fontWeight: 500,
+          }}>
+            {collectUrl}
+          </span>
+          <button
+            onClick={copyLink}
+            style={{
+              padding: '8px 16px',
+              background: copied ? '#16a34a' : '#d97706',
+              color: '#fff',
+              border: 'none',
+              borderRadius: radius.md,
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+              transition: 'background 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              fontFamily: font.sans,
+            }}
+          >
+            {copied ? <><Check size={13} /> Copied!</> : <><Copy size={13} /> Copy link</>}
+          </button>
+        </div>
+      </div>
+      <button
+        onClick={() => setDismissed(true)}
+        style={{
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: 18, color: '#d97706', flexShrink: 0,
+          lineHeight: 1, padding: 0,
+        }}
+        aria-label="Dismiss"
+      >×</button>
     </div>
   )
 }
@@ -261,13 +343,15 @@ export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [recent, setRecent] = useState<Array<{ id: string; display_name: string; display_text: string; status: string }>>([])
   const [collectFormId, setCollectFormId] = useState<string | null>(null)
+  const [accountCreatedAt, setAccountCreatedAt] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     try {
-      const [tData, wData, fData] = await Promise.all([
+      const [tData, wData, fData, meData] = await Promise.all([
         request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
         request('/widgets') as Promise<{ widgets: Array<{ id: string }> }>,
         request('/forms') as Promise<{ forms: Array<{ id: string }> }>,
+        request('/accounts/me') as Promise<{ account: { created_at: string } }>,
       ])
       const ts = tData.testimonials || []
       setRecent(ts.slice(0, 5))
@@ -278,6 +362,7 @@ export default function Dashboard() {
         total_widgets: (wData.widgets || []).length,
       })
       if (fData.forms?.length > 0) setCollectFormId(fData.forms[0].id)
+      if (meData.account?.created_at) setAccountCreatedAt(meData.account.created_at)
     } catch {
       // show zeros
       setStats({ total_testimonials: 0, approved: 0, pending: 0, total_widgets: 0 })
@@ -291,6 +376,8 @@ export default function Dashboard() {
     : ''
 
   const isZeroState = stats !== null && stats.total_testimonials === 0 && !!collectFormId
+  const is24hNudge = isZeroState && accountCreatedAt !== null &&
+    (Date.now() - new Date(accountCreatedAt).getTime() > 24 * 60 * 60 * 1000)
 
   return (
     <div style={{ maxWidth: 900 }}>
@@ -304,8 +391,9 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Zero state banner */}
-      {isZeroState && <ZeroStateBanner collectUrl={collectUrl} />}
+      {/* Zero state / 24h nudge banner */}
+      {is24hNudge && <NudgeBanner collectUrl={collectUrl} />}
+      {isZeroState && !is24hNudge && <ZeroStateBanner collectUrl={collectUrl} />}
 
       {/* Stat cards — all use same design language */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 32 }}>
