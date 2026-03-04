@@ -32,14 +32,14 @@ export default function Collect() {
 
   function copyLink() {
     if (!form) return
-    const url = `${API_URL}/submit/${form.id}`
+    const url = `https://socialproof.dev/c/${form.id}`
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     })
   }
 
-  const collectionUrl = form ? `${API_URL}/submit/${form.id}` : ''
+  const collectionUrl = form ? `https://socialproof.dev/c/${form.id}` : ''
 
   return (
     <div>
