@@ -35,8 +35,7 @@ function AppRoutes() {
         <Route path="collect" element={<Collect />} />
         <Route path="settings" element={<Settings />} />
         <Route path="analytics" element={<Analytics />} />
-        <Route path="webhooks" element={<Webhooks />} />
-      </Route>
+        <Route path="webhooks" element={<Webhooks />} />      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

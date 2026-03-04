@@ -13,7 +13,6 @@ import { billing } from './routes/billing'
 import { analytics } from './routes/analytics'
 import { wall } from './routes/wall'
 import { webhooks } from './routes/webhooks'
-
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -107,7 +106,6 @@ app.route('/api/accounts', accounts)
 app.route('/api/billing', billing)
 app.route('/api/analytics', analytics)
 app.route('/api/webhooks', webhooks)
-
 // Collection forms
 app.get('/api/collection-forms', async (c) => {
   const accountId = c.get('accountId')
