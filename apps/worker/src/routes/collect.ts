@@ -30,7 +30,7 @@ collect.post('/submit/:formId', async (c) => {
 
   const body = await c.req.json<{
     display_name: string; display_text: string; rating?: number;
-    company?: string; title?: string; submitter_email?: string
+    company?: string; title?: string; author_email?: string
   }>()
 
   if (!body.display_name?.trim() || !body.display_text?.trim()) {
@@ -41,11 +41,11 @@ collect.post('/submit/:formId', async (c) => {
   const now = new Date().toISOString()
 
   await c.env.DB.prepare(
-    `INSERT INTO testimonials (id, account_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+    `INSERT INTO testimonials (id, account_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
   ).bind(id, form.account_id, body.display_name.trim(), body.display_text.trim(),
     body.rating ?? null, body.company ?? null, body.title ?? null,
-    body.submitter_email ?? null, 'form', 'pending', now, now).run()
+    body.author_email ?? null, 'form', 'pending', now, now).run()
 
   // Send email notification to the widget owner
   // NOTE: collection_forms.widget_id may be NULL (for auto-created forms), so we join via account_id
@@ -77,7 +77,7 @@ collect.post('/submit/:formId', async (c) => {
     rating: body.rating ?? null,
     company: body.company ?? null,
     title: body.title ?? null,
-    submitter_email: body.submitter_email ?? null,
+    submitter_email: body.author_email ?? null,
     source: 'form',
     status: 'pending',
     created_at: now,
