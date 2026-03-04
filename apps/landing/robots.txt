@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://getvouch.app/sitemap.xml
+Sitemap: https://socialproof.dev/sitemap.xml

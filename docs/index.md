@@ -1,6 +1,6 @@
 # Vouch Documentation
 
-Welcome to Proof — the simple social proof toolkit for small businesses.
+Welcome to Vouch — the simple social proof toolkit for small businesses.
 
 ## Getting started
 
