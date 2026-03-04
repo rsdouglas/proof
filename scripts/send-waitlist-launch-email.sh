@@ -89,7 +89,7 @@ for key in $keys; do
       \"to\": [\"$email\"],\
       \"subject\": \"Vouch is live — and it's free\",\
       \"text\": \"Hey —\n\nA while back you signed up to hear about Vouch. It's live now.\n\nVouch makes it easy to collect testimonials from happy customers — one link, they fill a form, you approve it, it embeds on your site in minutes.\n\nIt's free to start. No credit card.\n\n→ Start free at https://socialproof.dev\n\n– The Vouch team\",\
-      \"html\": \"<p>Hey &mdash;</p><p>A while back you signed up to hear about Vouch. It&apos;s live now.</p><p>Vouch makes it easy to collect testimonials from happy customers &mdash; one link, they fill a form, you approve it, it embeds on your site in minutes.</p><p>It&apos+s free to start. No credit card.</p><p><a href='https://socialproof.dev'>→ Start free at socialproof.dev</a></p><p>&mdash; The Vouch team</p>\"
+      \"html\": \"<p>Hey &mdash;</p><p>A while back you signed up to hear about Vouch. It&apos;s live now.</p><p>Vouch makes it easy to collect testimonials from happy customers &mdash; one link, they fill a form, you approve it, it embeds on your site in minutes.</p><p>It&apos;s free to start. No credit card.</p><p><a href='https://socialproof.dev'>→ Start free at socialproof.dev</a></p><p>&mdash; The Vouch team</p>\"
     }")
   
   if echo "$response" | jq -e '.id' >/dev/null 2>&1; then
