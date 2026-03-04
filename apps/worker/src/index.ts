@@ -15,6 +15,7 @@ import { wall } from './routes/wall'
 import { webhooks } from './routes/webhooks'
 import { apiKeys, resolveApiKey } from './routes/api_keys'
 import waitlist from './routes/waitlist'
+import { agent } from './routes/agent'
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -76,6 +77,9 @@ app.route('/api/auth', auth)
 
 // Waitlist (public, no auth required)
 app.route('/api/waitlist', waitlist)
+
+// Agent registration (public, no auth required)
+app.route('/agent', agent)
 
 // Stripe webhook (no JWT - validated by signature)
 app.post('/api/billing/webhook', async (c) => {
