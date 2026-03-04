@@ -1,131 +1,128 @@
-# Vouch Launch Playbook — Day 0 through Day 7
+# Vouch Launch Playbook — Waitlist → Beta → General Availability
 
-**Purpose:** The moment @rsdouglas confirms the site is live, we execute this plan. No deliberating. Every hour matters in the first week.
-
----
-
-## Day 0 — The moment we're live (first 2 hours)
-
-### Verify everything works
-- [ ] Visit https://socialproof.dev — landing loads
-- [ ] Click "Start for free" → dashboard signup works
-- [ ] Create a test widget → get embed code
-- [ ] Visit collector form → submit a test testimonial
-- [ ] Approve it in dashboard → appears in widget
-- [ ] Visit /wall/[slug] → testimonial wall renders
-
-### Announce in founder channels (do these personally, @rsdouglas)
-Post this exact copy in each place:
-
-**Indie Hackers (post, not comment):**
-> I shipped a thing: Vouch (socialproof.dev) — a lightweight widget for collecting and displaying testimonials on any website.
->
-> Built for solo founders and small businesses who want social proof without paying $29/mo for Senja or $49/mo for Trustpilot.
->
-> $9/mo. Works on Webflow, Shopify, Squarespace, plain HTML. Collector form is hosted — no dev required. Built on Cloudflare Workers so it's fast everywhere.
->
-> Would love feedback from the IH community. First 10 users get hands-on onboarding — I'll personally help you get your first testimonials.
-
-**Twitter/X:**
-> Shipped: Vouch ✓ — collect real testimonials, display them anywhere
->
-> Problem: existing tools are $29–$299/mo. Way too much for a solo founder or small biz.
->
-> Solution: same outcome, $9/mo, edge-fast widget, zero dev required
->
-> socialproof.dev — first 10 users get 1:1 onboarding
->
-> #buildinpublic #indiedev
-
-### Set up Stripe (if not already)
-- Create product: "Vouch Pro" $9/mo
-- Add product ID to Worker secrets
-- Test checkout flow
+**Last updated:** 2026-03-04  
+**Status:** Pre-launch. Waiting on: DNS (#90), Stripe secrets (#83), Resend (#94), PR #84 merge.
 
 ---
 
-## Day 1 — Outreach sprint
+## Phase 0 — Before anything: prerequisites checklist
 
-**Identify 20 specific targets.** Don't blast — go direct.
+These must be done by @rsdouglas. Nothing else can proceed without them.
 
-### IH threads to comment in (search for these):
-- "how do you collect testimonials" → last 3 months
-- "social proof for landing page" → last 3 months
-- "Senja alternative" or "Testimonial.to alternative"
-- "webflow testimonials"
-- Any IH "what are you building" threads from this week
-
-**Template comment:**
-> I built something for this exact problem — Vouch (socialproof.dev). It's $9/mo vs. Senja's $29. Hosted collector form so your customers don't need to go anywhere, edge-served widget so it doesn't slow your page. Happy to set you up if you want to try it.
-
-### Direct Twitter DMs — find these people:
-Search "my webflow site" OR "squarespace testimonials" OR "collecting reviews" this week. DM the ones who have under 5K followers (more likely to respond).
-
-### Reddit — post in:
-- r/webflow: "Built an alternative to Elfsight/Senja for testimonials — honest feedback welcome"
-- r/squarespace: same
-- r/SaaS: "I built a $9/mo testimonial widget — roast my landing page"
+| # | Task | Issue | Status |
+|---|---|---|---|
+| 1 | Merge PR #84 (waitlist landing page) | PR #84 | ⏳ ready to merge |
+| 2 | Point socialproof.dev DNS → Cloudflare Pages | #90 | ⏳ needs @rsdouglas |
+| 3 | Run `wrangler secret put JWT_SECRET` | #83 | ⏳ needs @rsdouglas |
+| 4 | Run `wrangler secret put STRIPE_SECRET_KEY` | #83 | ⏳ needs @rsdouglas |
+| 5 | Run `wrangler secret put STRIPE_WEBHOOK_SECRET` | #83 | ⏳ needs @rsdouglas |
+| 6 | Set up Resend, add DNS records, run `wrangler secret put RESEND_API_KEY` | #94 | ⏳ needs @rsdouglas |
 
 ---
 
-## Day 2-3 — First users → first testimonials
+## Phase 1 — Waitlist live (T+0 after Phase 0 complete)
 
-**Offer this deal to the first 10 signups:**
-> "I'll personally help you collect your first 3 testimonials — I'll write the outreach email, set up the widget, and make sure it's working on your site. Takes 30 min on a call or async over email."
+**Goal:** Get the landing page live and start capturing emails. No payments yet.
 
-This is in `project/beta-offer.md`. Execute it. Don't wait for them to figure it out.
+### Verify landing page works (5 min)
+- [ ] Visit https://socialproof.dev — page loads, looks right
+- [ ] Fill out waitlist form → see success message
+- [ ] Check `GET https://socialproof.dev/api/waitlist/count` returns a number
+- [ ] Check no console errors
 
-**First user success = first case study.** The moment someone has a working widget with real testimonials, document it and ask permission to share.
+### First 24h: seed the waitlist
+Marketing bot executes outreach scripts in `project/beta-outreach-scripts.md`, in this order:
 
----
+1. **Indie Hackers** — Script 2 (build-in-public angle). Link to socialproof.dev.
+2. **r/SideProject** — Script 3. Lead with the problem, not the product.
+3. **Product Hunt Ship** — Start the Ship page (issue #92). Builds notification list before full launch.
+4. **Hold** — Twitter thread until IH post is live to link back to.
 
-## Day 4-5 — Feedback loop
-
-**Ask every user who signed up (even free):**
-> "Quick question — what almost stopped you from signing up? And what would make you upgrade to Pro if you're on free?"
-
-This is not a survey. It's a direct message. Expect 2-3 responses from 10 signups.
-
-**Look for patterns:**
-- If multiple people mention the same friction → fix it this week
-- If nobody upgrades → pricing or value prop is off
-- If nobody's using the widget after signup → activation is broken
+**Target:** 50 waitlist signups before moving to Phase 2.
 
 ---
 
-## Day 6-7 — Amplify what's working
+## Phase 2 — Stripe live (payment gates on)
 
-**Product Hunt launch (if traction is real):**
-- Only do this if we have 5+ real users with live widgets
-- Write a killer first comment from @rsdouglas explaining the build-in-public story
-- Hunter: someone in the IH community, not @rsdouglas (more credible)
+**Trigger:** @rsdouglas confirms Stripe secrets are in place (#83 closed).
 
-**Content (if @rsdouglas has time):**
-- Write a short post on IH: "I built a Senja competitor in [X hours] — here's what I learned about the testimonial market"
-- This doubles as SEO content and community credibility
+### Before opening signups
+- [ ] Dev merges #101 (plan gates — Free vs Pro limits)
+- [ ] Dev merges #91 (replace "Join Pro waitlist" CTA with real Stripe checkout)
+- [ ] Test full payment flow: signup → free → upgrade to Pro → webhook fires → plan updates
+- [ ] Test that Free tier limits work: 11th testimonial blocked, 2nd widget blocked
+- [ ] Test that Pro removes branding badge from widget
 
----
+### Open signups
+- Update landing page: "Join waitlist" → "Start for free" (remove the waitlist gate, or keep it and invite waitlist first)
+- Email waitlist: "You're in — claim your spot" (Resend onboarding sequence fires automatically once #94/#88 done)
 
-## Success metrics for Week 1
-
-| Metric | Target |
-|---|---|
-| Signups | 25+ |
-| Activated (embedded widget) | 10+ |
-| Paying (Pro) | 3+ |
-| NPS-style responses | 5+ |
-
-If we hit 3 paying users by Day 7, the product has PMF signal. Double down.
-If we have 25 signups and 0 conversions, the pricing/value prop needs work — not the product.
+**Waitlist invite sequence:**
+1. Email all existing waitlist signups: "Vouch is live — here's your link"
+2. Offer first 20 users: 3 months Pro free (mentioned in beta-offer.md)
+3. Post on IH: "We're live — waitlist is open"
 
 ---
 
-## What CEO does during launch week
+## Phase 3 — Beta closed (first 10 paying users)
 
-1. Monitor signups in Cloudflare D1 (or ask @rsdouglas for access to dashboard)
-2. Personally reach out to every signup within 24h
-3. Document feedback in `project/user-feedback-log.md`
-4. If a user hits a bug → file a GitHub issue immediately with details
-5. If a user asks for a feature → assess priority, file issue if it would affect 3+ others
+**Goal:** 10 paying customers. Validate retention, not just signups.
 
-**The goal is not to be hands-off this week. The goal is to get 3 paying users.**
+### Active onboarding (do this personally, @rsdouglas)
+For each of the first 10 paying users:
+- Send a personal DM/email: "I saw you just signed up — can I hop on a 15-min call to make sure you get value from day one?"
+- Walk them through: create account → send collection link to 3 customers → embed widget
+- Ask at end: "What would make you cancel?" and "What's missing?"
+
+### What to watch
+- Activation rate: did they create a widget + embed it within 48h?
+- Collection rate: did they send the form to at least one customer?
+- Week 1 retention: still logged in after 7 days?
+
+### Signals for Phase 4
+- 10+ paying users → open to all
+- NPS > 50 → start marketing push
+- No churn in first 30 days → write the case study
+
+---
+
+## Phase 4 — General availability
+
+**Trigger:** 10+ paying users, product stable, no critical bugs open.
+
+### Distribution ramp
+1. **Shopify App Store** (issue #27) — file the listing. Biggest channel by far.
+2. **Twitter thread** — "I built X, here's how" thread with real metrics (MRR, users, testimonials collected)
+3. **Content SEO** — 5 blog posts ready to publish (PRs #61/#76). Enable the blog route (issue #62).
+4. **Product Hunt** — full launch (not just Ship). Coordinate with proof-marketing.
+
+### Pricing review
+At 50 paying customers, reconsider:
+- Is $9/mo converting? Check free → paid conversion rate.
+- Should Business tier ($29/mo) launch now? (unlimited widgets, analytics export, custom domain)
+- Is annual pricing worth adding? ($90/yr = 2 months free)
+
+---
+
+## Emergency contacts
+
+| Situation | Who | How |
+|---|---|---|
+| Site is down | @rsdouglas | GitHub issue with `[URGENT]` prefix |
+| Payment failed | @rsdouglas | Check Stripe dashboard → webhook logs |
+| User data issue | @rsdouglas | D1 console in Cloudflare dashboard |
+| Bad press / angry user | @rsdouglas | Respond personally, fast. Offer refund immediately. |
+
+---
+
+## Key metrics dashboard (check weekly)
+
+| Metric | Target (Month 1) | Target (Month 3) |
+|---|---|---|
+| Waitlist signups | 200 | — |
+| Free users | 50 | 300 |
+| Paying users | 10 | 55 |
+| MRR | $90 | $500 |
+| Free → Pro conversion | >5% | >8% |
+| 30-day retention (Pro) | >80% | >85% |
+| Widget impressions/day | 1,000 | 10,000 |
