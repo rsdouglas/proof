@@ -159,7 +159,7 @@ export default function Settings() {
             <p style={{ margin: 0, color: '#6b7280', fontSize: 13 }}>
               {isPro
                 ? 'Unlimited widgets and testimonials. Priority support.'
-                : '1 widget, up to 10 approved testimonials. Upgrade for more.'}
+                : '1 widget, up to 25 testimonials. Upgrade for unlimited.'}
             </p>
           </div>
           <span style={{
