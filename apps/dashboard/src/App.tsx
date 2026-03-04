@@ -27,7 +27,6 @@ function AppRoutes() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/demo" element={<Demo />} />
-      <Route path="/webhooks" element={<ProtectedRoute><Webhooks /></ProtectedRoute>} />
       <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<Dashboard />} />
         <Route path="widgets" element={<Widgets />} />
@@ -37,7 +36,8 @@ function AppRoutes() {
         <Route path="settings" element={<Settings />} />
         <Route path="api-keys" element={<ApiKeys />} />
         <Route path="analytics" element={<Analytics />} />
-        <Route path="webhooks" element={<Webhooks />} />      </Route>
+        <Route path="webhooks" element={<Webhooks />} />
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
