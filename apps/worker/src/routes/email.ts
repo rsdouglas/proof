@@ -29,6 +29,7 @@ export async function sendEmail(payload: EmailPayload, env: any): Promise<void> 
     return
   }
 
+  console.log('[email] Attempting send:', payload.subject, 'to', payload.to)
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -48,6 +49,8 @@ export async function sendEmail(payload: EmailPayload, env: any): Promise<void> 
     const err = await res.text().catch(() => 'unknown')
     console.error('[email] Resend error:', res.status, err)
     // Don't throw — email failure shouldn't break the main flow
+  } else {
+    console.log('[email] Sent OK:', payload.subject, 'status', res.status)
   }
 }
 
