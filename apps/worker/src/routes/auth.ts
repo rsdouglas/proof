@@ -269,7 +269,7 @@ auth.post('/forgot-password', async (c) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Vouch <team@socialproof.dev>',
+        from: 'Vouch <hello@socialproof.dev>',
         to: email,
         subject: 'Reset your Vouch password',
         html,

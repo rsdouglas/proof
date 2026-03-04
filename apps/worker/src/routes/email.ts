@@ -15,6 +15,9 @@ export interface EmailPayload {
   text: string
 }
 
+const FROM = 'Vouch <hello@socialproof.dev>'
+const SETTINGS_URL = 'https://app.socialproof.dev/settings'
+
 /**
  * Send an email via Resend.
  * Falls back to a no-op in development or when RESEND_API_KEY is not set.
@@ -33,7 +36,7 @@ export async function sendEmail(payload: EmailPayload, env: any): Promise<void> 
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Vouch <notifications@socialproof.dev>',
+      from: FROM,
       to: payload.to,
       subject: payload.subject,
       html: payload.html,
@@ -61,20 +64,21 @@ export function buildTestimonialReceivedEmail(opts: {
   reviewUrl: string
 }): EmailPayload {
   const stars = '★'.repeat(opts.rating) + '☆'.repeat(5 - opts.rating)
-  
+  const firstName = opts.ownerName.split(' ')[0]
+
   const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; margin: 0; padding: 20px;">
   <div style="max-width: 560px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1);">
     <!-- Header -->
-    <div style="background: #2563eb; padding: 24px 32px;">
-      <div style="color: #fff; font-size: 18px; font-weight: 700;">SocialProof</div>
+    <div style="background: #6C5CE7; padding: 24px 32px;">
+      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ Vouch</div>
     </div>
     <!-- Body -->
     <div style="padding: 32px;">
       <h2 style="margin: 0 0 8px; font-size: 20px; color: #111827;">New testimonial for <em>${opts.widgetName}</em> 🎉</h2>
-      <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px;">${opts.customerName} left you a review.</p>
+      <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px;">Hey ${firstName} — ${opts.customerName} just left you a review.</p>
       
       <!-- Card -->
       <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
@@ -83,12 +87,13 @@ export function buildTestimonialReceivedEmail(opts: {
         <div style="font-size: 13px; color: #9ca3af;">— ${opts.customerName}</div>
       </div>
       
-      <a href="${opts.reviewUrl}" style="display: inline-block; background: #2563eb; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">Review &amp; Approve →</a>
+      <a href="${opts.reviewUrl}" style="display: inline-block; background: #6C5CE7; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">Review &amp; Approve →</a>
     </div>
     <!-- Footer -->
     <div style="padding: 16px 32px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af;">
-      You're receiving this because you have a widget on SocialProof.<br>
-      <a href="https://socialproof.dev/settings" style="color: #6b7280;">Manage notifications</a>
+      You're receiving this because you have a Vouch account.<br>
+      <a href="${SETTINGS_URL}" style="color: #6b7280;">Manage notifications</a> &nbsp;·&nbsp;
+      To unsubscribe, reply to this email with "unsubscribe".
     </div>
   </div>
 </body>
@@ -96,19 +101,21 @@ export function buildTestimonialReceivedEmail(opts: {
 
   const text = `New testimonial for "${opts.widgetName}"
 
-${opts.customerName} left you a ${opts.rating}-star review:
+Hey ${firstName} — ${opts.customerName} left you a ${opts.rating}-star review:
 
 "${opts.text}"
 
-Review and approve: ${opts.reviewUrl}
+— ${opts.customerName}
 
---
-SocialProof | Manage notifications: https://socialproof.dev/settings`
+Review and approve it here: ${opts.reviewUrl}
+
+---
+You're receiving this because you have a Vouch account.
+To unsubscribe, reply with "unsubscribe".`
 
   return {
     to: opts.ownerEmail,
-    toName: opts.ownerName,
-    subject: `⭐ New ${opts.rating}-star review for "${opts.widgetName}"`,
+    subject: `New testimonial from ${opts.customerName} 🎉`,
     html,
     text,
   }
@@ -129,51 +136,50 @@ export function buildTestimonialApprovedEmail(opts: {
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; margin: 0; padding: 20px;">
   <div style="max-width: 560px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1);">
-    <div style="background: #10b981; padding: 24px 32px;">
-      <div style="color: #fff; font-size: 18px; font-weight: 700;">SocialProof</div>
+    <div style="background: #6C5CE7; padding: 24px 32px;">
+      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ Vouch</div>
     </div>
     <div style="padding: 32px;">
       <h2 style="margin: 0 0 8px; font-size: 20px; color: #111827;">Your review is live! 🎉</h2>
       <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px;">
         Hi ${opts.customerName}, your testimonial for <strong>${opts.widgetName}</strong> has been approved and is now public.
       </p>
-      
       <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
         <p style="margin: 0; font-size: 15px; color: #374151; line-height: 1.6; font-style: italic;">"${opts.text}"</p>
       </div>
-      
-      <a href="${opts.wallUrl}" style="display: inline-block; background: #10b981; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">View the testimonial wall →</a>
+      <a href="${opts.wallUrl}" style="display: inline-block; background: #6C5CE7; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">View the testimonial wall →</a>
     </div>
     <div style="padding: 16px 32px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af;">
-      Thank you for sharing your experience!
+      Thank you for sharing your experience!<br>
+      <a href="${SETTINGS_URL}" style="color: #6b7280;">Manage preferences</a> &nbsp;·&nbsp;
+      To unsubscribe, reply to this email with "unsubscribe".
     </div>
   </div>
 </body>
 </html>`
 
-  const text = `Your review is live!
+  const text = `Your review is live! 🎉
 
-Hi ${opts.customerName}, your testimonial for "${opts.widgetName}" has been approved.
+Hi ${opts.customerName}, your testimonial for "${opts.widgetName}" has been approved and is now public.
 
 "${opts.text}"
 
-View the testimonial wall: ${opts.wallUrl}
+View it here: ${opts.wallUrl}
 
+---
 Thank you for sharing your experience!
---
-SocialProof`
+To unsubscribe, reply with "unsubscribe".`
 
   return {
     to: opts.customerEmail,
-    toName: opts.customerName,
-    subject: `Your review for "${opts.widgetName}" is now live!`,
+    subject: `Your review for ${opts.widgetName} is live! 🎉`,
     html,
     text,
   }
 }
 
 /**
- * Email: Testimonial request (sent to a customer, asking them to leave a review)
+ * Email: Testimonial request (sent to a customer asking for a review)
  */
 export function buildTestimonialRequestEmail(opts: {
   customerEmail: string
@@ -185,7 +191,7 @@ export function buildTestimonialRequestEmail(opts: {
 }): EmailPayload {
   const greeting = opts.customerName ? `Hi ${opts.customerName},` : 'Hi,'
   const noteHtml = opts.personalNote
-    ? `<div style="background:#f0f9ff;border-left:3px solid #2563eb;padding:12px 16px;margin:0 0 24px;border-radius:0 6px 6px 0;">
+    ? `<div style="background:#f3f0ff;border-left:3px solid #6C5CE7;padding:12px 16px;margin:0 0 24px;border-radius:0 6px 6px 0;">
         <p style="margin:0;font-size:14px;color:#374151;line-height:1.6;">${opts.personalNote}</p>
        </div>`
     : ''
@@ -196,8 +202,8 @@ export function buildTestimonialRequestEmail(opts: {
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:20px;">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1);">
-    <div style="background:#2563eb;padding:24px 32px;">
-      <div style="color:#fff;font-size:18px;font-weight:700;">Vouch</div>
+    <div style="background:#6C5CE7;padding:24px 32px;">
+      <div style="color:#fff;font-size:18px;font-weight:700;">✦ Vouch</div>
     </div>
     <div style="padding:32px;">
       <h2 style="margin:0 0 8px;font-size:20px;color:#111827;">Would you share your experience?</h2>
@@ -207,35 +213,28 @@ export function buildTestimonialRequestEmail(opts: {
         ${opts.ownerName} from <strong>${opts.businessName}</strong> is asking if you'd be willing to share a quick testimonial about your experience.
         It only takes a minute, and it means a lot to their small business.
       </p>
-      <a href="${opts.collectUrl}" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:14px 28px;border-radius:6px;font-size:15px;font-weight:600;">Share your experience →</a>
+      <a href="${opts.collectUrl}" style="display:inline-block;background:#6C5CE7;color:#fff;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:14px;font-weight:600;">Share my experience →</a>
     </div>
     <div style="padding:16px 32px;border-top:1px solid #e5e7eb;font-size:12px;color:#9ca3af;">
-      You received this because ${opts.businessName} uses Vouch to collect customer testimonials.<br>
-      If you'd prefer not to receive these, you can ignore this email.
+      You're receiving this because ${opts.ownerName} from ${opts.businessName} invited you.<br>
+      To opt out, simply ignore this email or reply with "unsubscribe".
     </div>
   </div>
 </body>
 </html>`
 
-  const text = `Would you share your experience?
-
-${greeting}
+  const text = `${greeting}
 ${noteText}
-${opts.ownerName} from ${opts.businessName} is asking if you'd be willing to share a quick testimonial about your experience. It only takes a minute.
+${opts.ownerName} from ${opts.businessName} is asking if you'd share a quick testimonial about your experience. It takes just a minute:
 
-Share your experience: ${opts.collectUrl}
+${opts.collectUrl}
 
---
-You received this because ${opts.businessName} uses Vouch to collect customer testimonials.`
-
-  const subject = opts.personalNote
-    ? `A quick note from ${opts.ownerName} at ${opts.businessName}`
-    : `Would you share your experience with ${opts.businessName}?`
+---
+To opt out, reply with "unsubscribe".`
 
   return {
     to: opts.customerEmail,
-    toName: opts.customerName,
-    subject,
+    subject: `${opts.ownerName} from ${opts.businessName} would love your feedback`,
     html,
     text,
   }
