@@ -255,6 +255,8 @@ export default function Dashboard() {
       }
     } catch (e) {
       console.error(e)
+      // Show 0s instead of — on error so users don't think it's broken
+      setStats({ total_testimonials: 0, approved: 0, pending: 0, total_widgets: 0 })
     }
   }, [])
 
@@ -268,7 +270,7 @@ export default function Dashboard() {
   ]
 
   const isZeroState = stats !== null && stats.total_testimonials === 0
-  const collectUrl = collectFormId ? `${API_URL}/submit/${collectFormId}` : ''
+  const collectUrl = collectFormId ? `https://socialproof.dev/c/${collectFormId}` : ''
 
   return (
     <div>
