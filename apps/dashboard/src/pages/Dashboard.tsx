@@ -120,15 +120,15 @@ export default function Dashboard() {
   }, [])
 
   const statCards = [
-    { label: 'Total testimonials', value: stats?.total_testimonials ?? '—', color: '#2563eb' },
-    { label: 'Approved', value: stats?.approved ?? '—', color: '#10b981' },
-    { label: 'Pending review', value: stats?.pending ?? '—', color: '#f59e0b' },
-    { label: 'Widgets deployed', value: stats?.total_widgets ?? '—', color: '#8b5cf6' },
+    { label: 'Total testimonials', value: stats !== null ? stats.total_testimonials : '—', color: '#2563eb' },
+    { label: 'Approved', value: stats !== null ? stats.approved : '—', color: '#10b981' },
+    { label: 'Pending review', value: stats !== null ? stats.pending : '—', color: '#f59e0b' },
+    { label: 'Widgets deployed', value: stats !== null ? stats.total_widgets : '—', color: '#8b5cf6' },
   ]
 
   return (
     <div>
-      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>Welcome back, {account?.name?.split(' ')[0]} 👋</h1>
+      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{stats !== null && stats.total_testimonials === 0 && stats.total_widgets === 0 ? 'Welcome' : 'Welcome back'}, {account?.name?.split(' ')[0]} 👋</h1>
       <p style={{ margin: '0 0 32px', color: '#6b7280' }}>Here's your social proof at a glance.</p>
 
       {stats && <GettingStarted stats={stats} />}

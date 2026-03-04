@@ -1,5 +1,32 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth, useApi } from '../lib/auth'
+
+
+function UpgradeForm({ onSubmit, onCancel, defaultEmail }: { onSubmit: (email: string) => Promise<void>; onCancel: () => void; defaultEmail: string }) {
+  const [email, setEmail] = React.useState(defaultEmail)
+  const [loading, setLoading] = React.useState(false)
+  return (
+    <div>
+      <input
+        type="email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="Your email"
+        style={{ display: 'block', width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 12, fontSize: 14, boxSizing: 'border-box' as const, fontFamily: 'inherit' }}
+      />
+      <button
+        onClick={async () => { setLoading(true); await onSubmit(email); setLoading(false) }}
+        disabled={loading || !email}
+        style={{ width: '100%', padding: '10px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 8 }}
+      >
+        {loading ? 'Joining…' : 'Notify me when Pro launches →'}
+      </button>
+      <button onClick={onCancel} style={{ width: '100%', padding: '8px', background: 'transparent', color: '#6b7280', border: 'none', cursor: 'pointer', fontSize: 13, fontFamily: 'inherit' }}>
+        Cancel
+      </button>
+    </div>
+  )
+}
 
 export default function Settings() {
   const { account, setAccount, logout } = useAuth()
@@ -24,6 +51,12 @@ export default function Settings() {
       window.history.replaceState({}, '', window.location.pathname)
     }
   }, [])
+
+  // Sync profile fields when account data loads (account may be null on first render)
+  useEffect(() => {
+    if (account?.name) setName(n => n || account.name)
+    if (account?.email) setEmail(e => e || account.email)
+  }, [account])
 
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault()
@@ -63,16 +96,20 @@ export default function Settings() {
     }
   }
 
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+
   async function handleUpgrade() {
-    setBillingLoading(true)
-    setMsg(null)
+    setShowUpgradeModal(true)
+  }
+
+  async function handleJoinWaitlist(email: string) {
     try {
-      const data = await request<{ url: string }>('/billing/checkout', { method: 'POST' })
-      window.location.href = data.url
-    } catch (e) {
-      setMsg({ type: 'err', text: (e as Error).message })
-      setBillingLoading(false)
+      await request('/waitlist', { method: 'POST', body: JSON.stringify({ email }) })
+    } catch {
+      // best-effort
     }
+    setShowUpgradeModal(false)
+    setMsg({ type: 'ok', text: "You're on the Pro waitlist! We'll email you when billing goes live." })
   }
 
   async function handleManageBilling() {
@@ -122,7 +159,7 @@ export default function Settings() {
             <p style={{ margin: 0, color: '#6b7280', fontSize: 13 }}>
               {isPro
                 ? 'Unlimited widgets and testimonials. Priority support.'
-                : '1 widget, up to 20 approved testimonials. Upgrade for more.'}
+                : '1 widget, up to 10 approved testimonials. Upgrade for more.'}
             </p>
           </div>
           <span style={{
@@ -227,6 +264,23 @@ export default function Settings() {
           Sign out
         </button>
       </div>
+
+      {/* Upgrade waitlist modal */}
+      {showUpgradeModal && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }} onClick={() => setShowUpgradeModal(false)}>
+          <div style={{ background: '#fff', borderRadius: 12, padding: 32, maxWidth: 420, width: '90%' }}
+            onClick={e => e.stopPropagation()}>
+            <h2 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700 }}>Upgrade to Pro ✨</h2>
+            <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>
+              Billing is launching very soon. Join the waitlist and we'll email you the moment it goes live — plus an early-bird discount.
+            </p>
+            <UpgradeForm onSubmit={handleJoinWaitlist} onCancel={() => setShowUpgradeModal(false)} defaultEmail={account?.email || ''} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -41,7 +41,7 @@ export default function Collect() {
   }
 
   function copyLink(id: string) {
-    const url = `${API_URL}/submit/${id}`
+    const url = `https://socialproof.dev/submit/${id}`
     navigator.clipboard.writeText(url)
     setLinkCopied(id)
     setTimeout(() => setLinkCopied(null), 2000)
@@ -88,7 +88,7 @@ export default function Collect() {
               <span style={{ fontSize: 12, color: f.active ? '#10b981' : '#9ca3af' }}>{f.active ? 'Active' : 'Inactive'}</span>
             </div>
             <div style={{ background: '#f9fafb', borderRadius: 4, padding: '8px 12px', fontFamily: 'monospace', fontSize: 12, color: '#6b7280', marginBottom: 12, wordBreak: 'break-all' }}>
-              {`${API_URL}/submit/${f.id}`}
+              {`https://socialproof.dev/submit/${f.id}`}
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <button onClick={() => copyLink(f.id)} style={{
@@ -97,7 +97,7 @@ export default function Collect() {
               }}>
                 {linkCopied === f.id ? '✓ Copied!' : '🔗 Copy link'}
               </button>
-              <a href={`${API_URL}/submit/${f.id}`} target="_blank" rel="noreferrer" style={{
+              <a href={`https://socialproof.dev/submit/${f.id}`} target="_blank" rel="noreferrer" style={{
                 padding: '6px 12px', border: '1px solid #d1d5db', borderRadius: 4, textDecoration: 'none',
                 color: '#374151', fontSize: 13, background: '#fff'
               }}>
