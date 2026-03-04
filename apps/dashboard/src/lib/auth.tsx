@@ -90,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return (
     <AuthContext.Provider value={{ account, token, isDemo, login, signup, loginDemo, logout, setAccount }}>
       <ApiContext.Provider value={{ request: async (path, opts) => {
-          const res = await fetch(`${API_URL}${path}`, {
+          const res = await fetch(`${API_URL}/api${path}`, {
             ...opts,
             credentials: 'include',
             headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...(opts?.headers || {}) },
