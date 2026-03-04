@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 
 export default function Login() {
@@ -82,6 +82,14 @@ export default function Login() {
           </button>
         </form>
 
+
+        {mode === 'login' && (
+          <p style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: '#6b7280' }}>
+            <Link to="/forgot-password" style={{ color: '#6b7280', textDecoration: 'none' }}>
+              Forgot your password?
+            </Link>
+          </p>
+        )}
         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: '#6b7280' }}>
           {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
           <button
