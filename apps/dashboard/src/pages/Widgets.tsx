@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useApi } from '../lib/auth'
+import { useApi, ApiError } from '../lib/auth'
+import type { PlanLimitError } from '../lib/auth'
 import { Toast } from '../components/Toast'
+import UpgradeModal from '../components/UpgradeModal'
 
 interface Widget {
   id: string
@@ -15,6 +17,7 @@ interface Widget {
 
 export default function Widgets() {
   const { request } = useApi()
+  const [planLimitError, setPlanLimitError] = useState<PlanLimitError | null>(null)
   const [widgets, setWidgets] = useState<Widget[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
@@ -43,7 +46,12 @@ export default function Widgets() {
       setShowForm(false)
       setToast({ message: 'Widget created!', type: 'success' })
     } catch (err) {
-      setToast({ message: (err as Error).message, type: 'error' })
+      if (err instanceof ApiError && err.status === 402 && err.planLimit) {
+        setShowForm(false)
+        setPlanLimitError(err.planLimit)
+      } else {
+        setToast({ message: (err as Error).message, type: 'error' })
+      }
     } finally {
       setCreating(false)
     }

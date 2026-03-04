@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
+import { checkPlanLimit } from '../lib/planLimits'
 
 export const widgets = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -17,21 +18,9 @@ widgets.post('/', async (c) => {
   if (!body.name?.trim()) return c.json({ error: 'name required' }, 400)
 
   // Plan enforcement: Free plan limited to 1 widget
-  const account = await c.env.DB.prepare(
-    'SELECT plan FROM accounts WHERE id = ?'
-  ).bind(accountId).first<{ plan: string }>()
-  if (account?.plan !== 'pro') {
-    const { results } = await c.env.DB.prepare(
-      'SELECT COUNT(*) as count FROM widgets WHERE account_id = ?'
-    ).bind(accountId).all<{ count: number }>()
-    const count = results[0]?.count ?? 0
-    if (count >= 1) {
-      return c.json({
-        error: 'Free plan limited to 1 widget. Upgrade to Pro for unlimited widgets.',
-        upgrade: true,
-      }, 402)
-    }
-  }
+  const limitErr = await checkPlanLimit(c.env, accountId, 'create_widget')
+  if (limitErr) return c.json(limitErr, 402)
+
   const id = crypto.randomUUID()
   const slug = body.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + id.slice(0, 6)
   const now = new Date().toISOString()
@@ -58,28 +47,43 @@ widgets.patch('/:id', async (c) => {
   const accountId = c.get('accountId')
   const id = c.req.param('id')
   const body = await c.req.json<{ name?: string; active?: boolean; theme?: string; layout?: string; config?: Record<string, unknown> }>()
-  const now = new Date().toISOString()
-  const fields: string[] = []
+
+  const existing = await c.env.DB.prepare(
+    'SELECT id FROM widgets WHERE id = ? AND account_id = ?'
+  ).bind(id, accountId).first()
+  if (!existing) return c.json({ error: 'Not found' }, 404)
+
+  const updates: string[] = []
   const values: unknown[] = []
-  if (body.name !== undefined) { fields.push('name = ?'); values.push(body.name) }
-  if (body.active !== undefined) { fields.push('active = ?'); values.push(body.active ? 1 : 0) }
-  if (body.theme !== undefined) { fields.push('theme = ?'); values.push(body.theme) }
-  if (body.layout !== undefined) { fields.push('layout = ?'); values.push(body.layout) }
-  if (body.config !== undefined) { fields.push('config = ?'); values.push(JSON.stringify(body.config)) }
-  if (!fields.length) return c.json({ error: 'Nothing to update' }, 400)
-  fields.push('updated_at = ?')
-  values.push(now, id, accountId)
+  if (body.name !== undefined) { updates.push('name = ?'); values.push(body.name) }
+  if (body.active !== undefined) { updates.push('active = ?'); values.push(body.active ? 1 : 0) }
+  if (body.theme !== undefined) { updates.push('theme = ?'); values.push(body.theme) }
+  if (body.layout !== undefined) { updates.push('layout = ?'); values.push(body.layout) }
+  if (body.config !== undefined) { updates.push('config = ?'); values.push(JSON.stringify(body.config)) }
+  if (updates.length === 0) return c.json({ error: 'Nothing to update' }, 400)
+
+  updates.push('updated_at = ?')
+  values.push(new Date().toISOString())
+  values.push(id)
+  values.push(accountId)
+
   await c.env.DB.prepare(
-    `UPDATE widgets SET ${fields.join(', ')} WHERE id = ? AND account_id = ?`
+    `UPDATE widgets SET ${updates.join(', ')} WHERE id = ? AND account_id = ?`
   ).bind(...values).run()
-  await c.env.WIDGET_KV.delete(`widget:${id}`)
-  return c.json({ ok: true })
+
+  const updated = await c.env.DB.prepare(
+    'SELECT * FROM widgets WHERE id = ?'
+  ).bind(id).first()
+  return c.json({ widget: updated })
 })
 
 widgets.delete('/:id', async (c) => {
   const accountId = c.get('accountId')
   const id = c.req.param('id')
-  await c.env.DB.prepare('DELETE FROM widgets WHERE id = ? AND account_id = ?').bind(id, accountId).run()
-  await c.env.WIDGET_KV.delete(`widget:${id}`)
-  return c.json({ ok: true })
+  const existing = await c.env.DB.prepare(
+    'SELECT id FROM widgets WHERE id = ? AND account_id = ?'
+  ).bind(id, accountId).first()
+  if (!existing) return c.json({ error: 'Not found' }, 404)
+  await c.env.DB.prepare('DELETE FROM widgets WHERE id = ?').bind(id).run()
+  return c.json({ success: true })
 })

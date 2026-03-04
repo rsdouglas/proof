@@ -9,6 +9,26 @@ export interface Account {
   plan: string
 }
 
+export interface PlanLimitError {
+  error: 'plan_limit'
+  limit: string
+  current: number
+  max: number
+  upgrade_url: string
+}
+
+export class ApiError extends Error {
+  status: number
+  planLimit?: PlanLimitError
+
+  constructor(message: string, status: number, planLimit?: PlanLimitError) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+    this.planLimit = planLimit
+  }
+}
+
 interface AuthCtx {
   account: Account | null
   token: string | null
@@ -96,8 +116,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...(opts?.headers || {}) },
           })
           if (!res.ok) {
-            const err = await res.json().catch(() => ({})) as { error?: string }
-            throw new Error(err.error || res.statusText)
+            const body = await res.json().catch(() => ({})) as { error?: string }
+            if (res.status === 402 && body.error === 'plan_limit') {
+              const planErr = body as PlanLimitError
+              throw new ApiError(
+                `You've reached your Free plan limit for ${planErr.limit}.`,
+                402,
+                planErr
+              )
+            }
+            throw new ApiError(body.error || res.statusText, res.status)
           }
           return res.json()
         }}}>

@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useApi, API_URL } from '../lib/auth'
+import { useApi, API_URL, ApiError } from '../lib/auth'
+import type { PlanLimitError } from '../lib/auth'
+import UpgradeModal from '../components/UpgradeModal'
 
 interface Testimonial {
   id: string
@@ -23,6 +25,7 @@ type ModalMode = 'add' | 'request' | null
 
 export default function Testimonials() {
   const { request } = useApi()
+  const [planLimitError, setPlanLimitError] = useState<PlanLimitError | null>(null)
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [widgets, setWidgets] = useState<Widget[]>([])
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all')
@@ -80,19 +83,28 @@ export default function Testimonials() {
 
   async function addManual(e: React.FormEvent) {
     e.preventDefault()
-    await request('/testimonials', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...addForm,
-        rating: addForm.rating ? Number(addForm.rating) : undefined,
-        status: 'approved',
-        source: 'manual',
-      }),
-    })
-    setAddForm({ display_name: '', display_text: '', rating: '', company: '', title: '', submitter_email: '' })
-    setModal(null)
-    load()
-    showToast('Testimonial added')
+    try {
+      await request('/testimonials', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...addForm,
+          rating: addForm.rating ? Number(addForm.rating) : undefined,
+          status: 'approved',
+          source: 'manual',
+        }),
+      })
+      setAddForm({ display_name: '', display_text: '', rating: '', company: '', title: '', submitter_email: '' })
+      setModal(null)
+      load()
+      showToast('Testimonial added')
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 402 && err.planLimit) {
+        setModal(null)
+        setPlanLimitError(err.planLimit)
+      } else {
+        showToast('Failed to add testimonial')
+      }
+    }
   }
 
   async function sendRequest(e: React.FormEvent) {

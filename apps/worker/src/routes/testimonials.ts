@@ -2,6 +2,7 @@ import { fireWebhooks } from './webhooks'
 import { sendEmail, buildTestimonialApprovedEmail, buildTestimonialRequestEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
+import { checkPlanLimit } from '../lib/planLimits'
 
 export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -159,6 +160,10 @@ testimonials.post('/', async (c) => {
   if (!body.display_name || !body.display_text) {
     return c.json({ error: 'display_name and display_text are required' }, 400)
   }
+
+  // Plan enforcement: Free plan limited to 25 testimonials
+  const limitErr = await checkPlanLimit(c.env, accountId, 'add_testimonial')
+  if (limitErr) return c.json(limitErr, 402)
 
   const id = crypto.randomUUID()
   const now = new Date().toISOString()
