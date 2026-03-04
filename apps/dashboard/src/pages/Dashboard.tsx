@@ -288,9 +288,9 @@ export default function Dashboard() {
 
   const collectUrl = collectFormId
     ? `https://socialproof.dev/c/${collectFormId}`
-    : `${API_URL.replace('api.', 'socialproof.dev/c/')}`
+    : ''
 
-  const isZeroState = stats !== null && stats.total_testimonials === 0
+  const isZeroState = stats !== null && stats.total_testimonials === 0 && !!collectFormId
 
   return (
     <div style={{ maxWidth: 900 }}>
