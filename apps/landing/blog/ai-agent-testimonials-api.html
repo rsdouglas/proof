@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Give Your AI Agent the Ability to Collect Testimonials With One API Call | Vouch</title>
+  <meta name="description" content="One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the Vouch API — and why it matters for trust-building at scale.">
+  <meta name="keywords" content="AI agent testimonials, testimonial API, agent register endpoint, AI social proof, Claude testimonials, GPT testimonials, automated testimonial collection">
+  <link rel="canonical" href="https://socialproof.dev/blog/ai-agent-testimonials-api">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Give Your AI Agent the Ability to Collect Testimonials With One API Call",
+    "description": "One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the Vouch API.",
+    "author": { "@type": "Organization", "name": "Vouch" },
+    "publisher": { "@type": "Organization", "name": "Vouch", "url": "https://socialproof.dev" },
+    "datePublished": "2026-03-05",
+    "url": "https://socialproof.dev/blog/ai-agent-testimonials-api"
+  }
+  </script>
+  <style>
+    .blog-post { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    .blog-post h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+    .blog-post .meta { color: #64748b; font-size: 0.9rem; margin-bottom: 40px; }
+    .blog-post h2 { font-size: 1.4rem; font-weight: 700; margin-top: 48px; margin-bottom: 16px; }
+    .blog-post h3 { font-size: 1.15rem; font-weight: 700; margin-top: 32px; margin-bottom: 12px; }
+    .blog-post p { line-height: 1.75; margin-bottom: 20px; color: #1e293b; }
+    .blog-post ul, .blog-post ol { margin: 0 0 24px 24px; line-height: 1.75; color: #1e293b; }
+    .blog-post li { margin-bottom: 8px; }
+    .blog-post code { font-family: 'Courier New', monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.88rem; }
+    .blog-post pre { background: #0f172a; color: #e2e8f0; padding: 24px; border-radius: 8px; overflow-x: auto; margin: 24px 0; font-size: 0.88rem; line-height: 1.6; }
+    .blog-post pre code { background: none; padding: 0; color: inherit; }
+    .blog-post .highlight { background: #eff6ff; border-left: 4px solid #2563eb; padding: 16px 20px; margin: 32px 0; border-radius: 0 8px 8px 0; }
+    .blog-post .highlight p { margin-bottom: 0; }
+    .blog-post .cta-box { background: #1e293b; color: white; padding: 32px; border-radius: 12px; margin: 48px 0 0; text-align: center; }
+    .blog-post .cta-box h3 { color: white; margin-top: 0; }
+    .blog-post .cta-box a { display: inline-block; background: #2563eb; color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 12px; }
+    .blog-post .tag { display: inline-block; background: #eff6ff; color: #2563eb; font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="/">Vouch</a>
+    <div class="nav-links">
+      <a href="/#features">Features</a>
+      <a href="/blog">Blog</a>
+      <a href="/docs">Docs</a>
+      <a href="https://app.socialproof.dev/register">Get started free</a>
+    </div>
+  </nav>
+
+  <div class="blog-post">
+    <span class="tag">Developer</span>
+    <h1>How to Give Your AI Agent the Ability to Collect Testimonials With One API Call</h1>
+    <p class="meta">March 5, 2026 · 8 min read</p>
+
+    <p>AI agents are increasingly running real business workflows: booking appointments, answering support tickets, closing sales, onboarding users. But there's a gap nobody's talking about. These agents complete tasks, confirm success — and then stop. They never ask for the testimonial.</p>
+
+    <p>That's a missed opportunity that's easy to fix. Vouch exposes a single endpoint — <code>POST /agent/register</code> — that lets any AI agent, automation, or backend process submit a testimonial programmatically. No UI. No link-sharing. One API call, triggered at exactly the right moment.</p>
+
+    <p>Here's how it works, why it matters, and how to wire it into your agent in about 10 minutes.</p>
+
+    <h2>Why agents are uniquely positioned to collect testimonials</h2>
+
+    <p>The best time to ask for a testimonial is immediately after a win. When a customer just hit a milestone, got a result, or completed something satisfying — that's the moment. Ask 30 minutes later and you've lost it. Ask 3 days later and you've definitely lost it.</p>
+
+    <p>Human processes can't consistently catch that moment. AI agents can. If your agent just:</p>
+    <ul>
+      <li>Closed a task the user had been struggling with</li>
+      <li>Delivered a report, plan, or analysis the user requested</li>
+      <li>Confirmed a booking or transaction</li>
+      <li>Helped a customer resolve a support issue</li>
+    </ul>
+
+    <p>...it knows exactly when the win happened. And it can immediately fire a testimonial request — or, if the interaction already generated a natural expression of satisfaction, submit that directly as a testimonial.</p>
+
+    <div class="highlight">
+      <p><strong>The key insight:</strong> An AI agent interacting with a happy user at the peak of satisfaction is the highest-signal moment for testimonial collection. Wiring that moment to an API call is trivial. Not doing it is leaving trust-building on the table.</p>
+    </div>
+
+    <h2>The <code>/agent/register</code> endpoint</h2>
+
+    <p>The Vouch agent registration endpoint is designed for programmatic, automated testimonial submission. It accepts a minimal JSON payload and handles the rest.</p>
+
+    <h3>Base URL</h3>
+    <pre><code>https://app.socialproof.dev/api/agent/register</code></pre>
+
+    <h3>Request</h3>
+    <pre><code>POST /api/agent/register
+Content-Type: application/json
+Authorization: Bearer YOUR_API_KEY
+
+{
+  "widget_id": "your-widget-id",
+  "author": "Jane Smith",
+  "text": "This completely changed how I run my onboarding. Set it up in a morning.",
+  "rating": 5,
+  "source": "ai-agent",
+  "metadata": {
+    "agent": "claude-3-5-sonnet",
+    "trigger": "onboarding-complete",
+    "session_id": "sess_abc123"
+  }
+}</code></pre>
+
+    <h3>Fields</h3>
+    <ul>
+      <li><code>widget_id</code> — Your Vouch widget ID (from your dashboard)</li>
+      <li><code>author</code> — Customer's name (string, required)</li>
+      <li><code>text</code> — The testimonial content (string, required)</li>
+      <li><code>rating</code> — Star rating 1–5 (integer, optional)</li>
+      <li><code>source</code> — Tag the source for filtering (string, optional)</li>
+      <li><code>metadata</code> — Arbitrary key-value pairs for your records (object, optional)</li>
+    </ul>
+
+    <h3>Response</h3>
+    <pre><code>HTTP 201 Created
+{
+  "id": "t_xyz789",
+  "status": "pending_review",
+  "widget_id": "your-widget-id",
+  "created_at": "2026-03-05T14:32:00Z"
+}</code></pre>
+
+    <p>Testimonials submitted via the API go into your review queue by default, same as ones collected through the widget form. You approve and publish from the dashboard. This gives you full editorial control even when submissions are automated.</p>
+
+    <h2>Wiring it into a Claude tool</h2>
+
+    <p>Here's a minimal tool definition for Claude (using the Anthropic tools API) that lets your agent submit a testimonial:</p>
+
+    <pre><code>{
+  "name": "submit_testimonial",
+  "description": "Submit a customer testimonial to Vouch when a user expresses satisfaction or completes a milestone. Only call this when the user has explicitly said something positive about their experience.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "author": {
+        "type": "string",
+        "description": "The customer's name"
+      },
+      "text": {
+        "type": "string",
+        "description": "The testimonial text — either the user's exact words or a clean paraphrase they've confirmed"
+      },
+      "rating": {
+        "type": "integer",
+        "description": "Star rating 1-5",
+        "minimum": 1,
+        "maximum": 5
+      }
+    },
+    "required": ["author", "text"]
+  }
+}</code></pre>
+
+    <p>And the Python handler that executes when Claude calls the tool:</p>
+
+    <pre><code>import httpx
+
+def submit_testimonial(author: str, text: str, rating: int = 5):
+    response = httpx.post(
+        "https://app.socialproof.dev/api/agent/register",
+        headers={
+            "Authorization": f"Bearer {VOUCH_API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={
+            "widget_id": VOUCH_WIDGET_ID,
+            "author": author,
+            "text": text,
+            "rating": rating,
+            "source": "ai-agent"
+        }
+    )
+    response.raise_for_status()
+    return response.json()</code></pre>
+
+    <h2>Wiring it into a GPT-4 function call</h2>
+
+    <p>Same pattern for OpenAI's function calling:</p>
+
+    <pre><code>tools = [{
+    "type": "function",
+    "function": {
+        "name": "submit_testimonial",
+        "description": "Submit a customer testimonial when the user expresses satisfaction. Only call after the user has said something genuinely positive about their experience.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "author": {"type": "string"},
+                "text": {"type": "string"},
+                "rating": {"type": "integer", "minimum": 1, "maximum": 5}
+            },
+            "required": ["author", "text"]
+        }
+    }
+}]</code></pre>
+
+    <h2>When should the agent call this?</h2>
+
+    <p>Good triggers for automated testimonial submission:</p>
+
+    <ul>
+      <li><strong>Task completion:</strong> User says "perfect, that's exactly what I needed" after the agent delivers something</li>
+      <li><strong>Milestone moments:</strong> After successful onboarding, first meaningful result, or key activation event</li>
+      <li><strong>Explicit satisfaction:</strong> User says something like "this saved me so much time" in the flow of conversation</li>
+      <li><strong>Survey responses:</strong> If your agent runs structured NPS or CSAT, pipe 9-10 responses directly to Vouch</li>
+    </ul>
+
+    <p>What to avoid:</p>
+    <ul>
+      <li>Don't submit testimonials mid-task when the user is still in problem-solving mode</li>
+      <li>Don't fabricate or paraphrase without getting the user to confirm the wording</li>
+      <li>Don't submit without the user knowing — the best flow is to ask first, then submit on consent</li>
+    </ul>
+
+    <div class="highlight">
+      <p><strong>Best practice:</strong> Have the agent ask first — "Would it be OK if I saved that as a testimonial for [your business]?" — then call the API on confirmation. This gets consent and often prompts the user to say something even better.</p>
+    </div>
+
+    <h2>A complete agent flow</h2>
+
+    <p>Here's what a full interaction looks like when an agent is wired correctly:</p>
+
+    <pre><code>User: "This is amazing — you just saved me 3 hours of work."
+
+Agent: "Really glad to hear it! Would you mind if I saved that 
+as a testimonial for [Business]? It helps other people 
+discover the service."
+
+User: "Sure, go ahead."
+
+Agent: [calls submit_testimonial("Alex R.", "This is amazing — 
+saved me 3 hours of work.", 5)]
+
+Agent: "Done — saved. Anything else I can help you with?"</code></pre>
+
+    <p>The whole exchange takes 10 seconds. The testimonial is in the review queue. The user feels good about helping. You have a real, authentic social proof asset that would have otherwise evaporated.</p>
+
+    <h2>Why this matters for the "built in public by AI" angle</h2>
+
+    <p>There's a meta-story here that's genuinely interesting: AI agents that build trust for AI-built products. If your SaaS, tool, or service is built by or with AI agents — and you're collecting testimonials via AI agents — you're closing a loop that didn't exist 18 months ago.</p>
+
+    <p>The developer community is paying attention to this. "My AI agent collects its own testimonials" is a genuine distribution hook for developer-focused communities, Hacker News, and anyone building the next generation of AI-native businesses.</p>
+
+    <h2>Getting started</h2>
+
+    <p>You need two things from your Vouch dashboard:</p>
+    <ol>
+      <li>Your API key (Settings → API)</li>
+      <li>Your widget ID (from the widget embed code)</li>
+    </ol>
+
+    <p>Then it's one <code>POST</code> request. That's the entire integration. You can have it running in the time it takes to read this post.</p>
+
+    <div class="cta-box">
+      <h3>Wire your agent to collect testimonials today</h3>
+      <p>Free forever for 1 active widget. API access included on all plans. No credit card required.</p>
+      <a href="https://app.socialproof.dev/register">Get your API key free →</a>
+    </div>
+
+    <p style="margin-top:32px;">See also: <a href="/blog/what-makes-a-testimonial-compelling">What makes a testimonial compelling</a> · <a href="/blog/best-time-to-ask-for-testimonial">Best time to ask for a testimonial</a> · <a href="/docs/api">API documentation</a></p>
+
+  </div>
+
+  <footer class="footer">
+    <p><a href="/" style="color:#2563eb;">Vouch</a> · <a href="/blog" style="color:#2563eb;">Blog</a> · <a href="/privacy.html" style="color:#2563eb;">Privacy</a> · <a href="/terms.html" style="color:#2563eb;">Terms</a></p>
+    <p style="margin-top: 8px;">© 2026 Vouch · <a href="https://socialproof.dev" style="color:#2563eb;">socialproof.dev</a></p>
+  </footer>
+</body>
+</html>
