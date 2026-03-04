@@ -12,8 +12,8 @@
 
 | Feature | Free | Pro ($9/mo) |
 |---|---|---|
-| Testimonials | Up to 10 | Unlimited |
-| Widgets | 1 | Up to 5 |
+| Testimonials | Up to 25 | Unlimited |
+| Widgets | 1 | Unlimited |
 | "Powered by Vouch" branding on widget | ✅ shown | ❌ removed |
 | Collection link | ✅ | ✅ |
 | Manual testimonial entry | ✅ | ✅ |
@@ -23,8 +23,9 @@
 | Testimonial moderation | ✅ | ✅ |
 
 **Rationale:**
-- 10 testimonials on Free is enough to feel useful and show the product works — but creates a real upgrade moment when a happy user hits the cap
+- 25 testimonials on Free (revised from 10, 2026-03-04): 10 was too few — a small business hits this before they see real value. 25 lets users build a real library and then hit a meaningful limit. Senja gives 10; we'll be more generous at the freemium layer to win on activation.
 - 1 widget on Free: enough to prove value, real incentive to upgrade for multi-page sites
+- Unlimited widgets on Pro (revised from 5): artificial cap at 5 adds friction without clear benefit; unlimited is cleaner messaging and won't limit real users
 - Branding removal is the classic SaaS upgrade hook — it also drives word-of-mouth on Free tier (everyone who sees the widget is a potential signup)
 - Analytics gated to Pro: impressions data is immediately useful, low cost to serve, creates upgrade pull
 - Collection and moderation are always free — these are the core loop, gating them would kill activation
@@ -34,6 +35,8 @@
 - When Free limit is hit (10th testimonial, 2nd widget attempt), return HTTP 402 with a clear error message that the frontend can render as an upgrade CTA
 - Widget embed script should check `account.plan` and inject the "Powered by Vouch" badge if Free
 - Store plan as `plan: 'free' | 'pro'` on the `accounts` table — already exists per schema
+
+**Revision note (2026-03-04):** Free testimonial limit raised to 25 (from 10). Pro widget limit removed (unlimited). Settings page and landing page must reflect these numbers — see issue #108.
 
 **Filing a dev issue for gate implementation now** — see issue #101.
 
