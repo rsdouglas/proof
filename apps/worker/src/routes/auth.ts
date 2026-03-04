@@ -313,3 +313,84 @@ auth.post('/reset-password', async (c) => {
   setAuthCookie(c, jwt)
   return c.json({ ok: true, token: jwt })
 })
+
+/** GET /api/auth/demo — returns a read-only demo JWT and seeds demo data if needed */
+auth.get('/demo', async (c) => {
+  const DEMO_ACCOUNT_ID = 'demo-account-vouch'
+  const DEMO_EMAIL = 'demo@vouch.example'
+  const DEMO_WIDGET_ID = 'demo-widget-001'
+
+  // Ensure demo account exists
+  const existing = await c.env.DB.prepare(
+    'SELECT id FROM accounts WHERE id = ?'
+  ).bind(DEMO_ACCOUNT_ID).first()
+
+  if (!existing) {
+    // Seed demo account
+    await c.env.DB.prepare(
+      `INSERT OR IGNORE INTO accounts (id, email, name, plan, password_hash, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`
+    ).bind(
+      DEMO_ACCOUNT_ID,
+      DEMO_EMAIL,
+      'Acme Store (Demo)',
+      'pro',
+      'demo-no-login',
+      new Date(Date.now() - 30 * 86400 * 1000).toISOString()
+    ).run()
+
+    // Seed demo widget
+    await c.env.DB.prepare(
+      `INSERT OR IGNORE INTO widgets (id, account_id, name, slug, settings, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`
+    ).bind(
+      DEMO_WIDGET_ID,
+      DEMO_ACCOUNT_ID,
+      'Product Reviews',
+      'acme-store-demo',
+      JSON.stringify({ theme: 'light', position: 'bottom-right', delay: 3000 }),
+      new Date(Date.now() - 25 * 86400 * 1000).toISOString()
+    ).run()
+
+    // Seed 10 realistic demo testimonials
+    const demoTestimonials = [
+      { name: 'Sarah K.', email: 'sarah@example.com', text: 'This product completely transformed how I work. I save at least 2 hours every day. Absolutely worth every penny!', rating: 5, company: 'TechStart Inc', status: 'approved' },
+      { name: 'Marcus Chen', email: 'marcus@example.com', text: 'Best investment we made this quarter. Our conversion rate jumped 34% after adding social proof to our checkout page.', rating: 5, company: 'GrowthLab', status: 'approved' },
+      { name: 'Priya Sharma', email: 'priya@example.com', text: "Setup took 5 minutes. The widget looks great and matches our brand perfectly. Customer support is also incredible.", rating: 5, company: 'Bloom Beauty', status: 'approved' },
+      { name: 'Alex Rivera', email: 'alex@example.com', text: 'We went from 0 to 50 reviews in two weeks using the automated request emails. Game changer for building trust.', rating: 5, company: 'Coastal Apparel', status: 'approved' },
+      { name: 'Jordan Lee', email: 'jordan@example.com', text: 'Love the popup widget. Visitors see real-time social proof and it has noticeably reduced our bounce rate.', rating: 4, company: 'Nimbus SaaS', status: 'approved' },
+      { name: 'Taylor Wong', email: 'taylor@example.com', text: 'Really solid product. Would love more customization options for the widget colors but overall very happy.', rating: 4, company: 'Pixel Studios', status: 'approved' },
+      { name: 'Sam Patel', email: 'sam@example.com', text: 'Does exactly what it says on the tin. Simple, fast, and the CSV export is super useful for our reporting.', rating: 5, company: 'DataPoint Analytics', status: 'approved' },
+      { name: 'Chris Morgan', email: 'chris@example.com', text: 'Great tool! One suggestion: it would be nice to have Slack notifications when new testimonials come in.', rating: 4, company: 'Remote First Co', status: 'pending' },
+      { name: 'Dana Foster', email: 'dana@example.com', text: 'The wall of love page looks amazing. We linked it from our pricing page and it definitely helps close deals.', rating: 5, company: 'Venture Labs', status: 'approved' },
+      { name: 'Riley Adams', email: 'riley@example.com', text: "Excellent product. I've tried three other social proof tools and this is by far the easiest to set up and maintain.", rating: 5, company: 'Solo Founder', status: 'approved' },
+    ]
+
+    const nowMs = Date.now()
+    for (let i = 0; i < demoTestimonials.length; i++) {
+      const t = demoTestimonials[i]
+      const id = `demo-t-${String(i + 1).padStart(3, '0')}`
+      const daysAgo = (demoTestimonials.length - i) * 2.5
+      await c.env.DB.prepare(
+        `INSERT OR IGNORE INTO testimonials (id, account_id, widget_id, name, email, company, text, rating, status, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(
+        id, DEMO_ACCOUNT_ID, DEMO_WIDGET_ID,
+        t.name, t.email, t.company, t.text, t.rating, t.status,
+        new Date(nowMs - daysAgo * 86400 * 1000).toISOString()
+      ).run()
+    }
+  }
+
+  // Issue demo JWT
+  const token = await generateToken(DEMO_ACCOUNT_ID, DEMO_EMAIL, 'pro', c.env.JWT_SECRET)
+  setAuthCookie(c, token)
+
+  return c.json({
+    token,
+    demo: true,
+    account: { id: DEMO_ACCOUNT_ID, email: DEMO_EMAIL, name: 'Acme Store (Demo)', plan: 'pro' },
+  })
+})
+
+export default auth

@@ -25,3 +25,13 @@ crons = ["0 * * * *"]  # Run hourly for drip email sequence
 
 [dev]
 port = 8787
+
+# Email/DKIM secrets - set via wrangler secret put
+# Required for DKIM signing (prevents spam filtering):
+#   DKIM_PRIVATE_KEY  - PKCS8 RSA private key (no newlines, base64)
+#   DKIM_DOMAIN       - e.g. socialproof.dev
+#   DKIM_SELECTOR     - e.g. mailchannels (must match DNS TXT record)
+# DNS records needed (see issue #71):
+#   TXT mailchannels._domainkey.socialproof.dev  v=DKIM1; p=<public-key>
+#   TXT _mailchannels.socialproof.dev            v=mc1 cfid=vouch-worker.workers.dev
+#   TXT socialproof.dev                          v=spf1 a mx include:relay.mailchannels.net ~all

@@ -149,10 +149,10 @@ export default function Dashboard() {
           <div style={{ fontWeight: 600, marginBottom: 4 }}>Collect Testimonials</div>
           <div style={{ fontSize: 13, opacity: 0.85 }}>Share a form link with your customers</div>
         </Link>
-        <Link to="/widgets" style={{ display: 'block', background: '#8b5cf6', color: '#fff', borderRadius: 8, padding: 20, textDecoration: 'none' }}>
+        <Link to="/widgets" style={{ display: 'block', background: '#f0fdf4', border: '1px solid #a7f3d0', borderRadius: 8, padding: 20, textDecoration: 'none' }}>
           <div style={{ fontSize: 20, marginBottom: 6 }}>🧩</div>
-          <div style={{ fontWeight: 600, marginBottom: 4 }}>Embed a Widget</div>
-          <div style={{ fontSize: 13, opacity: 0.85 }}>Add testimonials to your website</div>
+          <div style={{ fontWeight: 600, marginBottom: 4, color: '#111827' }}>Embed Widgets</div>
+          <div style={{ fontSize: 13, color: '#6b7280' }}>Add social proof to your site</div>
         </Link>
       </div>
 

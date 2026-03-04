@@ -1,4 +1,5 @@
-import { sendEmail, buildTestimonialApprovedEmail } from './email'
+import { fireWebhooks } from './webhooks'
+import { sendEmail, buildTestimonialApprovedEmail, buildTestimonialRequestEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
 
@@ -27,6 +28,54 @@ testimonials.get('/', async (c) => {
 
   const { results } = await c.env.DB.prepare(query).bind(...bindings).all()
   return c.json({ testimonials: results })
+})
+
+// CSV export — must be before /:id to avoid route conflict
+testimonials.get('/export/csv', async (c) => {
+  const accountId = c.get('accountId')
+  const widgetId = c.req.query('widget_id')
+  const status = c.req.query('status')
+
+  let query = 'SELECT * FROM testimonials WHERE account_id = ?'
+  const bindings: unknown[] = [accountId]
+
+  if (widgetId) {
+    query += ' AND widget_id = ?'
+    bindings.push(widgetId)
+  }
+  if (status) {
+    query += ' AND status = ?'
+    bindings.push(status)
+  }
+  query += ' ORDER BY created_at DESC LIMIT 5000'
+
+  const { results } = await c.env.DB.prepare(query).bind(...bindings).all<{
+    id: string; display_name: string; display_text: string; rating: number | null;
+    company: string | null; title: string | null; submitter_email: string | null;
+    source: string; status: string; featured: number; created_at: string;
+  }>()
+
+  const headers = ['id', 'display_name', 'display_text', 'rating', 'company', 'title', 'submitter_email', 'source', 'status', 'featured', 'created_at']
+  const escape = (v: unknown): string => {
+    if (v === null || v === undefined) return ''
+    const s = String(v)
+    if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+      return '"' + s.replace(/"/g, '""') + '"'
+    }
+    return s
+  }
+
+  const rows = results.map(r =>
+    headers.map(h => escape(r[h as keyof typeof r])).join(',')
+  )
+  const csv = [headers.join(','), ...rows].join('\n')
+
+  return new Response(csv, {
+    headers: {
+      'Content-Type': 'text/csv',
+      'Content-Disposition': 'attachment; filename="testimonials.csv"',
+    },
+  })
 })
 
 testimonials.get('/:id', async (c) => {
@@ -82,6 +131,12 @@ testimonials.patch('/:id', async (c) => {
     }
   }
 
+  // Fire webhook for status changes
+  if (body.status === 'approved' || body.status === 'rejected') {
+    const accountId = c.get('accountId')
+    await fireWebhooks(c.env.DB, accountId, `testimonial.${body.status}`, { id, status: body.status })
+  }
+
   return c.json({ ok: true })
 })
 
@@ -91,3 +146,87 @@ testimonials.delete('/:id', async (c) => {
   await c.env.DB.prepare('DELETE FROM testimonials WHERE id = ? AND account_id = ?').bind(id, accountId).run()
   return c.json({ ok: true })
 })
+
+// Manual add testimonial (from dashboard)
+testimonials.post('/', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{
+    display_name: string; display_text: string; rating?: number;
+    company?: string; title?: string; submitter_email?: string;
+    status?: string; source?: string; widget_id?: string;
+  }>()
+
+  if (!body.display_name || !body.display_text) {
+    return c.json({ error: 'display_name and display_text are required' }, 400)
+  }
+
+  const id = crypto.randomUUID()
+  const now = new Date().toISOString()
+  const status = body.status || 'approved'
+  const source = body.source || 'manual'
+
+  await c.env.DB.prepare(
+    `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
+  ).bind(
+    id, accountId, body.widget_id ?? null,
+    body.display_name, body.display_text,
+    body.rating ?? null, body.company ?? null, body.title ?? null,
+    body.submitter_email ?? null, source, status, now, now
+  ).run()
+
+  return c.json({ testimonial: { id, status } }, 201)
+})
+
+testimonials.post('/request', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{
+    email: string
+    name?: string
+    widget_id: string
+    personal_note?: string
+  }>()
+
+  if (!body.email?.trim()) return c.json({ error: 'email required' }, 400)
+  if (!body.widget_id?.trim()) return c.json({ error: 'widget_id required' }, 400)
+
+  // Validate email format
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRe.test(body.email.trim())) return c.json({ error: 'invalid email' }, 400)
+
+  // Fetch widget + account info
+  const row = await c.env.DB.prepare(
+    `SELECT w.id, w.name as widget_name, w.slug, a.name as business_name, a.email as owner_email, a.name as owner_name
+     FROM widgets w
+     JOIN accounts a ON a.id = w.account_id
+     WHERE w.id = ? AND w.account_id = ?`
+  ).bind(body.widget_id, accountId).first<{
+    id: string; widget_name: string; slug: string | null;
+    business_name: string; owner_email: string; owner_name: string
+  }>()
+
+  if (!row) return c.json({ error: 'widget not found' }, 404)
+
+  // Find the collection form for this widget
+  const form = await c.env.DB.prepare(
+    'SELECT id FROM collection_forms WHERE account_id = ? AND active = 1 ORDER BY created_at ASC LIMIT 1'
+  ).bind(accountId).first<{ id: string }>()
+
+  const collectPath = form
+    ? `https://api.socialproof.dev/c/form/${form.id}`
+    : `https://api.socialproof.dev/wall/${row.slug || row.id}`
+
+  await sendEmail(
+    buildTestimonialRequestEmail({
+      customerEmail: body.email.trim(),
+      customerName: body.name?.trim(),
+      businessName: row.business_name,
+      ownerName: row.owner_name,
+      personalNote: body.personal_note?.trim(),
+      collectUrl: collectPath,
+    }),
+    c.env
+  )
+
+  // Log the request for dedup / audit (we can add a table later; for now just return ok)
+  return c.json({ ok: true, sent_to: body.email.trim() }, 200)})

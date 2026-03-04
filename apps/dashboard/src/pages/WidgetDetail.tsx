@@ -50,6 +50,105 @@ function CopyButton({ text, label }: { text: string; label?: string }) {
   )
 }
 
+
+type Platform = 'html' | 'webflow' | 'shopify' | 'squarespace' | 'wordpress'
+
+const PLATFORMS: { id: Platform; label: string }[] = [
+  { id: 'html', label: 'HTML / Custom' },
+  { id: 'webflow', label: 'Webflow' },
+  { id: 'shopify', label: 'Shopify' },
+  { id: 'squarespace', label: 'Squarespace' },
+  { id: 'wordpress', label: 'WordPress' },
+]
+
+const INSTALL_STEPS: Record<Platform, { title: string; steps: string[] }> = {
+  html: {
+    title: 'Any HTML website',
+    steps: [
+      'Open your HTML file or template in a code editor.',
+      'Paste the snippet just before the closing </body> tag.',
+      'Save and upload. The widget appears immediately.',
+    ],
+  },
+  webflow: {
+    title: 'Webflow',
+    steps: [
+      'Open your Webflow project and go to Project Settings → Custom Code.',
+      'Paste the snippet into the "Footer Code" field.',
+      'Click Save Changes, then Publish your site.',
+      'Tip: you can also use an Embed element on a specific page instead of site-wide.',
+    ],
+  },
+  shopify: {
+    title: 'Shopify',
+    steps: [
+      'In your Shopify admin, go to Online Store → Themes.',
+      'Click Actions → Edit Code on your active theme.',
+      'Open theme.liquid (in the Layout folder).',
+      'Paste the snippet just before the closing </body> tag.',
+      'Click Save. The widget is now live on all pages.',
+    ],
+  },
+  squarespace: {
+    title: 'Squarespace',
+    steps: [
+      'In your Squarespace dashboard, go to Settings → Advanced → Code Injection.',
+      'Paste the snippet into the "Footer" field.',
+      'Click Save. Changes go live immediately.',
+      'Note: Code Injection requires a Business plan or higher.',
+    ],
+  },
+  wordpress: {
+    title: 'WordPress',
+    steps: [
+      'Install the "Insert Headers and Footers" plugin (free, by WPCode).',
+      'Go to Settings → Insert Headers and Footers → Scripts in Footer.',
+      'Paste the snippet and click Save.',
+      'Alternatively, add directly to your theme footer.php before </body>.',
+    ],
+  },
+}
+
+function InstallGuide({ embedCode }: { embedCode: string }) {
+  const [platform, setPlatform] = useState<Platform>('html')
+  const guide = INSTALL_STEPS[platform]
+  return (
+    <div>
+      {/* Platform tabs */}
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 14 }}>
+        {PLATFORMS.map(p => (
+          <button
+            key={p.id}
+            onClick={() => setPlatform(p.id)}
+            style={{
+              padding: '5px 10px', fontSize: 12, borderRadius: 4, cursor: 'pointer',
+              border: '1px solid',
+              borderColor: platform === p.id ? '#2563eb' : '#d1d5db',
+              background: platform === p.id ? '#eff6ff' : '#fff',
+              color: platform === p.id ? '#1d4ed8' : '#374151',
+              fontWeight: platform === p.id ? 600 : 400,
+              transition: 'all 0.1s',
+            }}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+      {/* Steps */}
+      <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: '14px 16px' }}>
+        <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 600, color: '#374151' }}>{guide.title}</p>
+        <ol style={{ margin: 0, paddingLeft: 18 }}>
+          {guide.steps.map((step, i) => (
+            <li key={i} style={{ fontSize: 12, color: '#4b5563', marginBottom: 6, lineHeight: 1.5 }}>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )
+}
+
 function Stars({ rating }: { rating: number | null }) {
   if (!rating) return null
   return <span style={{ color: '#f59e0b', fontSize: 13 }}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
@@ -145,6 +244,8 @@ export default function WidgetDetail() {
     : `<div id="vouch-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
   const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
+  const badgeUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}/badge`
+  const badgeHtml = `<a href="${wallUrl}">\n  <img src="${badgeUrl}" alt="${widget.name} reviews" width="200" height="56">\n</a>`
 
   const filtered = testimonials.filter(t => t.status === tab)
 
@@ -221,16 +322,90 @@ export default function WidgetDetail() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button
-              onClick={updateWidget}
-              disabled={saving}
-              style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: saving ? 'not-allowed' : 'pointer', fontSize: 14, fontWeight: 500, opacity: saving ? 0.7 : 1 }}
-            >{saving ? 'Saving…' : 'Save changes'}</button>
-            <button
-              onClick={deleteWidget}
-              style={{ padding: '8px 16px', background: '#fff', color: '#ef4444', border: '1px solid #fecaca', borderRadius: 6, cursor: 'pointer', fontSize: 14 }}
-            >Delete widget</button>
+          {/* Embed code + install guide */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Embed code</h3>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>Copy the snippet below and paste it into your site</p>
+            <pre style={{
+              background: '#1e1e2e', color: '#cdd6f4', borderRadius: 6, padding: 12,
+              fontSize: 11, overflow: 'auto', margin: '0 0 8px', lineHeight: 1.6,
+              whiteSpace: 'pre-wrap', wordBreak: 'break-all',
+            }}>{embedCode}</pre>
+            <CopyButton text={embedCode} label="Copy snippet" />
+
+            {/* Platform install guide */}
+            <div style={{ marginTop: 20 }}>
+              <h4 style={{ margin: '0 0 10px', fontSize: 13, fontWeight: 600, color: '#374151' }}>Installation guide</h4>
+              <InstallGuide embedCode={embedCode} />
+            </div>
+          </div>
+
+          {/* Public wall */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <a
+              href={wallUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+            >{wallUrl}</a>
+            <CopyButton text={wallUrl} label="Copy wall URL" />
+          </div>
+
+          {/* Public wall */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: '#6b7280' }}>A shareable page showing all approved testimonials</p>
+            <a
+              href={wallUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 13, color: '#2563eb', wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
+            >{wallUrl}</a>
+            <CopyButton text={wallUrl} label="Copy wall URL" />
+          </div>
+
+          {/* Widget config */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 600 }}>Widget settings</h3>
+
+            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Name</label>
+            <input
+              value={name} onChange={e => setName(e.target.value)}
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, boxSizing: 'border-box', marginBottom: 12, fontFamily: 'inherit' }}
+            />
+
+            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Theme</label>
+            <select value={theme} onChange={e => setTheme(e.target.value)}
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, marginBottom: 12, fontFamily: 'inherit' }}>
+              {THEME_OPTIONS.map(o => <option key={o} value={o}>{o.charAt(0).toUpperCase() + o.slice(1)}</option>)}
+            </select>
+
+            <label style={{ display: 'block', fontSize: 12, color: '#374151', marginBottom: 4, fontWeight: 500 }}>Layout</label>
+            <select value={layout} onChange={e => setLayout(e.target.value)}
+              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: 5, fontSize: 13, marginBottom: 16, fontFamily: 'inherit' }}>
+              {LAYOUT_OPTIONS.map(o => <option key={o} value={o}>{LAYOUT_LABELS[o] || o}</option>)}
+            </select>
+
+            <button onClick={updateWidget} disabled={saving} style={{
+              width: '100%', padding: '9px', background: saving ? '#93c5fd' : '#2563eb',
+              color: '#fff', border: 'none', borderRadius: 5, fontWeight: 600, fontSize: 13,
+              cursor: saving ? 'not-allowed' : 'pointer', fontFamily: 'inherit',
+            }}>
+              {saving ? 'Saving…' : 'Save changes'}
+            </button>
+          </div>
+
+          {/* Danger zone */}
+          <div style={{ background: '#fff', border: '1px solid #fee2e2', borderRadius: 8, padding: 20 }}>
+            <h3 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: '#dc2626' }}>Danger zone</h3>
+            <button onClick={deleteWidget} style={{
+              width: '100%', padding: '8px', background: '#fff', color: '#dc2626',
+              border: '1px solid #fca5a5', borderRadius: 5, cursor: 'pointer', fontSize: 13, fontFamily: 'inherit',
+            }}>
+              Delete widget
+            </button>
           </div>
         </div>
 
@@ -254,7 +429,7 @@ export default function WidgetDetail() {
             <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{collectUrl}</div>
           </div>
 
-          <div>
+          <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
               <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Public testimonial wall</label>
               <CopyButton text={wallUrl} />
@@ -262,6 +437,17 @@ export default function WidgetDetail() {
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               <div style={{ flex: 1, background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10, fontSize: 12, color: '#374151', wordBreak: 'break-all' }}>{wallUrl}</div>
               <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: '#2563eb', whiteSpace: 'nowrap' }}>Open ↗</a>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <label style={{ fontSize: 13, fontWeight: 500, color: '#374151' }}>Rating badge <span style={{ fontWeight: 400, color: '#9ca3af' }}>(embed on your site)</span></label>
+              <CopyButton text={badgeHtml} label="Copy badge HTML" />
+            </div>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10 }}>
+              <img src={badgeUrl} alt="Rating badge preview" width={160} height={44} style={{ flexShrink: 0 }} />
+              <div style={{ fontSize: 11, color: '#6b7280' }}>Embed this on your website or email signature. Updates automatically.</div>
             </div>
           </div>
         </div>

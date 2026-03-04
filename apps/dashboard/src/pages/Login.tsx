@@ -68,17 +68,18 @@ export default function Login() {
           />
 
           {error && (
-            <p style={{ color: '#ef4444', fontSize: 13, margin: '-8px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 10px' }}>
-              {error}
+            <p style={{ color: '#ef4444', fontSize: 13, margin: '-8px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 12px' }}>
+             {error}
             </p>
           )}
 
           <button type="submit" disabled={loading} style={{
-            display: 'block', width: '100%', padding: '11px', background: '#2563eb', color: '#fff',
-            border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer',
+            width: '100%', padding: '11px', background: '#2563eb',
+            color: '#fff', border: 'none', borderRadius: 6, fontSize: 15,
+            fontWeight: 600, cursor: loading ? 'default' : 'pointer',
             opacity: loading ? 0.7 : 1, fontFamily: 'inherit',
           }}>
-            {loading ? 'Please wait…' : mode === 'login' ? 'Sign in' : 'Create account'}
+            {loading ? 'Loading...' : mode === 'login' ? 'Sign in' : 'Create account'}
           </button>
         </form>
 
@@ -99,7 +100,40 @@ export default function Login() {
             {mode === 'login' ? 'Sign up free' : 'Sign in'}
           </button>
         </p>
-      </div>
+        {/* Forgot password */}
+        {mode === 'login' && (
+          <div style={{ textAlign: 'center', marginTop: 12 }}>
+            <a href="/forgot-password" style={{ fontSize: 13, color: '#6374af', textDecoration: 'none' }}>
+              Forgot password?
+            </a>
+          </div>
+        )}
+
+        {/* Demo link */}
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <a href="/demo" style={{
+            fontSize: 13, color: '#763aed', textDecoration: 'none',
+            fontWeight: 500,
+          }}>
+            ✓ Try live demo →
+          </a>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: 24, fontSize: 13 }}>
+          {mode === 'login' ? (
+            <>
+              <span style={{ color: '#6b7280' }}>Don't have an account? </span>
+              <a href="#" onClick={e => { e.preventDefault(); setMode('signup') }}
+style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign up</a>
+            </>
+          ) : (
+            <>
+              <span style={{ color: '#6b7280' }}>Already have an account? </span>
+              <a href="#" onClick={e => { e.preventDefault(); setMode('login') }}
+style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>Sign in</a>
+            </>
+          )}
+        </div>      </div>
     </div>
   )
 }
