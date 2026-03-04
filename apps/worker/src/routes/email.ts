@@ -1,11 +1,12 @@
 /**
- * Email notification helpers using Cloudflare Email Workers / Mailchannels.
- * 
- * Cloudflare Workers can send transactional email via Mailchannels (free for CF workers).
- * Docs: https://developers.cloudflare.com/pages/functions/plugins/mailchannels/
- * 
- * We use the sendEmail helper which calls the Mailchannels API directly.
- * No API key required when called from a Cloudflare Worker with dkim configured.
+ * Email notification helpers using Resend.
+ *
+ * All transactional email (testimonial notifications, etc.) goes through Resend.
+ * Requires: RESEND_API_KEY wrangler secret on vouch-worker.
+ * See: https://github.com/rsdouglas/proof/issues/94
+ *
+ * Falls back to a console no-op in development or if RESEND_API_KEY is unset
+ * (so the app never crashes due to missing email config).
  */
 
 export interface EmailPayload {
@@ -17,58 +18,34 @@ export interface EmailPayload {
 }
 
 /**
- * Send an email via MailChannels (Cloudflare Workers native).
- * Falls back to a no-op in development.
- * 
- * DKIM signing: if DKIM_PRIVATE_KEY and DKIM_DOMAIN env vars are set,
- * DKIM headers are included so emails pass spam filters.
- * Generate with: openssl genrsa 2048 | openssl pkcs8 -topk8 -nocrypt -out dkim.key
- * Then: wrangler secret put DKIM_PRIVATE_KEY
+ * Send an email via Resend.
+ * Falls back to a no-op in development or if RESEND_API_KEY is not set.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendEmail(payload: EmailPayload, env: any): Promise<void> {
-  if (env?.ENVIRONMENT === 'development') {
-    console.log('[email] Dev mode — would send:', payload.subject, 'to', payload.to)
+  if (env?.ENVIRONMENT === 'development' || !env?.RESEND_API_KEY) {
+    console.log('[email] Would send:', payload.subject, 'to', payload.to)
     return
   }
 
-  // Build personalizations — include DKIM if configured
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const personalization: Record<string, any> = {
-    to: [{ email: payload.to, name: payload.toName || payload.to }],
-  }
-
-  // Mailchannels DKIM support: pass dkim_domain, dkim_selector, dkim_private_key
-  // in the personalization block when env vars are set.
-  // Ref: https://support.mailchannels.com/hc/en-us/articles/7122849237389
-  if (env?.DKIM_PRIVATE_KEY && env?.DKIM_DOMAIN) {
-    personalization.dkim_domain = env.DKIM_DOMAIN || 'socialproof.dev'
-    personalization.dkim_selector = env.DKIM_SELECTOR || 'mailchannels'
-    personalization.dkim_private_key = env.DKIM_PRIVATE_KEY
-  }
-
-  const body = {
-    personalizations: [personalization],
-    from: {
-      email: 'notifications@socialproof.dev',
-      name: 'Vouch',
-    },
-    subject: payload.subject,
-    content: [
-      { type: 'text/plain', value: payload.text },
-      { type: 'text/html', value: payload.html },
-    ],
-  }
-
-  const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
+  const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'Vouch <notifications@socialproof.dev>',
+      to: payload.toName ? `${payload.toName} <${payload.to}>` : payload.to,
+      subject: payload.subject,
+      html: payload.html,
+      text: payload.text,
+    }),
   })
 
   if (!res.ok) {
     const err = await res.text().catch(() => 'unknown')
-    console.error('[email] MailChannels error:', res.status, err)
+    console.error('[email] Resend error:', res.status, err)
     // Don't throw — email failure shouldn't break the main flow
   }
 }
