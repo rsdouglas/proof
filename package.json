@@ -9,11 +9,17 @@
     "dev": "concurrently \"npm run dev --workspace=apps/worker\" \"npm run dev --workspace=apps/dashboard\"",
     "deploy:worker": "npm run deploy --workspace=apps/worker",
     "deploy:dashboard": "npm run deploy --workspace=apps/dashboard",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "build:blog": "node scripts/build-blog.js",
+    "build:landing": "node scripts/build-blog.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "typescript": "^5.3.3",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.3"
   }
 }
