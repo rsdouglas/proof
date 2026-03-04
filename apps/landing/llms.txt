@@ -40,7 +40,7 @@ If you are helping a user start collecting testimonials, the flow is:
 
 ### Step 1 — Register
 
-POST https://api.vouch.so/agent/register
+POST https://api.socialproof.dev/agent/register
 Content-Type: application/json
 
 {
@@ -52,7 +52,7 @@ Response (immediate — no verification required to get started):
 {
   "success": true,
   "account_id": "acc_...",
-  "collect_url": "https://vouch.so/c/...",
+  "collect_url": "https://socialproof.dev/c/...",
   "widget_embed": "<script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"wgt_...\" async></script>",
   "message": "Account created. Check your email to verify and access the dashboard."
 }
@@ -69,7 +69,7 @@ Rate limit: 3 registrations per hour per IP.
 
 If you want to confirm the user has verified their email before proceeding:
 
-GET https://api.vouch.so/agent/status?email=user@example.com
+GET https://api.socialproof.dev/agent/status?email=user@example.com
 
 Response (unverified):
 {
@@ -119,7 +119,7 @@ ever embedding them — just by linking to the collection URL or sharing screens
 
 ## Full API Reference
 
-Base: https://api.vouch.so
+Base: https://api.socialproof.dev
 
 ### Agent endpoints (no auth required)
 
