@@ -11,6 +11,7 @@ import WidgetDetail from './pages/WidgetDetail'
 import Collect from './pages/Collect'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
+import Demo from './pages/Demo'
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth()
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/demo" element={<Demo />} />
       <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<Dashboard />} />
         <Route path="widgets" element={<Widgets />} />
