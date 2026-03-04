@@ -1,39 +1,56 @@
 # Quick Start
 
-Get Vouch running on your site in under 5 minutes.
+Get your first testimonial in under 5 minutes — no widget setup required.
 
-## Step 1: Create an account
+## Step 1: Create a free account
 
-Go to [app.socialproof.dev/signup](https://app.socialproof.dev/signup) and create a free account.
-No credit card required.
+Go to [app.socialproof.dev/signup](https://app.socialproof.dev/signup) and sign up.
+No credit card required. Your collection link is ready the moment you register.
 
-## Step 2: Create your first widget
+## Step 2: Share your collection link
 
-From the dashboard, click **New Widget**. Choose a layout:
-- **Carousel** — rotates through testimonials
-- **Grid** — shows multiple at once
-- **Single** — one featured testimonial
+From your dashboard, copy your unique collection link — it looks like:
+`https://collect.socialproof.dev/your-business-name`
 
-Give it a name (e.g. "Homepage widget").
+Share it with a happy customer:
 
-## Step 3: Collect your first testimonial
+- Paste it in an email: _"It would mean a lot if you'd leave a quick testimonial: [link]"_
+- Drop it in a DM or text message
+- Add it to your email signature or post-purchase thank-you page
 
-In your dashboard, go to **Collect → Copy link**. Share this link with a happy customer.
-They'll fill out a quick form (takes 2 minutes on any device).
+The customer clicks the link, fills out a short form (under 2 minutes), and submits.
 
-When they submit, you'll get a notification. Go to **Testimonials**, review it, and click **Approve**.
+## Step 3: Approve your first testimonial
 
-## Step 4: Embed on your site
+When a testimonial comes in, you'll see it in **Testimonials → Pending** in your dashboard.
 
-Copy the embed code from your widget settings. It looks like:
+> **Note:** You'll need to verify your email address before you can approve or moderate testimonials.
 
-```html
-<script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
-```
+Review it, click **Approve**, and it's live.
 
-Paste it anywhere in your site HTML where you want the widget to appear.
-That's it. The widget loads automatically.
+That's it. You just got your first testimonial.
 
-## You're done
+---
 
-The widget will update in real-time as you approve more testimonials — no re-embedding required.
+## Optional: Display testimonials on your website
+
+If you want to embed testimonials on your site, create a widget:
+
+1. In your dashboard, click **New Widget** and choose a layout (Carousel, Grid, or Single)
+2. Copy the embed snippet from widget settings:
+   ```html
+   <script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
+   ```
+3. Paste it anywhere in your site HTML — Vouch handles the rest
+
+The widget updates automatically as you approve new testimonials — no re-embedding needed.
+
+---
+
+## Next steps
+
+- **Ask more customers** — the more testimonials you collect, the stronger your social proof
+- **Upgrade to Pro** — unlimited testimonials, multiple widgets, analytics, and Google rich results ($9/mo)
+- **Add to more pages** — embed different widgets on your homepage, product pages, or checkout
+
+Questions? Email [hello@socialproof.dev](mailto:hello@socialproof.dev)
