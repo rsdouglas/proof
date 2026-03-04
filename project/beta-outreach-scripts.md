@@ -1,10 +1,12 @@
 # Beta Outreach Scripts
-*Proof — first 10 paying users*
-*CEO draft — 2026-03-04*
+*Vouch — first 10 beta users*
+*Updated 2026-03-04 — rebranded to Vouch + socialproof.dev*
 
 ## Context
 
 We need 10 real users before we optimize anything. These scripts are for direct outreach to warm audiences — Indie Hackers, Twitter/X, Reddit (r/Entrepreneur, r/SideProject), and Product Hunt Ship.
+
+**Current state:** Product is built, waitlist is live. Send people to socialproof.dev to join the waitlist. When deploy is unblocked, we'll swap the waitlist CTA for a "Sign up free" CTA.
 
 ---
 
@@ -12,11 +14,13 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 
 **Use for:** Founders who've posted about conversion rate, testimonials, or social proof
 
-> Hey [name] — saw your post about CRO on your landing page. I'm building Proof, a testimonial widget for solo founders. You email your customer a link, they fill out a form, you approve it, it shows up on your site. $9/mo, 5 min setup.
+> Hey [name] — saw your post about CRO on your landing page. I'm building Vouch, a testimonial widget for solo founders. You email your customer a link, they fill out a form, you approve it, it shows up on your site. $9/mo, 5 min setup.
 >
 > Building with Cloudflare Workers so the widget loads in <50ms globally.
 >
 > Would you try it free for a month and give me honest feedback? No strings — if it sucks, just tell me.
+>
+> Join the waitlist: https://socialproof.dev
 
 **Notes:** Keep it <100 words. No pitch decks. No calls. Just a free month.
 
@@ -28,25 +32,25 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 
 > **Background:** I've tried every social proof tool. They're either expensive (Senja at $29/mo), complex (Testimonial.to), or don't actually collect — they just pull from Google (Elfsight).
 >
-> **What I built:** Proof — a testimonial widget with a hosted collector form. You email your customer a link. They fill out a text testimonial in 30 seconds (no account, no friction). You approve it in your dashboard. It appears on your site.
+> **What I built:** Vouch — a testimonial widget with a hosted collector form. You email your customer a link. They fill out a text testimonial in 30 seconds (no account, no friction). You approve it in your dashboard. It appears on your site.
 >
 > **The widget:** single `<script>` tag, <5KB, served from Cloudflare edge globally. Works on any site: Webflow, Squarespace, custom HTML, WordPress.
 >
-> **Price:** Free plan (1 widget, Proof branding), Pro at $9/mo (unlimited, no branding, custom styling).
+> **Price:** Free plan (1 widget, Vouch branding), Pro at $9/mo (unlimited, no branding, custom styling).
 >
 > **Looking for:** 10 people to use it free for 60 days and give me honest feedback. I'll add a feature for every piece of feedback that makes sense.
 >
-> Drop a reply or DM if interested. I'll DM you the dashboard link.
+> Join the waitlist at **https://socialproof.dev** or drop a reply and I'll DM you directly.
 
 ---
 
-## Script 3: Reddit post (r/SideProject, r/Entrepreneur)
+## Script 3: Reddit post (r/SideProject, r/Entrepreneur, r/smallbusiness)
 
-**Title:** I built a testimonial widget that actually collects testimonials — $9/mo, beta users wanted
+**Title:** I built a testimonial widget that actually collects testimonials — looking for beta users
 
 > The problem: getting a testimonial onto your landing page takes 10 steps. Email the customer, wait for them to reply, copy it out, format it, paste it into your site builder, deploy. Half the time the customer never replies.
 >
-> My solution: Proof. You send your customer a link. They fill out a 3-field form (30 seconds). You approve it in a dashboard. It shows up instantly on your site via a `<script>` tag.
+> My solution: **Vouch** (https://socialproof.dev). You send your customer a link. They fill out a 3-field form (30 seconds). You approve it in a dashboard. It shows up instantly on your site via a `<script>` tag.
 >
 > No Google reviews. No Trustpilot. No third-party platforms. Your testimonials, on your site, controlled by you.
 >
@@ -65,7 +69,7 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 **One-liner:** Email your customer a link → they fill out a form → you approve it → it appears on your site. Done.
 
 **Description:**
-> Most testimonial tools either require your customer to sign up somewhere (friction), or they pull from Google/Trustpilot (no control). Proof does neither.
+> Most testimonial tools either require your customer to sign up somewhere (friction), or they pull from Google/Trustpilot (no control). Vouch does neither.
 >
 > **For site owners:** A script tag on your site. A dashboard to moderate testimonials. A link to email your customers.
 >
@@ -74,53 +78,60 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 > Built on Cloudflare Workers for sub-50ms global performance. Works on any website.
 >
 > **$9/mo Pro.** Free plan forever.
+>
+> 👉 https://socialproof.dev
 
 ---
 
-## Script 5: Personal email (warm contacts, existing customers of your other projects)
+## Script 5: Personal email (warm contacts)
 
-> Subject: Would you try this for free?
->
+**Subject:** Quick favor — trying something new
+
 > Hey [name],
 >
-> I just shipped something I've been wanting for years: a testimonial widget that actually collects testimonials.
+> I'm building a tool called Vouch (https://socialproof.dev) — it lets you collect real testimonials from customers and display them on your site with a single script tag.
 >
-> Here's how it works: I give you a link. You email it to a customer. They fill out a 3-field form (30 seconds, no account needed). You approve it in a dashboard. It shows up on your site.
+> I'd love your honest take as an early user. Free Pro access for life in exchange for 30 minutes of feedback.
 >
-> I'm looking for 10 people to use it free for 60 days and tell me what sucks. No commitment. Honest feedback is the only ask.
->
-> If you have a site and actual customers, you're who I built this for.
->
-> Want in? Reply to this email.
->
-> — [name]
+> Interested? Just hit reply.
 
 ---
 
-## Where to post (priority order)
+## Script 6: "Built in public" Twitter/X thread starter
 
-1. **Indie Hackers** — Script 2. Target: founders who've talked about CRO or social proof. Engage with comments.
-2. **Twitter/X** — Script 1 as DMs to people who post about landing pages + CRO. Also post Script 2 as a thread.
-3. **r/SideProject** — Script 3. Post on Tuesday or Wednesday morning (highest traffic).
-4. **r/Entrepreneur** — Same as above, slightly different tone (less technical).
-5. **Product Hunt Ship** — Script 4. Launch the "upcoming" page now, even before full launch.
-6. **Personal email** — Script 5. Best conversion rate. Do this first.
-
----
-
-## What we're offering beta users
-
-- 60 days free Pro
-- Direct Slack/Discord access to the team
-- Their feedback shapes the roadmap
-- Their logo/name on our "Early Believers" page (if they want)
-- Lifetime 50% discount if they stay after beta
+> 🧵 Building Vouch in public — week 1 update:
+>
+> Goal: help small business owners collect and display customer testimonials without the friction.
+>
+> What we shipped this week:
+> - Hosted collector form (customers submit in 30s, no account needed)
+> - Dashboard with approval flow
+> - Embeddable widget (<5KB, Cloudflare edge)
+> - Blog: "How to get testimonials from customers" at socialproof.dev/blog
+>
+> Waitlist open at https://socialproof.dev 👇
+>
+> What's the #1 thing you hate about getting testimonials from customers? Reply 👇
 
 ---
 
-## Success metric
+## Targeting notes
 
-10 users using the widget actively (collecting at least 1 testimonial) within 2 weeks of launch.
+**Highest-intent audiences:**
+- r/smallbusiness (1.7M members) — pain point: lack of online credibility
+- r/entrepreneur (2.4M members) — pain point: conversion optimization
+- IndieHackers "Show IH" — builder community, tech-savvy, will give feedback
+- Twitter/X founders with <10k followers who mention "landing page" or "conversion"
+- Shopify community forums — merchants explicitly need social proof
 
-**Stretch goal:** 3 paying users at the end of the 60-day beta.
+**What NOT to do:**
+- Don't post on forums/communities without reading the rules first
+- Don't post the same message in multiple subreddits on the same day
+- Don't promise features we haven't built
+- Don't promise a launch date we can't hit
 
+**What TO lead with:**
+- The pain (not the product): "Getting testimonials onto your site is a 10-step process. It shouldn't be."
+- The simplicity: "One link, one form, one script tag."
+- The price: "$9/mo" is a genuine differentiator vs Senja ($29), Testimonial.to ($25+)
+- The control: "Your testimonials, on your site, not locked in a third-party platform"
