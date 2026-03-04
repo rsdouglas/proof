@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Embed Testimonials on Your Website (Free &amp; Easy) — Vouch</title>
+  <meta name="description" content="Learn how to embed customer testimonials on any website in minutes. Works on Squarespace, Shopify, Wix, Webflow, WordPress &amp; custom HTML. No developer needed.">
+  <link rel="canonical" href="https://socialproof.dev/blog/embed-testimonials-on-website">
+
+  <meta property="og:title" content="How to Embed Testimonials on Your Website (Free &amp; Easy)">
+  <meta property="og:description" content="Step-by-step: embed a live testimonial widget on any website without a developer. Works with Shopify, Squarespace, Wix, Webflow, WordPress &amp; custom HTML.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://socialproof.dev/blog/embed-testimonials-on-website">
+  <meta property="og:site_name" content="Vouch">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Embed Testimonials on Your Website (Free & Easy)",
+    "description": "Step-by-step guide to embedding customer testimonials on any website platform without a developer.",
+    "datePublished": "2026-03-04",
+    "dateModified": "2026-03-04",
+    "author": { "@type": "Organization", "name": "Vouch" },
+    "publisher": { "@type": "Organization", "name": "Vouch", "url": "https://socialproof.dev" }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #6C5CE7;
+      --purple-light: #a29bfe;
+      --dark: #0f0e17;
+      --darker: #0a0910;
+      --mid: #1e1c2e;
+      --text: #e8e6f0;
+      --muted: #9ca3af;
+      --border: rgba(108,92,231,0.2);
+      --card-bg: rgba(255,255,255,0.04);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px;
+      background: rgba(15,14,23,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      text-decoration: none; letter-spacing: -0.4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--purple); }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-block; padding: 10px 22px; border-radius: 8px;
+      font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: all 0.2s; border: none;
+    }
+    .btn-primary { background: var(--purple); color: #fff; }
+    .btn-primary:hover { background: #7c6ff7; transform: translateY(-1px); }
+    .btn-large { padding: 14px 32px; font-size: 17px; border-radius: 10px; }
+
+    article {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 110px 24px 80px;
+    }
+
+    .breadcrumb {
+      font-size: 14px; color: var(--muted); margin-bottom: 32px;
+    }
+    .breadcrumb a { color: var(--purple-light); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 14px; color: var(--muted); margin-bottom: 40px;
+    }
+    .article-meta .tag {
+      background: rgba(108,92,231,0.15); color: var(--purple-light);
+      padding: 4px 12px; border-radius: 20px; font-size: 13px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.8px; margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--purple-light) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro {
+      font-size: 18px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 48px; padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 24px; font-weight: 700; margin: 48px 0 16px;
+      color: var(--text); letter-spacing: -0.3px;
+    }
+
+    h3 {
+      font-size: 18px; font-weight: 600; margin: 32px 0 12px;
+      color: var(--purple-light);
+    }
+
+    p { margin-bottom: 16px; color: var(--text); }
+
+    ul, ol {
+      margin: 16px 0 24px 24px;
+    }
+    li { margin-bottom: 10px; color: var(--text); }
+
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 28px; margin-bottom: 48px;
+    }
+    .toc h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px; }
+    .toc ol { margin: 0 0 0 20px; }
+    .toc li { margin-bottom: 8px; }
+    .toc a { color: var(--purple-light); text-decoration: none; font-size: 15px; }
+    .toc a:hover { text-decoration: underline; }
+
+    .callout {
+      background: rgba(108,92,231,0.08);
+      border: 1px solid rgba(108,92,231,0.25);
+      border-left: 3px solid var(--purple);
+      border-radius: 8px; padding: 20px 24px; margin: 28px 0;
+    }
+    .callout strong { color: var(--purple-light); }
+
+    .step-block {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px; margin: 24px 0;
+    }
+    .step-number {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      font-size: 14px; font-weight: 700; margin-bottom: 16px;
+    }
+    .step-block h3 { margin-top: 0; }
+
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin: 24px 0;
+    }
+    .platform-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px;
+      text-align: center;
+    }
+    .platform-card .platform-icon { font-size: 28px; margin-bottom: 10px; }
+    .platform-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .platform-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+    code {
+      background: rgba(108,92,231,0.15); color: var(--purple-light);
+      padding: 2px 8px; border-radius: 4px; font-size: 13px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    pre {
+      background: var(--darker); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 24px;
+      overflow-x: auto; margin: 20px 0;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px; line-height: 1.6;
+      color: var(--purple-light);
+    }
+
+    .comparison-table {
+      width: 100%; border-collapse: collapse; margin: 24px 0;
+      font-size: 15px;
+    }
+    .comparison-table th {
+      background: rgba(108,92,231,0.15);
+      padding: 12px 16px; text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600; color: var(--text);
+    }
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .check { color: #00d2a0; }
+    .x { color: #ff6b6b; }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(108,92,231,0.15) 0%, rgba(162,155,254,0.08) 100%);
+      border: 1px solid rgba(108,92,231,0.3);
+      border-radius: 16px; padding: 40px; margin: 48px 0;
+      text-align: center;
+    }
+    .cta-box h2 { margin-top: 0; font-size: 26px; }
+    .cta-box p { max-width: 480px; margin: 0 auto 24px; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 6%; text-align: center;
+      color: var(--muted); font-size: 14px;
+    }
+    footer a { color: var(--purple-light); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .platform-grid { grid-template-columns: 1fr 1fr; }
+      article { padding: 90px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Vouch<span>.</span></a>
+  <div class="nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.socialproof.dev/register" class="btn btn-primary">Get started free</a>
+  </div>
+</nav>
+
+<article>
+
+  <div class="breadcrumb">
+    <a href="/">Vouch</a> › <a href="/blog">Blog</a> › How to Embed Testimonials on Your Website
+  </div>
+
+  <div class="article-meta">
+    <span class="tag">How-To Guide</span>
+    <span>March 2026</span>
+    <span>8 min read</span>
+  </div>
+
+  <h1>How to Embed Testimonials on Your Website (Free &amp; Easy)</h1>
+
+  <p class="intro">
+    Showing real customer testimonials on your website is one of the highest-ROI moves a small business can make.
+    Studies consistently find that displaying social proof near a "buy" button lifts conversions by 15–30%.
+    This guide walks you through how to embed testimonials on any website — Shopify, Squarespace, Wix, Webflow,
+    WordPress, or plain HTML — in under 10 minutes, without a developer.
+  </p>
+
+  <div class="toc">
+    <h4>In this guide</h4>
+    <ol>
+      <li><a href="#why-embed">Why embedding testimonials beats screenshots</a></li>
+      <li><a href="#how-it-works">How embedded testimonial widgets work</a></li>
+      <li><a href="#step-by-step">Step-by-step: embed on any website</a></li>
+      <li><a href="#platforms">Platform-specific instructions</a></li>
+      <li><a href="#placement">Where to place testimonials for maximum impact</a></li>
+      <li><a href="#collect">How to get more testimonials to display</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
+
+  <h2 id="why-embed">Why Embedding Beats Screenshots</h2>
+
+  <p>
+    A lot of small business owners just screenshot their Google reviews or DMs and paste images into their website.
+    It's understandable — it's fast. But it creates several problems:
+  </p>
+
+  <ul>
+    <li><strong>Static images don't update.</strong> Add a new testimonial? You're manually replacing images and re-uploading them forever.</li>
+    <li><strong>Images aren't readable by search engines.</strong> Text inside a screenshot doesn't help your SEO at all.</li>
+    <li><strong>They look amateur.</strong> A polished, branded testimonial widget signals credibility. A cropped iPhone screenshot does not.</li>
+    <li><strong>No structured data.</strong> Embedded review widgets can output schema markup that shows star ratings in Google search results.</li>
+  </ul>
+
+  <p>
+    An embedded testimonial widget pulls live from a database, auto-updates when you add new testimonials,
+    looks professional on any device, and gives you full control over which testimonials appear and where.
+  </p>
+
+  <h2 id="how-it-works">How Embedded Testimonial Widgets Work</h2>
+
+  <p>
+    Modern testimonial tools give you a single snippet of HTML — usually one or two lines — that you paste
+    into your website's code. The snippet loads a JavaScript widget that:
+  </p>
+
+  <ol>
+    <li>Fetches your approved testimonials from the tool's servers</li>
+    <li>Renders them in a styled component that matches your site</li>
+    <li>Auto-updates when you add or approve new testimonials</li>
+    <li>Handles mobile responsiveness automatically</li>
+  </ol>
+
+  <div class="callout">
+    <strong>No developer needed.</strong> Every major website builder — Shopify, Squarespace, Wix, Webflow,
+    WordPress — has a way to paste raw HTML or JavaScript into your pages. You don't need to know how to code.
+    You just need to know where to paste it.
+  </div>
+
+  <h2 id="step-by-step">Step-by-Step: Embed Testimonials on Any Website</h2>
+
+  <p>
+    We'll use <strong>Vouch</strong> (free plan available) in this example, but the process is the same
+    with any testimonial tool that provides an embed code.
+  </p>
+
+  <div class="step-block">
+    <div class="step-number">1</div>
+    <h3>Create a free Vouch account &amp; collect your first testimonials</h3>
+    <p>
+      Sign up at <a href="https://app.socialproof.dev/register" style="color:var(--purple-light)">app.socialproof.dev/register</a>.
+      You'll get a collection link (looks like <code>socialproof.dev/c/yourname</code>) that you share with customers
+      via email, text, or after a purchase. Customers submit their testimonial — no account needed on their end.
+    </p>
+    <p>
+      Once a few come in, go to your dashboard and click <strong>Approve</strong> on the ones you want to display.
+    </p>
+  </div>
+
+  <div class="step-block">
+    <div class="step-number">2</div>
+    <h3>Create a widget and copy the embed code</h3>
+    <p>
+      In your Vouch dashboard, go to <strong>Widgets</strong> → <strong>Create widget</strong>.
+      Choose a style (grid, carousel, single quote), set your color theme, and click <strong>Save</strong>.
+    </p>
+    <p>
+      Copy the embed snippet. It looks something like this:
+    </p>
+    <pre>&lt;div id="vouch-widget" data-widget-id="abc123"&gt;&lt;/div&gt;
+&lt;script src="https://cdn.socialproof.dev/widget.js" async&gt;&lt;/script&gt;</pre>
+    <p>That's it. Two lines. Now you just need to paste them into your website.</p>
+  </div>
+
+  <div class="step-block">
+    <div class="step-number">3</div>
+    <h3>Paste the embed code into your website</h3>
+    <p>
+      Go to the page on your website where you want testimonials to appear — typically your homepage,
+      a product page, or a pricing page. Find the spot in your page editor where you want the widget,
+      then paste the embed code into an <strong>HTML / Embed / Code</strong> block. See platform-specific
+      instructions below.
+    </p>
+  </div>
+
+  <div class="step-block">
+    <div class="step-number">4</div>
+    <h3>Preview and publish</h3>
+    <p>
+      Preview the page, confirm the widget looks right on desktop and mobile, then publish.
+      Your testimonials are now live. When you approve new ones in Vouch, they appear automatically —
+      no re-publishing required.
+    </p>
+  </div>
+
+  <h2 id="platforms">Platform-Specific Instructions</h2>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-icon">🛍️</div>
+      <h4>Shopify</h4>
+      <p>Theme editor → Add section → Custom HTML</p>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">⬛</div>
+      <h4>Squarespace</h4>
+      <p>Page editor → + Add block → Embed (Code block)</p>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">🔵</div>
+      <h4>Wix</h4>
+      <p>Add Elements → Embed → Custom HTML</p>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">🌊</div>
+      <h4>Webflow</h4>
+      <p>Add Element → Embed → paste in Designer</p>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">🔷</div>
+      <h4>WordPress</h4>
+      <p>Gutenberg: + Add block → Custom HTML</p>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">📄</div>
+      <h4>Custom HTML</h4>
+      <p>Paste anywhere inside <code>&lt;body&gt;</code></p>
+    </div>
+  </div>
+
+  <h3>Shopify</h3>
+  <p>
+    In your Shopify admin, go to <strong>Online Store → Themes → Customize</strong>.
+    Navigate to the page where you want testimonials (e.g. your homepage).
+    Click <strong>Add section</strong>, then select <strong>Custom HTML</strong> (or <strong>Liquid</strong>).
+    Paste your Vouch embed code and save. For a product page, use the theme editor or a
+    <code>.liquid</code> template file if you're comfortable editing code.
+  </p>
+  <p>
+    Alternatively, use the Shopify page editor: go to <strong>Online Store → Pages</strong>,
+    click on a page, switch to HTML view, and paste the embed code where you want it.
+  </p>
+
+  <h3>Squarespace</h3>
+  <p>
+    Open your page in the Squarespace editor. Click the <strong>+</strong> to add a block.
+    Search for <strong>Embed</strong> or <strong>Code</strong>. Paste your Vouch embed snippet
+    and click Apply. Squarespace will render the widget in place. Move the block to your preferred
+    position by dragging.
+  </p>
+
+  <h3>Wix</h3>
+  <p>
+    In the Wix editor, click <strong>Add Elements → Embed → Custom HTML</strong>. An HTML box
+    will appear on your canvas. Click <strong>Enter Code</strong>, paste the embed snippet, and
+    click Apply. Resize and position the HTML box to fit your layout.
+  </p>
+
+  <h3>Webflow</h3>
+  <p>
+    In the Webflow Designer, drag an <strong>Embed</strong> element (found in the Add Elements panel)
+    to your desired location on the canvas. Double-click to open the code editor, paste the embed snippet,
+    and click Save & Close. Publish when ready.
+  </p>
+
+  <h3>WordPress (Gutenberg)</h3>
+  <p>
+    In the post or page editor, click <strong>+</strong> to add a new block. Search for
+    <strong>Custom HTML</strong>. Paste the embed code into the block. Preview to confirm it
+    renders, then update/publish the page.
+  </p>
+  <p>
+    Using a page builder like Elementor or Divi? Both have an HTML widget — drag it to your
+    section, paste the embed code, and save.
+  </p>
+
+  <h3>Custom HTML Website</h3>
+  <p>
+    If you're working with raw HTML files, paste the embed snippet anywhere inside the <code>&lt;body&gt;</code>
+    tags at the position where you want the widget to appear. The <code>&lt;script&gt;</code> tag can go
+    anywhere — before <code>&lt;/body&gt;</code> is best practice for page load performance.
+  </p>
+
+  <h2 id="placement">Where to Place Testimonials for Maximum Impact</h2>
+
+  <p>
+    Placement matters as much as the testimonials themselves. Here's where they convert best:
+  </p>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Placement</th>
+        <th>Why it works</th>
+        <th>Best for</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Above the fold (homepage)</strong></td>
+        <td>First impression social proof before bounce</td>
+        <td>Brand credibility</td>
+      </tr>
+      <tr>
+        <td><strong>Near the "Buy" / CTA button</strong></td>
+        <td>Reduces hesitation at decision moment</td>
+        <td>Direct conversion lift</td>
+      </tr>
+      <tr>
+        <td><strong>Pricing page</strong></td>
+        <td>Addresses price objections with value stories</td>
+        <td>Paid plan conversion</td>
+      </tr>
+      <tr>
+        <td><strong>Product pages</strong></td>
+        <td>Specific proof for each product/service</td>
+        <td>E-commerce, services</td>
+      </tr>
+      <tr>
+        <td><strong>Contact / About page</strong></td>
+        <td>Warms up high-intent visitors</td>
+        <td>Service businesses</td>
+      </tr>
+      <tr>
+        <td><strong>Checkout page</strong></td>
+        <td>Last-mile confidence before payment</td>
+        <td>Cart abandonment</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Pro tip:</strong> Don't put all your testimonials in one place. Spread them across multiple pages.
+    A visitor who bounces from your homepage might come back through a blog post and see a different testimonial
+    at the exact moment they're considering your product.
+  </div>
+
+  <h2 id="collect">How to Get More Testimonials to Display</h2>
+
+  <p>
+    An embedded widget is only as good as the testimonials inside it. The single biggest bottleneck
+    for most small businesses isn't the technology — it's asking.
+  </p>
+
+  <p>Here's what actually works:</p>
+
+  <ul>
+    <li>
+      <strong>Ask immediately after a win.</strong> The best time to ask for a testimonial is right after
+      a customer succeeds — their package arrived, their project completed, their problem got solved.
+      Send a message within 24 hours of that moment.
+    </li>
+    <li>
+      <strong>Make it a one-click share.</strong> Don't ask people to "write a review on Google and send
+      us a screenshot." Give them a direct link to your collection form: one URL, one page, done.
+    </li>
+    <li>
+      <strong>Lower the bar.</strong> A short email template like "In one sentence, what did you like about
+      working with us?" gets 3× more responses than "Please write a testimonial."
+    </li>
+    <li>
+      <strong>Use post-purchase automation.</strong> Connect your collection link to your order confirmation
+      email or post-service follow-up. Every customer gets asked automatically.
+    </li>
+    <li>
+      <strong>Remind once.</strong> One follow-up, 3-5 days later, is acceptable. Two or more is annoying.
+    </li>
+  </ul>
+
+  <p>
+    With Vouch, your collection link is always live. Share it in your email signature, your invoice footer,
+    your social bio, and your post-purchase message. Testimonials come in passively once the link is set up.
+  </p>
+
+  <h2 id="faq">Frequently Asked Questions</h2>
+
+  <h3>Do I need to know how to code to embed testimonials?</h3>
+  <p>
+    No. Every major website platform has a way to paste a code snippet without touching any actual programming.
+    If you can copy and paste, you can embed testimonials. The platforms above all have point-and-click
+    ways to add HTML to any page.
+  </p>
+
+  <h3>Will the testimonial widget slow down my website?</h3>
+  <p>
+    A well-built widget loads asynchronously — meaning it doesn't block your page from loading.
+    Vouch's embed script uses the <code>async</code> attribute, so it loads in parallel with the rest of
+    your page and won't hurt your Core Web Vitals. We also cache testimonials at the edge for fast global delivery.
+  </p>
+
+  <h3>Can I control which testimonials appear in the widget?</h3>
+  <p>
+    Yes. Every testimonial goes through your approval queue before it appears publicly. You can approve,
+    hide, or delete any submission at any time. Changes take effect immediately — no need to touch your website.
+  </p>
+
+  <h3>What if I want different testimonials on different pages?</h3>
+  <p>
+    Create multiple widgets in Vouch — one per page or product. Each widget gets its own embed code.
+    You can filter each widget to show only specific testimonials (by tag, product, or rating). This lets
+    you put product-specific proof on product pages and general brand testimonials on your homepage.
+  </p>
+
+  <h3>Is there a free option?</h3>
+  <p>
+    Yes — Vouch has a free forever plan that includes 1 active widget. For most small businesses starting
+    out, one widget on your homepage is all you need to start seeing conversion lift. You can upgrade later
+    when you want multiple widgets or advanced customization.
+  </p>
+
+  <h3>Can testimonials show up in Google search results?</h3>
+  <p>
+    Yes, if the widget outputs structured data (schema markup). Vouch widgets include
+    <code>Review</code> and <code>AggregateRating</code> schema markup by default, which gives Google
+    the data it needs to show star ratings in search results for your site — a significant CTR boost.
+  </p>
+
+  <div class="cta-box">
+    <h2>Ready to embed your first testimonial widget?</h2>
+    <p>
+      Create a free Vouch account, collect your first testimonials, and have a widget live on your website
+      in under 10 minutes.
+    </p>
+    <a href="https://app.socialproof.dev/register" class="btn btn-primary btn-large">
+      Get started free →
+    </a>
+    <p style="margin-top:16px; font-size:14px; color:var(--muted);">
+      Free forever for 1 active widget. No credit card required.
+    </p>
+  </div>
+
+</article>
+
+<footer>
+  <p>
+    <a href="/">Vouch</a> ·
+    <a href="/blog">Blog</a> ·
+    <a href="/#pricing">Pricing</a> ·
+    <a href="https://app.socialproof.dev/register">Get started free</a>
+  </p>
+  <p style="margin-top:12px;">© 2026 Vouch · socialproof.dev</p>
+</footer>
+
+</body>
+</html>
