@@ -12,6 +12,7 @@ import Collect from './pages/Collect'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 import Demo from './pages/Demo'
+import WelcomePro from './pages/WelcomePro'
 import Webhooks from './pages/Webhooks'
 import ApiKeys from './pages/ApiKeys'
 
@@ -36,6 +37,7 @@ function AppRoutes() {
         <Route path="settings" element={<Settings />} />
         <Route path="api-keys" element={<ApiKeys />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="welcome-pro" element={<WelcomePro />} />
         <Route path="webhooks" element={<Webhooks />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
