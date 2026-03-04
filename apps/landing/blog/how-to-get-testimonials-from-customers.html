@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Get Testimonials from Customers (Without Being Awkward About It) &mdash; Vouch Blog</title>
+  <meta name="description" content="A practical guide for small business owners on collecting genuine customer testimonials that convert. No templates, no cringe.">
+  <meta property="og:title" content="How to Get Testimonials from Customers (Without Being Awkward About It)">
+  <meta property="og:description" content="A practical guide for small business owners on collecting genuine customer testimonials that convert. No templates, no cringe.">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary">
+  <style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple: #6C5CE7;
+    --purple-light: #a29bfe;
+    --dark: #0f0e17;
+    --mid: #1e1c2e;
+    --text: #e8e6f0;
+    --muted: #9ca3af;
+    --border: rgba(108,92,231,0.2);
+    --card-bg: rgba(255,255,255,0.04);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--dark); color: var(--text); line-height: 1.7; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 64px;
+    background: rgba(15,14,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.4px; }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .btn-primary { background: var(--purple); color: #fff; }
+  .btn-primary:hover { background: #7c6cf0; transform: translateY(-1px); }
+  main { padding-top: 64px; }
+  footer { border-top: 1px solid var(--border); padding: 40px 6%; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 14px; margin-top: 80px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+  @media (max-width: 640px) { .nav-links .btn { display: none; } footer { flex-direction: column; gap: 16px; text-align: center; } }
+
+    .post-hero { padding: 80px 0 48px; background: linear-gradient(180deg, rgba(108,92,231,0.08) 0%, transparent 100%); border-bottom: 1px solid var(--border); }
+    .post-hero-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .post-meta { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tag { display: inline-block; background: rgba(108,92,231,0.15); color: var(--purple-light); padding: 2px 10px; border-radius: 20px; font-size: 13px; }
+    h1.post-title { font-size: clamp(28px,5vw,44px); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .post-description { font-size: 18px; color: var(--muted); line-height: 1.6; }
+    .post-content { max-width: 760px; margin: 48px auto 80px; padding: 0 24px; }
+    .post-content h1, .post-content h2 { font-size: 24px; font-weight: 700; margin: 40px 0 16px; }
+    .post-content h3 { font-size: 19px; font-weight: 600; margin: 32px 0 12px; }
+    .post-content p { margin-bottom: 18px; color: #d1cde8; }
+    .post-content ul, .post-content ol { margin: 0 0 18px 24px; color: #d1cde8; }
+    .post-content li { margin-bottom: 8px; }
+    .post-content strong { color: var(--text); }
+    .post-content em { color: var(--purple-light); font-style: italic; }
+    .post-content blockquote { border-left: 3px solid var(--purple); margin: 24px 0; padding: 16px 20px; background: var(--card-bg); border-radius: 0 8px 8px 0; }
+    .post-content blockquote p { color: var(--text); margin: 0; font-style: italic; }
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+    .post-content a { color: var(--purple-light); text-decoration: underline; text-underline-offset: 3px; }
+    .post-content code { background: var(--mid); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 14px; color: var(--purple-light); }
+    .post-content pre { background: var(--mid); padding: 20px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
+    .post-content pre code { background: none; padding: 0; }
+    .cta-box { background: linear-gradient(135deg,rgba(108,92,231,0.15),rgba(108,92,231,0.05)); border: 1px solid var(--border); border-radius: 16px; padding: 40px; text-align: center; margin-top: 60px; }
+    .cta-box h2 { margin: 0 0 12px !important; font-size: 24px !important; }
+    .cta-box p { margin-bottom: 24px !important; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-size: 14px; margin-bottom: 32px; transition: color 0.2s; }
+    .back-link:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">&#10022; <span>Vouch</span></a>
+  <div class="nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.socialproof.dev">Log in</a>
+    <a class="btn btn-primary" href="https://app.socialproof.dev/register">Start for free</a>
+  </div>
+</nav>
+<main>
+  <div class="post-hero">
+    <div class="post-hero-inner">
+      <a class="back-link" href="/blog">&larr; All posts</a>
+      <div class="post-meta">
+        <span>January 15, 2024</span>
+        <span class="tag">testimonials</span><span class="tag">social proof</span><span class="tag">small business</span><span class="tag">marketing</span>
+      </div>
+      <h1 class="post-title">How to Get Testimonials from Customers (Without Being Awkward About It)</h1>
+      <p class="post-description">A practical guide for small business owners on collecting genuine customer testimonials that convert. No templates, no cringe.</p>
+    </div>
+  </div>
+  <div class="post-content">
+    <h1>How to Get Testimonials from Customers (Without Being Awkward About It)</h1>
+<p>You know your customers love you. They tell you in person. They message you on Instagram. They refer their friends.</p>
+<p>But ask them to write it down somewhere public? Silence.</p>
+<p>Here&#39;s why that happens — and how to fix it.</p>
+<hr>
+<h2>Why asking for testimonials feels awkward (and how to remove that feeling)</h2>
+<p>The awkwardness usually comes from one of three things:</p>
+<p><strong>1. You&#39;re asking at the wrong moment.</strong> Asking for a testimonial at the end of a sale feels transactional. Asking right after you&#39;ve delivered something great — a project, a product, an experience — feels natural.</p>
+<p><strong>2. You&#39;re making it too hard.</strong> If someone has to log into Yelp or Google, create an account, navigate to your page, and write something from scratch — they won&#39;t. Not because they don&#39;t care, but because the friction is too high.</p>
+<p><strong>3. You&#39;re being vague.</strong> &quot;Leave us a review&quot; gives them nothing to work with. A great testimonial request gives them a prompt.</p>
+<hr>
+<h2>The right moment to ask</h2>
+<p>Think about when customers are happiest with you. Usually it&#39;s:</p>
+<ul>
+<li>Right after you deliver a finished project</li>
+<li>When they first see results (the haircut looks great, the package arrives, the meal is perfect)</li>
+<li>When they refer someone — if they&#39;re sending friends your way, they already trust you</li>
+</ul>
+<p>That&#39;s your window. Strike then.</p>
+<p>The worst time: at checkout, when they&#39;re distracted. Or weeks later, when the memory has faded.</p>
+<hr>
+<h2>The one-sentence ask that actually works</h2>
+<p>Don&#39;t overthink it. This works:</p>
+<blockquote>
+<p>&quot;Hey [name], I&#39;m so glad it went well! Would you be willing to write a quick line or two about your experience? It makes a huge difference for a small business like mine. Here&#39;s the link — takes 2 minutes.&quot;</p>
+</blockquote>
+<p>What makes it work:</p>
+<ul>
+<li>It&#39;s personal</li>
+<li>It acknowledges you know their time is valuable</li>
+<li>It gives them a link (the job is done for them)</li>
+<li>&quot;A quick line or two&quot; sets a low bar</li>
+</ul>
+<hr>
+<h2>Where to ask</h2>
+<p><strong>After a project or service — email or text.</strong> Send within 24 hours while the positive feeling is fresh. Waiting a week cuts response rates in half.</p>
+<p><strong>In person, after a great interaction.</strong> &quot;I&#39;m going to send you a quick link — if you have two minutes, your honest words would really help me out.&quot; Then follow up by text right there.</p>
+<p><strong>On your thank-you page.</strong> After someone buys, the redirect can go to your testimonial form. They just gave you money — they&#39;re at peak trust.</p>
+<p><strong>On your email receipts.</strong> A small &quot;How did we do?&quot; link at the bottom of every receipt quietly collects feedback over time.</p>
+<hr>
+<h2>What to do with testimonials once you have them</h2>
+<p>Collecting testimonials is only half the job. The other half is making sure people see them.</p>
+<p>The mistake most small businesses make: they paste a few reviews on a &quot;Testimonials&quot; page nobody visits.</p>
+<p>Instead, put testimonials <strong>where buyers are deciding</strong>:</p>
+<ul>
+<li>Your homepage, above the fold</li>
+<li>Your pricing page (this is where doubt lives)</li>
+<li>Your product or service pages</li>
+<li>Your checkout page</li>
+<li>Email sequences to cold prospects</li>
+</ul>
+<p>A single testimonial in the right place beats a wall of them somewhere nobody goes.</p>
+<hr>
+<h2>Making it easy with the right tool</h2>
+<p>This whole process becomes dramatically simpler with a tool built for it.</p>
+<p>With Vouch, you:</p>
+<ol>
+<li>Create a collection link — one URL you send to customers</li>
+<li>They fill in a simple form (no account, no friction)</li>
+<li>You approve what goes live</li>
+<li>Paste one line of code anywhere on your site — testimonials appear automatically</li>
+</ol>
+<p>The result: a steady stream of testimonials, properly displayed, without any manual work.</p>
+<p><a href="https://app.socialproof.dev/signup">Start collecting testimonials free →</a></p>
+<hr>
+<h2>Quick summary</h2>
+<ul>
+<li>Ask at the right moment (right after the good experience)</li>
+<li>Make it frictionless (a direct link, not &quot;find me on Google&quot;)</li>
+<li>Give them a prompt (&quot;what was it like working with us?&quot;)</li>
+<li>Put testimonials where decisions happen, not on a trophy shelf</li>
+</ul>
+<p>That&#39;s it. Most small businesses that struggle with testimonials are just missing one of these steps.</p>
+
+    <div class="cta-box">
+      <h2>Ready to put social proof to work?</h2>
+      <p>Vouch collects testimonials and displays them anywhere on your site. Free to start, live in 5 minutes.</p>
+      <a class="btn btn-primary" href="https://app.socialproof.dev/register" style="font-size:16px;padding:14px 28px">Start for free &rarr;</a>
+    </div>
+  </div>
+</main>
+<footer>
+  <a class="nav-logo" href="/">&#10022; <span style="color:var(--purple)">Vouch</span></a>
+  <div style="display:flex;gap:24px">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@socialproof.dev">Contact</a>
+  </div>
+  <p>&copy; 2026 Vouch. All rights reserved.</p>
+</footer>
+</body>
+</html>
