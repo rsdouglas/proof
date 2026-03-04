@@ -12,104 +12,196 @@ const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
 
 export default function Collect() {
   const { request } = useApi()
-  const [forms, setForms] = useState<CollectionForm[]>([])
-  const [showCreate, setShowCreate] = useState(false)
-  const [formName, setFormName] = useState('')
+  const [form, setForm] = useState<CollectionForm | null>(null)
   const [loading, setLoading] = useState(true)
-  const [linkCopied, setLinkCopied] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
-    const data = await request('/collection-forms') as { forms: CollectionForm[] }
-    setForms(data.forms)
-    setLoading(false)
+    try {
+      const data = await request('/collection-forms') as { forms: CollectionForm[] }
+      setForm(data.forms?.[0] ?? null)
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { load() }, [load])
 
-  async function createForm(e: React.FormEvent) {
-    e.preventDefault()
-    await request('/collection-forms', { method: 'POST', body: JSON.stringify({ name: formName }) })
-    setFormName(''); setShowCreate(false)
-    load()
+  function copyLink() {
+    if (!form) return
+    const url = `${API_URL}/submit/${form.id}`
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
   }
 
-  async function deleteForm(id: string) {
-    if (!confirm('Delete this collection form?')) return
-    await request(`/collection-forms/${id}`, { method: 'DELETE' })
-    setForms(fs => fs.filter(f => f.id !== id))
-  }
-
-  function copyLink(id: string) {
-    const url = `https://socialproof.dev/submit/${id}`
-    navigator.clipboard.writeText(url)
-    setLinkCopied(id)
-    setTimeout(() => setLinkCopied(null), 2000)
-  }
+  const collectionUrl = form ? `${API_URL}/submit/${form.id}` : ''
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <div>
-          <h1 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 700 }}>Collect Testimonials</h1>
-          <p style={{ margin: 0, color: '#6b7280', fontSize: 14 }}>Share a form link with your customers to collect reviews.</p>
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{ margin: '0 0 6px', fontSize: 24, fontWeight: 700 }}>Collect Testimonials</h1>
+        <p style={{ margin: 0, color: '#6b7280', fontSize: 15 }}>
+          Share your collection link with customers to gather testimonials.
+        </p>
+      </div>
+
+      {loading && (
+        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 40, textAlign: 'center' }}>
+          <p style={{ color: '#9ca3af', margin: 0 }}>Loading…</p>
         </div>
-        <button onClick={() => setShowCreate(!showCreate)} style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer' }}>
-          + New form
+      )}
+
+      {!loading && form && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {/* Main link card */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 32 }}>
+            <div style={{ fontSize: 36, marginBottom: 12 }}>🔗</div>
+            <h2 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700, color: '#111827' }}>
+              Your collection link
+            </h2>
+            <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14, lineHeight: 1.6 }}>
+              Send this link to your customers. They fill in a short form and their testimonial lands in your inbox — ready for you to approve.
+            </p>
+
+            {/* URL display + copy */}
+            <div style={{
+              display: 'flex', gap: 8, alignItems: 'center',
+              background: '#f9fafb', border: '1px solid #e5e7eb',
+              borderRadius: 8, padding: '12px 16px',
+              marginBottom: 16,
+            }}>
+              <span style={{
+                flex: 1, fontSize: 14, color: '#374151',
+                fontFamily: 'monospace', wordBreak: 'break-all',
+              }}>
+                {collectionUrl}
+              </span>
+              <button
+                onClick={copyLink}
+                style={{
+                  padding: '8px 18px',
+                  background: copied ? '#16a34a' : '#2563eb',
+                  color: '#fff', border: 'none', borderRadius: 6,
+                  fontWeight: 600, fontSize: 14, cursor: 'pointer',
+                  whiteSpace: 'nowrap', flexShrink: 0,
+                  transition: 'background 0.2s',
+                }}
+              >
+                {copied ? '✓ Copied!' : 'Copy link'}
+              </button>
+            </div>
+
+            <a
+              href={collectionUrl}
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: 13, color: '#6b7280', textDecoration: 'none' }}
+            >
+              Preview form ↗
+            </a>
+          </div>
+
+          {/* How to use */}
+          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 10, padding: 24 }}>
+            <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700, color: '#1e40af' }}>
+              💡 How to use your link
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { step: '1', text: 'Copy the link above' },
+                { step: '2', text: 'Send it to customers — in an email, after a purchase, or on your thank-you page' },
+                { step: '3', text: 'Testimonials arrive in your dashboard under Testimonials → approve the ones you love' },
+                { step: '4', text: 'Once approved, they automatically appear in any widget you embed on your site' },
+              ].map(item => (
+                <div key={item.step} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <span style={{
+                    width: 22, height: 22, borderRadius: '50%',
+                    background: '#2563eb', color: '#fff',
+                    fontSize: 12, fontWeight: 700,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0, marginTop: 1,
+                  }}>{item.step}</span>
+                  <span style={{ fontSize: 14, color: '#1e3a5f', lineHeight: 1.5 }}>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick share suggestions */}
+          <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 24 }}>
+            <h3 style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, color: '#111827' }}>
+              📬 Quick share ideas
+            </h3>
+            <p style={{ margin: '0 0 16px', fontSize: 13, color: '#6b7280' }}>Copy and paste these into your messages</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <QuickSnippet
+                label="After a purchase"
+                text={`Hi [name], thanks for your order! If you have a minute, I'd love to hear what you think: ${collectionUrl}`}
+              />
+              <QuickSnippet
+                label="Email signature"
+                text={`Enjoying [product]? Share your experience: ${collectionUrl}`}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!loading && !form && (
+        <div style={{
+          background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10,
+          padding: 48, textAlign: 'center',
+        }}>
+          <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
+          <p style={{ color: '#6b7280', margin: '0 0 16px' }}>
+            No collection link found. This shouldn't happen — try refreshing.
+          </p>
+          <button
+            onClick={load}
+            style={{ padding: '8px 20px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 600 }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function QuickSnippet({ label, text }: { label: string; text: string }) {
+  const [copied, setCopied] = useState(false)
+
+  function copy() {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 8, padding: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: '#374151', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          {label}
+        </span>
+        <button
+          onClick={copy}
+          style={{
+            padding: '4px 12px', fontSize: 12, fontWeight: 600,
+            background: copied ? '#16a34a' : '#fff',
+            color: copied ? '#fff' : '#374151',
+            border: '1px solid #d1d5db', borderRadius: 5, cursor: 'pointer',
+          }}
+        >
+          {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>
-
-      {showCreate && (
-        <form onSubmit={createForm} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
-          <h3 style={{ margin: '0 0 12px' }}>Create collection form</h3>
-          <input value={formName} onChange={e => setFormName(e.target.value)} required placeholder="Form name (e.g. 'Post-purchase review')"
-            style={{ display: 'block', width: '100%', padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 12, boxSizing: 'border-box' }} />
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button type="submit" style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>Create</button>
-            <button type="button" onClick={() => setShowCreate(false)} style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: 6, cursor: 'pointer', background: '#fff' }}>Cancel</button>
-          </div>
-        </form>
-      )}
-
-      {loading && <p style={{ color: '#9ca3af' }}>Loading…</p>}
-
-      {forms.length === 0 && !loading && (
-        <div style={{ textAlign: 'center', padding: 60, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8 }}>
-          <div style={{ fontSize: 40, marginBottom: 16 }}>📝</div>
-          <p style={{ color: '#6b7280', margin: 0 }}>No collection forms yet. Create one and share the link with customers.</p>
-        </div>
-      )}
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(340px,1fr))', gap: 16 }}>
-        {forms.map(f => (
-          <div key={f.id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-              <strong style={{ fontSize: 15 }}>{f.name}</strong>
-              <span style={{ fontSize: 12, color: f.active ? '#10b981' : '#9ca3af' }}>{f.active ? 'Active' : 'Inactive'}</span>
-            </div>
-            <div style={{ background: '#f9fafb', borderRadius: 4, padding: '8px 12px', fontFamily: 'monospace', fontSize: 12, color: '#6b7280', marginBottom: 12, wordBreak: 'break-all' }}>
-              {`https://socialproof.dev/submit/${f.id}`}
-            </div>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => copyLink(f.id)} style={{
-                flex: 1, padding: '6px', background: linkCopied === f.id ? '#10b981' : '#2563eb',
-                color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 13
-              }}>
-                {linkCopied === f.id ? '✓ Copied!' : '🔗 Copy link'}
-              </button>
-              <a href={`https://socialproof.dev/submit/${f.id}`} target="_blank" rel="noreferrer" style={{
-                padding: '6px 12px', border: '1px solid #d1d5db', borderRadius: 4, textDecoration: 'none',
-                color: '#374151', fontSize: 13, background: '#fff'
-              }}>
-                Preview ↗
-              </a>
-              <button onClick={() => deleteForm(f.id)} style={{ padding: '6px 12px', border: '1px solid #d1d5db', borderRadius: 4, cursor: 'pointer', background: '#fff', color: '#6b7280', fontSize: 13 }}>
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <p style={{ margin: 0, fontSize: 13, color: '#6b7280', lineHeight: 1.5 }}>{text}</p>
     </div>
   )
 }

@@ -9,7 +9,7 @@ binding = "WIDGET_KV"
 id = "731e18288e9e4de091e01e0a5d6d3cc4"
 
 [vars]
-WORKER_API_URL = "https://vouch-worker.rsdouglas.workers.dev"
+WORKER_API_URL = "https://api.socialproof.dev"
 ENVIRONMENT = "production"
 
 [dev]

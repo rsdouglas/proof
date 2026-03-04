@@ -187,7 +187,8 @@ Account
 **Then:**
 - They are taken to Stripe Checkout for $9/month
 - On success, their account is upgraded to Pro immediately
-- Pro features unlock (TBD — to be specified in separate issue)
+- Pro features unlock: unlimited testimonials, unlimited widgets, analytics, no "Powered by Vouch" badge
+- See ADR-005 in project/decisions.md for full feature gate spec
 
 ---
 
@@ -230,9 +231,9 @@ Account
 
 ## Open questions / TBD
 
-- What are the concrete Pro tier feature gates? (more widgets? more testimonials? video? custom domain?) — needs decision before Stripe goes live
-- Should there be a limit on testimonials for Free tier? If so, what?
-- Should the collection form be customisable (logo, brand colour)? If so, is that a Pro feature?
+~~- What are the concrete Pro tier feature gates?~~ **Resolved — ADR-005 (2026-03-04):** Free = 25 testimonials, 1 widget, analytics locked, branding badge shown. Pro = unlimited testimonials, unlimited widgets, analytics, no badge.  
+~~- Should there be a limit on testimonials for Free tier?~~ **Resolved — ADR-005:** 25 on Free tier.  
+- Should the collection form be customisable (logo, brand colour)? Phase 2 consideration — not in current scope.
 
 
 ---
@@ -240,12 +241,12 @@ Account
 ## 9. Plan limits (Free vs Pro)
 
 ### 9.1 Free user hits testimonial limit
-**Given** a Free user has 10 approved testimonials  
-**When** an 11th testimonial is submitted and they try to approve it  
+**Given** a Free user has 25 approved testimonials  
+**When** a 26th testimonial is submitted and they try to approve it  
 **Then:**
 - The approval succeeds (submission is still stored)
 - But when they try to add a manual testimonial past the limit: API returns 402
-- Frontend shows upgrade modal: "You've reached your Free plan limit (10 testimonials). Upgrade to Pro for unlimited."
+- Frontend shows upgrade modal: "You've reached your Free plan limit (25 testimonials). Upgrade to Pro for unlimited."
 - CTA: "Upgrade to Pro" → /billing
 
 ### 9.2 Free user tries to create second widget

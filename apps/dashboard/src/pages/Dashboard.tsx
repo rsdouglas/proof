@@ -19,25 +19,25 @@ function GettingStarted({ stats }: { stats: Stats }) {
       action: null,
     },
     {
-      done: stats.total_widgets > 0,
-      icon: stats.total_widgets > 0 ? '✅' : '🧩',
-      title: 'Create your first widget',
-      desc: 'A widget is a space for collecting and displaying testimonials.',
-      action: { to: '/widgets', label: 'Create widget →' },
-    },
-    {
       done: stats.total_testimonials > 0,
-      icon: stats.total_testimonials > 0 ? '✅' : '📝',
-      title: 'Collect your first testimonial',
-      desc: 'Share your collection form with customers to start gathering reviews.',
-      action: { to: '/collect', label: 'Get collection link →' },
+      icon: stats.total_testimonials > 0 ? '✅' : '🔗',
+      title: 'Share your collection link',
+      desc: 'Your link is ready — send it to customers right now. No setup needed.',
+      action: { to: '/collect', label: 'Copy link →' },
     },
     {
-      done: false, // Can't check this client-side
+      done: stats.approved > 0,
+      icon: stats.approved > 0 ? '✅' : '👍',
+      title: 'Approve your first testimonial',
+      desc: 'When testimonials arrive, approve the ones you love to make them public.',
+      action: stats.total_testimonials > 0 ? { to: '/testimonials', label: 'Review testimonials →' } : null,
+    },
+    {
+      done: false, // Can't check embed status client-side
       icon: '🌐',
-      title: 'Add Vouch to your website',
-      desc: 'Copy the embed code and paste it into your site. Takes 2 minutes.',
-      action: stats.total_widgets > 0 ? { to: '/widgets', label: 'Get embed code →' } : null,
+      title: 'Add a widget to your site (optional)',
+      desc: 'Display approved testimonials on your website. Create a widget and paste the embed code.',
+      action: { to: '/widgets', label: 'Create widget →' },
     },
   ]
 

@@ -117,6 +117,12 @@ auth.post('/signup', async (c) => {
     'INSERT INTO widgets (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
   ).bind(widgetId, id, `${name.trim()}'s Reviews`, now, now).run()
 
+  // Auto-create a collection form — every account gets one immediately, no setup needed
+  const formId = prefixedId('frm')
+  await c.env.DB.prepare(
+    'INSERT INTO collection_forms (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
+  ).bind(formId, id, 'Default', now, now).run()
+
   // Send welcome email — fire-and-forget (don't block signup if email fails)
   if (c.env.RESEND_API_KEY) {
     sendWelcomeEmail(c.env.RESEND_API_KEY, {
