@@ -100,7 +100,7 @@ export default function Widgets() {
         <div style={{ background: '#fff', border: '1px dashed #d1d5db', borderRadius: 8, padding: 60, textAlign: 'center' }}>
           <div style={{ fontSize: 40, marginBottom: 12 }}>🧩</div>
           <h3 style={{ margin: '0 0 8px', color: '#374151' }}>No widgets yet</h3>
-          <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>Create your first widget to start collecting testimonials.</p>
+          <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>Create a widget to display testimonials on your site.</p>
           <button onClick={() => setShowForm(true)} style={{
             padding: '9px 18px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 14, fontFamily: 'inherit',
           }}>
