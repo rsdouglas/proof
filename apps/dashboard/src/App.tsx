@@ -13,6 +13,7 @@ import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 import Demo from './pages/Demo'
 import Webhooks from './pages/Webhooks'
+import ApiKeys from './pages/ApiKeys'
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth()
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path="testimonials" element={<Testimonials />} />
         <Route path="collect" element={<Collect />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="api-keys" element={<ApiKeys />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="webhooks" element={<Webhooks />} />      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

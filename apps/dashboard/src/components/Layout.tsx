@@ -10,6 +10,7 @@ const navItems = [
   { to: '/analytics', label: '📊 Analytics' },
   { to: '/settings', label: '⚙️ Settings' },
   { to: '/webhooks', label: '🔗 Webhooks' },
+  { to: '/api-keys', label: '🔑 API Keys' },
 ]
 
 export default function Layout() {
