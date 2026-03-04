@@ -1,186 +1,152 @@
 import { useState, useEffect } from 'react'
 import { useApi } from '../lib/auth'
+import { Webhook, Trash2, Plus, CheckCircle, XCircle, Clock } from 'lucide-react'
+import { C, spacing, radius, btn, card, input as inputToken, fontSize } from '../design'
 
-interface Webhook {
+interface WebhookItem {
   id: string
   url: string
   events: string[]
   active: boolean
   created_at: string
+  last_delivery_status?: 'success' | 'failed' | 'pending' | null
 }
 
-interface WebhooksResponse {
-  webhooks: Webhook[]
-}
-
-interface WebhookResponse {
-  webhook: Webhook
-}
-
-const ALL_EVENTS = [
-  { value: 'testimonial.submitted', label: 'Testimonial submitted' },
+const EVENT_OPTIONS = [
+  { value: 'testimonial.created', label: 'Testimonial created' },
   { value: 'testimonial.approved', label: 'Testimonial approved' },
   { value: 'testimonial.rejected', label: 'Testimonial rejected' },
+  { value: 'widget.created', label: 'Widget created' },
 ]
 
 export default function Webhooks() {
   const { request } = useApi()
-  const [webhooks, setWebhooks] = useState<Webhook[]>([])
+  const [hooks, setHooks] = useState<WebhookItem[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [showForm, setShowForm] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [form, setForm] = useState({ url: '', secret: '', events: ['testimonial.submitted', 'testimonial.approved'] })
-  const [formError, setFormError] = useState('')
+  const [url, setUrl] = useState('')
+  const [events, setEvents] = useState<string[]>(['testimonial.created'])
+  const [saving, setSaving] = useState(false)
+  const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
 
-  const load = async () => {
-    setLoading(true)
-    try {
-      const data = await request<WebhooksResponse>('/webhooks')
-      setWebhooks(data.webhooks || [])
-    } catch (err) {
-      setError('Failed to load webhooks')
-    } finally {
-      setLoading(false)
-    }
-  }
+  useEffect(() => {
+    request<{ webhooks: WebhookItem[] }>('/webhooks')
+      .then(d => setHooks(d.webhooks || []))
+      .catch(() => setMsg({ type: 'err', text: 'Failed to load webhooks.' }))
+      .finally(() => setLoading(false))
+  }, []) // eslint-disable-line
 
-  useEffect(() => { load() }, [])
-
-  const toggleEvent = (event: string) => {
-    setForm(f => ({
-      ...f,
-      events: f.events.includes(event)
-        ? f.events.filter(e => e !== event)
-        : [...f.events, event]
-    }))
-  }
-
-  const create = async (e: React.FormEvent) => {
+  async function createWebhook(e: React.FormEvent) {
     e.preventDefault()
-    setFormError('')
-    if (!form.url.startsWith('https://')) {
-      setFormError('URL must use HTTPS')
-      return
-    }
-    if (form.events.length === 0) {
-      setFormError('Select at least one event')
-      return
-    }
-    setSubmitting(true)
+    if (!url.trim() || events.length === 0) return
+    setSaving(true)
+    setMsg(null)
     try {
-      await request<WebhookResponse>('/webhooks', {
+      const data = await request<{ webhook: WebhookItem }>('/webhooks', {
         method: 'POST',
-        body: JSON.stringify({
-          url: form.url,
-          secret: form.secret || undefined,
-          events: form.events,
-        }),
+        body: JSON.stringify({ url: url.trim(), events }),
       })
-      setForm({ url: '', secret: '', events: ['testimonial.submitted', 'testimonial.approved'] })
+      setHooks(prev => [data.webhook, ...prev])
+      setUrl('')
+      setEvents(['testimonial.created'])
       setShowForm(false)
-      load()
-    } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Failed to create webhook')
+      setMsg({ type: 'ok', text: 'Webhook created.' })
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
     } finally {
-      setSubmitting(false)
+      setSaving(false)
     }
   }
 
-  const remove = async (id: string) => {
+  async function deleteWebhook(id: string) {
     if (!confirm('Delete this webhook?')) return
     try {
       await request(`/webhooks/${id}`, { method: 'DELETE' })
-      setWebhooks(wh => wh.filter(w => w.id !== id))
-    } catch {
-      // silently fail for now
+      setHooks(prev => prev.filter(h => h.id !== id))
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
     }
   }
 
+  function toggleEvent(ev: string) {
+    setEvents(prev => prev.includes(ev) ? prev.filter(e => e !== ev) : [...prev, ev])
+  }
+
+  function StatusIcon({ status }: { status?: string | null }) {
+    if (status === 'success') return <CheckCircle size={14} color={C.success.text} />
+    if (status === 'failed') return <XCircle size={14} color={C.danger.text} />
+    if (status === 'pending') return <Clock size={14} color={C.gray[400]} />
+    return <span style={{ width: 14, display: 'inline-block' }} />
+  }
+
   return (
-    <div style={{ padding: 32, maxWidth: 760 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
+    <div style={{ maxWidth: 680, margin: '0 auto', padding: `${spacing[6]} ${spacing[4]}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing[6] }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#111827', margin: 0 }}>Webhooks</h1>
-          <p style={{ color: '#6b7280', marginTop: 4, fontSize: 14, marginBottom: 0 }}>
-            Get HTTP notifications when testimonial events happen. Connect to Zapier, Make, or your own backend.
+          <h1 style={{ margin: 0, fontSize: fontSize.xl, fontWeight: 700, color: C.gray[900] }}>Webhooks</h1>
+          <p style={{ margin: `${spacing[1]} 0 0`, fontSize: fontSize.sm, color: C.gray[500] }}>
+            Get notified when events happen in your account.
           </p>
         </div>
-        {webhooks.length < 5 && (
-          <button
-            onClick={() => setShowForm(!showForm)}
-            style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontWeight: 600, cursor: 'pointer', fontSize: 14, flexShrink: 0, marginLeft: 16 }}
-          >
-            + Add Webhook
-          </button>
-        )}
+        <button onClick={() => setShowForm(!showForm)} style={btn.primary}>
+          <Plus size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+          Add webhook
+        </button>
       </div>
 
-      {error && <p style={{ color: '#dc2626', marginBottom: 16 }}>{error}</p>}
+      {msg && (
+        <div style={{
+          padding: `${spacing[3]} ${spacing[4]}`, borderRadius: radius.md,
+          marginBottom: spacing[4],
+          background: msg.type === 'ok' ? C.success.bg : C.danger.bg,
+          color: msg.type === 'ok' ? C.success.text : C.danger.text,
+          border: `1px solid ${msg.type === 'ok' ? C.success.border : C.danger.border}`,
+          fontSize: fontSize.sm,
+        }}>
+          {msg.text}
+        </div>
+      )}
 
-      {/* Create form */}
       {showForm && (
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 24, marginBottom: 24 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 600, marginTop: 0, marginBottom: 16, color: '#111827' }}>New Webhook</h3>
-          <form onSubmit={create}>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>
-                Endpoint URL <span style={{ color: '#dc2626' }}>*</span>
-              </label>
-              <input
-                type="url"
-                value={form.url}
-                onChange={e => setForm(f => ({ ...f, url: e.target.value }))}
-                placeholder="https://hooks.zapier.com/..."
-                required
-                style={{ width: '100%', padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, boxSizing: 'border-box' }}
-              />
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>
-                Signing Secret <span style={{ color: '#9ca3af', fontWeight: 400 }}>(optional)</span>
-              </label>
-              <input
-                type="text"
-                value={form.secret}
-                onChange={e => setForm(f => ({ ...f, secret: e.target.value }))}
-                placeholder="Any string — used to sign payloads with HMAC-SHA256"
-                style={{ width: '100%', padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, boxSizing: 'border-box' }}
-              />
-              <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 4, marginBottom: 0 }}>
-                If set, we include an <code>X-Vouch-Signature</code> header on every delivery.
-              </p>
-            </div>
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 8 }}>
-                Events <span style={{ color: '#dc2626' }}>*</span>
-              </label>
-              {ALL_EVENTS.map(ev => (
-                <label key={ev.value} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, cursor: 'pointer', fontSize: 14, color: '#374151' }}>
+        <div style={{ ...card, marginBottom: spacing[5] }}>
+          <h2 style={{ margin: `0 0 ${spacing[4]}`, fontSize: fontSize.base, fontWeight: 600, color: C.gray[900] }}>
+            New Webhook
+          </h2>
+          <form onSubmit={createWebhook}>
+            <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>
+              Endpoint URL
+            </label>
+            <input
+              type="url"
+              value={url}
+              onChange={e => setUrl(e.target.value)}
+              placeholder="https://your-server.com/webhooks/vouch"
+              required
+              style={{ ...inputToken, width: '100%', boxSizing: 'border-box', marginBottom: spacing[4] }}
+            />
+
+            <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[2] }}>
+              Events to subscribe
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[2], marginBottom: spacing[5] }}>
+              {EVENT_OPTIONS.map(opt => (
+                <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: spacing[2], cursor: 'pointer', fontSize: fontSize.sm, color: C.gray[700] }}>
                   <input
                     type="checkbox"
-                    checked={form.events.includes(ev.value)}
-                    onChange={() => toggleEvent(ev.value)}
+                    checked={events.includes(opt.value)}
+                    onChange={() => toggleEvent(opt.value)}
                   />
-                  {ev.label}
-                  <code style={{ fontSize: 11, color: '#6b7280', background: '#f3f4f6', padding: '1px 5px', borderRadius: 4 }}>{ev.value}</code>
+                  {opt.label}
+                  <code style={{ fontSize: fontSize.xs, color: C.gray[400], marginLeft: 'auto', fontFamily: 'monospace' }}>{opt.value}</code>
                 </label>
               ))}
             </div>
-            {formError && <p style={{ color: '#dc2626', fontSize: 13, marginBottom: 12 }}>{formError}</p>}
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button
-                type="submit"
-                disabled={submitting}
-                style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 20px', fontWeight: 600, cursor: 'pointer', fontSize: 14, opacity: submitting ? 0.7 : 1 }}
-              >
-                {submitting ? 'Creating...' : 'Create Webhook'}
+
+            <div style={{ display: 'flex', gap: spacing[3] }}>
+              <button type="submit" disabled={saving || events.length === 0} style={btn.primary}>
+                {saving ? 'Creating…' : 'Create webhook'}
               </button>
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                style={{ background: '#f3f4f6', color: '#374151', border: 'none', borderRadius: 8, padding: '10px 20px', fontWeight: 600, cursor: 'pointer', fontSize: 14 }}
-              >
+              <button type="button" onClick={() => setShowForm(false)} style={btn.ghost}>
                 Cancel
               </button>
             </div>
@@ -188,80 +154,69 @@ export default function Webhooks() {
         </div>
       )}
 
-      {/* Webhooks list */}
       {loading ? (
-        <p style={{ color: '#6b7280' }}>Loading...</p>
-      ) : webhooks.length === 0 ? (
-        <div style={{ background: '#fff', border: '2px dashed #e5e7eb', borderRadius: 12, padding: 48, textAlign: 'center' }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>🔗</div>
-          <p style={{ color: '#374151', fontSize: 15, margin: 0, fontWeight: 500 }}>No webhooks yet</p>
-          <p style={{ color: '#9ca3af', fontSize: 13, marginTop: 4, marginBottom: 16 }}>
-            Add a webhook to automate workflows when testimonials come in.
+        <div style={{ textAlign: 'center', padding: spacing[12], color: C.gray[400], fontSize: fontSize.sm }}>
+          Loading webhooks…
+        </div>
+      ) : hooks.length === 0 ? (
+        <div style={{ ...card, textAlign: 'center', padding: spacing[12] }}>
+          <Webhook size={32} style={{ color: C.gray[300], marginBottom: spacing[3] }} />
+          <p style={{ margin: 0, color: C.gray[500], fontSize: fontSize.sm }}>
+            No webhooks yet. Add one to start receiving events.
           </p>
-          <button
-            onClick={() => setShowForm(true)}
-            style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontWeight: 600, cursor: 'pointer', fontSize: 14 }}
-          >
-            + Add Webhook
-          </button>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {webhooks.map(wh => (
-            <div key={wh.id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
+          {hooks.map((hook, i) => (
+            <div
+              key={hook.id}
+              style={{
+                padding: `${spacing[4]} ${spacing[5]}`,
+                borderBottom: i < hooks.length - 1 ? `1px solid ${C.gray[100]}` : 'none',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: spacing[3] }}>
+                <StatusIcon status={hook.last_delivery_status} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <span style={{
-                      display: 'inline-block', width: 8, height: 8, borderRadius: '50%',
-                      background: wh.active ? '#22c55e' : '#d1d5db', flexShrink: 0
-                    }} />
-                    <code style={{ fontSize: 13, color: '#111827', fontFamily: 'monospace', wordBreak: 'break-all' }}>{wh.url}</code>
-                  </div>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
-                    {(Array.isArray(wh.events) ? wh.events : JSON.parse(wh.events as unknown as string)).map((ev: string) => (
-                      <span key={ev} style={{ fontSize: 11, background: '#ede9fe', color: '#5b21b6', padding: '2px 8px', borderRadius: 20, fontWeight: 500 }}>
+                  <p style={{
+                    margin: 0, fontFamily: 'monospace', fontSize: fontSize.sm,
+                    color: C.gray[900], wordBreak: 'break-all',
+                  }}>
+                    {hook.url}
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: spacing[1], marginTop: spacing[2] }}>
+                    {hook.events.map(ev => (
+                      <span key={ev} style={{
+                        padding: `1px ${spacing[2]}`,
+                        background: C.brand[50],
+                        color: C.brand[700],
+                        borderRadius: radius.sm,
+                        fontSize: fontSize.xs,
+                        fontFamily: 'monospace',
+                      }}>
                         {ev}
                       </span>
                     ))}
                   </div>
-                  <p style={{ fontSize: 12, color: '#9ca3af', margin: 0 }}>
-                    Created {new Date(wh.created_at).toLocaleDateString()}
-                  </p>
                 </div>
                 <button
-                  onClick={() => remove(wh.id)}
-                  style={{ background: 'none', border: '1px solid #fecaca', borderRadius: 6, padding: '6px 12px', color: '#dc2626', cursor: 'pointer', fontSize: 13, marginLeft: 16, flexShrink: 0 }}
+                  onClick={() => deleteWebhook(hook.id)}
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    padding: spacing[2], color: C.gray[400],
+                    borderRadius: radius.sm, display: 'flex', alignItems: 'center',
+                  }}
+                  onMouseOver={e => (e.currentTarget.style.color = C.danger.text)}
+                  onMouseOut={e => (e.currentTarget.style.color = C.gray[400])}
+                  title="Delete"
                 >
-                  Delete
+                  <Trash2 size={15} />
                 </button>
               </div>
             </div>
           ))}
-          {webhooks.length >= 5 && (
-            <p style={{ fontSize: 13, color: '#6b7280', textAlign: 'center' }}>Maximum of 5 webhooks reached.</p>
-          )}
         </div>
       )}
-
-      {/* Docs */}
-      <div style={{ marginTop: 32, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
-        <h4 style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginTop: 0, marginBottom: 8 }}>Payload format</h4>
-        <pre style={{ fontSize: 12, color: '#475569', background: '#f1f5f9', padding: 12, borderRadius: 8, overflow: 'auto', margin: 0 }}>{`{
-  "event": "testimonial.submitted",
-  "timestamp": "2024-01-01T00:00:00Z",
-  "data": {
-    "id": "uuid",
-    "display_name": "Jane Doe",
-    "rating": 5,
-    "display_text": "Amazing product!",
-    "status": "pending"
-  }
-}`}</pre>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 0, marginTop: 8 }}>
-          Verify the <code>X-Vouch-Signature</code> header: <code>sha256=HMAC(secret, raw_body)</code>
-        </p>
-      </div>
     </div>
   )
 }

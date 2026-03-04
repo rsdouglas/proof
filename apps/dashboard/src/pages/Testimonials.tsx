@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback } from 'react'
 import { useApi, API_URL, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import UpgradeModal from '../components/UpgradeModal'
+import { colors, font, shadow, radius, card, btn, C, spacing, fontSize } from '../design'
+import { CheckCircle2, XCircle, Trash2, Download, Mail, Plus, Star } from 'lucide-react'
 
 interface Testimonial {
   id: string
@@ -22,6 +24,45 @@ interface Widget {
 }
 
 type ModalMode = 'add' | 'request' | null
+
+const inputStyle = {
+  padding: '9px 12px',
+  border: `1px solid ${colors.gray200}`,
+  borderRadius: radius.md,
+  fontSize: 14,
+  width: '100%',
+  boxSizing: 'border-box' as const,
+  fontFamily: font.sans,
+  color: colors.gray900,
+  outline: 'none',
+}
+
+function Modal({ title, onClose, onSubmit, children, submitLabel, submitting }: {
+  title: string
+  onClose: () => void
+  onSubmit: (e: React.FormEvent) => void
+  children: React.ReactNode
+  submitLabel: string
+  submitting?: boolean
+}) {
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <form onSubmit={onSubmit} style={{
+        background: colors.white, borderRadius: radius.xl, padding: '32px',
+        width: 480, boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto',
+      }}>
+        <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700, color: colors.gray900 }}>{title}</h2>
+        {children}
+        <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
+          <button type="submit" disabled={submitting} style={{ ...btn.primary, opacity: submitting ? 0.7 : 1 }}>
+            {submitting ? 'Sending…' : submitLabel}
+          </button>
+          <button type="button" onClick={onClose} style={btn.outline}>Cancel</button>
+        </div>
+      </form>
+    </div>
+  )
+}
 
 export default function Testimonials() {
   const { request } = useApi()
@@ -55,7 +96,7 @@ export default function Testimonials() {
         setReqForm(f => ({ ...f, widget_id: wData.widgets[0].id }))
       }
     } catch {
-      // ignore — show empty state
+      // ignore
     } finally {
       setLoading(false)
     }
@@ -130,24 +171,9 @@ export default function Testimonials() {
     }
   }
 
-  async function copy() {
-    const data = await request('/testimonials') as { testimonials: Testimonial[] }
-    const rows = data.testimonials.map(t =>
-      [t.display_name, t.company || '', t.title || '', t.rating || '', t.display_text, t.status, t.featured ? 'yes' : 'no', t.created_at].join(',')
-    )
-    const csv = ['Name,Company,Title,Rating,Text,Status,Featured,Date', ...rows].join('\n')
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url; a.download = 'testimonials.csv'; a.click()
-    URL.revokeObjectURL(url)
-  }
-
-
   async function exportCsv() {
     const params = new URLSearchParams()
     if (filter !== 'all') params.set('status', filter)
-    // Use fetch with credentials, then trigger download
     const token = document.cookie.match(/vouch_token=([^;]+)/)?.[1] || ''
     const res = await fetch(`${API_URL}/api/testimonials/export/csv?${params}`, {
       credentials: 'include',
@@ -170,164 +196,293 @@ export default function Testimonials() {
     rejected: testimonials.filter(t => t.status === 'rejected').length,
   }
 
-  const btnStyle = (primary = false) => ({
-    padding: '8px 14px', border: primary ? 'none' : '1px solid #d1d5db',
-    borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 13,
-    background: primary ? '#2563eb' : '#fff', color: primary ? '#fff' : '#374151',
-  })
-
-  const inputStyle = { padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14, width: '100%', boxSizing: 'border-box' as const }
-
   return (
-    <div>
+    <div style={{ maxWidth: 860, fontFamily: font.sans }}>
       {/* Toast */}
       {toast && (
-        <div style={{ position: 'fixed', top: 20, right: 20, background: '#111827', color: '#fff', padding: '10px 18px', borderRadius: 8, fontSize: 14, zIndex: 9999 }}>
+        <div style={{
+          position: 'fixed', top: 20, right: 20,
+          background: colors.gray900, color: colors.white,
+          padding: '10px 18px', borderRadius: radius.md,
+          fontSize: 14, zIndex: 9999, boxShadow: shadow.lg,
+        }}>
           {toast}
         </div>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>Testimonials</h1>
+      {planLimitError && <UpgradeModal error={planLimitError} onClose={() => setPlanLimitError(null)} />}
+
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+        <div>
+          <h1 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.5px' }}>
+            Testimonials
+          </h1>
+          <p style={{ margin: 0, fontSize: 14, color: colors.gray400 }}>
+            {testimonials.length} total · {counts.pending} pending review
+          </p>
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={copy} style={btnStyle()}>Export CSV</button>
-          <button onClick={() => setModal('request')} style={btnStyle()}>✉ Request testimonial</button>
-          <button onClick={() => setModal('add')} style={btnStyle(true)}>+ Add manually</button>        </div>
+          <button onClick={exportCsv} style={btn.outline}>
+            <Download size={14} /> Export CSV
+          </button>
+          <button onClick={() => setModal('request')} style={btn.outline}>
+            <Mail size={14} /> Request
+          </button>
+          <button onClick={() => setModal('add')} style={btn.primary}>
+            <Plus size={14} /> Add manually
+          </button>
+        </div>
       </div>
 
       {/* Filter tabs */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
         {(['all', 'pending', 'approved', 'rejected'] as const).map(f => (
           <button key={f} onClick={() => setFilter(f)} style={{
-            padding: '6px 14px', border: '1px solid #d1d5db', borderRadius: 6,
-            background: filter === f ? '#2563eb' : '#fff', color: filter === f ? '#fff' : '#374151',
-            cursor: 'pointer', fontSize: 13, fontWeight: filter === f ? 600 : 400,
+            padding: '6px 14px',
+            border: `1px solid ${filter === f ? colors.brand : colors.gray200}`,
+            borderRadius: radius.full,
+            background: filter === f ? colors.brandLight : colors.white,
+            color: filter === f ? colors.brand : colors.gray600,
+            cursor: 'pointer', fontSize: 13,
+            fontWeight: filter === f ? 600 : 400,
+            fontFamily: font.sans,
+            transition: 'all 0.15s',
           }}>
             {f.charAt(0).toUpperCase() + f.slice(1)} ({counts[f]})
           </button>
         ))}
       </div>
 
-      {/* Modal: Request testimonial */}
+      {/* Modal: Request */}
       {modal === 'request' && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <form onSubmit={sendRequest} style={{ background: '#fff', borderRadius: 12, padding: 32, width: 460, boxShadow: '0 10px 40px rgba(0,0,0,.2)' }}>
-            <h2 style={{ margin: '0 0 20px', fontSize: 18 }}>Request a testimonial</h2>
-            <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>
-              Send an email to a customer asking them to share their experience. It links directly to your collection form.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
-              <input style={inputStyle} required type="email" placeholder="Customer email *" value={reqForm.email}
-                onChange={e => setReqForm(f => ({ ...f, email: e.target.value }))} />
-              <input style={inputStyle} type="text" placeholder="Customer name (optional)" value={reqForm.name}
-                onChange={e => setReqForm(f => ({ ...f, name: e.target.value }))} />
-              {widgets.length > 1 && (
-                <select style={inputStyle} value={reqForm.widget_id} onChange={e => setReqForm(f => ({ ...f, widget_id: e.target.value }))}>
-                  {widgets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
-                </select>
-              )}
-              <textarea style={{ ...inputStyle, minHeight: 80, resize: 'vertical', fontFamily: 'inherit' }}
-                placeholder="Personal note (optional) — shown in the email" value={reqForm.personal_note}
-                onChange={e => setReqForm(f => ({ ...f, personal_note: e.target.value }))} />
-            </div>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button type="submit" disabled={sending} style={btnStyle(true)}>{sending ? 'Sending…' : 'Send request'}</button>
-              <button type="button" onClick={() => setModal(null)} style={btnStyle()}>Cancel</button>
-            </div>
-          </form>
-        </div>
+        <Modal title="Request a testimonial" onClose={() => setModal(null)} onSubmit={sendRequest} submitLabel="Send request" submitting={sending}>
+          <p style={{ margin: '0 0 16px', color: colors.gray500, fontSize: 14 }}>
+            Send an email to a customer asking them to share their experience. Links directly to your collection form.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <input style={inputStyle} required type="email" placeholder="Customer email *"
+              value={reqForm.email} onChange={e => setReqForm(f => ({ ...f, email: e.target.value }))} />
+            <input style={inputStyle} type="text" placeholder="Customer name (optional)"
+              value={reqForm.name} onChange={e => setReqForm(f => ({ ...f, name: e.target.value }))} />
+            {widgets.length > 1 && (
+              <select style={inputStyle} value={reqForm.widget_id} onChange={e => setReqForm(f => ({ ...f, widget_id: e.target.value }))}>
+                {widgets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
+              </select>
+            )}
+            <textarea style={{ ...inputStyle, minHeight: 80, resize: 'vertical' }}
+              placeholder="Personal note (optional) — shown in the email"
+              value={reqForm.personal_note}
+              onChange={e => setReqForm(f => ({ ...f, personal_note: e.target.value }))} />
+          </div>
+        </Modal>
       )}
 
       {/* Modal: Add manually */}
       {modal === 'add' && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <form onSubmit={addManual} style={{ background: '#fff', borderRadius: 12, padding: 32, width: 460, boxShadow: '0 10px 40px rgba(0,0,0,.2)' }}>
-            <h2 style={{ margin: '0 0 20px', fontSize: 18 }}>Add testimonial manually</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
-              <input style={{ ...inputStyle, gridColumn: '1' }} placeholder="Name *" required value={addForm.display_name}
-                onChange={e => setAddForm(f => ({ ...f, display_name: e.target.value }))} />
-              <input style={{ ...inputStyle, gridColumn: '2' }} placeholder="Email (opt)" value={addForm.submitter_email}
-                onChange={e => setAddForm(f => ({ ...f, submitter_email: e.target.value }))} />
-              <input style={inputStyle} placeholder="Company (opt)" value={addForm.company}
-                onChange={e => setAddForm(f => ({ ...f, company: e.target.value }))} />
-              <input style={inputStyle} placeholder="Title (opt)" value={addForm.title}
-                onChange={e => setAddForm(f => ({ ...f, title: e.target.value }))} />
+        <Modal title="Add testimonial manually" onClose={() => setModal(null)} onSubmit={addManual} submitLabel="Add testimonial">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <input style={inputStyle} required placeholder="Name *"
+              value={addForm.display_name} onChange={e => setAddForm(f => ({ ...f, display_name: e.target.value }))} />
+            <input style={inputStyle} placeholder="Email (optional)"
+              value={addForm.submitter_email} onChange={e => setAddForm(f => ({ ...f, submitter_email: e.target.value }))} />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+              <input style={inputStyle} placeholder="Company (optional)"
+                value={addForm.company} onChange={e => setAddForm(f => ({ ...f, company: e.target.value }))} />
+              <input style={inputStyle} placeholder="Title (optional)"
+                value={addForm.title} onChange={e => setAddForm(f => ({ ...f, title: e.target.value }))} />
             </div>
-            <select value={addForm.rating} onChange={e => setAddForm(f => ({ ...f, rating: e.target.value }))}
-              style={{ ...inputStyle, marginBottom: 10 }}>
+            <select style={inputStyle} value={addForm.rating} onChange={e => setAddForm(f => ({ ...f, rating: e.target.value }))}>
               <option value="">No rating</option>
               {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} stars</option>)}
             </select>
-            <textarea placeholder="Testimonial text *" required value={addForm.display_text}
-              onChange={e => setAddForm(f => ({ ...f, display_text: e.target.value }))}
-              style={{ ...inputStyle, minHeight: 100, marginBottom: 16, resize: 'vertical', fontFamily: 'inherit' }} />
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button type="submit" style={btnStyle(true)}>Add</button>
-              <button type="button" onClick={() => setModal(null)} style={btnStyle()}>Cancel</button>
-            </div>
-          </form>
-        </div>
+            <textarea placeholder="Testimonial text *" required
+              value={addForm.display_text} onChange={e => setAddForm(f => ({ ...f, display_text: e.target.value }))}
+              style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} />
+          </div>
+        </Modal>
       )}
 
       {/* List */}
       {loading ? (
-        <p style={{ color: '#6b7280' }}>Loading…</p>
+        <div style={{ padding: '48px 0', textAlign: 'center', color: colors.gray400 }}>Loading…</div>
       ) : filtered.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', color: '#6b7280' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>📭</div>
-          <p style={{ margin: 0, fontSize: 15 }}>No {filter !== 'all' ? filter : ''} testimonials yet.</p>
-          <p style={{ margin: '8px 0 0', fontSize: 13 }}>
-            <button onClick={() => setModal('request')} style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontSize: 13 }}>
-              Request one from a customer
-            </button>
+        <div style={{ textAlign: 'center', padding: '64px 20px', color: colors.gray400 }}>
+          <MessageSquareEmpty />
+          <p style={{ margin: '12px 0 4px', fontSize: 15, fontWeight: 500, color: colors.gray600 }}>
+            No {filter !== 'all' ? filter : ''} testimonials yet.
           </p>
+          <button onClick={() => setModal('request')} style={{
+            background: 'none', border: 'none', color: colors.brand, cursor: 'pointer',
+            fontSize: 13, fontFamily: font.sans, fontWeight: 500, padding: 0,
+          }}>
+            Request one from a customer →
+          </button>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {filtered.map(t => (
-            <div key={t.id} style={{
-              background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '16px 20px',
-              borderLeft: t.status === 'approved' ? '3px solid #10b981' : t.status === 'pending' ? '3px solid #f59e0b' : '3px solid #ef4444',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                    <strong style={{ fontSize: 15 }}>{t.display_name}</strong>
-                    {t.company && <span style={{ color: '#6b7280', fontSize: 13 }}>· {t.company}</span>}
-                    {t.title && <span style={{ color: '#6b7280', fontSize: 13 }}>· {t.title}</span>}
-                    {t.featured ? <span style={{ background: '#fef3c7', color: '#92400e', fontSize: 11, padding: '1px 6px', borderRadius: 9999, fontWeight: 600 }}>Featured</span> : null}
-                  </div>
-                  {t.rating && (
-                    <div style={{ fontSize: 14, color: '#f59e0b', marginBottom: 4 }}>{'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}</div>
-                  )}
-                  <p style={{ margin: 0, color: '#374151', fontSize: 14, lineHeight: 1.5 }}>{t.display_text}</p>
-                  <p style={{ margin: '6px 0 0', color: '#9ca3af', fontSize: 12 }}>
-                    {t.source} · {new Date(t.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-                <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                  {t.status === 'pending' && (
-                    <>
-                      <button onClick={() => setStatus(t.id, 'approved')} style={{ ...btnStyle(), color: '#059669', borderColor: '#059669', fontSize: 12 }}>Approve</button>
-                      <button onClick={() => setStatus(t.id, 'rejected')} style={{ ...btnStyle(), color: '#dc2626', borderColor: '#dc2626', fontSize: 12 }}>Reject</button>
-                    </>
-                  )}
-                  {t.status === 'approved' && (
-                    <button onClick={() => setStatus(t.id, 'rejected')} style={{ ...btnStyle(), fontSize: 12 }}>Unpublish</button>
-                  )}
-                  {t.status === 'rejected' && (
-                    <button onClick={() => setStatus(t.id, 'approved')} style={{ ...btnStyle(), fontSize: 12 }}>Restore</button>
-                  )}
-                  <button onClick={() => toggleFeatured(t.id, t.featured)} style={{ ...btnStyle(), fontSize: 12 }}>
-                    {t.featured ? '★ Unfeature' : '☆ Feature'}
-                  </button>
-                  <button onClick={() => deleteTestimonial(t.id)} style={{ ...btnStyle(), color: '#dc2626', fontSize: 12 }}>Delete</button>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {filtered.map(t => <TestimonialCard key={t.id} t={t} onStatus={setStatus} onDelete={deleteTestimonial} onToggleFeatured={toggleFeatured} />)}
         </div>
       )}
+    </div>
+  )
+}
+
+function MessageSquareEmpty() {
+  return (
+    <div style={{ width: 48, height: 48, margin: '0 auto', opacity: 0.3 }}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+      </svg>
+    </div>
+  )
+}
+
+function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured }: {
+  t: Testimonial
+  onStatus: (id: string, status: string) => void
+  onDelete: (id: string) => void
+  onToggleFeatured: (id: string, featured: number) => void
+}) {
+  const statusColor = t.status === 'approved' ? colors.success : t.status === 'pending' ? colors.warning : colors.gray300
+
+  return (
+    <div style={{
+      background: colors.white,
+      border: `1px solid ${colors.gray200}`,
+      borderRadius: radius.lg,
+      padding: '16px 20px',
+      boxShadow: shadow.sm,
+      borderLeft: `3px solid ${statusColor}`,
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+        {/* Content */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
+            <span style={{ fontWeight: 700, fontSize: 14, color: colors.gray900 }}>{t.display_name}</span>
+            {t.company && <span style={{ color: colors.gray400, fontSize: 13 }}>· {t.company}</span>}
+            {t.title && <span style={{ color: colors.gray400, fontSize: 13 }}>· {t.title}</span>}
+            {t.featured ? (
+              <span style={{
+                background: '#fef3c7', color: '#92400e',
+                fontSize: 11, padding: '2px 7px', borderRadius: radius.full, fontWeight: 600,
+              }}>
+                Featured
+              </span>
+            ) : null}
+          </div>
+          {t.rating && (
+            <div style={{ display: 'flex', gap: 2, marginBottom: 6 }}>
+              {[1,2,3,4,5].map(n => (
+                <Star key={n} size={13} fill={n <= t.rating! ? '#f59e0b' : 'none'} color={n <= t.rating! ? '#f59e0b' : colors.gray200} />
+              ))}
+            </div>
+          )}
+          <p style={{ margin: '0 0 8px', color: colors.gray700, fontSize: 14, lineHeight: 1.6 }}>
+            {t.display_text}
+          </p>
+          <p style={{ margin: 0, color: colors.gray400, fontSize: 12 }}>
+            {t.source} · {new Date(t.created_at).toLocaleDateString()}
+          </p>
+        </div>
+
+        {/* Actions */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flexShrink: 0, alignItems: 'flex-end' }}>
+          {/* Status badge */}
+          <span style={{
+            fontSize: 11, fontWeight: 600, padding: '3px 8px', borderRadius: radius.full,
+            background: t.status === 'approved' ? colors.successLight : t.status === 'pending' ? colors.warningLight : colors.gray100,
+            color: t.status === 'approved' ? colors.success : t.status === 'pending' ? colors.warning : colors.gray500,
+          }}>
+            {t.status}
+          </span>
+
+          {/* Primary actions */}
+          <div style={{ display: 'flex', gap: 4, marginTop: 4 }}>
+            {t.status === 'pending' && (
+              <>
+                <button
+                  onClick={() => onStatus(t.id, 'approved')}
+                  title="Approve"
+                  style={{
+                    padding: '6px 12px', background: colors.success, color: colors.white,
+                    border: 'none', borderRadius: radius.md, fontSize: 12, fontWeight: 600,
+                    cursor: 'pointer', fontFamily: font.sans,
+                    display: 'flex', alignItems: 'center', gap: 4,
+                  }}
+                >
+                  <CheckCircle2 size={13} /> Approve
+                </button>
+                <button
+                  onClick={() => onStatus(t.id, 'rejected')}
+                  title="Reject"
+                  style={{
+                    padding: '6px 10px', background: colors.white, color: colors.gray500,
+                    border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                    fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: font.sans,
+                    display: 'flex', alignItems: 'center', gap: 4,
+                  }}
+                >
+                  <XCircle size={13} /> Reject
+                </button>
+              </>
+            )}
+            {t.status === 'approved' && (
+              <button
+                onClick={() => onStatus(t.id, 'rejected')}
+                style={{
+                  padding: '6px 10px', background: colors.white, color: colors.gray500,
+                  border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                  fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: font.sans,
+                }}
+              >
+                Unpublish
+              </button>
+            )}
+            {t.status === 'rejected' && (
+              <button
+                onClick={() => onStatus(t.id, 'approved')}
+                style={{
+                  padding: '6px 10px', background: colors.successLight, color: colors.success,
+                  border: `1px solid ${colors.successBorder}`, borderRadius: radius.md,
+                  fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: font.sans,
+                }}
+              >
+                Restore
+              </button>
+            )}
+          </div>
+
+          {/* Secondary actions */}
+          <div style={{ display: 'flex', gap: 4 }}>
+            <button
+              onClick={() => onToggleFeatured(t.id, t.featured)}
+              title={t.featured ? 'Remove from featured' : 'Mark as featured'}
+              style={{
+                padding: '5px 8px', background: 'none', color: t.featured ? '#f59e0b' : colors.gray300,
+                border: 'none', borderRadius: radius.md, cursor: 'pointer', fontFamily: font.sans,
+                display: 'flex', alignItems: 'center',
+              }}
+            >
+              <Star size={14} fill={t.featured ? '#f59e0b' : 'none'} />
+            </button>
+            <button
+              onClick={() => onDelete(t.id)}
+              title="Delete"
+              style={{
+                padding: '5px 8px', background: 'none', color: colors.gray300,
+                border: 'none', borderRadius: radius.md, cursor: 'pointer', fontFamily: font.sans,
+                display: 'flex', alignItems: 'center',
+                transition: 'color 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = colors.danger)}
+              onMouseLeave={e => (e.currentTarget.style.color = colors.gray300)}
+            >
+              <Trash2 size={14} />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

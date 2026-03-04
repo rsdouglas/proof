@@ -1,244 +1,234 @@
 import { useState, useEffect } from 'react'
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
+import { useApi } from '../lib/auth'
+import { Copy, Key, Trash2, Plus } from 'lucide-react'
+import { C, spacing, radius, shadow, btn, card, input as inputToken, fontSize } from '../design'
 
 interface ApiKey {
   id: string
   name: string
   key_prefix: string
-  last_used_at: string | null
   created_at: string
+  last_used_at: string | null
 }
 
 export default function ApiKeys() {
+  const { request } = useApi()
   const [keys, setKeys] = useState<ApiKey[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState('')
-  const [newSecret, setNewSecret] = useState<string | null>(null)
+  const [showForm, setShowForm] = useState(false)
+  const [revealedKey, setRevealedKey] = useState<string | null>(null)
+  const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
   const [copied, setCopied] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
-  const fetchKeys = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/keys`, { credentials: 'include' })
-      if (res.ok) {
-        const data = await res.json() as { keys: ApiKey[] }
-        setKeys(data.keys)
-      }
-    } catch {
-      setError('Failed to load API keys')
-    } finally {
-      setLoading(false)
-    }
-  }
+  useEffect(() => {
+    request<{ keys: ApiKey[] }>('/api-keys')
+      .then(d => setKeys(d.keys || []))
+      .catch(() => setMsg({ type: 'err', text: 'Failed to load API keys.' }))
+      .finally(() => setLoading(false))
+  }, []) // eslint-disable-line
 
-  useEffect(() => { fetchKeys() }, [])
-
-  const createKey = async () => {
+  async function createKey(e: React.FormEvent) {
+    e.preventDefault()
     if (!newName.trim()) return
     setCreating(true)
-    setError(null)
+    setMsg(null)
     try {
-      const res = await fetch(`${API_URL}/api/keys`, {
+      const data = await request<{ key: ApiKey & { plaintext: string } }>('/api-keys', {
         method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newName.trim() }),
       })
-      const data = await res.json() as { key?: ApiKey; secret?: string; error?: string }
-      if (!res.ok) {
-        setError(data.error ?? 'Failed to create key')
-        return
-      }
-      setNewSecret(data.secret ?? null)
+      setKeys(prev => [data.key, ...prev])
+      setRevealedKey(data.key.plaintext)
       setNewName('')
-      await fetchKeys()
-    } catch {
-      setError('Failed to create API key')
+      setShowForm(false)
+      setMsg({ type: 'ok', text: 'API key created. Copy it now — it won\'t be shown again.' })
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
     } finally {
       setCreating(false)
     }
   }
 
-  const deleteKey = async (id: string) => {
+  async function deleteKey(id: string) {
     if (!confirm('Delete this API key? Any integrations using it will stop working.')) return
-    const res = await fetch(`${API_URL}/api/keys/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
-    })
-    if (res.ok) {
+    try {
+      await request(`/api-keys/${id}`, { method: 'DELETE' })
       setKeys(prev => prev.filter(k => k.id !== id))
+    } catch (e) {
+      setMsg({ type: 'err', text: (e as Error).message })
     }
   }
 
-  const copySecret = async () => {
-    if (!newSecret) return
-    await navigator.clipboard.writeText(newSecret)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  const formatDate = (s: string | null) => {
-    if (!s) return 'Never'
-    return new Date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  function copyKey(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
   }
 
   return (
-    <div style={{ maxWidth: 700 }}>
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: '#111', margin: 0 }}>🔑 API Keys</h1>
-        <p style={{ color: '#6b7280', marginTop: 4 }}>
-          Use API keys to access Proof programmatically — perfect for Zapier, Make, or custom integrations.
-        </p>
+    <div style={{ maxWidth: 680, margin: '0 auto', padding: `${spacing[6]} ${spacing[4]}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing[6] }}>
+        <div>
+          <h1 style={{ margin: 0, fontSize: fontSize.xl, fontWeight: 700, color: C.gray[900] }}>API Keys</h1>
+          <p style={{ margin: `${spacing[1]} 0 0`, fontSize: fontSize.sm, color: C.gray[500] }}>
+            Use these keys to authenticate API requests from your code.
+          </p>
+        </div>
+        <button onClick={() => setShowForm(!showForm)} style={btn.primary}>
+          <Plus size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+          New key
+        </button>
       </div>
 
-      {/* New secret reveal banner */}
-      {newSecret && (
+      {msg && (
         <div style={{
-          marginBottom: 24, padding: 16,
-          background: '#fffbeb', border: '1px solid #fcd34d',
-          borderRadius: 8
+          padding: `${spacing[3]} ${spacing[4]}`,
+          borderRadius: radius.md,
+          marginBottom: spacing[4],
+          background: msg.type === 'ok' ? C.success.bg : C.danger.bg,
+          color: msg.type === 'ok' ? C.success.text : C.danger.text,
+          border: `1px solid ${msg.type === 'ok' ? C.success.border : C.danger.border}`,
+          fontSize: fontSize.sm,
         }}>
-          <p style={{ fontWeight: 600, color: '#92400e', marginBottom: 8 }}>
-            ⚠️ Copy your API key now — it won't be shown again.
+          {msg.text}
+        </div>
+      )}
+
+      {revealedKey && (
+        <div style={{
+          ...card,
+          marginBottom: spacing[5],
+          background: '#fefce8',
+          border: `1px solid #fde68a`,
+        }}>
+          <p style={{ margin: `0 0 ${spacing[2]}`, fontSize: fontSize.sm, fontWeight: 600, color: '#92400e' }}>
+            ⚠ Copy your new API key now. It won't be shown again.
           </p>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: spacing[2], alignItems: 'center' }}>
             <code style={{
-              flex: 1, background: '#fff', border: '1px solid #fcd34d',
-              borderRadius: 4, padding: '8px 12px', fontSize: 13,
-              fontFamily: 'monospace', overflowX: 'auto', display: 'block'
+              flex: 1,
+              padding: `${spacing[2]} ${spacing[3]}`,
+              background: '#fff',
+              border: '1px solid #fde68a',
+              borderRadius: radius.sm,
+              fontSize: fontSize.sm,
+              fontFamily: 'monospace',
+              wordBreak: 'break-all',
             }}>
-              {newSecret}
+              {revealedKey}
             </code>
-            <button
-              onClick={copySecret}
-              style={{
-                padding: '8px 16px', background: '#d97706', color: '#fff',
-                border: 'none', borderRadius: 6, cursor: 'pointer', fontSize: 13,
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {copied ? '✓ Copied!' : '📋 Copy'}
+            <button onClick={() => copyKey(revealedKey)} style={btn.outline}>
+              <Copy size={14} />
+              {copied ? ' Copied!' : ' Copy'}
             </button>
           </div>
           <button
-            onClick={() => setNewSecret(null)}
-            style={{
-              marginTop: 8, background: 'none', border: 'none',
-              color: '#92400e', cursor: 'pointer', fontSize: 12, textDecoration: 'underline'
-            }}
+            onClick={() => setRevealedKey(null)}
+            style={{ marginTop: spacing[3], background: 'none', border: 'none', cursor: 'pointer', fontSize: fontSize.xs, color: C.gray[500] }}
           >
-            I've saved it, dismiss
+            I've saved it — dismiss
           </button>
         </div>
       )}
 
-      {/* Create new key */}
-      <div style={{
-        background: '#fff', border: '1px solid #e5e7eb',
-        borderRadius: 8, padding: 16, marginBottom: 24
-      }}>
-        <h2 style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 12 }}>
-          Create new API key
-        </h2>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <input
-            type="text"
-            placeholder="Key name (e.g. Zapier integration)"
-            value={newName}
-            onChange={e => setNewName(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && createKey()}
-            maxLength={100}
-            style={{
-              flex: 1, border: '1px solid #d1d5db', borderRadius: 6,
-              padding: '8px 12px', fontSize: 14,
-              outline: 'none'
-            }}
-          />
-          <button
-            onClick={createKey}
-            disabled={creating || !newName.trim()}
-            style={{
-              padding: '8px 16px', background: creating || !newName.trim() ? '#9ca3af' : '#2563eb',
-              color: '#fff', border: 'none', borderRadius: 6, cursor: creating || !newName.trim() ? 'not-allowed' : 'pointer',
-              fontSize: 14
-            }}
-          >
-            {creating ? 'Creating…' : '+ Create'}
-          </button>
+      {showForm && (
+        <div style={{ ...card, marginBottom: spacing[5] }}>
+          <h2 style={{ margin: `0 0 ${spacing[4]}`, fontSize: fontSize.base, fontWeight: 600, color: C.gray[900] }}>
+            Create API Key
+          </h2>
+          <form onSubmit={createKey} style={{ display: 'flex', gap: spacing[3], alignItems: 'flex-end' }}>
+            <div style={{ flex: 1 }}>
+              <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>
+                Key name (e.g. "production", "zapier")
+              </label>
+              <input
+                style={{ ...inputToken, width: '100%', boxSizing: 'border-box' }}
+                value={newName}
+                onChange={e => setNewName(e.target.value)}
+                placeholder="My integration"
+                autoFocus
+              />
+            </div>
+            <button type="submit" disabled={creating} style={btn.primary}>
+              {creating ? 'Creating…' : 'Create'}
+            </button>
+            <button type="button" onClick={() => setShowForm(false)} style={btn.ghost}>
+              Cancel
+            </button>
+          </form>
         </div>
-        {error && <p style={{ marginTop: 8, fontSize: 13, color: '#dc2626' }}>{error}</p>}
-        <p style={{ marginTop: 8, fontSize: 12, color: '#9ca3af' }}>Maximum 5 keys per account.</p>
-      </div>
+      )}
 
-      {/* Key list */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8 }}>
-        {loading ? (
-          <div style={{ padding: 32, textAlign: 'center', color: '#9ca3af', fontSize: 14 }}>Loading…</div>
-        ) : keys.length === 0 ? (
-          <div style={{ padding: 48, textAlign: 'center' }}>
-            <div style={{ fontSize: 32, marginBottom: 8 }}>🔑</div>
-            <p style={{ color: '#6b7280', fontSize: 14 }}>No API keys yet. Create one above.</p>
-          </div>
-        ) : (
-          keys.map((key, i) => (
-            <div key={key.id} style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '12px 16px',
-              borderTop: i > 0 ? '1px solid #f3f4f6' : 'none'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 18 }}>🔑</span>
-                <div>
-                  <p style={{ fontSize: 14, fontWeight: 500, color: '#111', margin: 0 }}>{key.name}</p>
-                  <p style={{ fontSize: 12, color: '#9ca3af', margin: '2px 0 0' }}>
-                    <code style={{ fontFamily: 'monospace' }}>{key.key_prefix}…</code>
-                    {' · '}Created {formatDate(key.created_at)}
-                    {' · '}Last used: {formatDate(key.last_used_at)}
-                  </p>
-                </div>
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: spacing[12], color: C.gray[400], fontSize: fontSize.sm }}>
+          Loading keys…
+        </div>
+      ) : keys.length === 0 ? (
+        <div style={{
+          ...card,
+          textAlign: 'center',
+          padding: spacing[12],
+        }}>
+          <Key size={32} style={{ color: C.gray[300], marginBottom: spacing[3] }} />
+          <p style={{ margin: 0, color: C.gray[500], fontSize: fontSize.sm }}>
+            No API keys yet. Create one to authenticate API requests.
+          </p>
+        </div>
+      ) : (
+        <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
+          {keys.map((key, i) => (
+            <div
+              key={key.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: spacing[3],
+                padding: `${spacing[4]} ${spacing[5]}`,
+                borderBottom: i < keys.length - 1 ? `1px solid ${C.gray[100]}` : 'none',
+              }}
+            >
+              <Key size={16} style={{ color: C.gray[400], flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: 0, fontWeight: 600, fontSize: fontSize.sm, color: C.gray[900] }}>{key.name}</p>
+                <p style={{ margin: `2px 0 0`, fontSize: fontSize.xs, color: C.gray[400], fontFamily: 'monospace' }}>
+                  {key.key_prefix}••••••••
+                  {key.last_used_at && (
+                    <span style={{ marginLeft: spacing[3], fontFamily: 'inherit' }}>
+                      · Last used {new Date(key.last_used_at).toLocaleDateString()}
+                    </span>
+                  )}
+                </p>
               </div>
               <button
                 onClick={() => deleteKey(key.id)}
-                title="Delete key"
                 style={{
-                  background: 'none', border: 'none', cursor: 'pointer',
-                  color: '#9ca3af', fontSize: 16, padding: 4
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: spacing[2],
+                  color: C.gray[400],
+                  borderRadius: radius.sm,
+                  display: 'flex',
+                  alignItems: 'center',
+                  transition: 'color 0.15s',
                 }}
-                onMouseOver={e => (e.currentTarget.style.color = '#dc2626')}
-                onMouseOut={e => (e.currentTarget.style.color = '#9ca3af')}
+                onMouseOver={e => (e.currentTarget.style.color = C.danger.text)}
+                onMouseOut={e => (e.currentTarget.style.color = C.gray[400])}
+                title="Delete key"
               >
-                🗑
+                <Trash2 size={15} />
               </button>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {/* Usage docs */}
-      <div style={{
-        marginTop: 24, padding: 16,
-        background: '#f9fafb', border: '1px solid #e5e7eb',
-        borderRadius: 8
-      }}>
-        <h3 style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 8 }}>
-          Using your API key
-        </h3>
-        <p style={{ fontSize: 13, color: '#4b5563', marginBottom: 8 }}>
-          Pass your key as a Bearer token in the Authorization header:
-        </p>
-        <code style={{
-          display: 'block', background: '#fff', border: '1px solid #e5e7eb',
-          borderRadius: 4, padding: '8px 12px', fontSize: 12,
-          fontFamily: 'monospace', color: '#374151', whiteSpace: 'pre'
-        }}>
-{`curl https://api.socialproof.dev/api/testimonials \\
-  -H "Authorization: Bearer sk_live_..."`}
-        </code>
-        <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 8 }}>
-          API keys provide the same access as your account session. Keep them secret.
-        </p>
+      <div style={{ marginTop: spacing[6], padding: spacing[4], background: C.gray[50], borderRadius: radius.md, fontSize: fontSize.xs, color: C.gray[500] }}>
+        <strong style={{ color: C.gray[700] }}>Using API keys:</strong> Pass your key in the <code>Authorization: Bearer &lt;key&gt;</code> header. 
+        Keys grant full account access — keep them secret.
       </div>
     </div>
   )

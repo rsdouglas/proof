@@ -4,6 +4,8 @@ import { useApi, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import { Toast } from '../components/Toast'
 import UpgradeModal from '../components/UpgradeModal'
+import { colors, font, radius, shadow, btn, C, spacing, fontSize } from '../design'
+import { Plus, LayoutGrid } from 'lucide-react'
 
 interface Widget {
   id: string
@@ -58,61 +60,69 @@ export default function Widgets() {
   }
 
   return (
-    <div>
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+    <div style={{ maxWidth: 900, fontFamily: font.sans }}>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+      {planLimitError && <UpgradeModal error={planLimitError} onClose={() => setPlanLimitError(null)} />}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
         <div>
-          <h1 style={{ margin: '0 0 4px', fontSize: 22, fontWeight: 700 }}>Widgets</h1>
-          <p style={{ margin: 0, color: '#6b7280', fontSize: 14 }}>Embed social proof anywhere on your site</p>
+          <h1 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.5px' }}>
+            Widgets
+          </h1>
+          <p style={{ margin: 0, color: colors.gray400, fontSize: 14 }}>Embed social proof anywhere on your site</p>
         </div>
-        <button
-          onClick={() => setShowForm(f => !f)}
-          style={{ padding: '9px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}
-        >
-          + Create widget
+        <button onClick={() => setShowForm(f => !f)} style={btn.primary}>
+          <Plus size={15} /> Create widget
         </button>
       </div>
 
+      {/* Create form */}
       {showForm && (
-        <form onSubmit={createWidget} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20, display: 'flex', gap: 10 }}>
+        <form onSubmit={createWidget} style={{
+          background: colors.white, border: `1px solid ${colors.gray200}`,
+          borderRadius: radius.lg, padding: '20px', marginBottom: 20,
+          display: 'flex', gap: 10, boxShadow: shadow.sm,
+        }}>
           <input
             value={newName} onChange={e => setNewName(e.target.value)}
             placeholder="Widget name (e.g. Homepage testimonials)"
-            required
-            autoFocus
-            style={{ flex: 1, padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 6, fontSize: 14, fontFamily: 'inherit' }}
+            required autoFocus
+            style={{
+              flex: 1, padding: '9px 12px',
+              border: `1px solid ${colors.gray200}`,
+              borderRadius: radius.md, fontSize: 14,
+              fontFamily: font.sans, color: colors.gray900, outline: 'none',
+            }}
           />
-          <button type="submit" disabled={creating} style={{
-            padding: '9px 16px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit',
-          }}>
+          <button type="submit" disabled={creating} style={btn.primary}>
             {creating ? 'Creating…' : 'Create'}
           </button>
-          <button type="button" onClick={() => setShowForm(false)} style={{
-            padding: '9px 14px', background: '#f3f4f6', color: '#374151', border: '1px solid #e5e7eb', borderRadius: 6, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit',
-          }}>
+          <button type="button" onClick={() => setShowForm(false)} style={btn.outline}>
             Cancel
           </button>
         </form>
       )}
 
-      {loading && <p style={{ color: '#9ca3af', textAlign: 'center', padding: 40 }}>Loading…</p>}
+      {loading && (
+        <div style={{ padding: '48px 0', textAlign: 'center', color: colors.gray400 }}>Loading…</div>
+      )}
 
       {!loading && widgets.length === 0 && (
-        <div style={{ background: '#fff', border: '1px dashed #d1d5db', borderRadius: 8, padding: 60, textAlign: 'center' }}>
-          <div style={{ fontSize: 40, marginBottom: 12 }}>🧩</div>
-          <h3 style={{ margin: '0 0 8px', color: '#374151' }}>No widgets yet</h3>
-          <p style={{ margin: '0 0 20px', color: '#6b7280', fontSize: 14 }}>Create a widget to display testimonials on your site.</p>
-          <button onClick={() => setShowForm(true)} style={{
-            padding: '9px 18px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 14, fontFamily: 'inherit',
-          }}>
-            + Create your first widget
+        <div style={{
+          background: colors.white,
+          border: `2px dashed ${colors.gray200}`,
+          borderRadius: radius.lg, padding: 64, textAlign: 'center',
+        }}>
+          <div style={{ width: 48, height: 48, margin: '0 auto 16px', color: colors.gray300 }}>
+            <LayoutGrid size={48} />
+          </div>
+          <h3 style={{ margin: '0 0 8px', color: colors.gray700, fontSize: 16, fontWeight: 700 }}>No widgets yet</h3>
+          <p style={{ margin: '0 0 20px', color: colors.gray500, fontSize: 14 }}>
+            Create a widget to display testimonials on your site.
+          </p>
+          <button onClick={() => setShowForm(true)} style={btn.primary}>
+            <Plus size={15} /> Create your first widget
           </button>
         </div>
       )}
@@ -120,30 +130,39 @@ export default function Widgets() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
         {widgets.map(w => (
           <Link key={w.id} to={`/widgets/${w.id}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
-            <div style={{
-              background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20,
-              transition: 'border-color 0.15s, box-shadow 0.15s',
-            }}
+            <div
+              style={{
+                background: colors.white, border: `1px solid ${colors.gray200}`,
+                borderRadius: radius.lg, padding: 20,
+                transition: 'border-color 0.15s, box-shadow 0.15s, transform 0.15s',
+                boxShadow: shadow.sm,
+              }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = '#2563eb'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 8px rgba(37,99,235,0.1)'
+                const el = e.currentTarget as HTMLDivElement
+                el.style.borderColor = colors.brandBorder
+                el.style.boxShadow = `0 4px 16px rgba(79,70,229,0.12)`
+                el.style.transform = 'translateY(-1px)'
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = '#e5e7eb'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
+                const el = e.currentTarget as HTMLDivElement
+                el.style.borderColor = colors.gray200
+                el.style.boxShadow = shadow.sm
+                el.style.transform = 'none'
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: '#111827' }}>{w.name}</h3>
+                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: colors.gray900 }}>{w.name}</h3>
                 <span style={{
-                  fontSize: 11, padding: '3px 8px', borderRadius: 20, fontWeight: 500,
-                  background: '#eff6ff', color: '#2563eb',
-                }}>{w.layout || 'grid'}</span>
+                  fontSize: 11, padding: '3px 8px', borderRadius: radius.full, fontWeight: 600,
+                  background: colors.brandLight, color: colors.brand,
+                }}>
+                  {w.layout || 'grid'}
+                </span>
               </div>
-              <div style={{ fontSize: 13, color: '#6b7280', marginBottom: 12 }}>
+              <div style={{ fontSize: 13, color: colors.gray500, marginBottom: 10 }}>
                 Theme: {w.theme || 'light'} · {w.testimonial_count ?? 0} testimonials
               </div>
-              <div style={{ fontSize: 12, color: '#9ca3af' }}>
+              <div style={{ fontSize: 12, color: colors.gray400 }}>
                 Created {new Date(w.created_at).toLocaleDateString()}
               </div>
             </div>

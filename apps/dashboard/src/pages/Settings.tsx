@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth, useApi } from '../lib/auth'
+import { C, spacing, radius, shadow, btn, card, input as inputToken, fontSize } from '../design'
 
 export default function Settings() {
   const { account, setAccount, logout } = useAuth()
@@ -13,7 +14,6 @@ export default function Settings() {
   const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
   const [plan, setPlan] = useState<string>(account?.plan || 'free')
 
-  // On mount: fetch fresh account + billing status from server
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const upgraded = params.get('upgraded') === '1'
@@ -23,26 +23,18 @@ export default function Settings() {
       window.history.replaceState({}, '', window.location.pathname)
     }
 
-    // Always refresh account from server to get latest plan
     request<{ account: { id: string; email: string; name: string; plan: string } }>('/accounts/me')
       .then(data => {
         setAccount(data.account)
         setPlan(data.account.plan)
         setName(data.account.name || '')
         setEmail(data.account.email || '')
-        if (upgraded) {
-          setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
-        } else if (canceled) {
-          setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
-        }
+        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
+        else if (canceled) setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
       })
       .catch(() => {
-        // Fall back to cached values
-        if (upgraded) {
-          setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
-        } else if (canceled) {
-          setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
-        }
+        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
+        else if (canceled) setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
       })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -108,83 +100,81 @@ export default function Settings() {
     setBillingLoading(true)
     setMsg(null)
     try {
-      const data = await request<{ url: string }>('/billing/portal')
-      window.location.href = data.url
+      const data = await request<{ url: string }>('/billing/portal', { method: 'POST' })
+      if (data.url) window.location.href = data.url
+      else setMsg({ type: 'err', text: 'Could not open billing portal.' })
     } catch (e) {
       setMsg({ type: 'err', text: (e as Error).message })
+    } finally {
       setBillingLoading(false)
     }
   }
 
   const inputStyle: React.CSSProperties = {
-    display: 'block', width: '100%', padding: '8px 10px',
-    border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 12,
-    fontSize: 13, boxSizing: 'border-box',
+    ...inputToken,
+    width: '100%',
+    marginBottom: spacing[3],
+    display: 'block',
+  }
+
+  const sectionStyle: React.CSSProperties = {
+    ...card,
+    marginBottom: spacing[5],
   }
 
   return (
-    <div style={{ maxWidth: 560, margin: '0 auto', padding: '24px 16px' }}>
-      <h1 style={{ margin: '0 0 24px', fontSize: 18, fontWeight: 700 }}>Settings</h1>
+    <div style={{ maxWidth: 560, margin: '0 auto', padding: `${spacing[6]} ${spacing[4]}` }}>
+      <h1 style={{ margin: `0 0 ${spacing[6]}`, fontSize: fontSize.xl, fontWeight: 700, color: C.gray[900] }}>Settings</h1>
 
       {msg && (
         <div style={{
-          padding: '10px 14px', borderRadius: 6, marginBottom: 16,
-          background: msg.type === 'ok' ? '#f0fdf4' : '#fef2f2',
-          color: msg.type === 'ok' ? '#166534' : '#991b1b',
-          border: `1px solid ${msg.type === 'ok' ? '#bbf7d0' : '#fecaca'}`,
-          fontSize: 13,
+          padding: `${spacing[3]} ${spacing[4]}`,
+          borderRadius: radius.md,
+          marginBottom: spacing[4],
+          background: msg.type === 'ok' ? C.success.bg : C.danger.bg,
+          color: msg.type === 'ok' ? C.success.text : C.danger.text,
+          border: `1px solid ${msg.type === 'ok' ? C.success.border : C.danger.border}`,
+          fontSize: fontSize.sm,
         }}>
           {msg.text}
         </div>
       )}
 
       {/* Billing */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>Plan</h2>
+      <div style={sectionStyle}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing[4] }}>
+          <h2 style={{ margin: 0, fontSize: fontSize.base, fontWeight: 600, color: C.gray[900] }}>Plan</h2>
           <span style={{
-            padding: '2px 8px', borderRadius: 4, fontSize: 11, fontWeight: 700,
-            background: isPro ? '#fef3c7' : '#f3f4f6',
-            color: isPro ? '#92400e' : '#6b7280',
+            padding: `2px ${spacing[2]}`,
+            borderRadius: radius.sm,
+            fontSize: fontSize.xs,
+            fontWeight: 700,
+            background: isPro ? '#fef3c7' : C.gray[100],
+            color: isPro ? '#92400e' : C.gray[500],
           }}>
             {isPro ? 'PRO' : 'FREE'}
           </span>
         </div>
         {isPro ? (
           <div>
-            <p style={{ margin: '0 0 12px', color: '#6b7280', fontSize: 13 }}>
+            <p style={{ margin: `0 0 ${spacing[3]}`, color: C.gray[500], fontSize: fontSize.sm }}>
               You're on the Pro plan. Manage your subscription below.
             </p>
-            <button
-              onClick={handleManageBilling}
-              disabled={billingLoading}
-              style={{
-                padding: '8px 16px', background: '#fff',
-                border: '1px solid #d1d5db', borderRadius: 6,
-                fontWeight: 600, fontSize: 13, cursor: 'pointer',
-              }}
-            >
+            <button onClick={handleManageBilling} disabled={billingLoading} style={btn.outline}>
               {billingLoading ? 'Loading…' : 'Manage billing →'}
             </button>
           </div>
         ) : (
           <div>
-            <p style={{ margin: '0 0 8px', fontWeight: 600, fontSize: 13 }}>Pro plan — $9/month</p>
-            <ul style={{ margin: '0 0 14px', paddingLeft: 18, fontSize: 13, color: '#374151', lineHeight: 1.8 }}>
-              <li>Unlimited testimonials</li>
+            <p style={{ margin: `0 0 ${spacing[2]}`, fontWeight: 600, fontSize: fontSize.sm, color: C.gray[800] }}>Pro plan — $9/month</p>
+            <ul style={{ margin: `0 0 ${spacing[4]}`, paddingLeft: 18, fontSize: fontSize.sm, color: C.gray[700], lineHeight: 1.8 }}>
+              <li>Unlimited testimonials &amp; widgets</li>
               <li>Remove Vouch branding</li>
               <li>Email notifications</li>
               <li>Advanced widget themes</li>
+              <li>Analytics dashboard</li>
             </ul>
-            <button
-              onClick={handleUpgrade}
-              disabled={billingLoading}
-              style={{
-                padding: '9px 18px', background: '#2563eb', color: '#fff',
-                border: 'none', borderRadius: 6,
-                fontWeight: 700, fontSize: 14, cursor: 'pointer',
-              }}
-            >
+            <button onClick={handleUpgrade} disabled={billingLoading} style={btn.primary}>
               {billingLoading ? 'Loading…' : '⚡ Upgrade to Pro — $9/mo'}
             </button>
           </div>
@@ -192,79 +182,40 @@ export default function Settings() {
       </div>
 
       {/* Profile */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
-        <h2 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 600 }}>Profile</h2>
+      <div style={sectionStyle}>
+        <h2 style={{ margin: `0 0 ${spacing[4]}`, fontSize: fontSize.base, fontWeight: 600, color: C.gray[900] }}>Profile</h2>
         <form onSubmit={saveProfile}>
-          <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>Name</label>
-          <input
-            style={inputStyle}
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Your name"
-          />
-          <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>Email</label>
-          <input
-            style={inputStyle}
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="you@example.com"
-          />
-          <button
-            type="submit"
-            disabled={saving}
-            style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer' }}
-          >
+          <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>Name</label>
+          <input style={inputStyle} value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
+          <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>Email</label>
+          <input style={inputStyle} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+          <button type="submit" disabled={saving} style={btn.primary}>
             {saving ? 'Saving…' : 'Save profile'}
           </button>
         </form>
       </div>
 
-      {/* Change password */}
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 20, marginBottom: 20 }}>
-        <h2 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 600 }}>Change password</h2>
+      {/* Change Password */}
+      <div style={sectionStyle}>
+        <h2 style={{ margin: `0 0 ${spacing[4]}`, fontSize: fontSize.base, fontWeight: 600, color: C.gray[900] }}>Change Password</h2>
         <form onSubmit={changePassword}>
-          <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>Current password</label>
-          <input
-            style={inputStyle}
-            type="password"
-            value={currentPw}
-            onChange={e => setCurrentPw(e.target.value)}
-            placeholder="Current password"
-          />
-          <label style={{ fontSize: 13, fontWeight: 600, color: '#374151', display: 'block', marginBottom: 4 }}>New password</label>
-          <input
-            style={inputStyle}
-            type="password"
-            value={newPw}
-            onChange={e => setNewPw(e.target.value)}
-            placeholder="New password (8+ chars)"
-          />
-          <button
-            type="submit"
-            disabled={saving}
-            style={{ padding: '8px 16px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer' }}
-          >
-            {saving ? 'Saving…' : 'Change password'}
+          <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>Current password</label>
+          <input style={inputStyle} type="password" value={currentPw} onChange={e => setCurrentPw(e.target.value)} placeholder="••••••••" />
+          <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>New password</label>
+          <input style={inputStyle} type="password" value={newPw} onChange={e => setNewPw(e.target.value)} placeholder="Min 8 characters" />
+          <button type="submit" disabled={saving} style={btn.outline}>
+            {saving ? 'Changing…' : 'Change password'}
           </button>
         </form>
       </div>
 
       {/* Danger zone */}
-      <div style={{ background: '#fff', border: '1px solid #fca5a5', borderRadius: 8, padding: 20 }}>
-        <h2 style={{ margin: '0 0 10px', fontSize: 15, fontWeight: 600, color: '#991b1b' }}>Danger zone</h2>
-        <p style={{ margin: '0 0 12px', fontSize: 13, color: '#6b7280' }}>
-          Sign out of your account on this device.
+      <div style={{ ...sectionStyle, border: `1px solid ${C.danger.border}` }}>
+        <h2 style={{ margin: `0 0 ${spacing[3]}`, fontSize: fontSize.base, fontWeight: 600, color: C.danger.text }}>Danger Zone</h2>
+        <p style={{ margin: `0 0 ${spacing[3]}`, fontSize: fontSize.sm, color: C.gray[500] }}>
+          Signing out will clear your session from this device.
         </p>
-        <button
-          onClick={logout}
-          style={{
-            padding: '8px 16px', background: '#fff', color: '#dc2626',
-            border: '1px solid #dc2626', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer',
-          }}
-        >
-          Sign out
-        </button>
+        <button onClick={logout} style={btn.danger}>Sign out</button>
       </div>
     </div>
   )
