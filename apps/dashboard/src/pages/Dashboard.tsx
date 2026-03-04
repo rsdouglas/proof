@@ -128,7 +128,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{stats !== null && stats.total_testimonials === 0 && stats.total_widgets === 0 ? 'Welcome' : 'Welcome back'}, {account?.name?.split(' ')[0]} 👋</h1>
+      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{stats !== null && stats.total_testimonials === 0 ? 'Welcome' : 'Welcome back'}, {account?.name} 👋</h1>
       <p style={{ margin: '0 0 32px', color: '#6b7280' }}>Here's your social proof at a glance.</p>
 
       {stats && <GettingStarted stats={stats} />}

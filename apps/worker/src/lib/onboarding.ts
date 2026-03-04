@@ -6,7 +6,7 @@
  * Copy: docs/onboarding-emails.md
  */
 
-const FROM = 'Vouch <team@socialproof.dev>'
+const FROM = 'Vouch <hello@socialproof.dev>'
 const COLLECT_BASE = 'https://collect.socialproof.dev/c'
 const DASH = 'https://app.socialproof.dev'
 
