@@ -237,7 +237,7 @@ export default function WidgetDetail() {
   if (loading) return <div style={{ padding: 40, color: '#6b7280' }}>Loading…</div>
   if (!widget) return <div style={{ padding: 40 }}><Link to="/widgets">← Back to widgets</Link> — Widget not found.</div>
 
-  const WIDGET_URL = `https://cdn.socialproof.dev`
+  const WIDGET_URL = `https://widget.socialproof.dev/v1`
   const isPopup = layout === 'popup'
   const embedCode = isPopup
     ? `<!-- Vouch activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`

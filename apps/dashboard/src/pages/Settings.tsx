@@ -155,7 +155,7 @@ export default function Settings() {
         ) : (
           <div>
             <div style={{ background: '#fafafa', border: '1px solid #e5e7eb', borderRadius: 6, padding: '12px 16px', marginBottom: 14 }}>
-              <p style={{ margin: '0 0 8px', fontWeight: 600, fontSize: 13 }}>Pro plan — $29/month</p>
+              <p style={{ margin: '0 0 8px', fontWeight: 600, fontSize: 13 }}>Pro plan — $9/month</p>
               <ul style={{ margin: 0, paddingLeft: 16, color: '#374151', fontSize: 13, lineHeight: 1.8 }}>
                 <li>Unlimited widgets</li>
                 <li>Unlimited testimonials</li>
@@ -172,7 +172,7 @@ export default function Settings() {
                 cursor: 'pointer', fontFamily: 'inherit',
               }}
             >
-              {billingLoading ? 'Loading…' : '⚡ Upgrade to Pro — $29/mo'}
+              {billingLoading ? 'Loading…' : '⚡ Upgrade to Pro — $9/mo'}
             </button>
           </div>
         )}
