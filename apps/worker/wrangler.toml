@@ -14,6 +14,9 @@ migrations_dir = "migrations"
 binding = "WIDGET_KV"
 id = "731e18288e9e4de091e01e0a5d6d3cc4"
 
+# Resend email secret - set via: wrangler secret put RESEND_API_KEY --name vouch-worker
+# Required for all email (transactional + drip). See: https://github.com/rsdouglas/proof/issues/94
+
 # Stripe secrets - set via: wrangler secret put STRIPE_SECRET_KEY
 # Required: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRO_PRICE_ID
 
