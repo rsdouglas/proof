@@ -1,12 +1,149 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useApi, useAuth } from '../lib/auth'
+
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.socialproof.dev'
 
 interface Stats {
   total_testimonials: number
   approved: number
   pending: number
   total_widgets: number
+}
+
+interface ZeroStateBannerProps {
+  collectUrl: string
+}
+
+function ZeroStateBanner({ collectUrl }: ZeroStateBannerProps) {
+  const [copied, setCopied] = useState(false)
+
+  function copyLink() {
+    navigator.clipboard.writeText(collectUrl).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    })
+  }
+
+  const steps = [
+    { label: 'Share your link', done: false },
+    { label: 'Get first testimonial', done: false },
+    { label: 'Approve it', done: false },
+    { label: 'Embed widget', done: false },
+  ]
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%)',
+      border: '1.5px solid #bfdbfe',
+      borderRadius: 12,
+      padding: '28px 32px',
+      marginBottom: 32,
+    }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div>
+          <h2 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700, color: '#1e3a8a' }}>
+            🚀 You're one link away from your first testimonial
+          </h2>
+          <p style={{ margin: 0, fontSize: 14, color: '#3b82f6' }}>
+            Send this link to your customers — they fill a short form, you approve it, done.
+          </p>
+        </div>
+      </div>
+
+      {/* Collection URL — the main action */}
+      <div style={{
+        display: 'flex', gap: 10, alignItems: 'center',
+        background: '#fff',
+        border: '1px solid #93c5fd',
+        borderRadius: 8,
+        padding: '12px 16px',
+        marginBottom: 20,
+        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+      }}>
+        <span style={{
+          flex: 1,
+          fontSize: 14,
+          color: '#1d4ed8',
+          fontFamily: 'monospace',
+          wordBreak: 'break-all',
+          fontWeight: 500,
+        }}>
+          {collectUrl}
+        </span>
+        <button
+          onClick={copyLink}
+          style={{
+            padding: '9px 20px',
+            background: copied ? '#16a34a' : '#2563eb',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            fontWeight: 700,
+            fontSize: 14,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+            transition: 'background 0.2s',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          {copied ? '✓ Copied!' : 'Copy link'}
+        </button>
+      </div>
+
+      {/* Progress steps */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+        {steps.map((step, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
+              <div style={{
+                width: 28, height: 28,
+                borderRadius: '50%',
+                background: step.done ? '#16a34a' : '#e0e7ff',
+                border: `2px solid ${step.done ? '#16a34a' : '#93c5fd'}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 12, color: step.done ? '#fff' : '#6b7280',
+                fontWeight: 700,
+                marginBottom: 6,
+              }}>
+                {step.done ? '✓' : i + 1}
+              </div>
+              <span style={{ fontSize: 11, color: '#6b7280', fontWeight: 500, textAlign: 'center', lineHeight: 1.3 }}>
+                {step.label}
+              </span>
+            </div>
+            {i < steps.length - 1 && (
+              <div style={{
+                height: 2,
+                width: 32,
+                background: '#c7d2fe',
+                marginBottom: 22,
+                flexShrink: 0,
+              }} />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Secondary link */}
+      <div style={{ marginTop: 16, textAlign: 'center' }}>
+        <a
+          href={collectUrl}
+          target="_blank"
+          rel="noreferrer"
+          style={{ fontSize: 12, color: '#6b7280', textDecoration: 'none' }}
+        >
+          Preview form ↗
+        </a>
+        <span style={{ color: '#d1d5db', margin: '0 8px' }}>·</span>
+        <Link to="/collect" style={{ fontSize: 12, color: '#6b7280', textDecoration: 'none' }}>
+          More options →
+        </Link>
+      </div>
+    </div>
+  )
 }
 
 function GettingStarted({ stats }: { stats: Stats }) {
@@ -33,7 +170,7 @@ function GettingStarted({ stats }: { stats: Stats }) {
       action: stats.total_testimonials > 0 ? { to: '/testimonials', label: 'Review testimonials →' } : null,
     },
     {
-      done: false, // Can't check embed status client-side
+      done: false,
       icon: '🌐',
       title: 'Add a widget to your site (optional)',
       desc: 'Display approved testimonials on your website. Create a widget and paste the embed code.',
@@ -43,7 +180,7 @@ function GettingStarted({ stats }: { stats: Stats }) {
 
   const completedCount = steps.filter(s => s.done).length
 
-  if (completedCount >= 3) return null // Hide once most steps done
+  if (completedCount >= 3) return null
 
   return (
     <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 10, padding: 24, marginBottom: 32 }}>
@@ -96,28 +233,32 @@ export default function Dashboard() {
   const { request } = useApi()
   const [stats, setStats] = useState<Stats | null>(null)
   const [recent, setRecent] = useState<Array<{ id: string; display_name: string; display_text: string; status: string }>>([])
+  const [collectFormId, setCollectFormId] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const [tData, wData] = await Promise.all([
-          request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
-          request('/widgets') as Promise<{ widgets: unknown[] }>,
-        ])
-        const ts = tData.testimonials
-        setRecent(ts.slice(0, 5))
-        setStats({
-          total_testimonials: ts.length,
-          approved: ts.filter(t => t.status === 'approved').length,
-          pending: ts.filter(t => t.status === 'pending').length,
-          total_widgets: wData.widgets.length,
-        })
-      } catch (e) {
-        console.error(e)
+  const load = useCallback(async () => {
+    try {
+      const [tData, wData, fData] = await Promise.all([
+        request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
+        request('/widgets') as Promise<{ widgets: unknown[] }>,
+        request('/collection-forms') as Promise<{ forms: Array<{ id: string }> }>,
+      ])
+      const ts = tData.testimonials
+      setRecent(ts.slice(0, 5))
+      setStats({
+        total_testimonials: ts.length,
+        approved: ts.filter(t => t.status === 'approved').length,
+        pending: ts.filter(t => t.status === 'pending').length,
+        total_widgets: wData.widgets.length,
+      })
+      if (fData.forms?.[0]) {
+        setCollectFormId(fData.forms[0].id)
       }
+    } catch (e) {
+      console.error(e)
     }
-    load()
   }, [])
+
+  useEffect(() => { load() }, [load])
 
   const statCards = [
     { label: 'Total testimonials', value: stats !== null ? stats.total_testimonials : '—', color: '#2563eb' },
@@ -126,12 +267,25 @@ export default function Dashboard() {
     { label: 'Widgets deployed', value: stats !== null ? stats.total_widgets : '—', color: '#8b5cf6' },
   ]
 
+  const isZeroState = stats !== null && stats.total_testimonials === 0
+  const collectUrl = collectFormId ? `${API_URL}/submit/${collectFormId}` : ''
+
   return (
     <div>
-      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{stats !== null && stats.total_testimonials === 0 ? 'Welcome' : 'Welcome back'}, {account?.name} 👋</h1>
-      <p style={{ margin: '0 0 32px', color: '#6b7280' }}>Here's your social proof at a glance.</p>
+      <h1 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>
+        {isZeroState ? 'Welcome' : 'Welcome back'}, {account?.name} 👋
+      </h1>
+      <p style={{ margin: '0 0 32px', color: '#6b7280' }}>
+        {isZeroState ? 'Let\'s collect your first testimonial.' : 'Here\'s your social proof at a glance.'}
+      </p>
 
-      {stats && <GettingStarted stats={stats} />}
+      {/* Zero-state: show big prominent banner with collection URL */}
+      {isZeroState && collectUrl && (
+        <ZeroStateBanner collectUrl={collectUrl} />
+      )}
+
+      {/* Non-zero-state or loading: show getting started checklist */}
+      {stats && !isZeroState && <GettingStarted stats={stats} />}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 32 }}>
         {statCards.map(s => (
@@ -164,19 +318,25 @@ export default function Dashboard() {
         </div>
         {recent.length === 0 && (
           <p style={{ color: '#9ca3af', background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 24, textAlign: 'center' }}>
-            No testimonials yet. <Link to="/collect" style={{ color: '#2563eb' }}>Share your collection form</Link> to get started.
+            No testimonials yet. <Link to="/collect" style={{ color: '#2563eb' }}>Share your collection link</Link> to get started.
           </p>
         )}
         {recent.map(t => (
-          <div key={t.id} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, marginBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div key={t.id} style={{
+            background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8,
+            padding: '14px 18px', marginBottom: 8,
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}>
             <div>
-              <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 4 }}>{t.display_name}</div>
-              <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.5 }}>"{t.display_text}"</div>
+              <div style={{ fontWeight: 600, marginBottom: 2 }}>{t.display_name}</div>
+              <div style={{ fontSize: 13, color: '#6b7280', maxWidth: 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {t.display_text}
+              </div>
             </div>
             <span style={{
-              fontSize: 11, fontWeight: 600, padding: '3px 8px', borderRadius: 4, marginLeft: 12, whiteSpace: 'nowrap',
-              background: t.status === 'approved' ? '#dcfce7' : t.status === 'rejected' ? '#fee2e2' : '#fef3c7',
-              color: t.status === 'approved' ? '#166534' : t.status === 'rejected' ? '#991b1b' : '#92400e',
+              fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 99,
+              background: t.status === 'approved' ? '#dcfce7' : '#fef9c3',
+              color: t.status === 'approved' ? '#15803d' : '#a16207',
             }}>
               {t.status}
             </span>
