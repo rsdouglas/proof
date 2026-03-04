@@ -8,7 +8,7 @@ These are one of the highest-converting social proof elements — they create ur
 
 ## Pro plan feature
 
-Activity popups are available on the **Pro plan** ($7/month).
+Activity popups are available on the **Pro plan** ($9/month).
 
 ## How they work
 
