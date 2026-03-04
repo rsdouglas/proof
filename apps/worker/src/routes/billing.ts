@@ -73,6 +73,7 @@ billing.post('/checkout', async (c) => {
     'line_items[0][quantity]': '1',
     success_url: `${origin}/dashboard/settings?upgraded=1`,
     cancel_url: `${origin}/dashboard/settings?canceled=1`,
+    'metadata[account_id]': accountId,
     'subscription_data[metadata][account_id]': accountId,
     allow_promotion_codes: 'true',
   })
