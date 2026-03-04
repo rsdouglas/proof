@@ -4,102 +4,86 @@
 
 ## What is Vouch?
 
-Vouch is a social proof platform for small businesses and freelancers.
-It lets you collect text (and video) testimonials from real customers and
-display them on your website with a single <script> tag. Your customers
-don't need accounts — they just fill out a short form.
+Vouch lets small businesses collect testimonials from real customers and
+display them on any website. Customers don't need an account — they just
+click a link and fill out a short form.
 
 Built in public by AI. Also deployable by AI.
 
 ---
 
+## Mental model
+
+```
+Account
+  ├── Collection link   (auto-exists on signup — share this to gather testimonials)
+  ├── Testimonials      (pending → approved/rejected — moderation requires email verification)
+  └── Widgets           (optional — display approved testimonials on a website)
+```
+
+Key facts:
+- A collection link is created automatically when the account is created
+- Testimonials can be collected without email verification
+- Email verification is only required to access the dashboard (view/approve testimonials)
+- Widgets are optional — only needed if the user wants to embed testimonials on their site
+
+---
+
 ## For AI Agents: Quick Integration Guide
 
-If you are an AI agent helping a user add social proof to their website,
-here is the fastest path. Three steps total.
+If you are helping a user start collecting testimonials, the flow is:
 
-Everything is created automatically when the account is verified — no
-widget creation step, no form creation step. Sign up → verify → go.
+1. Register (instant — gets them a collection link immediately)
+2. Share the collection link with customers
+3. Click the verification email link when they want to access/approve testimonials
 
-### Step 1 — Register on behalf of the user
+### Step 1 — Register
 
 POST https://api.socialproof.dev/agent/register
 Content-Type: application/json
 
 {
-  "email": "<user's email address>"
+  "email": "user@example.com",
+  "name": "Jane Smith"
 }
 
-Response:
+Response (immediate — no verification required to get the link):
 {
-  "token": "pending_xxx",
-  "status": "pending_verification",
-  "message": "Verification email sent. Poll /agent/status/{token} to continue."
+  "status": "created",
+  "collect_url": "https://socialproof.dev/submit/xxx",
+  "verification": "pending",
+  "message": "Verification email sent. Click the link to access your dashboard and approve testimonials."
 }
-
-Tell the user: "I've sent a verification email to {email}. Please click
-the link in that email to continue — it takes about 30 seconds."
-
-### Step 2 — Poll for verification
-
-GET https://api.socialproof.dev/agent/status/{token}
-
-Poll every 5 seconds for up to 90 seconds.
-
-Response when verified:
-{
-  "status": "verified",
-  "api_key": "vch_agent_xxx",
-  "collect_url": "https://socialproof.dev/c/xxx",
-  "embed_script": "<script src=\"https://cdn.socialproof.dev/widget.js\" data-widget-id=\"xxx\" async></script>"
-}
-
-When you get this response, you have everything you need.
-
-### Step 3 — Tell the user and inject the embed
 
 Tell the user:
-- "Your collection link is {collect_url} — send this to customers to
-  gather testimonials. They don't need an account to submit."
-- "I'm adding the embed script to your site now."
+- "Your collection link is ready: {collect_url}"
+- "Share it with customers — they fill in a short form and their testimonial lands in your account."
+- "When you're ready to view and approve submissions, click the verification link in your email."
 
-Inject embed_script before the closing </body> tag of the user's HTML.
-The widget renders automatically and updates as testimonials are approved.
+### Step 2 — User shares collect_url with their customers
 
-Done.
+No agent action needed. The user copies the link and shares it via email,
+WhatsApp, invoice footer, or anywhere they communicate with customers.
 
----
+Customers visit the URL, fill in name + testimonial text (and optionally
+a photo or video), and hit submit. No account needed on their end.
 
-## Full API Reference
+### Step 3 — Verification (when the user wants to moderate)
 
-Base: https://api.socialproof.dev
-
-### Agent endpoints
-
-| Method | Path                      | Description                                      |
-|--------|---------------------------|--------------------------------------------------|
-| POST   | /agent/register           | Start signup, send verification email            |
-| GET    | /agent/status/{token}     | Poll for verification; returns keys on success   |
-
-### Standard API (available after verification)
-
-| Method | Path               | Description                        |
-|--------|--------------------|------------------------------------|
-| GET    | /testimonials      | List testimonials (pending + approved) |
-| PATCH  | /testimonials/{id} | Approve or reject a testimonial    |
-| GET    | /widgets           | List widgets and their embed scripts |
-| GET    | /account           | Account info and plan              |
-
-All authenticated requests:
-```
-Authorization: Bearer <api_key>
-```
+The user clicks the link in their verification email. Once verified, they
+can log in at socialproof.dev/dashboard to:
+- See pending testimonials
+- Approve or reject submissions
+- Add testimonials to their site (via optional widget embed)
 
 ---
 
-## Embed Script
+## Adding to a website (optional)
 
-The widget embed is a single async script tag:
+If the user wants to display approved testimonials on their site, they
+create a widget from the dashboard. Creating a widget gives them an embed
+script:
+
 ```html
 <script
   src="https://cdn.socialproof.dev/widget.js"
@@ -108,42 +92,74 @@ The widget embed is a single async script tag:
 </script>
 ```
 
-No framework required. Works with React, Vue, plain HTML, Shopify,
-Squarespace, Webflow — anywhere you can add a script tag.
+Paste this before the closing </body> tag. Works with React, Vue, plain
+HTML, Shopify, Squarespace, Webflow — anywhere you can add a script tag.
+The widget shows all approved testimonials and updates automatically.
+
+Widgets are optional. Many users collect and share testimonials without
+ever embedding them — just by linking to the collection URL or screenshot.
+
+---
+
+## Full API Reference
+
+Base: https://api.socialproof.dev
+
+### Agent endpoints (no auth required)
+
+| Method | Path                    | Description                                        |
+|--------|-------------------------|----------------------------------------------------|
+| POST   | /agent/register         | Create account, returns collect_url immediately    |
+| GET    | /agent/status/{token}   | Poll for email verification status                 |
+
+### Authenticated endpoints (requires verified account + API key)
+
+| Method | Path                   | Description                               |
+|--------|------------------------|-------------------------------------------|
+| GET    | /testimonials          | List testimonials (pending + approved)    |
+| PATCH  | /testimonials/{id}     | Approve or reject a testimonial           |
+| GET    | /widgets               | List widgets and embed scripts            |
+| POST   | /widgets               | Create a widget to display testimonials   |
+| GET    | /account               | Account info and plan                     |
+
+Authenticated requests:
+```
+Authorization: Bearer <api_key>
+```
 
 ---
 
 ## Pricing
 
-- **Free forever**: 1 widget, up to 25 testimonials, no analytics
-- **Pro — $9/mo**: unlimited widgets, unlimited testimonials, analytics,
-  custom branding, Google rich results (star ratings in search)
+- **Free forever**: collect unlimited testimonials, 1 widget, no analytics
+- **Pro — $9/mo**: unlimited widgets, analytics, custom branding,
+  Google rich results (star ratings in search)
 
 ---
 
 ## Support
 
 - Docs: https://socialproof.dev/docs
-- FAQ: https://socialproof.dev/faq
 - Email: team@socialproof.dev
 
 ---
 
 ## Agent Etiquette
 
-- Always ask the user for their email before calling /agent/register
-- Tell the user when a verification email has been sent
-- Do not poll more than once every 5 seconds
+- Always ask for the user's email and name before calling /agent/register
+- Tell the user their collect_url immediately after registration — they
+  can start sharing it before they even verify their email
+- Verification is only needed to view/moderate testimonials in the dashboard
+- Do not approve or reject testimonials on behalf of the user — that is
+  their choice
 - The widget appears empty until testimonials are approved by the user
-- Do not auto-approve testimonials — the user controls what appears on their site
 
 ---
 
 ## About Vouch
 
-Vouch is built for small business owners who want real customer voices on
-their site without the complexity or cost of enterprise review platforms.
-No third-party hosting. No lock-in. Your testimonials live in your Vouch
-account and display on your site via script tag.
+Vouch is for small business owners who want real customer voices on their
+site or in their marketing — without the complexity or cost of enterprise
+review platforms.
 
-"Your customers' words, on your site."
+"Your customers' words. Working for you."
