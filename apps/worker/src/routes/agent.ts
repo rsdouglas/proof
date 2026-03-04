@@ -13,7 +13,7 @@ import { checkRateLimit } from '../lib/ratelimit'
 export const agent = new Hono<{ Bindings: Env }>()
 
 const COLLECT_BASE = 'https://socialproof.dev/c'
-const CDN_BASE = 'https://cdn.socialproof.dev'
+const CDN_BASE = 'https://widget.socialproof.dev/v1'
 const DASH_URL = 'https://app.socialproof.dev'
 
 function prefixedId(prefix: string): string {
