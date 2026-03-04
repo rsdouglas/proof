@@ -260,7 +260,7 @@
     <a href="#pricing">Pricing</a>
     <a href="/blog">Blog</a>
     <a href="https://app.socialproof.dev">Log in</a>
-    <a class="btn btn-primary" href="https://app.socialproof.dev/register">Start for free</a>
+    <a class="btn btn-primary" href="#waitlist">Join waitlist</a>
   </div>
 </nav>
 
@@ -270,7 +270,7 @@
   <h1>Turn happy customers into your <em>best marketing</em></h1>
   <p>Collect testimonials, approve them, and display them anywhere — your website, Webflow, Framer, Squarespace, or plain HTML.</p>
   <div class="hero-cta">
-    <a class="btn btn-primary btn-large" href="https://app.socialproof.dev/register">Start for free</a>
+    <a class="btn btn-primary btn-large" href="#waitlist">Join the waitlist →</a>
     <a class="btn btn-outline btn-large" href="#how-it-works">See how it works</a>
   </div>
 
@@ -376,7 +376,7 @@
   </div>
 
   <div style="text-align:center; margin-top: 40px;">
-    <a class="btn btn-primary btn-large" href="https://app.socialproof.dev/register">Get your widget free →</a>
+    <a class="btn btn-primary btn-large" href="#waitlist">Join the waitlist →</a>
   </div>
 </section>
 
@@ -440,7 +440,7 @@
         <li class="muted">Email notifications</li>
         <li class="muted">Unlimited testimonials</li>
       </ul>
-      <a class="btn btn-outline w-full" href="https://app.socialproof.dev/register">Get started free</a>
+      <a class="btn btn-outline w-full" href="#waitlist">Join waitlist</a>
     </div>
     <div class="pricing-card featured">
       <div class="featured-badge">Most popular</div>
@@ -456,16 +456,32 @@
         <li>Email notifications</li>
         <li>Priority support</li>
       </ul>
-      <a class="btn btn-primary w-full" href="https://app.socialproof.dev/register">Start Pro — $9/mo</a>
+      <a class="btn btn-primary w-full" href="#waitlist">Join waitlist</a>
     </div>
   </div>
 </section>
 
-<!-- CTA BANNER -->
-<section class="cta-banner">
-  <h2>Your first widget is 5 minutes away</h2>
-  <p>No credit card. No developer. No nonsense.</p>
-  <a class="btn btn-primary btn-large" href="https://app.socialproof.dev/register">Start for free →</a>
+<!-- WAITLIST SECTION -->
+<section class="cta-banner" id="waitlist">
+  <h2>Be first to know when we launch</h2>
+  <p>Vouch is in private beta. Join the waitlist and we'll reach out when your spot is ready.</p>
+  <div class="waitlist-form-wrap">
+    <form class="waitlist-form" id="waitlistForm" onsubmit="submitWaitlist(event)">
+      <input
+        class="waitlist-input"
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button class="btn btn-primary btn-large" type="submit">
+        <span class="btn-label">Notify me →</span>
+      </button>
+    </form>
+    <p class="waitlist-msg" id="waitlistMsg" style="display:none"></p>
+    <p class="waitlist-note">No spam. Unsubscribe anytime.</p>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -644,6 +660,48 @@
     renderDemo();
   });
 })();
+
+
+// ── WAITLIST FORM ─────────────────────────────────────────────────────────────
+async function submitWaitlist(e) {
+  e.preventDefault();
+  var form = document.getElementById('waitlistForm');
+  var msg = document.getElementById('waitlistMsg');
+  var email = form.querySelector('input[name="email"]').value.trim();
+  var btn = form.querySelector('button');
+  var label = btn.querySelector('.btn-label');
+
+  label.textContent = 'Submitting…';
+  btn.disabled = true;
+  form.style.display = 'none';
+
+  try {
+    var res = await fetch('https://api.socialproof.dev/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, source: 'landing' })
+    });
+    var data = await res.json();
+    msg.style.display = 'block';
+    if (data.ok && !data.already) {
+      msg.className = 'waitlist-msg success';
+      msg.textContent = "🎉 You're on the list! We'll email you when your spot is ready.";
+    } else if (data.ok && data.already) {
+      msg.className = 'waitlist-msg already';
+      msg.textContent = "✓ You're already on the list — we'll be in touch soon!";
+    } else {
+      throw new Error(data.error || 'Something went wrong');
+    }
+  } catch (err) {
+    form.style.display = 'flex';
+    label.textContent = 'Notify me →';
+    btn.disabled = false;
+    msg.style.display = 'block';
+    msg.className = 'waitlist-msg error';
+    msg.textContent = '⚠ ' + (err.message || 'Something went wrong. Try again?');
+  }
+}
+
 </script>
 
 </body>
