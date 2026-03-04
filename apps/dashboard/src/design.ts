@@ -126,3 +126,79 @@ export const card = {
   boxShadow: shadow.sm,
   padding: '24px',
 } as const
+
+// Ergonomic aliases for quick adoption
+export const spacing = {
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px',
+  5: '20px',
+  6: '24px',
+  7: '28px',
+  8: '32px',
+  10: '40px',
+  12: '48px',
+} as const
+
+export const fontSize = {
+  xs: '11px',
+  sm: '13px',
+  base: '14px',
+  md: '15px',
+  lg: '18px',
+  xl: '20px',
+  xxl: '28px',
+} as const
+
+// Nested color map (C.gray[500], C.brand[600], etc.)
+export const C = {
+  gray: {
+    50: '#f9fafb',
+    100: '#f3f4f6',
+    200: '#e5e7eb',
+    300: '#d1d5db',
+    400: '#9ca3af',
+    500: '#6b7280',
+    600: '#4b5563',
+    700: '#374151',
+    800: '#1f2937',
+    900: '#111827',
+  },
+  brand: {
+    50: '#eef2ff',
+    100: '#e0e7ff',
+    200: '#c7d2fe',
+    400: '#818cf8',
+    500: '#6366f1',
+    600: '#4f46e5',
+    700: '#4338ca',
+    800: '#3730a3',
+  },
+  success: {
+    bg: '#f0fdf4',
+    text: '#166534',
+    border: '#bbf7d0',
+  },
+  danger: {
+    bg: '#fef2f2',
+    text: '#991b1b',
+    border: '#fecaca',
+  },
+  warning: {
+    bg: '#fffbeb',
+    text: '#92400e',
+    border: '#fde68a',
+  },
+} as const
+
+// Input style token
+export const input: Record<string, string | number> = {
+  padding: '8px 12px',
+  border: `1px solid #e5e7eb`,
+  borderRadius: '8px',
+  fontSize: 13,
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif',
+  outline: 'none',
+  boxSizing: 'border-box',
+} as const

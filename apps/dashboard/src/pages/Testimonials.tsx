@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useApi, API_URL, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import UpgradeModal from '../components/UpgradeModal'
-import { colors, font, shadow, radius, card, btn } from '../design'
+import { colors, font, shadow, radius, card, btn, C, spacing, fontSize } from '../design'
 import { CheckCircle2, XCircle, Trash2, Download, Mail, Plus, Star } from 'lucide-react'
 
 interface Testimonial {

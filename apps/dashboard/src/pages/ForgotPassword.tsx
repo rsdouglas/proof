@@ -1,88 +1,126 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../lib/auth'
+import { C, spacing, radius, btn, fontSize } from '../design'
+
+const API = import.meta.env.VITE_API_URL || ''
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
-  const [error, setError] = useState('')
-
-  const inputStyle: React.CSSProperties = {
-    display: 'block', width: '100%', padding: '10px 12px',
-    border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 12,
-    fontSize: 14, boxSizing: 'border-box', outline: 'none',
-    fontFamily: 'inherit',
-  }
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setError('')
     setLoading(true)
+    setError(null)
     try {
-      const res = await fetch(`${API_URL}/api/auth/forgot-password`, {
+      const res = await fetch(`${API}/api/auth/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      const data = await res.json() as { ok?: boolean; error?: string }
-      if (!res.ok) throw new Error(data.error || 'Something went wrong')
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({ error: 'Request failed' }))
+        throw new Error(d.error || 'Request failed')
+      }
       setSent(true)
-    } catch (err) {
-      setError((err as Error).message)
+    } catch (e) {
+      setError((e as Error).message)
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f9fafb', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif' }}>
-      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: 40, width: '100%', maxWidth: 380 }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>✓</div>
-          <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: '#111827' }}>Vouch</h1>
-          <p style={{ margin: '4px 0 0', color: '#6b7280', fontSize: 14 }}>Reset your password</p>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: C.gray[50],
+      padding: spacing[4],
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 400,
+        background: '#fff',
+        borderRadius: radius.xl,
+        padding: `${spacing[8]} ${spacing[7]}`,
+        boxShadow: '0 4px 24px rgba(0,0,0,0.07)',
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: spacing[7] }}>
+          <div style={{
+            width: 44, height: 44,
+            background: `linear-gradient(135deg, ${C.brand[500]}, ${C.brand[700]})`,
+            borderRadius: radius.lg,
+            margin: `0 auto ${spacing[4]}`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <span style={{ color: '#fff', fontSize: 20, fontWeight: 700 }}>V</span>
+          </div>
+          <h1 style={{ margin: 0, fontSize: fontSize.lg, fontWeight: 700, color: C.gray[900] }}>Reset your password</h1>
+          <p style={{ margin: `${spacing[2]} 0 0`, fontSize: fontSize.sm, color: C.gray[500] }}>
+            Enter your email and we'll send a reset link.
+          </p>
         </div>
 
         {sent ? (
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>📬</div>
-            <p style={{ color: '#374151', fontSize: 15, lineHeight: 1.6, marginBottom: 24 }}>
-              Check your inbox — if that email is in our system, we sent you a reset link. It expires in 1 hour.
-            </p>
-            <Link to="/login" style={{ color: '#2563eb', fontSize: 14, textDecoration: 'none' }}>
-              ← Back to sign in
-            </Link>
+          <div style={{
+            padding: `${spacing[4]} ${spacing[5]}`,
+            background: C.success.bg,
+            border: `1px solid ${C.success.border}`,
+            borderRadius: radius.md,
+            color: C.success.text,
+            fontSize: fontSize.sm,
+            textAlign: 'center',
+          }}>
+            ✓ If that email is in our system, you'll receive a reset link shortly.
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 20 }}>
-              Enter your email and we'll send you a link to reset your password.
-            </p>
-            <input
-              type="email" value={email} onChange={e => setEmail(e.target.value)}
-              placeholder="Email address" required style={inputStyle}
-            />
-
             {error && (
-              <p style={{ color: '#ef4444', fontSize: 13, margin: '-4px 0 12px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 4, padding: '8px 10px' }}>
+              <div style={{
+                padding: `${spacing[3]} ${spacing[4]}`,
+                background: C.danger.bg,
+                border: `1px solid ${C.danger.border}`,
+                borderRadius: radius.md,
+                color: C.danger.text,
+                fontSize: fontSize.sm,
+                marginBottom: spacing[4],
+              }}>
                 {error}
-              </p>
+              </div>
             )}
-
-            <button type="submit" disabled={loading} style={{
-              display: 'block', width: '100%', padding: '11px', background: '#2563eb', color: '#fff',
-              border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer',
-              opacity: loading ? 0.7 : 1, fontFamily: 'inherit',
-            }}>
+            <label style={{ fontSize: fontSize.sm, fontWeight: 600, color: C.gray[700], display: 'block', marginBottom: spacing[1] }}>
+              Email address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              style={{
+                width: '100%',
+                padding: `${spacing[3]} ${spacing[4]}`,
+                border: `1px solid ${C.gray[200]}`,
+                borderRadius: radius.md,
+                fontSize: fontSize.sm,
+                outline: 'none',
+                boxSizing: 'border-box',
+                marginBottom: spacing[4],
+              }}
+            />
+            <button type="submit" disabled={loading} style={{ ...btn.primary, width: '100%', justifyContent: 'center' }}>
               {loading ? 'Sending…' : 'Send reset link'}
             </button>
-
-            <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: '#6b7280' }}>
-              Remember it? <Link to="/login" style={{ color: '#2563eb', fontWeight: 500, textDecoration: 'none' }}>Sign in</Link>
-            </p>
           </form>
         )}
+
+        <p style={{ textAlign: 'center', marginTop: spacing[5], fontSize: fontSize.sm, color: C.gray[500] }}>
+          <Link to="/login" style={{ color: C.brand[600], textDecoration: 'none', fontWeight: 600 }}>← Back to sign in</Link>
+        </p>
       </div>
     </div>
   )

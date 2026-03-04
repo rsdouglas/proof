@@ -4,7 +4,7 @@ import { useApi, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import { Toast } from '../components/Toast'
 import UpgradeModal from '../components/UpgradeModal'
-import { colors, font, radius, shadow, btn } from '../design'
+import { colors, font, radius, shadow, btn, C, spacing, fontSize } from '../design'
 import { Plus, LayoutGrid } from 'lucide-react'
 
 interface Widget {
