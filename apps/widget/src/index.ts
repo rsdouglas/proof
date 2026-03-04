@@ -41,6 +41,15 @@ app.get('/v1/proof.js', async (c) => {
   })
 })
 
+// Canonical URL: widget.js (proof.js kept for backward compat)
+app.get('/v1/widget.js', async (c) => {
+  const widgetJs = getWidgetScript()
+  return c.text(widgetJs, 200, {
+    'Content-Type': 'application/javascript; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600',
+  })
+})
+
 // Serve widget data as JSON
 app.get('/v1/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
@@ -73,6 +82,35 @@ app.get('/v1/:widgetId', async (c) => {
     })
   } catch (err) {
     return c.json({ error: 'Failed to load widget' }, 500)
+  }
+})
+
+// Serve popup widget data (subset of full widget: testimonials for notification display)
+app.get('/v1/:widgetId/popup', async (c) => {
+  const widgetId = c.req.param('widgetId')
+
+  const cacheKey = `widget-popup:${widgetId}`
+  const cached = await c.env.WIDGET_KV.get(cacheKey, 'json')
+  if (cached) {
+    return c.json(cached, 200, { 'Cache-Control': 's-maxage=60, public', 'X-Cache': 'HIT' })
+  }
+
+  try {
+    const apiUrl = `${c.env.WORKER_API_URL}/w/${widgetId}`
+    const res = await fetch(apiUrl)
+    if (!res.ok) return c.json({ error: 'Widget not found' }, 404)
+    const data = await res.json() as WidgetData
+
+    // For popup: return last 10 testimonials + config
+    const popupData = {
+      testimonials: (data.testimonials || []).slice(0, 10),
+      config: data.config,
+    }
+
+    await c.env.WIDGET_KV.put(cacheKey, JSON.stringify(popupData), { expirationTtl: 60 })
+    return c.json(popupData, 200, { 'Cache-Control': 's-maxage=60, public', 'X-Cache': 'MISS' })
+  } catch {
+    return c.json({ error: 'Failed to load popup data' }, 500)
   }
 })
 
