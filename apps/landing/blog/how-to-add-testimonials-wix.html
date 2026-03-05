@@ -13,76 +13,7 @@
   <meta property="og:description" content="Step-by-step guide to adding real customer testimonials to your Wix site. No Wix app store needed — embed a live testimonial widget with one line of code.">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary">
-  <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --purple: #6C5CE7;
-    --purple-light: #a29bfe;
-    --dark: #0f0e17;
-    --mid: #1e1c2e;
-    --text: #e8e6f0;
-    --muted: #9ca3af;
-    --border: rgba(108,92,231,0.2);
-    --card-bg: rgba(255,255,255,0.04);
-  }
-  html { scroll-behavior: smooth; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--dark); color: var(--text); line-height: 1.7; }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 6%; height: 64px;
-    background: rgba(15,14,23,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.4px; }
-  .nav-logo span { color: var(--purple); }
-  .nav-links { display: flex; align-items: center; gap: 28px; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--text); }
-  .btn { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
-  .btn-primary { background: var(--purple); color: #fff; }
-  .btn-primary:hover { background: #7c6cf0; transform: translateY(-1px); }
-  main { padding-top: 64px; }
-  footer { border-top: 1px solid var(--border); padding: 40px 6%; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 14px; margin-top: 80px; }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--text); }
-  @media (max-width: 640px) { .nav-links .btn { display: none; } footer { flex-direction: column; gap: 16px; text-align: center; } }
-
-  .post-hero { padding: 80px 0 48px; background: linear-gradient(180deg, rgba(108,92,231,0.08) 0%, transparent 100%); border-bottom: 1px solid var(--border); }
-  .post-hero-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-  .post-meta { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; margin-bottom: 20px; flex-wrap: wrap; }
-  .tag { display: inline-block; background: rgba(108,92,231,0.15); color: var(--purple-light); padding: 2px 10px; border-radius: 20px; font-size: 13px; }
-  h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px; }
-  .post-intro { font-size: 18px; color: var(--muted); line-height: 1.6; }
-
-  .post-body { max-width: 760px; margin: 0 auto; padding: 56px 24px; }
-  .post-body h2 { font-size: 26px; font-weight: 700; margin: 48px 0 16px; letter-spacing: -0.5px; }
-  .post-body h3 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
-  .post-body p { margin-bottom: 20px; color: #d1cee8; }
-  .post-body ul, .post-body ol { padding-left: 24px; margin-bottom: 20px; }
-  .post-body li { margin-bottom: 10px; color: #d1cee8; }
-  .post-body strong { color: var(--text); }
-  .post-body a { color: var(--purple-light); text-decoration: underline; }
-
-  .step-block { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
-  .step-number { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--purple-light); margin-bottom: 8px; }
-  .step-block h3 { margin-top: 0; }
-
-  .code-block { background: #0a0914; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; font-family: 'Courier New', monospace; font-size: 14px; color: var(--purple-light); margin: 20px 0; overflow-x: auto; white-space: pre; }
-
-  .callout { background: rgba(108,92,231,0.08); border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; }
-  .callout p { margin: 0; color: var(--text); }
-
-  .comparison-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 15px; }
-  .comparison-table th { background: rgba(108,92,231,0.15); padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
-  .comparison-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .comparison-table tr:last-child td { border-bottom: none; }
-  .check { color: #00b894; } .cross { color: #d63031; }
-
-  .cta-box { background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(108,92,231,0.05)); border: 1px solid var(--border); border-radius: 16px; padding: 48px 40px; text-align: center; margin: 60px 0 0; }
-  .cta-box h2 { margin: 0 0 12px; font-size: 28px; }
-  .cta-box p { color: var(--muted); margin: 0 0 28px; font-size: 16px; }
-  </style>
+  <link rel="stylesheet" href="/blog/style.css">
 </head>
 <body>
 <nav>
