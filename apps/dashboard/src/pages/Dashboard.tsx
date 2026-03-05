@@ -350,8 +350,8 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
   const steps = [
     {
       done: true,
-      title: 'Create your Vouch account',
-      desc: "You're in! Welcome to Vouch.",
+      title: 'Create your SocialProof account',
+      desc: "You're in! Welcome to SocialProof.",
       action: null,
     },
     {
@@ -382,7 +382,7 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
           <h2 style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 700, color: colors.gray900 }}>
-            Get started with Vouch
+            Get started with SocialProof
           </h2>
           <p style={{ margin: 0, fontSize: 13, color: colors.gray400 }}>
             {completedCount} of {steps.length} steps complete

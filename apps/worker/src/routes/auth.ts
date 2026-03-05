@@ -243,12 +243,12 @@ auth.post('/forgot-password', async (c) => {
 <div style="max-width:560px;margin:40px auto;padding:0 16px">
   <div style="background:#fff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden">
     <div style="background:#6C5CE7;padding:24px 32px">
-      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ Vouch</span>
+      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ SocialProof</span>
     </div>
     <div style="padding:32px">
       <h2 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#111827">Reset your password</h2>
       <p style="margin:0 0 24px;color:#374151;font-size:15px;line-height:1.6">
-        Hey ${first} — someone (hopefully you) requested a password reset for your Vouch account.
+        Hey ${first} — someone (hopefully you) requested a password reset for your SocialProof account.
         Click the button below to choose a new password. This link expires in 1 hour.
       </p>
       <a href="${resetUrl}" style="display:inline-block;padding:12px 28px;background:#6C5CE7;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">
@@ -269,9 +269,9 @@ auth.post('/forgot-password', async (c) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Vouch <hello@socialproof.dev>',
+        from: 'SocialProof <hello@socialproof.dev>',
         to: email,
-        subject: 'Reset your Vouch password',
+        subject: 'Reset your SocialProof password',
         html,
       }),
     })
@@ -322,8 +322,8 @@ auth.post('/reset-password', async (c) => {
 
 /** GET /api/auth/demo — returns a read-only demo JWT and seeds demo data if needed */
 auth.get('/demo', async (c) => {
-  const DEMO_ACCOUNT_ID = 'demo-account-vouch'
-  const DEMO_EMAIL = 'demo@vouch.example'
+  const DEMO_ACCOUNT_ID = 'demo-account-socialproof'
+  const DEMO_EMAIL = 'demo@socialproof.example'
   const DEMO_WIDGET_ID = 'demo-widget-001'
 
   // Ensure demo account exists

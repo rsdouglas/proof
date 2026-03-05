@@ -101,7 +101,7 @@ webhooks.post('/:id/test', async (c) => {
     data: {
       id: 'test-testimonial-id',
       display_name: 'Jane Smith',
-      display_text: 'This is a test testimonial payload from Vouch.',
+      display_text: 'This is a test testimonial payload from SocialProof.',
       rating: 5,
       company: 'Acme Corp',
       title: 'CEO',
@@ -113,8 +113,8 @@ webhooks.post('/:id/test', async (c) => {
   try {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'User-Agent': 'Vouch-Webhooks/1.0',
-      'X-Vouch-Event': 'test',
+      'User-Agent': 'SocialProof-Webhooks/1.0',
+      'X-SocialProof-Event': 'test',
     }
 
     if (hook.secret) {
@@ -123,7 +123,7 @@ webhooks.post('/:id/test', async (c) => {
         'raw', encoder.encode(hook.secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
       )
       const sig = await crypto.subtle.sign('HMAC', key, encoder.encode(JSON.stringify(payload)))
-      headers['X-Vouch-Signature'] = `sha256=${Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('')}`
+      headers['X-SocialProof-Signature'] = `sha256=${Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('')}`
     }
 
     const resp = await fetch(hook.url, {
@@ -167,8 +167,8 @@ export async function fireWebhooks(
     rows.results.map(async (hook) => {
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
-        'User-Agent': 'Vouch-Webhooks/1.0',
-        'X-Vouch-Event': event,
+        'User-Agent': 'SocialProof-Webhooks/1.0',
+        'X-SocialProof-Event': event,
       }
 
       if (hook.secret) {
@@ -176,7 +176,7 @@ export async function fireWebhooks(
           'raw', encoder.encode(hook.secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
         )
         const sig = await crypto.subtle.sign('HMAC', key, encoder.encode(body))
-        headers['X-Vouch-Signature'] = `sha256=${Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('')}`
+        headers['X-SocialProof-Signature'] = `sha256=${Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('')}`
       }
 
       await fetch(hook.url, { method: 'POST', headers, body })

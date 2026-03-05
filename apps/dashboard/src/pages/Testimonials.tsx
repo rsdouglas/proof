@@ -174,7 +174,7 @@ export default function Testimonials() {
   async function exportCsv() {
     const params = new URLSearchParams()
     if (filter !== 'all') params.set('status', filter)
-    const token = document.cookie.match(/vouch_token=([^;]+)/)?.[1] || ''
+    const token = document.cookie.match(/proof_token=([^;]+)/)?.[1] || ''
     const res = await fetch(`${API_URL}/api/testimonials/export/csv?${params}`, {
       credentials: 'include',
       headers: token ? { 'Authorization': `Bearer ${token}` } : {},
@@ -343,7 +343,7 @@ function shareOnTwitter(t: Testimonial) {
   const maxLen = 240
   let quote = t.display_text
   if (quote.length > 120) quote = quote.slice(0, 119) + '…'
-  const text = `"${quote}" — ${t.display_name}${t.company ? `, ${t.company}` : ''}\n\nCollected with Vouch ✨ socialproof.dev`
+  const text = `"${quote}" — ${t.display_name}${t.company ? `, ${t.company}` : ''}\n\nCollected with SocialProof ✨ socialproof.dev`
   const trimmed = text.length > maxLen ? text.slice(0, maxLen - 1) + '…' : text
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(trimmed)}`, '_blank', 'noopener,noreferrer,width=600,height=400')
 }

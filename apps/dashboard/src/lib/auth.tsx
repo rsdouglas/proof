@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('proof_account', JSON.stringify(a))
   }
 
-  const isDemo = account?.id === 'demo-account-vouch'
+  const isDemo = account?.id === 'demo-account-socialproof'
 
   return (
     <AuthContext.Provider value={{ account, token, isDemo, login, signup, loginDemo, logout, setAccount }}>

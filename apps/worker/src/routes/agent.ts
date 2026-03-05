@@ -1,6 +1,6 @@
 /**
  * Agent API — allows AI agents (Claude Code, Cursor, etc.) to register
- * a Vouch account programmatically and immediately get a usable collect_url
+ * a SocialProof account programmatically and immediately get a usable collect_url
  * and widget embed code, without requiring email verification first.
  *
  * Refs: GitHub issue #166
@@ -28,17 +28,17 @@ async function sendVerificationEmail(
   name: string,
   verifyUrl: string,
 ): Promise<void> {
-  const FROM = 'Vouch <hello@socialproof.dev>'
+  const FROM = 'SocialProof <hello@socialproof.dev>'
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <div style="max-width:560px;margin:40px auto;padding:0 16px">
   <div style="background:#fff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden">
     <div style="background:#6C5CE7;padding:24px 32px">
-      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ Vouch</span>
+      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ SocialProof</span>
     </div>
     <div style="padding:32px">
       <h2 style="margin:0 0 8px;font-size:22px;color:#111827">Hi ${name}, verify your email</h2>
-      <p style="color:#6b7280;margin:0 0 24px">Your Vouch account is active. Testimonials are already being collected at your link. Click below to verify your email and access the dashboard to read and approve them.</p>
+      <p style="color:#6b7280;margin:0 0 24px">Your SocialProof account is active. Testimonials are already being collected at your link. Click below to verify your email and access the dashboard to read and approve them.</p>
       <a href="${verifyUrl}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px">Verify Email &amp; Open Dashboard</a>
       <p style="color:#9ca3af;font-size:13px;margin:24px 0 0">Or copy this link: ${verifyUrl}</p>
       <p style="color:#9ca3af;font-size:13px;margin:8px 0 0">This link expires in 24 hours.</p>
@@ -49,7 +49,7 @@ async function sendVerificationEmail(
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: FROM, to: email, subject: 'Verify your Vouch account', html }),
+    body: JSON.stringify({ from: FROM, to: email, subject: 'Verify your SocialProof account', html }),
   })
 }
 

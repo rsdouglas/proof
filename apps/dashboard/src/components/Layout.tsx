@@ -64,7 +64,7 @@ export default function Layout() {
               letterSpacing: '-0.5px',
             }}>
               <CheckCircle2 size={20} color={colors.brand} strokeWidth={2.5} />
-              Vouch
+              SocialProof
             </div>
           </div>
 

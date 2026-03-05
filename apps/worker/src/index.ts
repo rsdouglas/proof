@@ -219,10 +219,10 @@ app.get('/api/stats', async (c) => {
     c.env.DB.prepare("SELECT COUNT(*) as count FROM testimonials WHERE account_id = ? AND status = 'approved'").bind(accountId).first<{ count: number }>(),
   ])
   return c.json({
-    testimonials: testimonialCount?.count ?? 0,
-    widgets: widgetCount?.count ?? 0,
-    pending: pending?.count ?? 0,
-    approved: approved?.count ?? 0,
+    testimonials: Number(testimonialCount?.count ?? 0),
+    widgets: Number(widgetCount?.count ?? 0),
+    pending: Number(pending?.count ?? 0),
+    approved: Number(approved?.count ?? 0),
   })
 })
 
