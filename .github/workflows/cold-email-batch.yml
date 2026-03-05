@@ -1,0 +1,45 @@
+name: Cold Email Batch Send
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'Batch number to send (default: 1)'
+        required: false
+        default: '1'
+        type: string
+      dry_run:
+        description: 'Dry run only (preview emails, do NOT send)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  send-batch:
+    name: Send cold email batch ${{ inputs.batch }}
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dry run (preview emails)
+        if: ${{ inputs.dry_run == true }}
+        run: node scripts/send-cold-email-batch.js --dry-run --batch=${{ inputs.batch }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+      - name: Send batch ${{ inputs.batch }}
+        if: ${{ inputs.dry_run == false }}
+        run: node scripts/send-cold-email-batch.js --send --batch=${{ inputs.batch }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+      - name: Upload send log artifact
+        if: ${{ inputs.dry_run == false }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: send-log-batch${{ inputs.batch }}
+          path: docs/marketing/send-log-batch${{ inputs.batch }}.json
+          if-no-files-found: warn
