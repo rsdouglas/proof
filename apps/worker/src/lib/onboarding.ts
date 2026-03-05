@@ -176,3 +176,29 @@ export async function sendCelebrationEmail(
   `)
   await send(apiKey, opts.email, '🎉 You got your first testimonial!', html)
 }
+
+/** Embed nudge email — sent 72h after signup if approved testimonials exist but no widget ever embedded */
+export async function sendEmbedNudgeEmail(
+  apiKey: string,
+  opts: { email: string; name: string; widgetId: string; approvedCount: number }
+): Promise<void> {
+  const first = opts.name.split(' ')[0]
+  const dashWidgets = `${DASH}/widgets`
+  const snippet = `<script src="https://widget.socialproof.dev/v1/vouch.js" data-widget-id="${opts.widgetId}" async></script>`
+  const html = wrap(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your testimonials are ready — add them to your site</h2>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">
+      You have <strong>${opts.approvedCount} approved testimonial${opts.approvedCount > 1 ? 's' : ''}</strong> sitting in Vouch — but they're not on your site yet.
+    </p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Here's your embed snippet. One paste and you're live:</p>
+    <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow:hidden">
+      <code style="color:#cdd6f4;font-size:12px;font-family:'Courier New',Courier,monospace;word-break:break-all;line-height:1.6">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
+    </div>
+    <p style="margin:0 0 16px;color:#374151;font-size:14px;line-height:1.6">Paste it anywhere in your site's HTML — before the closing <code style="background:#f3f4f6;padding:2px 5px;border-radius:3px">&lt;/body&gt;</code> tag. That's it.</p>
+    <a href="${dashWidgets}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 16px">Get embed code in dashboard →</a>
+    <p style="margin:16px 0 0;color:#374151;font-size:14px;line-height:1.6">Your testimonials are doing nothing sitting in a dashboard. Put them where your customers can see them.</p>
+    <p style="margin:8px 0 0;color:#374151;font-size:15px">— Vouch</p>
+  `)
+  await send(apiKey, opts.email, 'Your testimonials are ready — add them to your site', html)
+}
