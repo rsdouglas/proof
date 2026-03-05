@@ -69,4 +69,71 @@
       .template { padding: 20px; }
       .cta-box { padding: 28px 20px; }
     }
-  
+
+    /* ============================================================
+       Blog index page — .blog-index, .blog-card, etc.
+       ============================================================ */
+    .blog-index {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+    .blog-index h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .blog-index .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 48px;
+    }
+
+    .blog-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .blog-card:hover {
+      border-color: var(--accent);
+      background: var(--card-bg);
+      text-decoration: none;
+    }
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+    .card-excerpt {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      .blog-index { padding: 40px 20px 80px; }
+      .blog-card { padding: 20px; }
+    }
