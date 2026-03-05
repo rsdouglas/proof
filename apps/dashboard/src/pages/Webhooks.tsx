@@ -120,7 +120,7 @@ export default function Webhooks() {
               type="url"
               value={url}
               onChange={e => setUrl(e.target.value)}
-              placeholder="https://your-server.com/webhooks/vouch"
+              placeholder="https://your-server.com/webhooks/socialproof"
               required
               style={{ ...inputToken, width: '100%', boxSizing: 'border-box', marginBottom: spacing[4] }}
             />

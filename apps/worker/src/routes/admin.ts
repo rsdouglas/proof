@@ -14,7 +14,7 @@ admin.get('/metrics', async (c) => {
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
   // Exclude test/audit accounts
-  const testFilter = `email NOT LIKE '%vouch-test%' AND email NOT LIKE '%audit%' AND email NOT LIKE '%test%'`
+  const testFilter = `email NOT LIKE '%sp-test%' AND email NOT LIKE '%audit%' AND email NOT LIKE '%test%'`
 
   const [
     usersTotal,
