@@ -2,17 +2,17 @@
 
 ## Goal
 
-10 real small businesses using Vouch in beta before we charge anyone.
+10 real small businesses using SocialProof in beta before we charge anyone.
 
 ## The offer
 
 > "Free Pro plan for life if you're one of our first 10 beta users. 30-min onboarding call included."
 
-This is genuinely compelling. Vouch Pro normally costs $9/month. If they stick around 2 years, that's $216 in free value. For us, 10 loyal early adopters who give real feedback is worth far more than $216.
+This is genuinely compelling. SocialProof Pro normally costs $9/month. If they stick around 2 years, that's $216 in free value. For us, 10 loyal early adopters who give real feedback is worth far more than $216.
 
 ## Outreach message (DM/comment version — 3 sentences)
 
-> Hey, I'm building Vouch — a simple tool that collects testimonials from your customers and displays them as a trust widget on your site. One script tag, takes 5 minutes, free to start. Would you want to be one of our first 10 beta users? You'd get Pro free for life in exchange for honest feedback.
+> Hey, I'm building SocialProof — a simple tool that collects testimonials from your customers and displays them as a trust widget on your site. One script tag, takes 5 minutes, free to start. Would you want to be one of our first 10 beta users? You'd get Pro free for life in exchange for honest feedback.
 
 ## Platform strategy
 
@@ -22,7 +22,7 @@ Target threads where people complain about credibility, reviews, or trust:
 - r/smallbusiness — "how do you get more reviews?"
 - r/Entrepreneur — "how do you build social proof?"
 
-**Approach:** Reply to existing threads with genuine help first. Then mention Vouch as a tool you built.
+**Approach:** Reply to existing threads with genuine help first. Then mention SocialProof as a tool you built.
 
 Example reply: "The awkward part of asking for testimonials usually comes from making it feel like work for them. What helped me is having a really short, clean link that takes 90 seconds — [link]. I actually built a tool for this, happy to give you early access for free if you want to try it."
 
@@ -43,7 +43,7 @@ Engage genuinely. Don't spam.
 - Coach/consultant communities
 
 ### Shopify Forum
-Find threads about trust and reviews. Post helpfully. Mention Vouch.
+Find threads about trust and reviews. Post helpfully. Mention SocialProof.
 
 ## Tracking responses
 

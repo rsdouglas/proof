@@ -41,7 +41,7 @@ If you want to embed testimonials on your site, create a widget:
    ```html
    <script src="https://widget.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
    ```
-3. Paste it anywhere in your site HTML — Vouch handles the rest
+3. Paste it anywhere in your site HTML — SocialProof handles the rest
 
 The widget updates automatically as you approve new testimonials — no re-embedding needed.
 

@@ -1,11 +1,11 @@
-# Product Hunt Ship Page — Vouch
+# Product Hunt Ship Page — SocialProof
 
 > **How to publish:** Go to producthunt.com/ship → Create new project → paste copy below.
 
 ---
 
 ## Project Name
-Vouch
+SocialProof
 
 ## Tagline (max 60 chars)
 Collect & display customer testimonials — free forever
@@ -16,12 +16,12 @@ Collect & display customer testimonials — free forever
 - One-click testimonials for Shopify, Squarespace & more
 
 ## Description (max 260 chars for teaser)
-Vouch makes it easy for small businesses to collect testimonials from customers and display them on their website. Beautiful widgets, 1-click Twitter sharing, pending approval flow. Free forever for 1 active widget.
+SocialProof makes it easy for small businesses to collect testimonials from customers and display them on their website. Beautiful widgets, 1-click Twitter sharing, pending approval flow. Free forever for 1 active widget.
 
 ## Longer description (for PH product page)
-Vouch is a testimonial collection and display tool built for small businesses who don't have a marketing team.
+SocialProof is a testimonial collection and display tool built for small businesses who don't have a marketing team.
 
-**What you can do with Vouch:**
+**What you can do with SocialProof:**
 - Send a branded testimonial request link to customers
 - Get email or form submissions directly into your dashboard
 - Approve or reject testimonials before they go live
@@ -30,10 +30,10 @@ Vouch is a testimonial collection and display tool built for small businesses wh
 - Track which testimonials drive conversions
 
 **Why we built it:**
-Most testimonial tools are built for enterprise SaaS. Small businesses — the coffee shop, the freelance designer, the local plumber — have no good option. Vouch fills that gap.
+Most testimonial tools are built for enterprise SaaS. Small businesses — the coffee shop, the freelance designer, the local plumber — have no good option. SocialProof fills that gap.
 
 **The AI angle:**
-Vouch is being built in public by an AI team. Our marketing, docs, and SEO content are all written by an AI marketing agent. Follow along at socialproof.dev/blog.
+SocialProof is being built in public by an AI team. Our marketing, docs, and SEO content are all written by an AI marketing agent. Follow along at socialproof.dev/blog.
 
 **Pricing:**
 - Free forever: 1 active widget, unlimited testimonials
@@ -51,7 +51,7 @@ https://socialproof.dev
 - @rsdouglas (founder)
 
 ## Thumbnail / Icon
-Use the Vouch logo (speech bubble with checkmark). 240x240px, no text.
+Use the SocialProof logo (speech bubble with checkmark). 240x240px, no text.
 
 ## Gallery images (PH recommends 3-5)
 1. Widget embedded on a Shopify store (before/after social proof)
@@ -60,7 +60,7 @@ Use the Vouch logo (speech bubble with checkmark). 240x240px, no text.
 4. Mobile view of the widget
 
 ## Ship page specific (newsletter subscribers before launch)
-**Headline:** Get early access to Vouch
+**Headline:** Get early access to SocialProof
 **CTA text:** Join the waitlist
 **Thank you message:** You're on the list! We'll email you when we launch publicly. In the meantime, you can start collecting testimonials for free at socialproof.dev
 
@@ -69,7 +69,7 @@ Use the Vouch logo (speech bubble with checkmark). 240x240px, no text.
 ## Pre-launch tweet (post when PH Ship goes live)
 > We just set up our @ProductHunt Ship page 🚀
 >
-> Vouch: collect customer testimonials + display them on your site. Free forever for small businesses.
+> SocialProof: collect customer testimonials + display them on your site. Free forever for small businesses.
 >
 > Follow us on PH and we'll let you know when we launch → [link]
 >

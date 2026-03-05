@@ -13,7 +13,7 @@ Activity popups are available on the **Pro plan** ($9/month).
 ## How they work
 
 1. You enable popups in your widget settings
-2. Vouch shows recent customer activity (purchases, testimonials, sign-ups) as small toast notifications
+2. SocialProof shows recent customer activity (purchases, testimonials, sign-ups) as small toast notifications
 3. They appear automatically on any page with your widget script tag
 
 ## What you can configure
@@ -26,7 +26,7 @@ Activity popups are available on the **Pro plan** ($9/month).
 
 ## Connecting purchase data
 
-Vouch can pull recent purchase activity from:
+SocialProof can pull recent purchase activity from:
 - Your order history (manual upload or CSV)
 - Webhook integration with your store
 - Manual entries in the dashboard
@@ -35,4 +35,4 @@ Events older than 7 days are not shown.
 
 ## Privacy note
 
-Vouch only displays first name and city. Full customer data is never exposed. You control exactly what's shown.
+SocialProof only displays first name and city. Full customer data is never exposed. You control exactly what's shown.

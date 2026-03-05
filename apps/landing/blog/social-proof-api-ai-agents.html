@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Proof for AI Agents: One API Call to Start Collecting Testimonials | Vouch</title>
-  <meta name="description" content="Vouch's /agent/register endpoint gives AI agents a collect URL and widget embed code in one POST request. No UI, no waiting — social proof for autonomous products.">
+  <title>Social Proof for AI Agents: One API Call to Start Collecting Testimonials | SocialProof</title>
+  <meta name="description" content="SocialProof's /agent/register endpoint gives AI agents a collect URL and widget embed code in one POST request. No UI, no waiting — social proof for autonomous products.">
   <meta name="keywords" content="social proof API, testimonials for AI agents, programmatic testimonial collection, agent-native API, testimonial API">
   <link rel="canonical" href="https://socialproof.dev/blog/social-proof-api-ai-agents">
   <link rel="stylesheet" href="/style.css">
@@ -36,7 +36,7 @@
 </head>
 <body>
   <nav style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
-    <a href="/" style="font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #0f172a;">Vouch</a>
+    <a href="/" style="font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #0f172a;">SocialProof</a>
     <a href="/blog" style="color: #6b7280; text-decoration: none; font-size: 0.9rem;">← All posts</a>
   </nav>
 
@@ -44,11 +44,11 @@
     <div class="back-link"><a href="/blog">← Blog</a></div>
     <span class="tag">Developer</span>
     <h1>Social Proof for AI Agents: One API Call to Start Collecting Testimonials</h1>
-    <p class="meta">March 4, 2026 · 6 min read · Vouch Team</p>
+    <p class="meta">March 4, 2026 · 6 min read · SocialProof Team</p>
 
     <p>Your AI agent can build a product in minutes. But it can't build trust — at least not automatically. Until now.</p>
 
-    <p>Vouch ships a new API endpoint: <code>POST /agent/register</code>. One call. Returns a working testimonial collection link and a website embed code. No UI required, no human setup, no waiting.</p>
+    <p>SocialProof ships a new API endpoint: <code>POST /agent/register</code>. One call. Returns a working testimonial collection link and a website embed code. No UI required, no human setup, no waiting.</p>
 
     <p>We built this because we kept seeing the same gap: an AI agent scaffolds a SaaS tool, a landing page, an automation — but there's no mechanism for social proof. The agent deploys the product but can't instrument trust.</p>
 
@@ -103,18 +103,18 @@
       <li><strong>At product creation time:</strong> call <code>POST /agent/register</code> with the user's email and product name. Store the <code>collect_url</code> and <code>widget_embed</code>.</li>
       <li><strong>In your onboarding flow:</strong> surface the <code>collect_url</code> prominently. "Share this with your first customers to collect testimonials." Even one testimonial builds trust for the next visitor.</li>
       <li><strong>On the product's landing page:</strong> embed the widget script. It shows a count of testimonials immediately (no verification needed) and full text once the user verifies their email.</li>
-      <li><strong>Tell the user to check their email:</strong> the Vouch verification email links to their dashboard where they can approve or reject testimonials and customize display settings.</li>
+      <li><strong>Tell the user to check their email:</strong> the SocialProof verification email links to their dashboard where they can approve or reject testimonials and customize display settings.</li>
     </ol>
 
     <p>The whole loop takes one API call and about 30 lines of scaffolding code.</p>
 
     <h2>Why We Built This</h2>
 
-    <p>Vouch is built in public — including this blog post, which was written by an AI agent. We think the future of software has a lot more autonomous and semi-autonomous builders in it.</p>
+    <p>SocialProof is built in public — including this blog post, which was written by an AI agent. We think the future of software has a lot more autonomous and semi-autonomous builders in it.</p>
 
     <p>That means the infrastructure layer for trust needs to keep up. Payments have Stripe. Auth has Auth0. Social proof has... clipboard + browser tab? Not anymore.</p>
 
-    <p>We wanted Vouch to be first-class for any build tool that can make an HTTP request. If your agent can POST JSON, it can instrument social proof.</p>
+    <p>We wanted SocialProof to be first-class for any build tool that can make an HTTP request. If your agent can POST JSON, it can instrument social proof.</p>
 
     <h2>The Full API Spec</h2>
 
@@ -139,7 +139,7 @@ Content-Type: application/json
 }</code></pre>
 
     <h3>Rate limits</h3>
-    <p>3 registrations per hour per IP. This is per-IP, not per-user, so agents calling on behalf of multiple users from the same host should be aware. If you're building a multi-tenant product that provisions many Vouch accounts, <a href="mailto:hello@socialproof.dev">reach out</a> — we can raise limits for verified integrators.</p>
+    <p>3 registrations per hour per IP. This is per-IP, not per-user, so agents calling on behalf of multiple users from the same host should be aware. If you're building a multi-tenant product that provisions many SocialProof accounts, <a href="mailto:hello@socialproof.dev">reach out</a> — we can raise limits for verified integrators.</p>
 
     <h3>Error states</h3>
 
@@ -176,7 +176,7 @@ Content-Type: application/json
 
     <h2>What This Isn't</h2>
 
-    <p>To be clear: Vouch is not an AI-generated testimonials tool. We collect real testimonials from real customers. The agent-native API is about making it easier to instrument that collection, not to fabricate social proof.</p>
+    <p>To be clear: SocialProof is not an AI-generated testimonials tool. We collect real testimonials from real customers. The agent-native API is about making it easier to instrument that collection, not to fabricate social proof.</p>
 
     <p>Your users fill out the form. Their words, not the model's.</p>
 
@@ -186,11 +186,11 @@ Content-Type: application/json
 
     <p>If you build something interesting with it — an agent that bootstraps testimonial collection, an integration with a no-code tool, a multi-tenant pattern — we'd love to see it. <a href="mailto:hello@socialproof.dev">Email us</a> or drop a note in the collect form on our own site.</p>
 
-    <p>We're building Vouch in public. Every week, new features. This one shipped because agent-first tooling is where software is going, and social proof shouldn't be left behind.</p>
+    <p>We're building SocialProof in public. Every week, new features. This one shipped because agent-first tooling is where software is going, and social proof shouldn't be left behind.</p>
   </main>
 
   <footer style="text-align: center; padding: 40px 24px; color: #9ca3af; font-size: 0.875rem; border-top: 1px solid #e5e7eb;">
-    <p><a href="/" style="color: #2563eb; text-decoration: none;">Vouch</a> · <a href="/blog" style="color: #6b7280; text-decoration: none;">Blog</a> · <a href="/privacy" style="color: #6b7280; text-decoration: none;">Privacy</a> · <a href="/terms" style="color: #6b7280; text-decoration: none;">Terms</a></p>
+    <p><a href="/" style="color: #2563eb; text-decoration: none;">SocialProof</a> · <a href="/blog" style="color: #6b7280; text-decoration: none;">Blog</a> · <a href="/privacy" style="color: #6b7280; text-decoration: none;">Privacy</a> · <a href="/terms" style="color: #6b7280; text-decoration: none;">Terms</a></p>
   </footer>
 </body>
 </html>
