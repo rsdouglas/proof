@@ -32,7 +32,7 @@ collect.get('/:formId', async (c) => {
            style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:color 0.2s"
            onmouseover="this.style.color='#6C5CE7'" onmouseout="this.style.color='#9ca3af'">
           <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6C5CE7;color:#fff;font-size:9px;font-weight:700;line-height:14px;text-align:center;flex-shrink:0">V</span>
-          Powered by Vouch
+          Powered by Social Proof
         </a>
       </div>`
     : ''
@@ -66,11 +66,11 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     <input id="company" placeholder="Company (optional)" />
     <input id="title" placeholder="Job title (optional)" />
     <div class="stars" id="stars">
-      ${[1,2,3,4,5].map(i => `<span class="star" data-v="${i}" onclick="setRating(${i})">★</span>`).join('')}
+      ${[1,2,3,4,5].map(i => `<span class="star active" data-v="${i}" onclick="setRating(${i})">★</span>`).join('')}
     </div>
     <textarea id="text" placeholder="What was it like working with them? What would you tell a friend who was considering them?" required></textarea>
     <div id="error" class="error" style="display:none"></div>
-    <button onclick="submit()">Share my experience →</button>
+    <button onclick="submitForm()">Share my experience →</button>
   </div>
   <div class="success" id="success" style="display:none">
     <div style="font-size:48px">🎉</div>
@@ -80,14 +80,14 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
   ${poweredByBadge}
 </div>
 <script>
-  var rating = 0;
+  var rating = 5;
   function setRating(v) {
     rating = v;
     document.querySelectorAll('.star').forEach(function(s) {
       s.classList.toggle('active', parseInt(s.dataset.v) <= v);
     });
   }
-  async function submit() {
+  async function submitForm() {
     var name = document.getElementById('name').value.trim();
     var text = document.getElementById('text').value.trim();
     var error = document.getElementById('error');
