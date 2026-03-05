@@ -197,7 +197,12 @@ function getWidgetScript(): string {
 
   function avatarEl(t) {
     if (t.avatar_url) {
-      return '<img class="proof-avatar" src="' + t.avatar_url + '" alt="' + t.display_name + '" loading="lazy">';
+      // Block javascript: and data: URLs — only allow http/https
+      var url = String(t.avatar_url);
+      var safe = /^https?:\/\//i.test(url);
+      if (safe) {
+        return '<img class="proof-avatar" src="' + escHtml(url) + '" alt="' + escHtml(t.display_name) + '" loading="lazy">';
+      }
     }
     var initial = (t.display_name || '?')[0].toUpperCase();
     return '<div class="proof-avatar-placeholder">' + initial + '</div>';
@@ -205,9 +210,9 @@ function getWidgetScript(): string {
 
   function metaLine(t) {
     var parts = [];
-    if (t.title) parts.push(t.title);
-    if (t.company) parts.push(t.company);
-    return parts.length ? '<div class="proof-meta">' + parts.join(' · ') + '</div>' : '';
+    if (t.title) parts.push(escHtml(t.title));
+    if (t.company) parts.push(escHtml(t.company));
+    return parts.length ? '<div class="proof-meta">' + parts.join(' &middot; ') + '</div>' : '';
   }
 
   function renderCard(t) {

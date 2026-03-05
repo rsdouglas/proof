@@ -5,6 +5,17 @@ import { Hono } from 'hono'
 import type { Env } from '../index'
 import { checkRateLimit } from '../lib/ratelimit'
 
+// Strip HTML tags and limit field lengths to prevent XSS stored in DB
+function sanitizeText(s: string | undefined | null, maxLen: number): string | null {
+  if (!s) return null
+  // Remove HTML tags, then trim whitespace
+  return s.replace(/<[^>]*>/g, '').trim().slice(0, maxLen)
+}
+function requireSanitized(s: string, maxLen: number): string {
+  return s.replace(/<[^>]*>/g, '').trim().slice(0, maxLen)
+}
+
+
 export const collect = new Hono<{ Bindings: Env }>()
 
 // Public: Get form info for display
@@ -146,12 +157,18 @@ collect.post('/submit/:formId', async (c) => {
   const id = crypto.randomUUID()
   const now = new Date().toISOString()
 
+  const cleanName = requireSanitized(body.display_name, 120)
+  const cleanText = requireSanitized(body.display_text, 2000)
+  const cleanCompany = sanitizeText(body.company, 120)
+  const cleanTitle = sanitizeText(body.title, 120)
+  const cleanEmail = body.author_email ? body.author_email.trim().slice(0, 254) : null
+
   await c.env.DB.prepare(
     `INSERT INTO testimonials (id, account_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
-  ).bind(id, form.account_id, body.display_name.trim(), body.display_text.trim(),
-    body.rating ?? null, body.company ?? null, body.title ?? null,
-    body.author_email ?? null, 'form', 'pending', now, now).run()
+  ).bind(id, form.account_id, cleanName, cleanText,
+    body.rating ?? null, cleanCompany, cleanTitle,
+    cleanEmail, 'form', 'pending', now, now).run()
 
   // First testimonial celebration email — check if this is the account's first ever
   const prevCount = await c.env.DB.prepare(
