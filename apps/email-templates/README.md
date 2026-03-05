@@ -1,4 +1,4 @@
-# Vouch Email Templates
+# SocialProof Email Templates
 
 Drip sequence for new user registrations. Triggered by `user_created` event.
 
@@ -6,7 +6,7 @@ Drip sequence for new user registrations. Triggered by `user_created` event.
 
 | File | Timing | Trigger condition | Subject |
 |------|--------|-------------------|---------|
-| `drip-01-welcome.html` | T+0 (immediate) | All new users | Your Vouch widget is ready — here's how to activate it |
+| `drip-01-welcome.html` | T+0 (immediate) | All new users | Your SocialProof widget is ready — here's how to activate it |
 | `drip-02-first-testimonial.html` | T+48h | All new users | One testimonial can increase conversions by 34% |
 | `drip-04-no-testimonials-nudge.html` | T+4d | `testimonial_count === 0` | You haven't sent your collection link yet |
 | `drip-03-upgrade-nudge.html` | T+7d | `user.plan === 'free'` | You've been on Free for a week. Here's what's next. |
@@ -35,7 +35,7 @@ Drip sequence for new user registrations. Triggered by `user_created` event.
 
 ## Notes
 
-- All emails use Vouch brand colors (#1a1a1a primary, #f8f8f5 background)
+- All emails use SocialProof brand colors (#1a1a1a primary, #f8f8f5 background)
 - Plain-text versions generated from HTML at send time via Resend
 - CAN-SPAM: unsubscribe link required in all emails
 - See GitHub issue #178 for full dev spec (Email 4 + 5 new — needs dev implementation)

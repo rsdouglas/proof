@@ -143,7 +143,7 @@ app.get('/v1/:widgetId/popup', async (c) => {
 })
 
 function getWidgetScript(): string {
-  return `/* Vouch Widget v1 — https://socialproof.dev */
+  return `/* SocialProof Widget v1 — https://socialproof.dev */
 (function() {
   'use strict';
 
@@ -269,7 +269,7 @@ function getWidgetScript(): string {
   }
 
   function attribution() {
-    return '<div class="proof-attribution"><a href="https://socialproof.dev" target="_blank" rel="noopener">Powered by Vouch</a></div>';
+    return '<div class="proof-attribution"><a href="https://socialproof.dev" target="_blank" rel="noopener">Powered by SocialProof</a></div>';
   }
 
 
