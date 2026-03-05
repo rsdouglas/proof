@@ -182,6 +182,10 @@ function getWidgetScript(): string {
       dark ? '.proof-dot { background: #4a5568; } .proof-dot.active { background: #6366f1; }' : '.proof-dot { background: #e2e8f0; } .proof-dot.active { background: #6366f1; }',
       /* Badge */
       '.proof-badge { max-width: 420px; }',
+      /* Masonry */
+      '.proof-masonry { columns: 2 280px; column-gap: 0; }',
+      '.proof-masonry .proof-card { break-inside: avoid; display: block; margin: 8px; }',
+      '@media (max-width: 600px) { .proof-masonry { columns: 1; } }',
       /* Attribution */
       '.proof-attribution { text-align: center; margin-top: 8px; font-size: 11px; }',
       dark ? '.proof-attribution { color: #4a5568; }' : minimal ? '.proof-attribution { color: #e2e8f0; }' : '.proof-attribution { color: #cbd5e0; }',
@@ -252,6 +256,10 @@ function getWidgetScript(): string {
 
   function renderList(data, el) {
     el.innerHTML = '<div class="proof-list">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
+  }
+
+  function renderMasonry(data, el) {
+    el.innerHTML = '<div class="proof-masonry">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
   }
 
   function renderCarousel(data, el) {
@@ -446,6 +454,7 @@ function getWidgetScript(): string {
           else if (resolvedLayout === 'list') renderList(data, el);
           else if (resolvedLayout === 'carousel') renderCarousel(data, el);
           else if (resolvedLayout === 'badge') renderBadge(data, el);
+          else if (resolvedLayout === 'masonry') renderMasonry(data, el);
           else renderGrid(data, el);
 
           // Beacon: tell the server this widget loaded successfully (fire-and-forget)
