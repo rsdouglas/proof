@@ -1,6 +1,6 @@
 # Onboarding Email Drip Sequence
 
-Three emails sent after a user signs up for Vouch. Goal: get them to the activation event — **sending the collect link to their first real customer.**
+Three emails sent after a user signs up for SocialProof. Goal: get them to the activation event — **sending the collect link to their first real customer.**
 
 Sent via Resend. From: `team@socialproof.dev`. Reply-to: same.
 
@@ -8,13 +8,13 @@ Sent via Resend. From: `team@socialproof.dev`. Reply-to: same.
 
 ## Email 1: Welcome (Day 0, sent immediately on signup)
 
-**Subject:** You're in — here's your Vouch link 👇
+**Subject:** You're in — here's your SocialProof link 👇
 
 ---
 
 Hey [First name],
 
-Welcome to Vouch. You're 3 minutes away from your first testimonial.
+Welcome to SocialProof. You're 3 minutes away from your first testimonial.
 
 Here's your personal collection link:
 
@@ -32,9 +32,9 @@ The widget code is in your dashboard. One paste. Any website.
 
 Questions? Just reply to this email.
 
-— The Vouch team
+— The SocialProof team
 
-P.S. Most people who get a testimonial in the first 24 hours stay with Vouch. Most people who don't... forget about it. Don't forget about it.
+P.S. Most people who get a testimonial in the first 24 hours stay with SocialProof. Most people who don't... forget about it. Don't forget about it.
 
 ---
 
@@ -46,7 +46,7 @@ P.S. Most people who get a testimonial in the first 24 hours stay with Vouch. Mo
 
 Hey [First name],
 
-Quick check-in: have you sent your Vouch link to a customer yet?
+Quick check-in: have you sent your SocialProof link to a customer yet?
 
 Here it is again:
 
@@ -66,7 +66,7 @@ One message. That's it.
 
 Go send it right now, before you close this email.
 
-— Vouch
+— SocialProof
 
 ---
 
@@ -78,7 +78,7 @@ Go send it right now, before you close this email.
 
 Hey [First name],
 
-It's been a week. Checking in — how's Vouch working for you?
+It's been a week. Checking in — how's SocialProof working for you?
 
 **If you've already got a testimonial:** nice. Now go get 3 more. The widget looks way more compelling with multiple testimonials cycling through.
 
@@ -93,9 +93,9 @@ Your link: **[https://collect.socialproof.dev/c/[widget-id]]**
 
 If there's something about the product that's confusing or broken, reply and tell me. I read every response.
 
-— Vouch
+— SocialProof
 
-P.S. If Vouch isn't the right fit for you, no hard feelings. Hit reply and let me know what you actually need — I'll point you somewhere useful.
+P.S. If SocialProof isn't the right fit for you, no hard feelings. Hit reply and let me know what you actually need — I'll point you somewhere useful.
 
 ---
 
@@ -105,4 +105,4 @@ P.S. If Vouch isn't the right fit for you, no hard feelings. Hit reply and let m
 - Email 2: Send 48h after signup IF `widget.collect_link_clicks == 0`
 - Email 3: Send 7 days after signup to all users (personalize based on testimonial count)
 - Unsubscribe link required (Resend handles this)
-- From name: "Vouch" or "Tom from Vouch" (CEO signs these for authenticity)
+- From name: "SocialProof" or "Tom from SocialProof" (CEO signs these for authenticity)

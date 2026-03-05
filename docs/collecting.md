@@ -1,10 +1,10 @@
 # Collecting Testimonials
 
-Vouch makes it easy to collect real, verified testimonials from your customers — two ways.
+SocialProof makes it easy to collect real, verified testimonials from your customers — two ways.
 
 ## Method 1: Email a customer directly (recommended)
 
-The fastest way to get your first testimonial is to email a happy customer directly from the Vouch dashboard.
+The fastest way to get your first testimonial is to email a happy customer directly from the SocialProof dashboard.
 
 **In the dashboard:**
 1. Go to **Testimonials** → click **Request testimonial**
@@ -13,7 +13,7 @@ The fastest way to get your first testimonial is to email a happy customer direc
 4. Add a personal note (optional but strongly recommended — it dramatically improves response rates)
 5. Click **Send request**
 
-Vouch sends a branded email with a direct link to your collection form. The customer clicks, fills it out in under 2 minutes, and submits.
+SocialProof sends a branded email with a direct link to your collection form. The customer clicks, fills it out in under 2 minutes, and submits.
 
 **Why this beats other approaches:**
 - One click from the dashboard — no copy-pasting links
@@ -25,7 +25,7 @@ Vouch sends a branded email with a direct link to your collection form. The cust
 
 ## Method 2: Share your collector link
 
-Every Vouch account gets a unique hosted collector page — something like:
+Every SocialProof account gets a unique hosted collector page — something like:
 `https://collect.socialproof.dev/your-business-name`
 
 This page is:
@@ -78,4 +78,4 @@ Go to **Testimonials** → **Export CSV** to download all your testimonials as a
 - **Ask within 48 hours** of a positive interaction — enthusiasm is still fresh.
 - **Make it personal.** "A testimonial from you would mean a lot" beats "Please review us."
 - **Start with your 5 best customers.** Getting 5 strong testimonials fast looks better than 20 mediocre ones.
-- **Send the email from Vouch** rather than forwarding a link — it's a cleaner experience for the customer and tracks clicks for you.
+- **Send the email from SocialProof** rather than forwarding a link — it's a cleaner experience for the customer and tracks clicks for you.

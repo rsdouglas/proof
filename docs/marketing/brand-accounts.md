@@ -1,4 +1,4 @@
-# Vouch Brand Accounts — Setup Guide
+# SocialProof Brand Accounts — Setup Guide
 
 > **Status:** Copy and assets ready. Awaiting rsdouglas to create accounts + verify email.
 > **Reference:** GitHub issue #129 | CEO authorization: 2026-03-04
@@ -8,7 +8,7 @@
 ## Twitter/X Account
 
 ### Handle Recommendations (in order of preference)
-1. **@UseVouch** — clean, imperative, memorable. "Use Vouch." Best option.
+1. **@UseVouch** — clean, imperative, memorable. "Use SocialProof." Best option.
 2. **@VouchApp** — clear product category signal. Second choice.
 3. **@VouchHQ** — feels slightly corporate but solid fallback.
 
@@ -29,22 +29,22 @@ socialproof.dev
 ```
 
 ### Display Name
-`Vouch`
+`SocialProof`
 
 ### Location
 `socialproof.dev`
 
 ### Header Image Spec
 - Dimensions: 1500 × 500px
-- Concept: Clean white/dark background, Vouch logo centered left, tagline right: "Collect. Approve. Display."
+- Concept: Clean white/dark background, SocialProof logo centered left, tagline right: "Collect. Approve. Display."
 - Color palette: match landing page (#0f172a dark, #6366f1 accent)
 
 ### Profile Photo
 - Dimensions: 400 × 400px  
-- Use Vouch logo (speech bubble + checkmark), no text, on brand background color
+- Use SocialProof logo (speech bubble + checkmark), no text, on brand background color
 
 ### Pinned Tweet (launch day)
-> We just launched Vouch 🎉
+> We just launched SocialProof 🎉
 >
 > Collect testimonials from customers → approve them → embed on your site in minutes.
 >
@@ -58,7 +58,7 @@ socialproof.dev
 ## Twitter/X Launch Day Queue (5 tweets, post over first week)
 
 ### Day 1 — Launch announcement (pin this)
-> We just launched Vouch 🎉
+> We just launched SocialProof 🎉
 >
 > Collect testimonials from customers → approve them → embed on your site in minutes.
 >
@@ -72,7 +72,7 @@ socialproof.dev
 >
 > Nobody sees them.
 >
-> Vouch gives you a link to send customers. They click, they write, you approve, it goes live on your site.
+> SocialProof gives you a link to send customers. They click, they write, you approve, it goes live on your site.
 >
 > Free: socialproof.dev
 
@@ -86,7 +86,7 @@ socialproof.dev
 > We're building @UseVouch in public. Ask us anything.
 
 ### Day 4 — Feature spotlight (Twitter share)
-> Meta moment: we added a "share to Twitter" button inside Vouch.
+> Meta moment: we added a "share to Twitter" button inside SocialProof.
 >
 > When a customer approves a testimonial, you can share it as a tweet in one click.
 >
@@ -99,7 +99,7 @@ socialproof.dev
 >
 > But most small businesses have no system for collecting or displaying them.
 >
-> Vouch is the system. Free forever for 1 widget.
+> SocialProof is the system. Free forever for 1 widget.
 >
 > → socialproof.dev
 
@@ -108,7 +108,7 @@ socialproof.dev
 ## LinkedIn Company Page
 
 ### Company Name
-`Vouch`
+`SocialProof`
 
 ### Tagline (120 chars max)
 ```
@@ -117,13 +117,13 @@ Collect customer testimonials and display them anywhere. Free forever for small 
 
 ### About Section (2000 chars max)
 ```
-Vouch is a testimonial collection and display tool built for small businesses.
+SocialProof is a testimonial collection and display tool built for small businesses.
 
 Most testimonial tools are designed for enterprise SaaS companies with marketing teams and developer resources. Small businesses — the coffee shop, the freelance designer, the local plumber, the Shopify store owner — have been left behind.
 
-Vouch changes that.
+SocialProof changes that.
 
-**What Vouch does:**
+**What SocialProof does:**
 • Generate a branded testimonial request link and send it to customers
 • Collect written testimonials via a clean, mobile-friendly form
 • Review and approve testimonials before they go live on your site
@@ -134,7 +134,7 @@ Vouch changes that.
 We believe every small business deserves social proof. Our free plan gives you 1 active widget and unlimited testimonials — forever, not just a trial.
 
 **The AI angle:**
-Vouch is being built in public by an AI-powered team. Our marketing, SEO content, and docs are written by an AI marketing agent. We think this is the future of startup marketing, and we're doing it live.
+SocialProof is being built in public by an AI-powered team. Our marketing, SEO content, and docs are written by an AI marketing agent. We think this is the future of startup marketing, and we're doing it live.
 
 **Who it's for:**
 Shopify store owners, Squarespace site owners, freelancers, local service businesses, coaches, consultants — anyone who has happy customers and wants the world to know.
@@ -153,7 +153,7 @@ Website: socialproof.dev
 
 ### Banner Image Spec
 - Dimensions: 1128 × 191px
-- Concept: "Collect. Approve. Display. → socialproof.dev" on dark background with Vouch logo
+- Concept: "Collect. Approve. Display. → socialproof.dev" on dark background with SocialProof logo
 - Match Twitter header palette for brand consistency
 
 ---
@@ -163,7 +163,7 @@ Website: socialproof.dev
 **Headline:** We built our entire marketing function with AI. Here's what 8 weeks looks like.
 
 **Body:**
-We launched Vouch 6 weeks ago — a free testimonial widget for small businesses.
+We launched SocialProof 6 weeks ago — a free testimonial widget for small businesses.
 
 Our "marketing team" is an AI agent. Here's what it does every day:
 
@@ -191,11 +191,11 @@ And if you're a small business owner who wants more social proof on your site:
 
 - [ ] Create Twitter/X account with handle @UseVouch (first choice)
 - [ ] Verify email for Twitter account
-- [ ] Upload profile photo (Vouch logo, 400×400)
+- [ ] Upload profile photo (SocialProof logo, 400×400)
 - [ ] Upload header image (see spec above or ask dev to generate)
 - [ ] Copy/paste bio from above
 - [ ] Schedule or post Day 1 launch tweet
-- [ ] Create LinkedIn Company Page for Vouch
+- [ ] Create LinkedIn Company Page for SocialProof
 - [ ] Upload LinkedIn banner (see spec above)
 - [ ] Publish first LinkedIn post
 

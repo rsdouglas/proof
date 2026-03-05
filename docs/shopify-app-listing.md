@@ -7,9 +7,9 @@ Refs: issue #27
 
 ## App name
 
-**Vouch: Customer Testimonials**
+**SocialProof: Customer Testimonials**
 
-*(Alternative if taken: "Vouch — Social Proof & Testimonials")*
+*(Alternative if taken: "SocialProof — Social Proof & Testimonials")*
 
 ---
 
@@ -25,20 +25,20 @@ Collect customer testimonials with a link. Approve them. Embed them anywhere. No
 
 Most Shopify stores have plenty of satisfied customers. Getting those customers to leave a public testimonial is the hard part.
 
-Vouch makes it dead simple:
+SocialProof makes it dead simple:
 
 1. **Share a link** — your unique collection link. Send it in a post-purchase email, your order confirmation, or a follow-up message.
 2. **Customer fills a form** — name, testimonial text, optional photo and star rating. No Shopify account required, no signup, no friction.
-3. **You approve it** — every submission comes to your Vouch dashboard. You approve what goes live.
+3. **You approve it** — every submission comes to your SocialProof dashboard. You approve what goes live.
 4. **It embeds on your store** — paste one script tag or use the app block in your theme editor. Works on any Shopify theme, no code required.
 
 ---
 
-### Why Vouch instead of a review app?
+### Why SocialProof instead of a review app?
 
 Most Shopify review apps are built for **product reviews** — star ratings tied to specific SKUs, imported from Amazon or AliExpress.
 
-Vouch is built for **brand testimonials** — the kind that say "I trust this person/company" rather than "this specific product is good." That's what converts a first-time visitor into a buyer.
+SocialProof is built for **brand testimonials** — the kind that say "I trust this person/company" rather than "this specific product is good." That's what converts a first-time visitor into a buyer.
 
 - ✅ You own the testimonials — they live on your site, not ours
 - ✅ Customers don't need an account to submit
@@ -84,7 +84,7 @@ No transaction fees. Cancel anytime.
 1. **Dashboard view** — showing a list of pending + approved testimonials with approve/reject buttons
 2. **Collection form** — what the customer sees when they click the link (clean, mobile-friendly)
 3. **Embedded widget** — example on a Shopify storefront homepage showing 3 testimonials in a card grid
-4. **Theme editor** — Vouch app block visible in the Shopify theme editor sidebar, dragged onto the page
+4. **Theme editor** — SocialProof app block visible in the Shopify theme editor sidebar, dragged onto the page
 
 *(Screenshots should use light theme, real-looking testimonial content, mobile-responsive layout)*
 

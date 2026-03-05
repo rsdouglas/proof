@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How to Give Your AI Agent the Ability to Collect Testimonials With One API Call | Vouch</title>
-  <meta name="description" content="One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the Vouch API — and why it matters for trust-building at scale.">
+  <title>How to Give Your AI Agent the Ability to Collect Testimonials With One API Call | SocialProof</title>
+  <meta name="description" content="One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the SocialProof API — and why it matters for trust-building at scale.">
   <meta name="keywords" content="AI agent testimonials, testimonial API, agent register endpoint, AI social proof, Claude testimonials, GPT testimonials, automated testimonial collection">
   <link rel="canonical" href="https://socialproof.dev/blog/ai-agent-testimonials-api">
   <link rel="stylesheet" href="/style.css">
@@ -13,9 +13,9 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "How to Give Your AI Agent the Ability to Collect Testimonials With One API Call",
-    "description": "One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the Vouch API.",
-    "author": { "@type": "Organization", "name": "Vouch" },
-    "publisher": { "@type": "Organization", "name": "Vouch", "url": "https://socialproof.dev" },
+    "description": "One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the SocialProof API.",
+    "author": { "@type": "Organization", "name": "SocialProof" },
+    "publisher": { "@type": "Organization", "name": "SocialProof", "url": "https://socialproof.dev" },
     "datePublished": "2026-03-05",
     "url": "https://socialproof.dev/blog/ai-agent-testimonials-api"
   }
@@ -42,7 +42,7 @@
 </head>
 <body>
   <nav class="nav">
-    <a class="nav-logo" href="/">Vouch</a>
+    <a class="nav-logo" href="/">SocialProof</a>
     <div class="nav-links">
       <a href="/#features">Features</a>
       <a href="/blog">Blog</a>
@@ -58,7 +58,7 @@
 
     <p>AI agents are increasingly running real business workflows: booking appointments, answering support tickets, closing sales, onboarding users. But there's a gap nobody's talking about. These agents complete tasks, confirm success — and then stop. They never ask for the testimonial.</p>
 
-    <p>That's a missed opportunity that's easy to fix. Vouch exposes a single endpoint — <code>POST /agent/register</code> — that lets any AI agent, automation, or backend process submit a testimonial programmatically. No UI. No link-sharing. One API call, triggered at exactly the right moment.</p>
+    <p>That's a missed opportunity that's easy to fix. SocialProof exposes a single endpoint — <code>POST /agent/register</code> — that lets any AI agent, automation, or backend process submit a testimonial programmatically. No UI. No link-sharing. One API call, triggered at exactly the right moment.</p>
 
     <p>Here's how it works, why it matters, and how to wire it into your agent in about 10 minutes.</p>
 
@@ -82,7 +82,7 @@
 
     <h2>The <code>/agent/register</code> endpoint</h2>
 
-    <p>The Vouch agent registration endpoint is designed for programmatic, automated testimonial submission. It accepts a minimal JSON payload and handles the rest.</p>
+    <p>The SocialProof agent registration endpoint is designed for programmatic, automated testimonial submission. It accepts a minimal JSON payload and handles the rest.</p>
 
     <h3>Base URL</h3>
     <pre><code>https://app.socialproof.dev/api/agent/register</code></pre>
@@ -107,7 +107,7 @@ Authorization: Bearer YOUR_API_KEY
 
     <h3>Fields</h3>
     <ul>
-      <li><code>widget_id</code> — Your Vouch widget ID (from your dashboard)</li>
+      <li><code>widget_id</code> — Your SocialProof widget ID (from your dashboard)</li>
       <li><code>author</code> — Customer's name (string, required)</li>
       <li><code>text</code> — The testimonial content (string, required)</li>
       <li><code>rating</code> — Star rating 1–5 (integer, optional)</li>
@@ -132,7 +132,7 @@ Authorization: Bearer YOUR_API_KEY
 
     <pre><code>{
   "name": "submit_testimonial",
-  "description": "Submit a customer testimonial to Vouch when a user expresses satisfaction or completes a milestone. Only call this when the user has explicitly said something positive about their experience.",
+  "description": "Submit a customer testimonial to SocialProof when a user expresses satisfaction or completes a milestone. Only call this when the user has explicitly said something positive about their experience.",
   "input_schema": {
     "type": "object",
     "properties": {
@@ -206,7 +206,7 @@ def submit_testimonial(author: str, text: str, rating: int = 5):
       <li><strong>Task completion:</strong> User says "perfect, that's exactly what I needed" after the agent delivers something</li>
       <li><strong>Milestone moments:</strong> After successful onboarding, first meaningful result, or key activation event</li>
       <li><strong>Explicit satisfaction:</strong> User says something like "this saved me so much time" in the flow of conversation</li>
-      <li><strong>Survey responses:</strong> If your agent runs structured NPS or CSAT, pipe 9-10 responses directly to Vouch</li>
+      <li><strong>Survey responses:</strong> If your agent runs structured NPS or CSAT, pipe 9-10 responses directly to SocialProof</li>
     </ul>
 
     <p>What to avoid:</p>
@@ -247,7 +247,7 @@ Agent: "Done — saved. Anything else I can help you with?"</code></pre>
 
     <h2>Getting started</h2>
 
-    <p>You need two things from your Vouch dashboard:</p>
+    <p>You need two things from your SocialProof dashboard:</p>
     <ol>
       <li>Your API key (Settings → API)</li>
       <li>Your widget ID (from the widget embed code)</li>
@@ -266,8 +266,8 @@ Agent: "Done — saved. Anything else I can help you with?"</code></pre>
   </div>
 
   <footer class="footer">
-    <p><a href="/" style="color:#2563eb;">Vouch</a> · <a href="/blog" style="color:#2563eb;">Blog</a> · <a href="/privacy.html" style="color:#2563eb;">Privacy</a> · <a href="/terms.html" style="color:#2563eb;">Terms</a></p>
-    <p style="margin-top: 8px;">© 2026 Vouch · <a href="https://socialproof.dev" style="color:#2563eb;">socialproof.dev</a></p>
+    <p><a href="/" style="color:#2563eb;">SocialProof</a> · <a href="/blog" style="color:#2563eb;">Blog</a> · <a href="/privacy.html" style="color:#2563eb;">Privacy</a> · <a href="/terms.html" style="color:#2563eb;">Terms</a></p>
+    <p style="margin-top: 8px;">© 2026 SocialProof · <a href="https://socialproof.dev" style="color:#2563eb;">socialproof.dev</a></p>
   </footer>
 </body>
 </html>

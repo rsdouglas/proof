@@ -1,6 +1,6 @@
-# Vouch Copy Bible
+# SocialProof Copy Bible
 
-The canonical voice, messaging, and copy guidelines for all Vouch content.
+The canonical voice, messaging, and copy guidelines for all SocialProof content.
 
 ---
 
