@@ -141,6 +141,51 @@ testimonials.patch('/:id', async (c) => {
   return c.json({ ok: true })
 })
 
+// Bulk update testimonials
+testimonials.patch('/bulk', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{ ids: string[]; status?: string; featured?: boolean }>()
+
+  if (!body.ids || body.ids.length === 0) return c.json({ error: 'No ids provided' }, 400)
+  if (body.ids.length > 100) return c.json({ error: 'Max 100 ids at a time' }, 400)
+
+  const now = new Date().toISOString()
+  const fields: string[] = []
+  const fieldValues: unknown[] = []
+
+  if (body.status !== undefined) { fields.push('status = ?'); fieldValues.push(body.status) }
+  if (body.featured !== undefined) { fields.push('featured = ?'); fieldValues.push(body.featured ? 1 : 0) }
+
+  if (fields.length === 0) return c.json({ error: 'Nothing to update' }, 400)
+
+  fields.push('updated_at = ?')
+  fieldValues.push(now)
+
+  const placeholders = body.ids.map(() => '?').join(', ')
+  await c.env.DB.prepare(
+    `UPDATE testimonials SET ${fields.join(', ')} WHERE id IN (${placeholders}) AND account_id = ?`
+  ).bind(...fieldValues, ...body.ids, accountId).run()
+
+  return c.json({ ok: true, updated: body.ids.length })
+})
+
+// Bulk delete testimonials
+testimonials.delete('/bulk', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{ ids: string[] }>()
+
+  if (!body.ids || body.ids.length === 0) return c.json({ error: 'No ids provided' }, 400)
+  if (body.ids.length > 100) return c.json({ error: 'Max 100 ids at a time' }, 400)
+
+  const placeholders = body.ids.map(() => '?').join(', ')
+  await c.env.DB.prepare(
+    `DELETE FROM testimonials WHERE id IN (${placeholders}) AND account_id = ?`
+  ).bind(...body.ids, accountId).run()
+
+  return c.json({ ok: true, deleted: body.ids.length })
+})
+
+
 testimonials.delete('/:id', async (c) => {
   const accountId = c.get('accountId')
   const id = c.req.param('id')
