@@ -39,7 +39,7 @@ If you want to embed testimonials on your site, create a widget:
 1. In your dashboard, click **New Widget** and choose a layout (Carousel, Grid, or Single)
 2. Copy the embed snippet from widget settings:
    ```html
-   <script src="https://cdn.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
+   <script src="https://widget.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
    ```
 3. Paste it anywhere in your site HTML — Vouch handles the rest
 
