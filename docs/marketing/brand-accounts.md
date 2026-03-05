@@ -9,7 +9,7 @@
 
 ### Handle Recommendations (in order of preference)
 1. **@UseVouch** — clean, imperative, memorable. "Use SocialProof." Best option.
-2. **@VouchApp** — clear product category signal. Second choice.
+2. **@SocialProofApp** — matches the product name. Default handle.
 3. **@VouchHQ** — feels slightly corporate but solid fallback.
 
 > Note: All three were checked but Twitter requires login to confirm availability. rsdouglas should verify during signup.
