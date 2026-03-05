@@ -153,23 +153,24 @@ function getWidgetScript(): string {
     var styleId = 'proof-styles';
     if (document.getElementById(styleId)) return;
     var dark = theme === 'dark';
+    var minimal = theme === 'minimal';
     var css = [
       '.proof-widget { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-sizing: border-box; }',
       '.proof-widget *, .proof-widget *::before, .proof-widget *::after { box-sizing: border-box; }',
-      '.proof-card { border-radius: 12px; padding: 20px 24px; margin: 8px; position: relative; }',
-      dark ? '.proof-card { background: #1a1a2e; color: #e2e8f0; border: 1px solid #2d3748; }' : '.proof-card { background: #fff; color: #1a202c; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }',
-      '.proof-text { font-size: 15px; line-height: 1.6; margin: 0 0 16px; }',
+      minimal ? '.proof-card { border-radius: 0; padding: 24px 0; margin: 0; position: relative; border-bottom: 1px solid #f0f0f0; }' : '.proof-card { border-radius: 12px; padding: 20px 24px; margin: 8px; position: relative; }',
+      dark ? '.proof-card { background: #1a1a2e; color: #e2e8f0; border: 1px solid #2d3748; }' : minimal ? '.proof-card { background: transparent; color: #1a202c; }' : '.proof-card { background: #fff; color: #1a202c; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }',
+      minimal ? '.proof-text { font-size: 16px; line-height: 1.7; margin: 0 0 14px; font-style: italic; color: #2d3748; }' : '.proof-text { font-size: 15px; line-height: 1.6; margin: 0 0 16px; }',
       '.proof-author { display: flex; align-items: center; gap: 10px; }',
       '.proof-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }',
-      '.proof-avatar-placeholder { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }',
-      dark ? '.proof-avatar-placeholder { background: #6366f1; color: #fff; }' : '.proof-avatar-placeholder { background: #ede9fe; color: #6366f1; }',
+      minimal ? '.proof-avatar-placeholder { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; background: #f7f7f7; color: #718096; }' : '.proof-avatar-placeholder { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }',
+      dark ? '.proof-avatar-placeholder { background: #6366f1; color: #fff; }' : minimal ? '' : '.proof-avatar-placeholder { background: #ede9fe; color: #6366f1; }',
       '.proof-name { font-weight: 600; font-size: 14px; }',
-      dark ? '.proof-name { color: #f7fafc; }' : '.proof-name { color: #1a202c; }',
+      dark ? '.proof-name { color: #f7fafc; }' : minimal ? '.proof-name { color: #4a5568; font-weight: 500; }' : '.proof-name { color: #1a202c; }',
       '.proof-meta { font-size: 12px; }',
-      dark ? '.proof-meta { color: #a0aec0; }' : '.proof-meta { color: #718096; }',
-      '.proof-stars { color: #f59e0b; font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; }',
+      dark ? '.proof-meta { color: #a0aec0; }' : minimal ? '.proof-meta { color: #a0aec0; }' : '.proof-meta { color: #718096; }',
+      minimal ? '.proof-stars { color: #f59e0b; font-size: 12px; margin-bottom: 10px; letter-spacing: 2px; }' : '.proof-stars { color: #f59e0b; font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; }',
       /* Grid layout */
-      '.proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0; }',
+      minimal ? '.proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0; padding: 0 8px; }' : '.proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0; }',
       '.proof-list { display: flex; flex-direction: column; gap: 0; }',
       '.proof-list .proof-card { margin: 4px 0; border-radius: 10px; }',
       /* Carousel */
@@ -183,7 +184,7 @@ function getWidgetScript(): string {
       '.proof-badge { max-width: 420px; }',
       /* Attribution */
       '.proof-attribution { text-align: center; margin-top: 8px; font-size: 11px; }',
-      dark ? '.proof-attribution { color: #4a5568; }' : '.proof-attribution { color: #cbd5e0; }',
+      dark ? '.proof-attribution { color: #4a5568; }' : minimal ? '.proof-attribution { color: #e2e8f0; }' : '.proof-attribution { color: #cbd5e0; }',
       '.proof-attribution a { color: inherit; text-decoration: none; }',
     ].join('\\n');
     var el = document.createElement('style');
@@ -289,6 +290,7 @@ function getWidgetScript(): string {
     var styleId = 'proof-popup-styles';
     if (document.getElementById(styleId)) return;
     var dark = theme === 'dark';
+    var minimal = theme === 'minimal';
     var isRight = position === 'bottom-right' || position === 'top-right';
     var isTop = position && position.indexOf('top') === 0;
     var css = [
@@ -316,13 +318,13 @@ function getWidgetScript(): string {
       '  transform: translateY(10px);',
       '  transition: opacity 0.35s ease, transform 0.35s ease;',
       '  cursor: default;',
-      dark ? '  background: #1e1e2e; color: #cdd6f4; border: 1px solid #313244;' : '  background: #fff; color: #1a1a2e; border: 1px solid #e8e8f0;',
+      dark ? '  background: #1e1e2e; color: #cdd6f4; border: 1px solid #313244;' : minimal ? '  background: #fff; color: #1a202c; border: 1px solid #e8e8f0; box-shadow: none; border-left: 3px solid #6366f1;' : '  background: #fff; color: #1a1a2e; border: 1px solid #e8e8f0;',
       '}',
       '.proof-popup.visible { opacity: 1; transform: translateY(0); }',
       '.proof-popup-avatar {',
       '  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;',
       '  display: flex; align-items: center; justify-content: center;',
-      dark ? '  background: #313244; color: #cdd6f4;' : '  background: #f0f0fa; color: #5f5faf;',
+      dark ? '  background: #313244; color: #cdd6f4;' : minimal ? '  background: #f7f7f7; color: #718096;' : '  background: #f0f0fa; color: #5f5faf;',
       '  font-weight: 700; font-size: 16px;',
       '}',
       '.proof-popup-body { flex: 1; min-width: 0; }',
