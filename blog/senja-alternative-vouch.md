@@ -118,4 +118,4 @@ That's exactly what Vouch does — nothing more, nothing less.
 
 ---
 
-*Questions? Email us at team@socialproof.dev or find us on Twitter [@vouchsocial](https://twitter.com/vouchsocial).*
+*Questions? Email us at team@socialproof.dev.*
