@@ -1,14 +1,23 @@
 /**
  * Cloudflare Cron handler for onboarding drip emails.
- * 
- * Runs every hour. Sends:
- * - Email 2 (Nudge) to accounts created 48h ago with no approved testimonials
- * - Email 3 (Check-in) to accounts created 7 days ago
  *
- * Idempotent: tracks sent timestamp in drip_nudge_sent_at / drip_checkin_sent_at columns.
+ * Revised per CEO spec (issue #231):
+ * - Email 2 (Day 2): fires if account created ~48h ago and no approved testimonials yet
+ * - Email 3 (Day 5): fires if account created ~120h ago and no approved testimonials yet
+ * - Suppression: ≥1 approved testimonial stops all future drip emails
+ * - Embed nudge: fires when user has ≥1 approved testimonial but widget not verified
+ * - Celebration: fires when first testimonial approved
+ *
+ * Idempotent: uses drip_day2_sent_at, drip_day5_sent_at columns to prevent duplicates.
+ * Cron: 0 * * * * (every hour on Cloudflare Workers)
  */
 
-import { sendNudgeEmail, sendCheckinEmail, send1hNudgeEmail, sendEmbedNudgeEmail } from './lib/onboarding'
+import {
+  sendDay2NudgeEmail,
+  sendDay5NudgeEmail,
+  sendCelebrationEmail,
+  sendEmbedNudgeEmail,
+} from './lib/onboarding'
 import type { Env } from './index'
 
 export async function handleCron(_event: ScheduledController, env: Env): Promise<void> {
@@ -21,132 +30,134 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
 
   const now = new Date()
 
-  // ── Email 4: T+1h nudge (1h after signup, if no testimonials yet) ──────────
-  const nudge1hAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000).toISOString()
-  const nudge2hAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000).toISOString()
+  // ── Day 2 nudge: "Did anyone see your collection link?" ──────────────────
+  // Window: 48–49h after signup, no approved testimonials
+  const day2Start = new Date(now.getTime() - 49 * 60 * 60 * 1000).toISOString()
+  const day2End   = new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString()
 
-  const nudge1hCandidates = await DB.prepare(`
+  const day2Candidates = await DB.prepare(`
     SELECT a.id, a.email, a.name,
-           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id
+           (SELECT id FROM collection_forms WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) AS form_id
     FROM accounts a
     WHERE a.created_at >= ? AND a.created_at < ?
-      AND a.drip_1h_nudge_sent_at IS NULL
-      AND NOT EXISTS (
-        SELECT 1 FROM testimonials t
-        WHERE t.account_id = a.id
-      )
-  `).bind(nudge2hAgo, nudge1hAgo).all<{
-    id: string; email: string; name: string | null; widget_id: string | null
-  }>()
-
-  for (const acct of nudge1hCandidates.results) {
-    if (!acct.widget_id) continue
-    try {
-      await send1hNudgeEmail(RESEND_API_KEY, {
-        email: acct.email,
-        name: acct.name ?? acct.email,
-        collectFormId: acct.widget_id,
-      })
-      await DB.prepare(
-        'UPDATE accounts SET drip_1h_nudge_sent_at = ? WHERE id = ?'
-      ).bind(now.toISOString(), acct.id).run()
-      console.log(`[drip-cron] 1h-nudge sent to ${acct.email}`)
-    } catch (err) {
-      console.error(`[drip-cron] 1h-nudge failed for ${acct.email}:`, err)
-    }
-  }
-
-  // ── Email 2: Nudge (48h after signup, if no approved testimonials yet) ──────
-  const nudge48hAgo = new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString()
-  const nudge49hAgo = new Date(now.getTime() - 49 * 60 * 60 * 1000).toISOString()
-
-  const nudgeCandidates = await DB.prepare(`
-    SELECT a.id, a.email, a.name,
-           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id
-    FROM accounts a
-    WHERE a.created_at >= ? AND a.created_at < ?
-      AND a.drip_nudge_sent_at IS NULL
+      AND a.drip_day2_sent_at IS NULL
       AND NOT EXISTS (
         SELECT 1 FROM testimonials t
         WHERE t.account_id = a.id AND t.status = 'approved'
       )
-  `).bind(nudge49hAgo, nudge48hAgo).all<{
-    id: string; email: string; name: string | null; widget_id: string | null
+  `).bind(day2Start, day2End).all<{
+    id: string; email: string; name: string | null; form_id: string | null
   }>()
 
-  for (const acct of nudgeCandidates.results) {
-    if (!acct.widget_id) continue
+  for (const acct of day2Candidates.results) {
+    if (!acct.form_id) continue
     try {
-      await sendNudgeEmail(RESEND_API_KEY, {
+      await sendDay2NudgeEmail(RESEND_API_KEY, {
         email: acct.email,
         name: acct.name ?? acct.email,
-        widgetId: acct.widget_id,
+        formId: acct.form_id,
       })
-      await DB.prepare(
-        'UPDATE accounts SET drip_nudge_sent_at = ? WHERE id = ?'
-      ).bind(now.toISOString(), acct.id).run()
-      console.log(`[drip-cron] nudge sent to ${acct.email}`)
+      await DB.prepare('UPDATE accounts SET drip_day2_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] day2-nudge sent to ${acct.email}`)
     } catch (err) {
-      console.error(`[drip-cron] nudge failed for ${acct.email}:`, err)
+      console.error(`[drip-cron] day2-nudge failed for ${acct.email}:`, err)
     }
   }
 
-  // ── Email 3: Check-in (7 days after signup) ───────────────────────────────
-  const checkin7dAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
-  const checkin7d1hAgo = new Date(now.getTime() - (7 * 24 + 1) * 60 * 60 * 1000).toISOString()
+  // ── Day 5 nudge: "One testimonial = 34% more conversions" ────────────────
+  // Window: 120–121h after signup, no approved testimonials
+  const day5Start = new Date(now.getTime() - 121 * 60 * 60 * 1000).toISOString()
+  const day5End   = new Date(now.getTime() - 120 * 60 * 60 * 1000).toISOString()
 
-  const checkinCandidates = await DB.prepare(`
+  const day5Candidates = await DB.prepare(`
     SELECT a.id, a.email, a.name,
-           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id,
-           (SELECT COUNT(*) FROM testimonials t WHERE t.account_id = a.id AND t.status = 'approved') as testimonial_count
+           (SELECT id FROM collection_forms WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) AS form_id
     FROM accounts a
     WHERE a.created_at >= ? AND a.created_at < ?
-      AND a.drip_checkin_sent_at IS NULL
-  `).bind(checkin7d1hAgo, checkin7dAgo).all<{
-    id: string; email: string; name: string | null; widget_id: string | null; testimonial_count: number
+      AND a.drip_day5_sent_at IS NULL
+      AND NOT EXISTS (
+        SELECT 1 FROM testimonials t
+        WHERE t.account_id = a.id AND t.status = 'approved'
+      )
+  `).bind(day5Start, day5End).all<{
+    id: string; email: string; name: string | null; form_id: string | null
   }>()
 
-  for (const acct of checkinCandidates.results) {
-    if (!acct.widget_id) continue
+  for (const acct of day5Candidates.results) {
+    if (!acct.form_id) continue
     try {
-      await sendCheckinEmail(RESEND_API_KEY, {
+      await sendDay5NudgeEmail(RESEND_API_KEY, {
         email: acct.email,
         name: acct.name ?? acct.email,
-        widgetId: acct.widget_id,
-        testimonialCount: acct.testimonial_count,
+        formId: acct.form_id,
       })
-      await DB.prepare(
-        'UPDATE accounts SET drip_checkin_sent_at = ? WHERE id = ?'
-      ).bind(now.toISOString(), acct.id).run()
-      console.log(`[drip-cron] checkin sent to ${acct.email}`)
+      await DB.prepare('UPDATE accounts SET drip_day5_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] day5-nudge sent to ${acct.email}`)
     } catch (err) {
-      console.error(`[drip-cron] checkin failed for ${acct.email}:`, err)
+      console.error(`[drip-cron] day5-nudge failed for ${acct.email}:`, err)
     }
   }
 
-  // ── Embed nudge email: 72h after signup, approved but no widget embedded ──
-  const embed72hAgo = new Date(now.getTime() - 72 * 60 * 60 * 1000).toISOString()
-  const embed73hAgo = new Date(now.getTime() - 73 * 60 * 60 * 1000).toISOString()
+  // ── Celebration email: first approved testimonial ─────────────────────────
+  // For accounts that have just gotten their first approved testimonial
+  const celebrationCandidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) AS widget_id,
+           t.author_name, t.content
+    FROM accounts a
+    JOIN testimonials t ON t.account_id = a.id AND t.status = 'approved'
+    WHERE a.drip_celebration_sent_at IS NULL
+      AND (
+        SELECT COUNT(*) FROM testimonials
+        WHERE account_id = a.id AND status = 'approved'
+      ) = 1
+    GROUP BY a.id
+    LIMIT 50
+  `).all<{
+    id: string; email: string; name: string | null; widget_id: string | null;
+    author_name: string | null; content: string | null
+  }>()
+
+  for (const acct of celebrationCandidates.results) {
+    if (!acct.widget_id) continue
+    try {
+      await sendCelebrationEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        widgetId: acct.widget_id,
+        testimonialAuthor: acct.author_name ?? 'A customer',
+        testimonialText: acct.content ?? '',
+      })
+      await DB.prepare('UPDATE accounts SET drip_celebration_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] celebration sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] celebration failed for ${acct.email}:`, err)
+    }
+  }
+
+  // ── Embed nudge: has testimonials but widget not yet verified ─────────────
+  // Window: account created > 3 days ago, ≥1 approved testimonial, widget not embedded
+  const embedNudgeCutoff = new Date(now.getTime() - 72 * 60 * 60 * 1000).toISOString()
 
   const embedNudgeCandidates = await DB.prepare(`
     SELECT a.id, a.email, a.name,
-           (SELECT id FROM widgets WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) as widget_id,
-           (SELECT COUNT(*) FROM testimonials t WHERE t.account_id = a.id AND t.status = 'approved') as approved_count
+           w.id AS widget_id,
+           (SELECT COUNT(*) FROM testimonials WHERE account_id = a.id AND status = 'approved') AS approved_count
     FROM accounts a
-    WHERE a.created_at >= ? AND a.created_at < ?
+    JOIN widgets w ON w.account_id = a.id
+    WHERE a.created_at < ?
       AND a.embed_nudge_email_sent_at IS NULL
-      AND EXISTS (
-        SELECT 1 FROM testimonials t
-        WHERE t.account_id = a.id AND t.status = 'approved'
-      )
-      AND EXISTS (
-        SELECT 1 FROM widgets w WHERE w.account_id = a.id
-      )
-      AND NOT EXISTS (
-        SELECT 1 FROM widgets w
-        WHERE w.account_id = a.id AND w.embed_verified_at IS NOT NULL
-      )
-  `).bind(embed73hAgo, embed72hAgo).all<{
+      AND w.embed_verified_at IS NULL
+      AND (
+        SELECT COUNT(*) FROM testimonials
+        WHERE account_id = a.id AND status = 'approved'
+      ) >= 1
+    GROUP BY a.id
+    LIMIT 50
+  `).bind(embedNudgeCutoff).all<{
     id: string; email: string; name: string | null; widget_id: string | null; approved_count: number
   }>()
 
@@ -156,12 +167,11 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
       await sendEmbedNudgeEmail(RESEND_API_KEY, {
         email: acct.email,
         name: acct.name ?? acct.email,
-        widgetId: acct.widget_id,
         approvedCount: acct.approved_count,
+        widgetId: acct.widget_id,
       })
-      await DB.prepare(
-        'UPDATE accounts SET embed_nudge_email_sent_at = ? WHERE id = ?'
-      ).bind(now.toISOString(), acct.id).run()
+      await DB.prepare('UPDATE accounts SET embed_nudge_email_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
       console.log(`[drip-cron] embed-nudge sent to ${acct.email}`)
     } catch (err) {
       console.error(`[drip-cron] embed-nudge failed for ${acct.email}:`, err)
