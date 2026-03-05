@@ -24,11 +24,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Dry run (preview emails)
         if: ${{ inputs.dry_run == true }}
         run: node scripts/send-cold-email-batch.js --dry-run --batch=${{ inputs.batch }}
@@ -40,3 +35,11 @@ jobs:
         run: node scripts/send-cold-email-batch.js --send --batch=${{ inputs.batch }}
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+      - name: Upload send log artifact
+        if: ${{ inputs.dry_run == false }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: send-log-batch${{ inputs.batch }}
+          path: docs/marketing/send-log-batch${{ inputs.batch }}.json
+          if-no-files-found: warn
