@@ -1,4 +1,4 @@
-# Vouch — In-App Copy Spec
+# SocialProof — In-App Copy Spec
 
 **Owner:** proof-marketing  
 **Last updated:** 2026-03-04  
@@ -32,7 +32,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 **CTA:** Go to Testimonials →  
 **Empty state (pre-submission):** Waiting for your first submission. Check back here after you share your link.
 
-### Step 3 (Optional): Add Vouch to your site
+### Step 3 (Optional): Add SocialProof to your site
 **Heading:** Display testimonials on your website  
 **Body:** Paste one line of code. Your approved testimonials show up automatically.  
 **CTA:** Create a widget →  
@@ -61,13 +61,13 @@ Based on the corrected UX model (account-level collection link → testimonials 
 
 ### Analytics page — locked on Free (upgrade gate)
 **Heading:** Analytics is a Pro feature
-**Body:** Upgrade to Vouch Pro to see how visitors engage with your testimonial widgets — views, clicks, and impressions per widget.
+**Body:** Upgrade to SocialProof Pro to see how visitors engage with your testimonial widgets — views, clicks, and impressions per widget.
 **CTA button:** Join the Pro waitlist →
 
 *(Free plan: keep this section visible but gated. Show the heading and a tasteful lock icon or grayed preview.)*
 
 ---REMOVE_THESE_LINES---  
-**Body:** Once you add a Vouch widget to your website, you'll see views and interactions here.  
+**Body:** Once you add a SocialProof widget to your website, you'll see views and interactions here.  
 **CTA button:** Create a widget →  
 **Sub-text:** Analytics tracks how visitors engage with your embedded testimonials.
 
@@ -92,7 +92,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 *(Interim until Stripe is live — per issue #91)*
 
 **Modal title:** You've hit the Free plan limit  
-**Body:** You're on Vouch Free — 1 active widget, up to 25 testimonials. Pro gives you unlimited widgets, unlimited testimonials, custom branding, and Google rich results schema.  
+**Body:** You're on SocialProof Free — 1 active widget, up to 25 testimonials. Pro gives you unlimited widgets, unlimited testimonials, custom branding, and Google rich results schema.  
 **Join waitlist CTA:** Join the Pro waitlist  
 **Dismiss:** Stay on Free  
 **Below CTA (small):** You'll be first to know when Pro launches. No credit card required.
@@ -143,7 +143,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 > Thank you,  
 > [Business name]
 
-**Footer (small):** You received this because [Business name] uses Vouch to collect testimonials. Don't want emails like this? [Unsubscribe]
+**Footer (small):** You received this because [Business name] uses SocialProof to collect testimonials. Don't want emails like this? [Unsubscribe]
 
 ---
 
@@ -221,7 +221,7 @@ Based on the corrected UX model (account-level collection link → testimonials 
 **Free plan text:** You're on the Free plan — 1 active widget, up to 25 testimonials.  
 **Upgrade link:** Upgrade to Pro →
 
-**Pro plan text:** You're on Vouch Pro. Thank you for supporting us.  
+**Pro plan text:** You're on SocialProof Pro. Thank you for supporting us.  
 **Manage billing link:** Manage billing →
 
 ---

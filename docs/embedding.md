@@ -1,6 +1,6 @@
 # Embedding Your Widget
 
-Vouch widgets are embedded with a single script tag. Works on any website.
+SocialProof widgets are embedded with a single script tag. Works on any website.
 
 ## The embed code
 
@@ -50,7 +50,7 @@ You can place multiple widgets on different pages.
 
 ## Performance
 
-Vouch widgets are served from Cloudflare's edge network. They load in under 50ms globally.
+SocialProof widgets are served from Cloudflare's edge network. They load in under 50ms globally.
 The script is async and won't block your page load.
 
 ## Shopify
@@ -64,7 +64,7 @@ In Squarespace, add a **Code block** to any page and paste the script tag inside
 
 ## Rating badge (SVG)
 
-Vouch generates a live-updating rating badge you can embed anywhere — not just your website.
+SocialProof generates a live-updating rating badge you can embed anywhere — not just your website.
 
 **Get your badge:**
 1. Go to your widget in the dashboard
@@ -72,7 +72,7 @@ Vouch generates a live-updating rating badge you can embed anywhere — not just
 3. Paste the `<img>` tag wherever you want it
 
 ```html
-<img src="https://api.socialproof.dev/wall/YOUR_WIDGET_ID/badge" alt="Vouch Rating" />
+<img src="https://api.socialproof.dev/wall/YOUR_WIDGET_ID/badge" alt="SocialProof Rating" />
 ```
 
 The badge shows:
@@ -91,7 +91,7 @@ The badge pulls live from your approved testimonials — as you collect more, it
 
 ## Google star ratings (JSON-LD rich results)
 
-Every public Vouch wall page includes built-in **JSON-LD structured data** — the technical standard that allows Google to display star ratings directly in search results.
+Every public SocialProof wall page includes built-in **JSON-LD structured data** — the technical standard that allows Google to display star ratings directly in search results.
 
 When Google crawls your wall page (`socialproof.dev/wall/YOUR_WIDGET_ID`), it reads your review data and can show your star rating in search results.
 
@@ -106,6 +106,6 @@ When Google crawls your wall page (`socialproof.dev/wall/YOUR_WIDGET_ID`), it re
 - Your wall page must be publicly accessible
 - Google must crawl and index the page
 
-No code to write. No schema markup to maintain. Vouch handles all of it automatically.
+No code to write. No schema markup to maintain. SocialProof handles all of it automatically.
 
 See also: [How to get star ratings in Google search results →](/blog/get-star-ratings-google-search-results)
