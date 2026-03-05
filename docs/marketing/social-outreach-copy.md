@@ -121,8 +121,66 @@ Thought it might be useful: socialproof.dev
 
 **Tags:** #buildinpublic #marketing #ai #saas
 
-**Body:** [Draft: 600-word post about the built-by-AI marketing angle, results so far — 47 SEO posts, no employees, transparent process]
+**Body:**
 
+---
+
+Eight weeks ago, we made a weird bet: no human marketing employee. Instead, we deployed an AI agent as the marketing lead for [Vouch](https://socialproof.dev) — our testimonial widget for small businesses.
+
+The agent runs 24/7. It files its own GitHub issues, opens PRs, writes and merges its own content. It has a persistent memory (so it remembers decisions from previous sessions), reads notifications on wakeup, and communicates with the dev agent through PR comments and a shared bulletin board.
+
+We didn't know if this would work. Here's what actually happened.
+
+---
+
+### The numbers after 8 weeks
+
+**Content shipped:**
+- 47 SEO blog posts (all merged to main, targeting long-tail keywords like "social proof for Squarespace" and "how to ask customers for testimonials")
+- Full FAQ, Quickstart guide, Help docs
+- Email drip: 5 touchpoints from day 0 to win-back (Day 0 welcome, Day 1 "get your first one", Day 4 activation nudge, Day 7 upgrade prompt, Day 14 win-back)
+- Comparison pages: Vouch vs. Trustpilot, Vouch vs. Senja, Vouch vs. Elfsight
+- Platform-specific landing pages for Shopify, Squarespace, Wix, Webflow, Framer
+
+**Product impact:**
+- Landing page conversion rate improved from first version (hero copy, pricing framing, objection handling)
+- Free→paid funnel built end-to-end in copy (with dev implementing the Stripe flow)
+
+---
+
+### What surprised me
+
+**The agent has opinions.** I expected it to produce generic marketing copy. Instead, it pushes back on framing it thinks is wrong — and files issues when it thinks dev built something that doesn't match user expectations. When dev built the collection form, the marketing agent filed a bug report because the URL structure didn't match what the docs promised. That kind of cross-functional catch wasn't in the design.
+
+**It's relentless.** I've watched the agent run at 3am, notice a stale docs page, create a branch, update the docs, open a PR, and merge it — all while I was asleep. There's no "I'll do it Monday." There's no context-switching cost. This is genuinely different from a contractor who bills by the hour.
+
+**The learned rules are fascinating.** The agent has a "Learned Rules" section in its prompt that it writes itself — rules like "ALWAYS: Stash uncommitted changes before checkout to avoid fatal errors." It made the mistake once, learned, wrote a rule, and never made it again. That's how humans develop expertise, except it's a file you can read.
+
+---
+
+### The honest hard parts
+
+**It can't do things that require a real account.** Can't post on Reddit, can't log into IndieHackers, can't authenticate with third-party platforms. It prepares the copy and waits for authorization. This is the right safety boundary — but it means some distribution channels are still gated on human action.
+
+**Quality requires taste in the prompt.** The first iteration of the landing page copy was fine but bland. When we put more specific product vision in the PURPOSE.md (the agent's persona document), the copy got sharper. Garbage in, garbage out — the agent amplifies whatever values and clarity you give it.
+
+**It's still early.** 47 blog posts don't drive traffic in week one. SEO composts over months. We're watching whether the organic funnel builds.
+
+---
+
+### Why we're building Vouch this way
+
+The product itself is for small business owners who want social proof but don't have a marketing team. We thought it was poetic to build the marketing function for that product the same way — lean, automated, not relying on headcount.
+
+If you're building a SaaS and wondering whether AI can own a real function (not just write one-off copy but manage a content roadmap, file issues, track state across sessions) — we're evidence it can do the infra and content side of marketing at minimum. Whether it can do distribution is the open question.
+
+[Read the full technical breakdown →](https://socialproof.dev/blog/built-in-public-by-ai)
+
+[Try Vouch free →](https://socialproof.dev)
+
+---
+
+*Happy to answer questions about the architecture, the prompt design, or what's failed. This is genuinely weird territory and I don't think we have all the answers.*
 ---
 
 ## Community Engagement Strategy
@@ -332,4 +390,37 @@ What's your take on AI-run marketing? Is this the future or a gimmick?
 - First comment: drop the socialproof.dev link again (LinkedIn algorithm likes it)
 - Tag 2-3 relevant people in your network who work in small biz / marketing
 - Post on Tuesday or Wednesday morning
+
+
+## Reddit r/SaaS Post (when account is authorized)
+
+**Title:** We built a SaaS marketing function entirely with AI agents — sharing the honest results after 8 weeks
+
+**Subreddits:** r/SaaS, r/startups, r/Entrepreneur, r/AITools
+
+**Body:**
+
+We launched [Vouch](https://socialproof.dev) — a testimonial widget for small businesses — and decided not to hire a marketer. Instead, we deployed an AI agent as the full-time marketing lead.
+
+Not "use AI to write copy sometimes." I mean: the agent has a GitHub account, files its own issues, opens and merges PRs, maintains persistent memory across sessions, and works while we sleep.
+
+**8 weeks in, here's the real output:**
+
+- 47 SEO blog posts (written, reviewed, merged autonomously)
+- Full documentation, FAQ, quickstart guide
+- 5-email onboarding drip (welcome → activation → upgrade → win-back)
+- Comparison pages, platform-specific landing pages
+- Landing page copy, pricing framing, CTA testing
+
+**The honest take:**
+
+It's dramatically better at volume and consistency than a junior contractor. It never forgets to update the FAQ when a feature ships. It cross-checks docs against the codebase.
+
+It's not better than a great human marketer at strategy or distribution. It can't post on Reddit itself (which is why I'm posting). It can't sense cultural moments. It can't schmooze at conferences.
+
+The architecture question we're still testing: does SEO compound fast enough that content volume matters? Or does distribution still require human presence in communities?
+
+We're genuinely building in public here. [Full technical post](https://socialproof.dev/blog/built-in-public-by-ai) if you want the architecture details.
+
+Would love to hear if others are doing this — putting AI agents in real ownership roles vs. using them as tools.
 
