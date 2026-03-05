@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vouch Docs — Get started with social proof for your website</title>
+  <meta name="description" content="Learn how to collect testimonials, embed a widget, and grow your business with Vouch. Setup takes under 5 minutes.">
+  <link rel="canonical" href="https://socialproof.dev/docs">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+    a { color: #6c47ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #f0f0f0; }
+    .nav-logo { font-weight: 700; font-size: 18px; color: #1a1a1a; }
+    .nav-links { display: flex; gap: 24px; font-size: 14px; }
+    .nav-cta { background: #6c47ff; color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+    .nav-cta:hover { background: #5a38e0; text-decoration: none; }
+
+    .docs-layout { display: flex; min-height: calc(100vh - 57px); }
+    .sidebar { width: 240px; flex-shrink: 0; border-right: 1px solid #f0f0f0; padding: 32px 0; position: sticky; top: 0; height: calc(100vh - 57px); overflow-y: auto; }
+    .sidebar-section { margin-bottom: 24px; padding: 0 20px; }
+    .sidebar-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 8px; }
+    .sidebar a { display: block; font-size: 14px; color: #333; padding: 5px 0; }
+    .sidebar a:hover { color: #6c47ff; text-decoration: none; }
+    .sidebar a.active { color: #6c47ff; font-weight: 600; }
+
+    .main-content { flex: 1; padding: 48px 64px; max-width: 800px; }
+
+    h1 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+    .lead { font-size: 18px; color: #555; margin-bottom: 40px; line-height: 1.6; }
+
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .doc-card { border: 1px solid #e8e8e8; border-radius: 12px; padding: 24px; transition: border-color 0.15s, box-shadow 0.15s; }
+    .doc-card:hover { border-color: #6c47ff; box-shadow: 0 4px 16px rgba(108, 71, 255, 0.1); text-decoration: none; }
+    .doc-card-icon { font-size: 28px; margin-bottom: 12px; }
+    .doc-card-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+    .doc-card-desc { font-size: 14px; color: #666; line-height: 1.5; }
+
+    .callout { background: #f5f2ff; border-left: 4px solid #6c47ff; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 32px 0; font-size: 15px; color: #333; line-height: 1.6; }
+    .callout strong { color: #6c47ff; }
+
+    footer { border-top: 1px solid #f0f0f0; padding: 32px; text-align: center; font-size: 13px; color: #999; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main-content { padding: 32px 20px; }
+      .nav { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">Vouch</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="https://app.socialproof.dev/login">Log in</a>
+    <a href="https://app.socialproof.dev/signup" class="nav-cta">Get started free</a>
+  </div>
+</nav>
+
+<div class="docs-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Getting started</div>
+      <a href="/docs" class="active">Overview</a>
+      <a href="/docs/quickstart">Quick start</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Collecting</div>
+      <a href="/docs/collecting">Collection link</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Displaying</div>
+      <a href="/docs/embedding">Embedding a widget</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Help</div>
+      <a href="/faq">FAQ</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <h1>Vouch Docs</h1>
+    <p class="lead">Everything you need to collect testimonials and display them on your website. Most businesses are live in under 5 minutes.</p>
+
+    <div class="doc-grid">
+      <a href="/docs/quickstart" class="doc-card">
+        <div class="doc-card-icon">⚡</div>
+        <div class="doc-card-title">Quick start</div>
+        <div class="doc-card-desc">Go from signup to your first real testimonial in under 5 minutes. Start here.</div>
+      </a>
+      <a href="/docs/collecting" class="doc-card">
+        <div class="doc-card-icon">🔗</div>
+        <div class="doc-card-title">Collection link</div>
+        <div class="doc-card-desc">Your collection link is ready the moment you sign up. No setup needed to start asking.</div>
+      </a>
+      <a href="/docs/embedding" class="doc-card">
+        <div class="doc-card-icon">🪄</div>
+        <div class="doc-card-title">Embedding</div>
+        <div class="doc-card-desc">One script tag. Works on any website — Shopify, Squarespace, Wix, WordPress, or custom HTML.</div>
+      </a>
+      <a href="/faq" class="doc-card">
+        <div class="doc-card-icon">❓</div>
+        <div class="doc-card-title">FAQ</div>
+        <div class="doc-card-desc">Answers to the most common questions about Vouch plans, widgets, and how it all works.</div>
+      </a>
+    </div>
+
+    <div class="callout">
+      <strong>The key insight:</strong> You don't need a widget to start collecting testimonials. Your collection link exists the moment you sign up — share it with one happy customer today.
+    </div>
+
+    <p style="font-size:14px; color:#666; margin-top: 32px;">Questions not answered here? Email us at <a href="mailto:hello@socialproof.dev">hello@socialproof.dev</a></p>
+  </main>
+</div>
+
+<footer>
+  <p>&copy; 2025 Vouch &mdash; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="/faq">FAQ</a></p>
+</footer>
+
+</body>
+</html>
