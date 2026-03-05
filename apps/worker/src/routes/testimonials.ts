@@ -6,6 +6,13 @@ import { checkPlanLimit } from '../lib/planLimits'
 
 export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 
+// Strip HTML tags to prevent XSS stored in DB
+function sanitizeField(s: string | undefined | null, maxLen: number): string | null {
+  if (s == null) return null
+  return s.replace(/<[^>]*>/g, '').trim().slice(0, maxLen) || null
+}
+
+
 testimonials.get('/', async (c) => {
   const accountId = c.get('accountId')
   const status = c.req.query('status')
@@ -215,14 +222,20 @@ testimonials.post('/', async (c) => {
   const status = body.status || 'approved'
   const source = body.source || 'manual'
 
+  const cleanName = (body.display_name.replace(/<[^>]*>/g, '').trim()).slice(0, 120)
+  const cleanText = (body.display_text.replace(/<[^>]*>/g, '').trim()).slice(0, 2000)
+
   await c.env.DB.prepare(
     `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
   ).bind(
     id, accountId, body.widget_id ?? null,
-    body.display_name, body.display_text,
-    body.rating ?? null, body.company ?? null, body.title ?? null,
-    body.submitter_email ?? null, source, status, now, now
+    cleanName, cleanText,
+    body.rating ?? null,
+    sanitizeField(body.company, 120),
+    sanitizeField(body.title, 120),
+    body.submitter_email ? body.submitter_email.trim().slice(0, 254) : null,
+    source, status, now, now
   ).run()
 
   return c.json({ testimonial: { id, status } }, 201)
