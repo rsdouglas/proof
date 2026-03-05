@@ -395,7 +395,7 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
 
 <div class="footer">
   <a href="https://socialproof.dev" target="_blank" rel="noopener">
-    Powered by <span class="footer-logo">Vouch</span>
+    Powered by <span class="footer-logo">SocialProof</span>
   </a>
 </div>
 
@@ -409,7 +409,7 @@ function notFoundHtml(): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Widget not found — Vouch</title>
+  <title>Widget not found — SocialProof</title>
   <style>
     body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f8f9fa; }
     .box { text-align: center; }
@@ -421,7 +421,7 @@ function notFoundHtml(): string {
 <body>
   <div class="box">
     <h1>Widget not found</h1>
-    <p>This testimonial wall doesn't exist. <a href="https://socialproof.dev">Get started with Vouch →</a></p>
+    <p>This testimonial wall doesn't exist. <a href="https://socialproof.dev">Get started with SocialProof →</a></p>
   </div>
 </body>
 </html>`
@@ -478,7 +478,7 @@ wall.get('/:widgetId/badge', async (c) => {
   const starsText = avg !== null ? '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg)) : '★★★★★'
   const ratingText = avg !== null ? avg.toFixed(1) : '–'
   const reviewText = `${count} review${count !== 1 ? 's' : ''}`
-  const businessName = config.name || 'Vouch'
+  const businessName = config.name || 'SocialProof'
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="56" role="img" aria-label="${businessName}: ${ratingText} stars, ${reviewText}">
   <title>${businessName}: ${ratingText} stars, ${reviewText}</title>
@@ -486,7 +486,7 @@ wall.get('/:widgetId/badge', async (c) => {
   <text x="12" y="20" font-family="-apple-system,sans-serif" font-size="11" fill="#6b7280">${businessName}</text>
   <text x="12" y="38" font-family="-apple-system,sans-serif" font-size="16" fill="#f59e0b">${starsText}</text>
   <text x="12" y="50" font-family="-apple-system,sans-serif" font-size="10" fill="#6b7280">${ratingText} · ${reviewText}</text>
-  <text x="150" y="38" font-family="-apple-system,sans-serif" font-size="9" fill="#9ca3af">Vouch</text>
+  <text x="150" y="38" font-family="-apple-system,sans-serif" font-size="9" fill="#9ca3af">SocialProof</text>
 </svg>`
 
   return c.body(svg, 200, {
