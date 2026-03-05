@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SocialProof — Turn happy customers into your best marketing</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="description" content="Share one link. Your customers leave a testimonial. Free to collect, free forever. No developer needed.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,9 +44,18 @@
     }
 
     .nav-logo {
-      font-size: 20px; font-weight: 700; color: var(--text);
-      text-decoration: none; letter-spacing: -0.4px;
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
     }
     .nav-logo span { color: var(--purple); }
 
@@ -260,7 +273,7 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="/">✦ <span>SocialProof</span></a>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
   <div class="nav-links">
     <a href="#demo">Demo</a>
     <a href="#pricing">Pricing</a>
@@ -495,7 +508,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <a class="nav-logo" href="/">✦ <span>SocialProof</span></a>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
   <div class="footer-links">
     <a href="/blog">Blog</a>
     <a href="/faq">FAQ</a>
