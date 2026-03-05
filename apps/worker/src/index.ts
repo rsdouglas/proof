@@ -17,6 +17,7 @@ import { apiKeys, resolveApiKey } from './routes/api_keys'
 import waitlist from './routes/waitlist'
 import { agent } from './routes/agent'
 import { admin } from './routes/admin'
+import support from './routes/support'
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -85,6 +86,10 @@ app.route('/agent', agent)
 
 // Admin metrics (protected by ADMIN_SECRET header)
 app.route('/api/admin', admin)
+// Support inbox (inbound email via Resend + admin list)
+// POST /api/support/inbound — Resend webhook
+// GET  /api/support/admin-list — admin view (x-admin-key required)
+app.route('/api/support', support)
 
 // Stripe webhook (no JWT - validated by signature)
 app.post('/api/billing/webhook', async (c) => {
