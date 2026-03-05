@@ -117,6 +117,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           })
           if (!res.ok) {
             const body = await res.json().catch(() => ({})) as { error?: string }
+            // Pro waitlist: Stripe not yet configured — return body so caller can handle gracefully
+            if (res.status === 402 && (body as any).pro_waitlist) {
+              return body as any
+            }
             if (res.status === 402 && body.error === 'plan_limit') {
               const planErr = body as PlanLimitError
               throw new ApiError(
