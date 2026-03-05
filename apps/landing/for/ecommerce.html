@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonial Widget for E-Commerce Stores — Vouch</title>
+  <meta name="description" content="Add customer testimonials to your e-commerce store and turn browsers into buyers. Vouch collects, moderates, and displays social proof that increases conversions — no coding required.">
+  <link rel="canonical" href="https://socialproof.dev/for/ecommerce">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .vs-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .vs-section h2 { font-size: 1.8rem; font-weight: 700; color: #111; margin-bottom: 24px; text-align: center; }
+    .vs-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .vs-table th { text-align: left; padding: 12px 16px; background: #f9f9f9; color: #555; font-weight: 600; }
+    .vs-table td { padding: 12px 16px; border-bottom: 1px solid #eee; color: #333; }
+    .vs-table td.vouch { color: #16a34a; font-weight: 600; }
+    .vs-table td.them { color: #dc2626; }
+    .quote-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; max-width: 600px; margin: 0 auto 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; }
+    .nav-logo { font-weight: 800; font-size: 1.2rem; color: #111; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: #555; text-decoration: none; font-size: 0.95rem; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; color: #888; font-size: 0.9rem; }
+    footer a { color: #888; margin: 0 12px; text-decoration: none; }
+    .stat-strip { background: #f5f3ff; padding: 40px 24px; }
+    .stat-inner { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; text-align: center; }
+    .stat-item strong { display: block; font-size: 2rem; font-weight: 800; color: #6c47ff; }
+    .stat-item span { font-size: 0.9rem; color: #555; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/">Vouch</a>
+    <div class="nav-links">
+      <a href="/blog">Blog</a>
+      <a href="/docs">Docs</a>
+      <a href="https://app.socialproof.dev">Sign in</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>The testimonial widget e-commerce stores actually use</h1>
+    <p>Your customers trust other customers more than they trust you. Vouch puts real testimonials exactly where shoppers need to see them — no app store, no monthly fee, no developer required.</p>
+    <div class="cta-group">
+      <a class="btn-primary" href="https://app.socialproof.dev/signup">Start free — no credit card</a>
+      <a class="btn-secondary" href="/docs/quickstart">See how it works</a>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-inner">
+      <div class="stat-item">
+        <strong>72%</strong>
+        <span>of shoppers say reviews influence their purchase decision</span>
+      </div>
+      <div class="stat-item">
+        <strong>15–30%</strong>
+        <span>average conversion lift when testimonials are visible at checkout</span>
+      </div>
+      <div class="stat-item">
+        <strong>5 min</strong>
+        <span>from signup to live testimonials on your store</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="why-section">
+    <h2>Why e-commerce stores choose Vouch</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🛒 Works everywhere you sell</h3>
+        <p>One embed snippet works on Shopify, WooCommerce, Squarespace, Wix, or any custom store. Add it to product pages, your homepage, or your checkout flow.</p>
+      </div>
+      <div class="why-card">
+        <h3>📬 Collect automatically after purchase</h3>
+        <p>Share a collection link in your post-purchase email. Customers fill a 60-second form — name, photo (optional), and their story. You approve before anything goes live.</p>
+      </div>
+      <div class="why-card">
+        <h3>✅ You control what's displayed</h3>
+        <p>Every testimonial goes through your moderation queue. Approve, reject, or request edits. No fake reviews, no platform surprises, no review bombing.</p>
+      </div>
+      <div class="why-card">
+        <h3>🎨 Matches your brand</h3>
+        <p>Vouch widgets adapt to any page layout — carousel, grid, or single spotlight. No Vouch branding on the free plan. Your store, your aesthetic.</p>
+      </div>
+      <div class="why-card">
+        <h3>🚫 No third-party dependency</h3>
+        <p>Your testimonials live in your account, not on a platform that can delist you. Trustpilot, Google Reviews — you don't control those. You control Vouch.</p>
+      </div>
+      <div class="why-card">
+        <h3>💰 Free forever for 1 widget</h3>
+        <p>Start free with 1 active widget — enough for most small stores. Upgrade to Pro ($9/mo) for unlimited widgets, unlimited testimonials, and CSV export.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps-section">
+    <div class="steps-inner">
+      <h2>Set up in 3 steps</h2>
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Create a widget</h3>
+            <p>Sign up free and create a testimonial widget. Pick carousel or grid layout, set a name, done.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Send collection links to customers</h3>
+            <p>Get your unique collection link and paste it into your post-purchase email, DMs, or packaging inserts. Customers click, fill a form in 60 seconds, submit.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Embed on your store</h3>
+            <p>Copy your embed snippet and paste it into your store — Shopify Custom HTML block, Squarespace Code Block, or directly in your theme. The widget appears instantly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs-section">
+    <h2>Vouch vs. Trustpilot / Google Reviews</h2>
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Vouch</th>
+          <th>Trustpilot / Google</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Free plan</td>
+          <td class="vouch">✓ Free forever (1 widget)</td>
+          <td class="them">✗ Paid plans from $299/mo (Trustpilot)</td>
+        </tr>
+        <tr>
+          <td>You control the content</td>
+          <td class="vouch">✓ Full moderation queue</td>
+          <td class="them">✗ Platform can remove or alter reviews</td>
+        </tr>
+        <tr>
+          <td>Embeds on your site</td>
+          <td class="vouch">✓ One script tag, anywhere</td>
+          <td class="them">✗ Limited embed options, badges only</td>
+        </tr>
+        <tr>
+          <td>No account required from reviewer</td>
+          <td class="vouch">✓ Anonymous-friendly form</td>
+          <td class="them">✗ Google account required</td>
+        </tr>
+        <tr>
+          <td>Works on any platform</td>
+          <td class="vouch">✓ Shopify, WooCommerce, Wix, custom</td>
+          <td class="them">Varies</td>
+        </tr>
+        <tr>
+          <td>Setup time</td>
+          <td class="vouch">✓ Under 5 minutes</td>
+          <td class="them">Hours (verification, listing setup)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quote-section">
+    <blockquote>"I added testimonials to my product page in an afternoon. First week it was live, I saw a 20% bump in add-to-cart rate. Wish I'd done this sooner."</blockquote>
+    <cite>— Online store owner, handmade goods</cite>
+  </div>
+
+  <div class="cta-section">
+    <h2>Start collecting testimonials today</h2>
+    <p>Free forever for 1 widget. No credit card, no setup fees, no lock-in.</p>
+    <a class="btn-white" href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+
+  <footer>
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/docs">Docs</a>
+    <a href="/faq">FAQ</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <p style="margin-top:16px">© 2026 Vouch · <a href="https://socialproof.dev">socialproof.dev</a></p>
+  </footer>
+</body>
+</html>
