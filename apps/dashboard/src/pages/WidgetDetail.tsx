@@ -28,12 +28,13 @@ interface Widget {
 type Tab = 'pending' | 'approved' | 'rejected'
 
 const THEME_OPTIONS = ['light', 'dark', 'minimal']
-const LAYOUT_OPTIONS = ['grid', 'list', 'carousel', 'popup']
+const LAYOUT_OPTIONS = ['grid', 'list', 'carousel', 'popup', 'masonry']
 const LAYOUT_LABELS: Record<string, string> = {
   grid: 'Grid — display testimonials in a card grid',
   list: 'List — vertical stack of testimonials',
   carousel: 'Carousel — auto-scrolling slideshow',
   popup: 'Activity Popup — notification bubble in page corner',
+  masonry: 'Masonry — Pinterest-style varying-height columns',
 }
 
 function CopyButton({ text, label }: { text: string; label?: string }) {
