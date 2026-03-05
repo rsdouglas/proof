@@ -480,28 +480,26 @@ export default function Dashboard() {
   const [widgets, setWidgets] = useState<Array<{ id: string; created_at: string; embed_verified_at?: string | null }> | null>(null)
 
   const load = useCallback(async () => {
-    try {
-      const [tData, wData, fData, meData] = await Promise.all([
-        request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
-        request('/widgets') as Promise<{ widgets: Array<{ id: string; created_at: string; embed_verified_at?: string | null }> }>,
-        request('/forms') as Promise<{ forms: Array<{ id: string }> }>,
-        request('/accounts/me') as Promise<{ account: { created_at: string } }>,
-      ])
-      const ts = tData.testimonials || []
-      setRecent(ts.slice(0, 5))
-      setStats({
-        total_testimonials: ts.length,
-        approved: ts.filter((t) => t.status === 'approved').length,
-        pending: ts.filter((t) => t.status === 'pending').length,
-        total_widgets: (wData.widgets || []).length,
-      })
-      setWidgets(wData.widgets || [])
-      if (fData.forms?.length > 0) setCollectFormId(fData.forms[0].id)
-      if (meData.account?.created_at) setAccountCreatedAt(meData.account.created_at)
-    } catch {
-      // show zeros
-      setStats({ total_testimonials: 0, approved: 0, pending: 0, total_widgets: 0 })
-    }
+    const [tRes, wRes, fRes, meRes] = await Promise.allSettled([
+      request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
+      request('/widgets') as Promise<{ widgets: Array<{ id: string; created_at: string; embed_verified_at?: string | null }> }>,
+      request('/collection-forms') as Promise<{ forms: Array<{ id: string }> }>,
+      request('/accounts/me') as Promise<{ account: { created_at: string } }>,
+    ])
+    const ts = tRes.status === 'fulfilled' ? (tRes.value.testimonials || []) : []
+    const ws = wRes.status === 'fulfilled' ? (wRes.value.widgets || []) : []
+    const fs = fRes.status === 'fulfilled' ? (fRes.value.forms || []) : []
+    const me = meRes.status === 'fulfilled' ? meRes.value : null
+    setRecent(ts.slice(0, 5))
+    setStats({
+      total_testimonials: ts.length,
+      approved: ts.filter((t) => t.status === 'approved').length,
+      pending: ts.filter((t) => t.status === 'pending').length,
+      total_widgets: ws.length,
+    })
+    setWidgets(ws)
+    if (fs.length > 0) setCollectFormId(fs[0].id)
+    if (me?.account?.created_at) setAccountCreatedAt(me.account.created_at)
   }, [])
 
   useEffect(() => { load() }, [load])
