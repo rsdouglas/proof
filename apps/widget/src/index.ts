@@ -24,6 +24,7 @@ type WidgetData = {
     layout: string
     theme: string
     name: string
+    hide_branding?: boolean
   }
 }
 
@@ -245,21 +246,21 @@ function getWidgetScript(): string {
   }
 
   function renderGrid(data, el) {
-    el.innerHTML = '<div class="proof-grid">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
+    el.innerHTML = '<div class="proof-grid">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution(data);
   }
 
   function renderBadge(data, el) {
     var t = data.testimonials[0];
     if (!t) { el.innerHTML = ''; return; }
-    el.innerHTML = '<div class="proof-badge">' + renderCard(t) + '</div>' + attribution();
+    el.innerHTML = '<div class="proof-badge">' + renderCard(t) + '</div>' + attribution(data);
   }
 
   function renderList(data, el) {
-    el.innerHTML = '<div class="proof-list">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
+    el.innerHTML = '<div class="proof-list">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution(data);
   }
 
   function renderMasonry(data, el) {
-    el.innerHTML = '<div class="proof-masonry">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
+    el.innerHTML = '<div class="proof-masonry">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution(data);
   }
 
   function renderCarousel(data, el) {
@@ -269,7 +270,7 @@ function getWidgetScript(): string {
     var dots = '<div class="proof-carousel-dots">' + items.map(function(_, i) {
       return '<span class="proof-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></span>';
     }).join('') + '</div>';
-    el.innerHTML = track + dots + attribution();
+    el.innerHTML = track + dots + attribution(data);
 
     var trackEl = el.querySelector('.proof-carousel-track');
     var dotEls = el.querySelectorAll('.proof-dot');
@@ -288,7 +289,8 @@ function getWidgetScript(): string {
     setInterval(function() { goTo(current + 1); }, 4000);
   }
 
-  function attribution() {
+  function attribution(data) {
+    if (data && data.config && data.config.hide_branding) return '';
     return '<div class="proof-attribution"><a href="https://socialproof.dev" target="_blank" rel="noopener">Powered by SocialProof</a></div>';
   }
 
