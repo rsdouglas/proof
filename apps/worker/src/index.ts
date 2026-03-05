@@ -172,7 +172,7 @@ app.route('/api/accounts', accounts)
 app.route('/api/billing', billing)
 app.route('/api/analytics', analytics)
 app.route('/api/webhooks', webhooks)
-app.route('/api/keys', apiKeys)
+app.route('/api/api-keys', apiKeys)
 // Collection forms
 app.get('/api/collection-forms', async (c) => {
   const accountId = c.get('accountId')
