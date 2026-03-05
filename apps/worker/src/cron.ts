@@ -26,7 +26,7 @@ import {
 import type { Env } from './index'
 
 export async function handleCron(_event: ScheduledController, env: Env): Promise<void> {
-  const { DB, RESEND_API_KEY } = env
+  const { DB, RESEND_API_KEY, ADMIN_TOKEN } = env
 
   if (!RESEND_API_KEY) {
     console.error('[drip-cron] RESEND_API_KEY not set — skipping')
@@ -257,4 +257,63 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
       console.error(`[drip-cron] day14-winback failed for ${acct.email}:`, err)
     }
   }
+
+  // ── Daily admin stats digest (9am UTC) ───────────────────────────────────
+  // Fires once per day at 09:00 UTC when the ADMIN_TOKEN and RESEND_API_KEY
+  // are set. Sends a plain-text summary email to the ops address.
+  const utcHour = now.getUTCHours()
+  if (utcHour === 9 && RESEND_API_KEY && ADMIN_TOKEN) {
+    try {
+      const testFilter = `email NOT LIKE '%sp-test%' AND email NOT LIKE '%audit%' AND email NOT LIKE '%test%'`
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString()
+
+      const [usersTotal, usersLast7d, testsTotal, testsApproved, testsPending, widgetsTotal] =
+        await Promise.all([
+          DB.prepare(`SELECT COUNT(*) as n FROM accounts WHERE ${testFilter}`).first<{n:number}>(),
+          DB.prepare(`SELECT COUNT(*) as n FROM accounts WHERE ${testFilter} AND created_at >= ?`).bind(sevenDaysAgo).first<{n:number}>(),
+          DB.prepare(`SELECT COUNT(*) as n FROM testimonials WHERE account_id IN (SELECT id FROM accounts WHERE ${testFilter})`).first<{n:number}>(),
+          DB.prepare(`SELECT COUNT(*) as n FROM testimonials WHERE status='approved' AND account_id IN (SELECT id FROM accounts WHERE ${testFilter})`).first<{n:number}>(),
+          DB.prepare(`SELECT COUNT(*) as n FROM testimonials WHERE status='pending' AND account_id IN (SELECT id FROM accounts WHERE ${testFilter})`).first<{n:number}>(),
+          DB.prepare(`SELECT COUNT(*) as n FROM widgets WHERE account_id IN (SELECT id FROM accounts WHERE ${testFilter})`).first<{n:number}>(),
+        ])
+
+      const total = usersTotal?.n ?? 0
+      const last7d = usersLast7d?.n ?? 0
+      const approved = testsApproved?.n ?? 0
+      const pending = testsPending?.n ?? 0
+      const allTests = testsTotal?.n ?? 0
+      const widgets = widgetsTotal?.n ?? 0
+      const date = now.toISOString().slice(0, 10)
+
+      const text = [
+        `SocialProof Daily Stats — ${date}`,
+        '',
+        `Users:        ${total} total  (+${last7d} last 7d)`,
+        `Testimonials: ${allTests} total  (${approved} approved, ${pending} pending)`,
+        `Widgets:      ${widgets}`,
+        '',
+        `Full metrics: https://api.socialproof.dev/api/admin/stats`,
+        `(Bearer token: ADMIN_TOKEN secret)`,
+      ].join('\n')
+
+      const adminEmail = 'ryan@rsdouglas.com'
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'SocialProof Ops <noreply@socialproof.dev>',
+          to: [adminEmail],
+          subject: `📊 SocialProof Daily: ${total} users, ${approved} approved testimonials`,
+          text,
+        }),
+      })
+      console.log('[drip-cron] daily-stats digest sent')
+    } catch (err) {
+      console.error('[drip-cron] daily-stats digest failed:', err)
+    }
+  }
+
 }
