@@ -33,7 +33,7 @@ export default {
             headers: {
               'Content-Type': 'text/html; charset=utf-8',
               'Cache-Control': 'no-store',
-              'X-Vouch-Via': 'pages-worker',
+              'X-SocialProof-Via': 'pages-worker',
             }
           });
         } catch (err) {
