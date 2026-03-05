@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonial Widget for Consultants — Build Client Trust with Vouch</title>
+  <meta name="description" content="Consultants win clients with credibility. Vouch helps you collect, display, and embed client testimonials on your website in minutes — no tech skills needed.">
+  <link rel="canonical" href="https://socialproof.dev/for/consultants">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .pain-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .pain-section h2 { font-size: 1.8rem; font-weight: 700; color: #111; margin-bottom: 24px; text-align: center; }
+    .pain-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+    .pain-list li { padding: 20px 24px; background: #f9f9f9; border-radius: 10px; display: flex; gap: 14px; align-items: flex-start; font-size: 0.95rem; color: #333; line-height: 1.6; }
+    .pain-list li .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .quote-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; }
+    .nav-logo { font-weight: 800; font-size: 1.2rem; color: #111; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: #555; text-decoration: none; font-size: 0.95rem; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; color: #888; font-size: 0.9rem; }
+    footer a { color: #888; margin: 0 12px; text-decoration: none; }
+    .use-case-strip { background: #f5f3ff; padding: 40px 24px; text-align: center; }
+    .use-case-strip h3 { font-size: 1rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+    .use-cases { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .use-case-tag { background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 8px 16px; font-size: 0.9rem; color: #444; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/">Vouch</a>
+    <div class="nav-links">
+      <a href="/blog">Blog</a>
+      <a href="/docs">Docs</a>
+      <a href="https://app.socialproof.dev">Sign in</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Your best clients already trust you. Let their words do the selling.</h1>
+    <p>Vouch turns client testimonials into a trust engine on your website — collect, approve, and embed in minutes. No tech skills, no expensive tools, no lock-in.</p>
+    <div class="cta-group">
+      <a class="btn-primary" href="https://app.socialproof.dev/signup">Start free — no credit card</a>
+      <a class="btn-secondary" href="/docs/quickstart">How it works</a>
+    </div>
+  </div>
+
+  <div class="use-case-strip">
+    <h3>Built for independent professionals including</h3>
+    <div class="use-cases">
+      <span class="use-case-tag">Management consultants</span>
+      <span class="use-case-tag">Marketing consultants</span>
+      <span class="use-case-tag">Business coaches</span>
+      <span class="use-case-tag">Financial advisors</span>
+      <span class="use-case-tag">HR & people consultants</span>
+      <span class="use-case-tag">Tech consultants</span>
+      <span class="use-case-tag">Strategy advisors</span>
+      <span class="use-case-tag">Brand consultants</span>
+    </div>
+  </div>
+
+  <div class="pain-section">
+    <h2>The testimonial problem every consultant has</h2>
+    <ul class="pain-list">
+      <li>
+        <span class="icon">📩</span>
+        <span>A happy client says "feel free to use that in your materials" after a call — but you never turned that into copy, and now it's lost in your inbox forever.</span>
+      </li>
+      <li>
+        <span class="icon">🔗</span>
+        <span>LinkedIn recommendations exist, but they're locked on LinkedIn. You can't embed them on your site, customize their display, or control when they appear.</span>
+      </li>
+      <li>
+        <span class="icon">😬</span>
+        <span>Asking for testimonials feels awkward. A simple form clients can fill in 60 seconds removes the friction — they don't have to write an essay, just answer three prompts.</span>
+      </li>
+      <li>
+        <span class="icon">🏗️</span>
+        <span>You know you need a "what clients say" section on your website, but setting it up requires a developer or a complicated CMS integration you don't have time for.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="why-section">
+    <h2>How Vouch solves it</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>📬 A link you can send anywhere</h3>
+        <p>Your collection link works in email, DMs, invoices, or a "thank you for working with me" note. Clients fill in a 60-second form — no account, no friction.</p>
+      </div>
+      <div class="why-card">
+        <h3>✅ You approve everything</h3>
+        <p>New testimonials land in your moderation queue. You approve, reject, or request a revision. Nothing goes live without your say-so.</p>
+      </div>
+      <div class="why-card">
+        <h3>🖥️ One script tag, live on your site</h3>
+        <p>Copy your embed snippet and paste it into any website — Squarespace, WordPress, Webflow, or custom HTML. No developer needed. The widget appears instantly.</p>
+      </div>
+      <div class="why-card">
+        <h3>🎨 Looks professional by default</h3>
+        <p>Clean carousel or grid layouts that adapt to your site's design. No Vouch branding on your testimonials. Your name, your brand.</p>
+      </div>
+      <div class="why-card">
+        <h3>📂 You own your data</h3>
+        <p>Export all your testimonials to CSV anytime. No platform lock-in. If you ever leave Vouch, your client words come with you.</p>
+      </div>
+      <div class="why-card">
+        <h3>💰 Free forever for 1 widget</h3>
+        <p>1 active widget is free, forever. Most solo consultants never need to upgrade. Pro is $9/mo for unlimited widgets and testimonials when you're ready.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps-section">
+    <div class="steps-inner">
+      <h2>Set up in an afternoon</h2>
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Create a free account</h3>
+            <p>Sign up at socialproof.dev. Create your first widget — takes about 2 minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Send your collection link to past clients</h3>
+            <p>Copy your unique link and email it to 5–10 clients you've worked with. The form asks for their name, role, and a few sentences about working with you. Optional photo.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Approve and embed</h3>
+            <p>Approve the testimonials you want displayed. Paste the embed snippet into your "Work with me" or "About" page. Done. Live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-section">
+    <blockquote>"I emailed 8 past clients on a Thursday. By Friday morning I had 5 testimonials approved and live on my site. That one change alone has made my discovery calls much warmer."</blockquote>
+    <cite>— Independent strategy consultant</cite>
+  </div>
+
+  <div class="cta-section">
+    <h2>Turn client trust into new business</h2>
+    <p>Free forever for 1 widget. Set up in minutes, not months.</p>
+    <a class="btn-white" href="https://app.socialproof.dev/signup">Start collecting testimonials →</a>
+  </div>
+
+  <footer>
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/docs">Docs</a>
+    <a href="/faq">FAQ</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <p style="margin-top:16px">© 2026 Vouch · <a href="https://socialproof.dev">socialproof.dev</a></p>
+  </footer>
+</body>
+</html>
