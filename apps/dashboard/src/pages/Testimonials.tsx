@@ -77,6 +77,8 @@ export default function Testimonials() {
   const [addForm, setAddForm] = useState({ display_name: '', display_text: '', rating: '', company: '', title: '', submitter_email: '' })
   const [reqForm, setReqForm] = useState({ email: '', name: '', widget_id: '', personal_note: '' })
   const [sending, setSending] = useState(false)
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [bulkLoading, setBulkLoading] = useState(false)
 
   const showToast = (msg: string) => {
     setToast(msg)
@@ -171,6 +173,45 @@ export default function Testimonials() {
     }
   }
 
+  const allSelected = filtered.length > 0 && filtered.every(t => selectedIds.has(t.id))
+
+  function toggleSelectAll() {
+    if (allSelected) {
+      setSelectedIds(new Set())
+    } else {
+      setSelectedIds(new Set(filtered.map(t => t.id)))
+    }
+  }
+
+  function toggleSelect(id: string) {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  async function bulkAction(action: 'approve' | 'reject' | 'delete') {
+    if (selectedIds.size === 0) return
+    setBulkLoading(true)
+    const ids = Array.from(selectedIds)
+    try {
+      if (action === 'delete') {
+        await request('/testimonials/bulk', { method: 'DELETE', body: JSON.stringify({ ids }) })
+        setTestimonials(ts => ts.filter(t => !selectedIds.has(t.id)))
+      } else {
+        const status = action === 'approve' ? 'approved' : 'rejected'
+        await request('/testimonials/bulk', { method: 'PATCH', body: JSON.stringify({ ids, status }) })
+        setTestimonials(ts => ts.map(t => selectedIds.has(t.id) ? { ...t, status } : t))
+      }
+      setSelectedIds(new Set())
+      setToast(`${ids.length} testimonial${ids.length > 1 ? 's' : ''} ${action === 'delete' ? 'deleted' : action + 'd'}`)
+    } finally {
+      setBulkLoading(false)
+    }
+  }
+
   async function exportCsv() {
     const params = new URLSearchParams()
     if (filter !== 'all') params.set('status', filter)
@@ -234,6 +275,26 @@ export default function Testimonials() {
           </button>
         </div>
       </div>
+
+      {/* Bulk action bar */}
+      {selectedIds.size > 0 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8, marginBottom: 12 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#1d4ed8' }}>{selectedIds.size} selected</span>
+          <div style={{ flex: 1 }} />
+          <button onClick={() => bulkAction('approve')} disabled={bulkLoading} style={{ padding: '4px 12px', fontSize: 12, fontWeight: 600, background: '#16a34a', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>Approve</button>
+          <button onClick={() => bulkAction('reject')} disabled={bulkLoading} style={{ padding: '4px 12px', fontSize: 12, fontWeight: 600, background: '#f59e0b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>Reject</button>
+          <button onClick={() => bulkAction('delete')} disabled={bulkLoading} style={{ padding: '4px 12px', fontSize: 12, fontWeight: 600, background: '#ef4444', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>Delete</button>
+          <button onClick={() => setSelectedIds(new Set())} style={{ padding: '4px 8px', fontSize: 12, background: 'none', border: '1px solid #93c5fd', borderRadius: 6, cursor: 'pointer', color: '#3b82f6' }}>Clear</button>
+        </div>
+      )}
+
+      {/* Select all row */}
+      {filtered.length > 0 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <input type="checkbox" checked={allSelected} onChange={toggleSelectAll} style={{ width: 16, height: 16, cursor: 'pointer' }} />
+          <span style={{ fontSize: 12, color: '#6b7280' }}>{allSelected ? 'Deselect all' : `Select all ${filtered.length}`}</span>
+        </div>
+      )}
 
       {/* Filter tabs */}
       <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
@@ -321,7 +382,7 @@ export default function Testimonials() {
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {filtered.map(t => <TestimonialCard key={t.id} t={t} onStatus={setStatus} onDelete={deleteTestimonial} onToggleFeatured={toggleFeatured} />)}
+          {filtered.map(t => <TestimonialCard key={t.id} t={t} onStatus={setStatus} onDelete={deleteTestimonial} onToggleFeatured={toggleFeatured} selected={selectedIds.has(t.id)} onSelect={toggleSelect} />)}
         </div>
       )}
     </div>
@@ -348,11 +409,13 @@ function shareOnTwitter(t: Testimonial) {
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(trimmed)}`, '_blank', 'noopener,noreferrer,width=600,height=400')
 }
 
-function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured }: {
+function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured, selected, onSelect }: {
   t: Testimonial
   onStatus: (id: string, status: string) => void
   onDelete: (id: string) => void
   onToggleFeatured: (id: string, featured: number) => void
+  selected?: boolean
+  onSelect?: (id: string) => void
 }) {
   const statusColor = t.status === 'approved' ? colors.success : t.status === 'pending' ? colors.warning : colors.gray300
 
@@ -366,6 +429,12 @@ function TestimonialCard({ t, onStatus, onDelete, onToggleFeatured }: {
       borderLeft: `3px solid ${statusColor}`,
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+        {/* Checkbox */}
+        {onSelect && (
+          <div style={{ paddingTop: 2 }}>
+            <input type="checkbox" checked={!!selected} onChange={() => onSelect(t.id)} style={{ width: 16, height: 16, cursor: 'pointer' }} />
+          </div>
+        )}
         {/* Content */}
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
