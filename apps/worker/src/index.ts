@@ -17,6 +17,7 @@ import { apiKeys, resolveApiKey } from './routes/api_keys'
 import waitlist from './routes/waitlist'
 import { agent } from './routes/agent'
 import { admin } from './routes/admin'
+import { outreach } from './routes/outreach'
 import support from './routes/support'
 export interface Env {
   DB: D1Database
@@ -87,6 +88,7 @@ app.route('/agent', agent)
 
 // Admin metrics (protected by ADMIN_SECRET header)
 app.route('/api/admin', admin)
+app.route('/api/admin/outreach', outreach)
 // Support inbox (inbound email via Resend + admin list)
 // POST /api/support/inbound — Resend webhook
 // GET  /api/support/admin-list — admin view (x-admin-key required)
