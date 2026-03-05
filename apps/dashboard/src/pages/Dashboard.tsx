@@ -447,25 +447,25 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
   )
 }
 
-const statCards = (stats: Stats | null) => [
+const statCards = (stats: Stats) => [
   {
     label: 'Total testimonials',
-    value: stats !== null ? stats.total_testimonials : '—',
+    value: stats.total_testimonials,
     icon: MessageSquare,
   },
   {
     label: 'Approved',
-    value: stats !== null ? stats.approved : '—',
+    value: stats.approved,
     icon: CheckCircle2,
   },
   {
     label: 'Pending review',
-    value: stats !== null ? stats.pending : '—',
+    value: stats.pending,
     icon: Clock,
   },
   {
     label: 'Widgets deployed',
-    value: stats !== null ? stats.total_widgets : '—',
+    value: stats.total_widgets,
     icon: Layers,
   },
 ]
@@ -473,7 +473,7 @@ const statCards = (stats: Stats | null) => [
 export default function Dashboard() {
   const { account } = useAuth()
   const { request } = useApi()
-  const [stats, setStats] = useState<Stats | null>(null)
+  const [stats, setStats] = useState<Stats>({ total_testimonials: 0, approved: 0, pending: 0, total_widgets: 0 })
   const [recent, setRecent] = useState<Array<{ id: string; display_name: string; display_text: string; status: string }>>([])
   const [collectFormId, setCollectFormId] = useState<string | null>(null)
   const [accountCreatedAt, setAccountCreatedAt] = useState<string | null>(null)
@@ -494,10 +494,10 @@ export default function Dashboard() {
     const me = meRes.status === 'fulfilled' ? meRes.value : null
     setRecent(ts.slice(0, 5))
     setStats({
-      total_testimonials: st?.testimonials ?? ts.length,
-      approved: st?.approved ?? ts.filter((t) => t.status === 'approved').length,
-      pending: st?.pending ?? ts.filter((t) => t.status === 'pending').length,
-      total_widgets: st?.widgets ?? ws.length,
+      total_testimonials: st?.testimonials ?? ts.length ?? 0,
+      approved: st?.approved ?? ts.filter((t) => t.status === 'approved').length ?? 0,
+      pending: st?.pending ?? ts.filter((t) => t.status === 'pending').length ?? 0,
+      total_widgets: st?.widgets ?? ws.length ?? 0,
     })
     setWidgets(ws)
     if (fs.length > 0) setCollectFormId(fs[0].id)
@@ -510,14 +510,14 @@ export default function Dashboard() {
     ? `https://socialproof.dev/c/${collectFormId}`
     : ''
 
-  const isZeroState = stats !== null && stats.total_testimonials === 0 && !!collectFormId
+  const isZeroState = stats.total_testimonials === 0 && !!collectFormId
   const is24hNudge = isZeroState && accountCreatedAt !== null &&
     (Date.now() - new Date(accountCreatedAt).getTime() > 24 * 60 * 60 * 1000)
-  const hasPending = stats !== null && stats.pending > 0
+  const hasPending = stats.pending > 0
   const isFirstPending = hasPending && stats!.approved === 0
 
   // Embed nudge: has approved testimonials, has widgets, but none are embed-verified, and it's been 48h since account creation
-  const hasApproved = stats !== null && stats.approved > 0
+  const hasApproved = stats.approved > 0
   const hasWidgets = widgets !== null && widgets.length > 0
   const allWidgetsUnverified = hasWidgets && widgets!.every(w => !w.embed_verified_at)
   const isOldEnough = accountCreatedAt !== null &&
@@ -566,7 +566,7 @@ export default function Dashboard() {
       </div>
 
       {/* Onboarding checklist */}
-      {stats && <OnboardingChecklist stats={stats} />}
+      {<OnboardingChecklist stats={stats} />}
 
       {/* Quick actions */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32 }}>
