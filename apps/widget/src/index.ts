@@ -386,10 +386,18 @@ function getWidgetScript(): string {
         var hideTimer = null;
         var dismissed = false;
 
+        function track(widgetId, eventType) {
+          try {
+            var _b = new Blob([JSON.stringify({ event_type: eventType })], { type: 'text/plain' });
+            navigator.sendBeacon('https://api.socialproof.dev/api/track/' + widgetId, _b);
+          } catch(e) {}
+        }
+
         function showNext() {
           if (dismissed || items.length === 0) return;
           var item = items[idx % items.length];
           idx++;
+          track(widgetId, 'impression');
           var initial = item.display_name ? item.display_name.charAt(0).toUpperCase() : '?';
           var el = document.createElement('div');
           el.className = 'proof-popup';
@@ -409,6 +417,10 @@ function getWidgetScript(): string {
             el.classList.remove('visible');
             setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
             if (hideTimer) clearTimeout(hideTimer);
+          });
+          // Track click on popup body (not close button)
+          el.querySelector('.proof-popup-body').addEventListener('click', function() {
+            track(widgetId, 'click');
           });
 
           container.appendChild(el);
@@ -459,12 +471,24 @@ function getWidgetScript(): string {
           else if (resolvedLayout === 'masonry') renderMasonry(data, el);
           else renderGrid(data, el);
 
-          // Beacon: tell the server this widget loaded successfully (fire-and-forget)
+          // Analytics: track impression immediately (widget loaded + rendered)
           try {
-            fetch('https://api.socialproof.dev/api/widgets/' + widgetId + '/beacon', {
-              method: 'POST', mode: 'no-cors',
-              headers: { 'Content-Type': 'application/json' }
-            });
+            var _blob = new Blob([JSON.stringify({ event_type: 'impression' })], { type: 'text/plain' });
+            navigator.sendBeacon('https://api.socialproof.dev/api/track/' + widgetId, _blob);
+          } catch(e) {}
+
+          // Analytics: track 'view' when widget becomes 50% visible (IntersectionObserver)
+          try {
+            if ('IntersectionObserver' in window) {
+              var _io = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                  var _vb = new Blob([JSON.stringify({ event_type: 'view' })], { type: 'text/plain' });
+                  navigator.sendBeacon('https://api.socialproof.dev/api/track/' + widgetId, _vb);
+                  _io.disconnect();
+                }
+              }, { threshold: 0.5 });
+              _io.observe(el);
+            }
           } catch(e) {}
         })
         .catch(function() { el.innerHTML = ''; });
