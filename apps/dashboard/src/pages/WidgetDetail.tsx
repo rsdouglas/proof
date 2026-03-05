@@ -374,49 +374,7 @@ export default function WidgetDetail() {
             <CopyButton text={wallUrl} label="Copy wall URL" />
           </div>
 
-          {/* Public wall */}
-          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
-            <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Public testimonial wall</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>A shareable page showing all approved testimonials</p>
-            <a
-              href={wallUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: 13, color: colors.brand, wordBreak: 'break-all', display: 'block', marginBottom: 8 }}
-            >{wallUrl}</a>
-            <CopyButton text={wallUrl} label="Copy wall URL" />
-          </div>
 
-          {/* Widget config */}
-          <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
-            <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 600 }}>Widget settings</h3>
-
-            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Name</label>
-            <input
-              value={name} onChange={e => setName(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, boxSizing: 'border-box', marginBottom: 12, fontFamily: font.sans }}
-            />
-
-            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Theme</label>
-            <select value={theme} onChange={e => setTheme(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, marginBottom: 12, fontFamily: font.sans }}>
-              {THEME_OPTIONS.map(o => <option key={o} value={o}>{o.charAt(0).toUpperCase() + o.slice(1)}</option>)}
-            </select>
-
-            <label style={{ display: 'block', fontSize: 12, color: colors.gray700, marginBottom: 4, fontWeight: 500 }}>Layout</label>
-            <select value={layout} onChange={e => setLayout(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '8px 10px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 13, marginBottom: 16, fontFamily: font.sans }}>
-              {LAYOUT_OPTIONS.map(o => <option key={o} value={o}>{LAYOUT_LABELS[o] || o}</option>)}
-            </select>
-
-            <button onClick={updateWidget} disabled={saving} style={{
-              width: '100%', padding: '9px', background: saving ? colors.brandBorder : colors.brand,
-              color: colors.white, border: 'none', borderRadius: radius.sm, fontWeight: 600, fontSize: 13,
-              cursor: saving ? 'not-allowed' : 'pointer', fontFamily: font.sans,
-            }}>
-              {saving ? 'Saving…' : 'Save changes'}
-            </button>
-          </div>
 
           {/* Danger zone */}
           <div style={{ background: colors.white, border: '1px solid #fee2e2', borderRadius: radius.md, padding: 20 }}>
@@ -470,6 +428,25 @@ export default function WidgetDetail() {
               <img src={badgeUrl} alt="Rating badge preview" width={160} height={44} style={{ flexShrink: 0 }} />
               <div style={{ fontSize: 11, color: colors.gray500 }}>Embed this on your website or email signature. Updates automatically.</div>
             </div>
+          </div>
+
+          {/* Live preview */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Live preview</label>
+              <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: colors.brand }}>Open full page ↗</a>
+            </div>
+            <div style={{ border: '1px solid #e5e7eb', borderRadius: radius.sm, overflow: 'hidden', background: '#f9fafb' }}>
+              <iframe
+                key={wallUrl}
+                src={wallUrl}
+                style={{ width: '100%', height: 320, border: 'none', display: 'block' }}
+                title="Widget preview"
+              />
+            </div>
+            <p style={{ margin: '6px 0 0', fontSize: 11, color: colors.gray400 }}>
+              Shows your public testimonial wall. Approve testimonials to see them here.
+            </p>
           </div>
         </div>
       </div>
