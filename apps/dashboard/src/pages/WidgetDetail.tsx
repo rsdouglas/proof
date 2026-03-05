@@ -21,6 +21,8 @@ interface Widget {
   theme: string
   layout: string
   created_at: string
+  embed_verified_at?: string | null
+  embed_domain?: string | null
 }
 
 type Tab = 'pending' | 'approved' | 'rejected'
@@ -277,6 +279,23 @@ export default function WidgetDetail() {
         <Link to="/widgets" style={{ color: colors.gray500, textDecoration: 'none', fontSize: 14 }}>← Widgets</Link>
         <span style={{ color: colors.gray300 }}>/</span>
         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{widget.name}</h1>
+        {widget.embed_verified_at ? (
+          <span title={`Verified live on ${widget.embed_domain || 'your site'} · Last seen ${new Date(widget.embed_verified_at).toLocaleDateString()}`} style={{
+            display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px',
+            borderRadius: 12, background: '#d1fae5', color: '#065f46',
+            fontSize: 11, fontWeight: 600, marginLeft: 8,
+          }}>
+            ✓ Live on {widget.embed_domain || 'your site'}
+          </span>
+        ) : (
+          <span title="We haven't detected this widget on your site yet. Paste the snippet and load your page." style={{
+            display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 8px',
+            borderRadius: 12, background: colors.gray100, color: colors.gray500,
+            fontSize: 11, fontWeight: 600, marginLeft: 8,
+          }}>
+            ○ Not detected yet
+          </span>
+        )}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
