@@ -18,8 +18,8 @@ wall.get('/:widgetId', async (c) => {
   } else {
     // Fetch widget row
     const widgetRow = await c.env.DB.prepare(
-      'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
-    ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+      'SELECT id, account_id, name, slug, type, config FROM widgets WHERE (id = ? OR slug = ?) AND active = 1'
+    ).bind(widgetId, widgetId).first<{ id: string; account_id: string; name: string; slug: string | null; type: string; config: string }>()
 
     if (!widgetRow) {
       return c.html(notFoundHtml(), 404)
@@ -439,8 +439,8 @@ wall.get('/:widgetId/badge', async (c) => {
     payload = cached
   } else {
     const widgetRow = await c.env.DB.prepare(
-      'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
-    ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+      'SELECT id, account_id, name, slug, type, config FROM widgets WHERE (id = ? OR slug = ?) AND active = 1'
+    ).bind(widgetId, widgetId).first<{ id: string; account_id: string; name: string; slug: string | null; type: string; config: string }>()
 
     if (!widgetRow) {
       return c.body('Not found', 404)

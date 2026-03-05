@@ -20,8 +20,8 @@ widget.get('/:widgetId', async (c) => {
 
   // Fetch widget row
   const widgetRow = await c.env.DB.prepare(
-    'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
-  ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+    'SELECT id, account_id, name, slug, type, config FROM widgets WHERE (id = ? OR slug = ?) AND active = 1'
+  ).bind(widgetId, widgetId).first<{ id: string; account_id: string; name: string; slug: string | null; type: string; config: string }>()
 
   if (!widgetRow) {
     return c.json({ error: 'Widget not found' }, 404)
@@ -77,8 +77,8 @@ widget.get('/:widgetId/popup', async (c) => {
   }
 
   const widgetRow = await c.env.DB.prepare(
-    'SELECT id, account_id, name, type, config FROM widgets WHERE id = ? AND active = 1'
-  ).bind(widgetId).first<{ id: string; account_id: string; name: string; type: string; config: string }>()
+    'SELECT id, account_id, name, slug, type, config FROM widgets WHERE (id = ? OR slug = ?) AND active = 1'
+  ).bind(widgetId, widgetId).first<{ id: string; account_id: string; name: string; slug: string | null; type: string; config: string }>()
 
   if (!widgetRow) {
     return c.json({ error: 'Widget not found' }, 404)
