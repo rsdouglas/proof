@@ -23,6 +23,7 @@ const LAYOUT_OPTIONS = [
   { value: 'carousel', label: 'Carousel' },
   { value: 'popup', label: 'Popup' },
   { value: 'badge', label: 'Badge' },
+  { value: 'masonry', label: 'Masonry' },
 ]
 
 const THEME_OPTIONS = [
