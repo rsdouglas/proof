@@ -59,6 +59,15 @@ app.get('/widget.js', async (c) => {
   })
 })
 
+// Alias: /v1/vouch.js → same as /v1/widget.js (vouch.js shown in embed snippets)
+app.get('/v1/vouch.js', async (c) => {
+  const widgetJs = getWidgetScript()
+  return c.text(widgetJs, 200, {
+    'Content-Type': 'application/javascript; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600',
+  })
+})
+
 // Serve widget data as JSON
 app.get('/v1/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
