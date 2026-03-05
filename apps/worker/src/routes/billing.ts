@@ -49,9 +49,9 @@ async function getOrCreateCustomer(env: Env, accountId: string, email: string, n
 // ─── POST /api/billing/checkout ───────────────────────────────────────────────
 
 billing.post('/checkout', async (c) => {
-  // If Stripe not configured, return pro-waitlist signal
+  // If Stripe not configured, return graceful "coming soon" response
   if (!c.env.STRIPE_SECRET_KEY) {
-    return c.json({ pro_waitlist: true, message: 'Stripe not yet configured — join Pro waitlist' }, 402)
+    return c.json({ stripe_unavailable: true, message: "Billing setup in progress — check back soon" }, 503)
   }
 
   const accountId = c.get('accountId')
