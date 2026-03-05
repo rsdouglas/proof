@@ -15,7 +15,17 @@ export const analytics = new Hono<{ Bindings: Env; Variables: Variables }>()
 // POST /api/track/:widgetId  { event_type: 'impression' | 'view' | 'click' }
 analytics.post('/track/:widgetId', async (c) => {
   const widgetId = c.req.param('widgetId')
-  const body = await c.req.json<{ event_type: string }>().catch(() => null)
+  // sendBeacon sends text/plain; also accept application/json
+  let body: { event_type: string } | null = null
+  try {
+    const ct = c.req.header('content-type') ?? ''
+    if (ct.includes('text/plain')) {
+      const text = await c.req.text()
+      body = JSON.parse(text)
+    } else {
+      body = await c.req.json<{ event_type: string }>()
+    }
+  } catch { body = null }
 
   const validTypes = ['impression', 'view', 'click']
   if (!body || !validTypes.includes(body.event_type)) {
