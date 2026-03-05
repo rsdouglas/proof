@@ -367,10 +367,10 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
       action: stats.total_testimonials > 0 ? { to: '/testimonials', label: 'Review testimonials' } : null,
     },
     {
-      done: false,
+      done: stats.total_widgets > 0,
       title: 'Add a widget to your site',
       desc: 'Display approved testimonials on your website. Create a widget and paste the embed code.',
-      action: { to: '/widgets', label: 'Create widget' },
+      action: stats.total_widgets > 0 ? null : { to: '/widgets', label: 'Create widget' },
     },
   ]
 
