@@ -128,7 +128,7 @@ auth.post('/signup', async (c) => {
     sendWelcomeEmail(c.env.RESEND_API_KEY, {
       email: normalizedEmail,
       name: name.trim(),
-      widgetId,
+      formId,
     }).catch((err) => console.error('[signup] welcome email failed:', err))
     // Record send timestamp
     c.env.DB.prepare('UPDATE accounts SET drip_welcome_sent_at = ? WHERE id = ?')

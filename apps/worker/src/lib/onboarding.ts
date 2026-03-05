@@ -1,9 +1,12 @@
 /**
  * Onboarding drip email sequence for new Vouch users.
- * Email 1: Welcome (Day 0, on signup)
- * Email 2: Nudge (Day 2, if no testimonials yet)
- * Email 3: Check-in (Day 7, personalized on testimonial count)
- * Copy: docs/onboarding-emails.md
+ *
+ * Revised per CEO spec (issue #231):
+ *   Email 1 — Welcome (Day 0, immediate): drive collection link SENDING
+ *   Email 2 — Day 2 nudge: "Did anyone see your collection link?"
+ *   Email 3 — Day 5 nudge: "One testimonial = 34% more conversions"
+ *
+ * Suppression: stop all emails once user has ≥1 approved testimonial.
  */
 
 const FROM = 'Vouch <hello@socialproof.dev>'
@@ -42,163 +45,149 @@ async function send(
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`)
 }
 
-/** Email 1: Welcome — sent immediately on signup */
+/** Email 1: Welcome — sent immediately on signup. Drives collection link sending. */
 export async function sendWelcomeEmail(
   apiKey: string,
-  opts: { email: string; name: string; widgetId: string }
+  opts: { email: string; name: string; formId: string }
 ): Promise<void> {
   const first = opts.name.split(' ')[0]
-  const link = `${COLLECT_BASE}/${opts.widgetId}`
+  const link = `${COLLECT_BASE}/${opts.formId}`
   const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">You're in — here's your Vouch link 👇</h2>
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">You're in — do this one thing today</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Welcome to Vouch. You're 3 minutes away from your first testimonial.</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">Here's your personal collection link:</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You've got a collection link ready. Send it to one customer right now — takes 30 seconds.</p>
     <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
       <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
     </div>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px;line-height:1.6">Send this to one customer who had a great experience. Copy this into an email or DM:</p>
-    <div style="background:#f9fafb;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 20px">
-      <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;font-style:italic">"Hey [name] — I'm collecting a quick testimonial for my website. Would you mind sharing a few words? Takes 2 minutes: ${link}"</p>
+    <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 24px">Copy your link →</a>
+    <p style="margin:0 0 8px;color:#374151;font-size:15px;line-height:1.6">Just paste this into a Slack message or email to one happy customer:</p>
+    <div style="background:#f9fafb;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 24px">
+      <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;font-style:italic">"Hey [name] — I'm collecting testimonials for my site. Would you mind leaving a quick one? Takes 2 minutes: ${link}"</p>
     </div>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Once they submit, you'll get an email. You approve it, and a widget appears on your site with their words. The widget code is in your dashboard. One paste. Any website.</p>
-    <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Go to your dashboard →</a>
-    <p style="margin:16px 0 4px;color:#374151;font-size:15px">Questions? Just reply to this email.</p>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px">— The Vouch team</p>
-    <p style="margin:0;color:#9ca3af;font-size:13px;line-height:1.5">P.S. Most people who get a testimonial in the first 24 hours stay with Vouch. Most people who don't... forget about it. Don't forget about it.</p>
+    <p style="margin:0 0 4px;color:#374151;font-size:15px;line-height:1.6">When their testimonial arrives, we'll email you. You approve it. Then paste one line of code and you're live.</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
   `)
-  await send(apiKey, opts.email, "You're in — here's your Vouch link 👇", html)
+  await send(apiKey, opts.email, `You're in — do this one thing today`, html)
 }
 
-/** Email 2: Nudge — sent 48h after signup if no testimonials yet */
+/** Email 2: Day 2 nudge — "Did anyone see your collection link?" */
+export async function sendDay2NudgeEmail(
+  apiKey: string,
+  opts: { email: string; name: string; formId: string }
+): Promise<void> {
+  const first = opts.name.split(' ')[0]
+  const link = `${COLLECT_BASE}/${opts.formId}`
+  const html = wrap(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Did anyone see your collection link?</h2>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Quick check — have you sent your Vouch collection link to a customer yet?</p>
+    <p style="margin:0 0 8px;color:#374151;font-size:15px;line-height:1.6">Here's your link:</p>
+    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
+      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
+    </div>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Most people send it to one happy customer by Slack or email and hear back same day. That's all it takes to get your first testimonial on your site.</p>
+    <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Send your collection link →</a>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+  `)
+  await send(apiKey, opts.email, `Did anyone see your collection link?`, html)
+}
+
+/** Email 3: Day 5 nudge — "One testimonial = 34% more conversions" */
+export async function sendDay5NudgeEmail(
+  apiKey: string,
+  opts: { email: string; name: string; formId: string }
+): Promise<void> {
+  const first = opts.name.split(' ')[0]
+  const link = `${COLLECT_BASE}/${opts.formId}`
+  const html = wrap(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">One testimonial = 34% more conversions</h2>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You're one customer away from having social proof on your site.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Studies show that a single testimonial on a landing page increases conversions by up to 34%. One happy customer saying "this worked for me" does more than any feature bullet point.</p>
+    <p style="margin:0 0 8px;color:#374151;font-size:15px;line-height:1.6">Here's how to get it in the next hour:</p>
+    <ol style="margin:0 0 20px;padding-left:20px;color:#374151;font-size:15px;line-height:1.8">
+      <li>Think of one customer who got a great result</li>
+      <li>Send them this link by Slack, email, or text</li>
+      <li>They fill it in — takes 2 minutes</li>
+    </ol>
+    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
+      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
+    </div>
+    <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Get your first testimonial →</a>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+  `)
+  await send(apiKey, opts.email, `One testimonial = 34% more conversions`, html)
+}
+
+// ── Legacy emails — kept for cron backward-compat, but drip now uses Day2/Day5 ──
+
+/** @deprecated Use sendDay2NudgeEmail instead */
 export async function sendNudgeEmail(
   apiKey: string,
   opts: { email: string; name: string; widgetId: string }
 ): Promise<void> {
-  const first = opts.name.split(' ')[0]
-  const link = `${COLLECT_BASE}/${opts.widgetId}`
-  const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Did you send the link yet?</h2>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Quick check-in: have you sent your Vouch link to a customer yet?</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">Here it is again:</p>
-    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
-      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
-    </div>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">I know it feels weird to ask for a testimonial. Here's what actually works:</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6;font-weight:600">Just ask someone you already know liked your work.</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Not a prospect. Not a stranger. Someone who's already paid you and had a good experience.</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:14px;font-weight:600">The script that works:</p>
-    <div style="background:#f9fafb;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 20px">
-      <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;font-style:italic">"Hey — I'm trying to get some testimonials for my website. Would you be up for leaving a quick one? Here: ${link}. No pressure at all."</p>
-    </div>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;font-weight:600">One message. That's it.</p>
-    <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 16px">Send your collect link now →</a>
-    <p style="margin:16px 0 16px;color:#374151;font-size:14px">Go send it right now, before you close this email.</p>
-    <p style="margin:0;color:#374151;font-size:15px">— Vouch</p>
-  `)
-  await send(apiKey, opts.email, 'Did you send the link yet?', html)
+  // Redirect to Day2 nudge with same formId
+  await sendDay2NudgeEmail(apiKey, { email: opts.email, name: opts.name, formId: opts.widgetId })
 }
 
-/** Email 3: Check-in — sent 7 days after signup, personalized on testimonial count */
+/** @deprecated Use sendDay5NudgeEmail instead */
 export async function sendCheckinEmail(
   apiKey: string,
   opts: { email: string; name: string; widgetId: string; testimonialCount: number }
 ): Promise<void> {
-  const first = opts.name.split(' ')[0]
-  const link = `${COLLECT_BASE}/${opts.widgetId}`
-  const hasT = opts.testimonialCount > 0
-
-  const personalizedBlock = hasT
-    ? `<p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6"><strong>Nice work — you've got ${opts.testimonialCount} testimonial${opts.testimonialCount > 1 ? 's' : ''}.</strong> Now go get ${opts.testimonialCount >= 3 ? 'more' : '3'}. The widget looks way more compelling with multiple testimonials cycling through.</p>`
-    : `<p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6"><strong>If you haven't sent the link yet:</strong> that's okay, but let's talk about why.</p>
-       <ul style="margin:0 0 20px;padding-left:20px;color:#374151;font-size:14px;line-height:2.2">
-         <li><strong>"I'm not sure who to ask"</strong> → Ask your last 3 happy customers. Just those 3.</li>
-         <li><strong>"I feel awkward asking"</strong> → Your customers WANT to support you. Asking lets them.</li>
-         <li><strong>"I'll do it when I have more time"</strong> → It takes 2 minutes. Now counts.</li>
-       </ul>`
-
-  const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">How's it going?</h2>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">It's been a week. Checking in — how's Vouch working for you?</p>
-    ${personalizedBlock}
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">Your link:</p>
-    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
-      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
-    </div>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">If there's something about the product that's confusing or broken, reply and tell me. I read every response.</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">— Vouch</p>
-    <p style="margin:20px 0 0;color:#9ca3af;font-size:13px;line-height:1.5">P.S. If Vouch isn't the right fit for you, no hard feelings. Hit reply and let me know what you actually need — I'll point you somewhere useful.</p>
-  `)
-  await send(apiKey, opts.email, "How's it going?", html)
+  await sendDay5NudgeEmail(apiKey, { email: opts.email, name: opts.name, formId: opts.widgetId })
 }
 
-/** Email 4: T+1h nudge — sent 1 hour after signup if no testimonials yet */
+/** @deprecated No longer used in revised drip */
 export async function send1hNudgeEmail(
-  apiKey: string,
+  _apiKey: string,
   opts: { email: string; name: string; collectFormId: string }
 ): Promise<void> {
-  const first = opts.name.split(' ')[0]
-  const link = `https://socialproof.dev/c/${opts.collectFormId}`
-  const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your Vouch link is ready — here's who to send it to</h2>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hi ${first},</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">Your collection link is:</p>
-    <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
-      <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
-    </div>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">The fastest way to get your first testimonial? Send it to 3 people right now:</p>
-    <ul style="margin:0 0 20px;padding-left:20px;color:#374151;font-size:15px;line-height:1.9">
-      <li>A customer who left a positive review somewhere</li>
-      <li>A client who thanked you recently</li>
-      <li>Anyone who said "I love your product"</li>
-    </ul>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">Takes 2 minutes for them. Takes you 10 seconds to forward this.</p>
-    <p style="margin:0 0 8px;color:#374151;font-size:15px">— The Vouch team</p>
-  `)
-  await send(apiKey, opts.email, 'Your Vouch link is ready — here\'s who to send it to', html)
+  // Suppressed — 1h nudge removed from revised spec
+  console.log(`[onboarding] 1h nudge suppressed (retired): ${opts.email}`)
 }
 
-/** Email 5: First testimonial celebration — sent when the first testimonial is submitted */
+/** Celebration email — sent when first testimonial is approved */
 export async function sendCelebrationEmail(
   apiKey: string,
-  opts: { email: string; name: string; submitterName: string }
+  opts: { email: string; name: string; widgetId: string; testimonialAuthor: string; testimonialText: string }
 ): Promise<void> {
   const first = opts.name.split(' ')[0]
+  const snippet = `<script src="https://widget.socialproof.dev/v1/vouch.js" data-widget-id="${opts.widgetId}" async></script>`
   const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">🎉 You got your first testimonial!</h2>
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">🎉 Your first testimonial just arrived!</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6"><strong>${opts.submitterName}</strong> just left you a testimonial on Vouch.</p>
-    <p style="margin:0 0 20px;color:#374151;font-size:15px;line-height:1.6">Approve it to make it public — then embed it on your site.</p>
-    <a href="https://app.socialproof.dev/testimonials" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Review it now →</a>
-    <p style="margin:16px 0 0;color:#9ca3af;font-size:13px;line-height:1.5">This is the moment that matters. One testimonial, live on your site, is more powerful than a hundred "coming soon" placeholders.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6"><strong>${opts.testimonialAuthor}</strong> just left you a testimonial:</p>
+    <div style="background:#f9fafb;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 24px">
+      <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;font-style:italic">"${opts.testimonialText}"</p>
+    </div>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Now put it on your site. Paste this one line of code where you want your widget to appear:</p>
+    <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow-x:auto">
+      <code style="color:#a6e3a1;font-size:13px;font-family:'Courier New',monospace;white-space:pre-wrap;word-break:break-all">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
+    </div>
+    <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Go to dashboard →</a>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
   `)
-  await send(apiKey, opts.email, '🎉 You got your first testimonial!', html)
+  await send(apiKey, opts.email, `🎉 Your first testimonial just arrived`, html)
 }
 
-/** Embed nudge email — sent 72h after signup if approved testimonials exist but no widget ever embedded */
+/** Embed nudge email — sent when user has testimonials but hasn't embedded the widget */
 export async function sendEmbedNudgeEmail(
   apiKey: string,
-  opts: { email: string; name: string; widgetId: string; approvedCount: number }
+  opts: { email: string; name: string; approvedCount: number; widgetId: string }
 ): Promise<void> {
   const first = opts.name.split(' ')[0]
-  const dashWidgets = `${DASH}/widgets`
   const snippet = `<script src="https://widget.socialproof.dev/v1/vouch.js" data-widget-id="${opts.widgetId}" async></script>`
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your testimonials are ready — add them to your site</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">
-      You have <strong>${opts.approvedCount} approved testimonial${opts.approvedCount > 1 ? 's' : ''}</strong> sitting in Vouch — but they're not on your site yet.
-    </p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Here's your embed snippet. One paste and you're live:</p>
-    <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow:hidden">
-      <code style="color:#cdd6f4;font-size:12px;font-family:'Courier New',Courier,monospace;word-break:break-all;line-height:1.6">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You've got <strong>${opts.approvedCount} approved testimonial${opts.approvedCount > 1 ? 's' : ''}</strong> sitting in Vouch — but they're not on your site yet.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">One paste is all it takes:</p>
+    <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow-x:auto">
+      <code style="color:#a6e3a1;font-size:13px;font-family:'Courier New',monospace;white-space:pre-wrap;word-break:break-all">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
     </div>
-    <p style="margin:0 0 16px;color:#374151;font-size:14px;line-height:1.6">Paste it anywhere in your site's HTML — before the closing <code style="background:#f3f4f6;padding:2px 5px;border-radius:3px">&lt;/body&gt;</code> tag. That's it.</p>
-    <a href="${dashWidgets}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 16px">Get embed code in dashboard →</a>
-    <p style="margin:16px 0 0;color:#374151;font-size:14px;line-height:1.6">Your testimonials are doing nothing sitting in a dashboard. Put them where your customers can see them.</p>
-    <p style="margin:8px 0 0;color:#374151;font-size:15px">— Vouch</p>
+    <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Get embed code →</a>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
   `)
-  await send(apiKey, opts.email, 'Your testimonials are ready — add them to your site', html)
+  await send(apiKey, opts.email, `Your testimonials are ready — add them to your site`, html)
 }
