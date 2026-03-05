@@ -3,7 +3,7 @@ import { useApi, API_URL, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import UpgradeModal from '../components/UpgradeModal'
 import { colors, font, shadow, radius, card, btn, C, spacing, fontSize } from '../design'
-import { CheckCircle2, XCircle, Trash2, Download, Mail, Plus, Star, Share2 } from 'lucide-react'
+import { CheckCircle2, XCircle, Trash2, Download, Upload, Mail, Plus, Star, Share2 } from 'lucide-react'
 
 interface Testimonial {
   id: string
@@ -23,7 +23,7 @@ interface Widget {
   name: string
 }
 
-type ModalMode = 'add' | 'request' | null
+type ModalMode = 'add' | 'request' | 'import' | null
 
 const inputStyle = {
   padding: '9px 12px',
@@ -79,6 +79,9 @@ export default function Testimonials() {
   const [sending, setSending] = useState(false)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [bulkLoading, setBulkLoading] = useState(false)
+  const [csvFile, setCsvFile] = useState<File | null>(null)
+  const [csvImporting, setCsvImporting] = useState(false)
+  const [csvResult, setCsvResult] = useState<{ imported: number; skipped: number; errors: string[] } | null>(null)
 
   const showToast = (msg: string) => {
     setToast(msg)
@@ -237,6 +240,31 @@ export default function Testimonials() {
     rejected: testimonials.filter(t => t.status === 'rejected').length,
   }
 
+
+  async function importCsv() {
+    if (!csvFile) return
+    setCsvImporting(true)
+    setCsvResult(null)
+    try {
+      const fd = new FormData()
+      fd.append('csv', csvFile)
+      const res = await request('/testimonials/import-csv', { method: 'POST', body: fd }) as Response
+      const data = await res.json() as { imported: number; skipped: number; errors: string[] }
+      setCsvResult(data)
+      if (data.imported > 0) {
+        // Refresh testimonials list
+        const r = await request('/testimonials') as Response
+        const json = await r.json() as { testimonials: Testimonial[] }
+        setTestimonials(json.testimonials || [])
+        showToast(`Imported ${data.imported} testimonial${data.imported !== 1 ? 's' : ''}`)
+      }
+    } catch (e) {
+      setCsvResult({ imported: 0, skipped: 0, errors: [(e as Error).message] })
+    } finally {
+      setCsvImporting(false)
+    }
+  }
+
   return (
     <div style={{ maxWidth: 860, fontFamily: font.sans }}>
       {/* Toast */}
@@ -266,6 +294,9 @@ export default function Testimonials() {
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={exportCsv} style={btn.outline}>
             <Download size={14} /> Export CSV
+          </button>
+          <button onClick={() => { setCsvFile(null); setCsvResult(null); setModal('import') }} style={btn.outline}>
+            <Upload size={14} /> Import CSV
           </button>
           <button onClick={() => setModal('request')} style={btn.outline}>
             <Mail size={14} /> Request
@@ -360,6 +391,58 @@ export default function Testimonials() {
             <textarea placeholder="Testimonial text *" required
               value={addForm.display_text} onChange={e => setAddForm(f => ({ ...f, display_text: e.target.value }))}
               style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} />
+          </div>
+        </Modal>
+      )}
+
+
+      {/* Modal: Import CSV */}
+      {modal === 'import' && (
+        <Modal
+          title="Import testimonials from CSV"
+          onClose={() => setModal(null)}
+          onSubmit={csvResult ? () => setModal(null) : importCsv}
+          submitLabel={csvResult ? 'Done' : csvImporting ? 'Importing…' : 'Import'}
+          submitting={csvImporting}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {!csvResult ? (
+              <>
+                <p style={{ margin: 0, fontSize: 13, color: '#6b7280', lineHeight: 1.5 }}>
+                  Upload a CSV file with a header row. Required columns: <code>name</code>, <code>text</code>.<br />
+                  Optional: <code>rating</code>, <code>company</code>, <code>title</code>, <code>email</code>, <code>status</code> (approved/pending/rejected).
+                </p>
+                <input
+                  type="file"
+                  accept=".csv,text/csv"
+                  onChange={e => setCsvFile(e.target.files?.[0] ?? null)}
+                  style={{ fontSize: 13, fontFamily: 'inherit' }}
+                />
+                {csvFile && (
+                  <p style={{ margin: 0, fontSize: 12, color: '#6b7280' }}>
+                    Selected: {csvFile.name} ({(csvFile.size / 1024).toFixed(1)} KB)
+                  </p>
+                )}
+              </>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ padding: '12px 16px', background: csvResult.imported > 0 ? '#f0fdf4' : '#fef2f2', borderRadius: 8, border: `1px solid ${csvResult.imported > 0 ? '#bbf7d0' : '#fecaca'}` }}>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: csvResult.imported > 0 ? '#15803d' : '#dc2626' }}>
+                    {csvResult.imported > 0 ? `✓ Imported ${csvResult.imported} testimonial${csvResult.imported !== 1 ? 's' : ''}` : 'Import failed'}
+                  </p>
+                  {csvResult.skipped > 0 && (
+                    <p style={{ margin: '4px 0 0', fontSize: 13, color: '#6b7280' }}>Skipped {csvResult.skipped} row{csvResult.skipped !== 1 ? 's' : ''} (missing required fields or errors)</p>
+                  )}
+                </div>
+                {csvResult.errors.length > 0 && (
+                  <div style={{ maxHeight: 140, overflow: 'auto', background: '#fafafa', border: '1px solid #e5e7eb', borderRadius: 6, padding: 10 }}>
+                    {csvResult.errors.map((e, i) => (
+                      <p key={i} style={{ margin: '0 0 4px', fontSize: 12, color: '#dc2626', fontFamily: 'monospace' }}>{e}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </Modal>
       )}

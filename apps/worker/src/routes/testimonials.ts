@@ -293,3 +293,103 @@ testimonials.post('/request', async (c) => {
 
   // Log the request for dedup / audit (we can add a table later; for now just return ok)
   return c.json({ ok: true, sent_to: body.email.trim() }, 200)})
+
+
+// POST /api/testimonials/import-csv
+// Body: multipart/form-data with field "csv" (text file)
+// CSV columns (first row header, case-insensitive):
+//   name*, text*, rating, company, title, email, status
+testimonials.post('/import-csv', async (c) => {
+  const accountId = c.get('accountId')
+
+  let csvText: string
+  try {
+    const formData = await c.req.formData()
+    const file = formData.get('csv')
+    if (!file || typeof file === 'string') {
+      return c.json({ error: 'csv file required' }, 400)
+    }
+    csvText = await (file as File).text()
+  } catch {
+    return c.json({ error: 'invalid multipart body' }, 400)
+  }
+
+  // Parse CSV (simple — handles quoted fields with commas)
+  function parseCsvLine(line: string): string[] {
+    const result: string[] = []
+    let field = ''
+    let inQuotes = false
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i]
+      if (ch === '"') {
+        if (inQuotes && line[i + 1] === '"') { field += '"'; i++ }
+        else { inQuotes = !inQuotes }
+      } else if (ch === ',' && !inQuotes) {
+        result.push(field); field = ''
+      } else {
+        field += ch
+      }
+    }
+    result.push(field)
+    return result
+  }
+
+  const lines = csvText.split(/\r?\n/).filter(l => l.trim())
+  if (lines.length < 2) return c.json({ error: 'CSV must have header + at least one row' }, 400)
+  if (lines.length > 501) return c.json({ error: 'max 500 rows per import' }, 400)
+
+  const headers = parseCsvLine(lines[0]).map(h => h.trim().toLowerCase())
+  const nameIdx = headers.indexOf('name')
+  const textIdx = headers.indexOf('text')
+  const ratingIdx = headers.indexOf('rating')
+  const companyIdx = headers.indexOf('company')
+  const titleIdx = headers.indexOf('title')
+  const emailIdx = headers.indexOf('email')
+  const statusIdx = headers.indexOf('status')
+
+  if (nameIdx === -1 || textIdx === -1) {
+    return c.json({ error: 'CSV must have "name" and "text" columns' }, 400)
+  }
+
+  const now = new Date().toISOString()
+  let imported = 0
+  let skipped = 0
+  const errors: string[] = []
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCsvLine(lines[i])
+    const rawName = (cols[nameIdx] ?? '').trim()
+    const rawText = (cols[textIdx] ?? '').trim()
+
+    if (!rawName || !rawText) { skipped++; continue }
+
+    const cleanName = rawName.replace(/<[^>]*>/g, '').slice(0, 120)
+    const cleanText = rawText.replace(/<[^>]*>/g, '').slice(0, 2000)
+    const rating = ratingIdx !== -1 ? Number(cols[ratingIdx]) || null : null
+    const company = companyIdx !== -1 ? (cols[companyIdx] ?? '').trim().slice(0, 120) || null : null
+    const jobTitle = titleIdx !== -1 ? (cols[titleIdx] ?? '').trim().slice(0, 120) || null : null
+    const email = emailIdx !== -1 ? (cols[emailIdx] ?? '').trim().slice(0, 254) || null : null
+    const status = statusIdx !== -1 && ['approved', 'pending', 'rejected'].includes((cols[statusIdx] ?? '').trim().toLowerCase())
+      ? (cols[statusIdx] ?? '').trim().toLowerCase()
+      : 'approved'
+
+    try {
+      const id = crypto.randomUUID()
+      await c.env.DB.prepare(
+        `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'csv_import', ?, 0, ?, ?)`
+      ).bind(
+        id, accountId, null,
+        cleanName, cleanText,
+        rating, company, jobTitle, email,
+        status, now, now
+      ).run()
+      imported++
+    } catch (e) {
+      errors.push(`Row ${i}: ${(e as Error).message}`)
+      skipped++
+    }
+  }
+
+  return c.json({ imported, skipped, errors: errors.slice(0, 10) })
+})
