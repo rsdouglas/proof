@@ -164,6 +164,8 @@ function renderCard(t: Testimonial, dark: boolean): string {
 function renderWallPage(widgetId: string, payload: WidgetPayload): string {
   const { testimonials, config } = payload
   const dark = config.theme === 'dark'
+  const minimal = config.theme === 'minimal'
+  const layout = config.layout || 'masonry'
   const name = config.name || 'Testimonials'
   const count = testimonials.length
 
@@ -172,11 +174,40 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
     ? `${count} customer review${count !== 1 ? 's' : ''} for ${name}`
     : `Customer testimonials for ${name}`
 
-  const cards = testimonials.map((t) => renderCard(t, dark)).join('\n')
+  const cards = testimonials.map((t) => renderCard(t, dark || minimal)).join('\n')
 
   const emptyState = count === 0
     ? `<div class="empty"><p>No testimonials yet.</p></div>`
     : ''
+
+  // Layout-specific wrapper class and CSS
+  const isListLayout = layout === 'list'
+  const isGridLayout = layout === 'grid'
+  // carousel/popup fall back to masonry layout on the wall page
+
+  const wallClass = isListLayout ? 'wall wall-list' : isGridLayout ? 'wall wall-grid' : 'wall wall-masonry'
+
+  const layoutCss = isListLayout
+    ? `.wall-list { max-width: 720px; display: flex; flex-direction: column; gap: 20px; }
+    .wall-list .card { margin-bottom: 0; break-inside: unset; display: block; }`
+    : isGridLayout
+    ? `.wall-grid { max-width: 1080px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .wall-grid .card { margin-bottom: 0; break-inside: unset; display: block; }
+    @media (max-width: 600px) { .wall-grid { grid-template-columns: 1fr; } }`
+    : `.wall-masonry { max-width: 1080px; columns: 3 320px; column-gap: 20px; }
+    @media (max-width: 600px) { .wall-masonry { columns: 1; } }`
+
+  // Theme-specific CSS vars
+  const themeVars = minimal
+    ? `--bg: #fff; --surface: #fff; --border: #e8e8e8; --text: #222; --text-muted: #888; --accent: #6C5CE7; --stars: #f6c90e; --radius: 6px; --shadow: none;`
+    : dark
+    ? `--bg: #0f0f1a; --surface: #1a1a2e; --border: #2d3748; --text: #e2e8f0; --text-muted: #a0aec0; --accent: #6C5CE7; --stars: #f6c90e; --radius: 14px; --shadow: none;`
+    : `--bg: #f8f9fa; --surface: #ffffff; --border: #e2e8f0; --text: #1a202c; --text-muted: #718096; --accent: #6C5CE7; --stars: #f6c90e; --radius: 14px; --shadow: 0 2px 8px rgba(0,0,0,0.07);`
+
+  const minimalCardCss = minimal ? `
+    .card { border: none; border-bottom: 1px solid var(--border); border-radius: 0; box-shadow: none; padding: 28px 0; }
+    .quote { font-style: italic; }
+  ` : ''
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -203,17 +234,7 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: ${dark ? '#0f0f1a' : '#f8f9fa'};
-      --surface: ${dark ? '#1a1a2e' : '#ffffff'};
-      --border: ${dark ? '#2d3748' : '#e2e8f0'};
-      --text: ${dark ? '#e2e8f0' : '#1a202c'};
-      --text-muted: ${dark ? '#a0aec0' : '#718096'};
-      --accent: #6C5CE7;
-      --stars: #f6c90e;
-      --radius: 14px;
-      --shadow: ${dark ? 'none' : '0 2px 8px rgba(0,0,0,0.07)'};
-    }
+    :root { ${themeVars} }
 
     html { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; }
 
@@ -257,14 +278,14 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
       font-size: 15px;
     }
 
-    /* Grid */
+    /* Wall container */
     .wall {
-      max-width: 1080px;
       margin: 40px auto 0;
       padding: 0 20px;
-      columns: 3 320px;
-      column-gap: 20px;
     }
+
+    /* Layout-specific */
+    ${layoutCss}
 
     /* Card */
     .card {
@@ -342,6 +363,9 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
       color: var(--text-muted);
     }
 
+    /* Minimal theme overrides */
+    ${minimalCardCss}
+
     /* Empty state */
     .empty {
       text-align: center;
@@ -376,7 +400,7 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
 
     @media (max-width: 600px) {
       .header h1 { font-size: 22px; }
-      .wall { padding: 0 12px; columns: 1; }
+      .wall { padding: 0 12px; }
     }
   </style>
 </head>
@@ -388,7 +412,7 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
   <p class="subtitle">${count > 0 ? `${count} verified customer review${count !== 1 ? 's' : ''}` : 'Customer testimonials'}</p>
 </header>
 
-<main class="wall">
+<main class="${wallClass}">
   ${cards}
   ${emptyState}
 </main>
@@ -402,6 +426,7 @@ function renderWallPage(widgetId: string, payload: WidgetPayload): string {
 </body>
 </html>`
 }
+
 
 function notFoundHtml(): string {
   return `<!DOCTYPE html>
