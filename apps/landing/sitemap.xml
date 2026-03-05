@@ -392,9 +392,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
     <loc>https://socialproof.dev/vs/embedsocial</loc>
-    <lastmod>2026-03-05</lastmod>
+    <loc>https://socialproof.dev/vs/trustmary</loc>
+    <priority>0.7</priority>
+    <loc>https://socialproof.dev/vs/boast</loc>
+  </url>
+  <url>
+    <loc>https://socialproof.dev/vs/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
