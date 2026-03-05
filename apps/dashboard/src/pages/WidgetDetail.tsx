@@ -158,6 +158,62 @@ function Stars({ rating }: { rating: number | null }) {
   return <span style={{ color: colors.warning, fontSize: 13 }}>{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
 }
 
+
+function WidgetEmbedPreview({ widgetId, layout, theme, wallUrl }: {
+  widgetId: string
+  layout: string
+  theme: string
+  wallUrl: string
+}) {
+  const WIDGET_SCRIPT = 'https://widget.socialproof.dev/v1/widget.js'
+  const isPopup = layout === 'popup'
+
+  // Build srcdoc for the embed preview
+  const bgColor = theme === 'dark' ? '#0f0f1a' : '#ffffff'
+  const paddingStyle = layout === 'list' ? 'padding: 16px;' : 'padding: 16px;'
+
+  const srcdoc = isPopup
+    ? `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+        body { margin: 0; background: ${bgColor}; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; color: #888; font-size: 13px; }
+      </style></head><body>
+        <div style="text-align:center;padding:20px;">
+          <div style="font-size:28px;margin-bottom:8px;">💬</div>
+          <div>Activity Popup appears in the bottom corner of your website.</div>
+          <div style="margin-top:8px;font-size:11px;opacity:0.6">It cannot be previewed inline — embed the snippet to see it live.</div>
+        </div>
+      </body></html>`
+    : `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+        body { margin: 0; background: ${bgColor}; ${paddingStyle} }
+      </style></head><body>
+        <div id="socialproof-widget" data-widget-id="${widgetId}" data-layout="${layout}" data-theme="${theme}"></div>
+        <script src="${WIDGET_SCRIPT}" async></script>
+      </body></html>`
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+        <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>
+          Live preview
+          <span style={{ marginLeft: 6, fontSize: 11, fontWeight: 400, color: colors.gray400 }}>(reflects current layout &amp; theme)</span>
+        </label>
+        <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: colors.brand }}>Open wall page ↗</a>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: radius.sm, overflow: 'hidden', background: bgColor }}>
+        <iframe
+          key={`${widgetId}-${layout}-${theme}`}
+          srcDoc={srcdoc}
+          style={{ width: '100%', height: 360, border: 'none', display: 'block' }}
+          title="Widget preview"
+          sandbox="allow-scripts allow-same-origin"
+        />
+      </div>
+      <p style={{ margin: '6px 0 0', fontSize: 11, color: colors.gray400 }}>
+        Preview reloads when you change layout or theme. Approve testimonials to see them here.
+      </p>
+    </div>
+  )
+}
+
 export default function WidgetDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -431,23 +487,7 @@ export default function WidgetDetail() {
           </div>
 
           {/* Live preview */}
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <label style={{ fontSize: 13, fontWeight: 500, color: colors.gray700 }}>Live preview</label>
-              <a href={wallUrl} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: colors.brand }}>Open full page ↗</a>
-            </div>
-            <div style={{ border: '1px solid #e5e7eb', borderRadius: radius.sm, overflow: 'hidden', background: '#f9fafb' }}>
-              <iframe
-                key={wallUrl}
-                src={wallUrl}
-                style={{ width: '100%', height: 320, border: 'none', display: 'block' }}
-                title="Widget preview"
-              />
-            </div>
-            <p style={{ margin: '6px 0 0', fontSize: 11, color: colors.gray400 }}>
-              Shows your public testimonial wall. Approve testimonials to see them here.
-            </p>
-          </div>
+          <WidgetEmbedPreview widgetId={widget.id} layout={layout} theme={theme} wallUrl={wallUrl} />
         </div>
       </div>
 
