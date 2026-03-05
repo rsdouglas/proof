@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env } from '../index'
+import { getAccountPlan } from '../lib/planLimits'
 
 export const widget = new Hono<{ Bindings: Env }>()
 
@@ -46,6 +47,7 @@ widget.get('/:widgetId', async (c) => {
   }>()
 
   const widgetConfig = JSON.parse(widgetRow.config || '{}') as Record<string, string>
+  const plan = await getAccountPlan(c.env, widgetRow.account_id)
 
   const payload = {
     testimonials: results,
@@ -53,6 +55,7 @@ widget.get('/:widgetId', async (c) => {
       layout: widgetConfig['layout'] ?? widgetRow.type ?? 'grid',
       theme: widgetConfig['theme'] ?? 'light',
       name: widgetRow.name,
+      hide_branding: plan === 'pro',
     },
   }
 
@@ -107,12 +110,15 @@ widget.get('/:widgetId/popup', async (c) => {
     created_at: string
   }>()
 
+  const popupPlan = await getAccountPlan(c.env, widgetRow.account_id)
+
   const payload = {
     testimonials: results,
     config: {
       theme: widgetConfig['theme'] ?? 'light',
       position: widgetConfig['position'] ?? 'bottom-left',
       name: widgetRow.name,
+      hide_branding: popupPlan === 'pro',
     },
   }
 
