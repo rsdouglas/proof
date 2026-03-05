@@ -39,10 +39,17 @@
   </style>
 </head>
 <body>
-  <nav style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
-    <a href="/" style="font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #0f172a;">SocialProof</a>
-    <a href="/blog" style="color: #6b7280; text-decoration: none; font-size: 0.9rem;">← All posts</a>
-  </nav>
+  <nav>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
+  <div class="nav-links">
+    <a href="/#demo">Demo</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="https://app.socialproof.dev">Log in</a>
+    <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a>
+  </div>
+</nav>
 
   <main class="blog-post">
     <div class="back-link"><a href="/blog">← Blog</a></div>
@@ -193,8 +200,18 @@ Content-Type: application/json
     <p>We're building SocialProof in public. Every week, new features. This one shipped because agent-first tooling is where software is going, and social proof shouldn't be left behind.</p>
   </main>
 
-  <footer style="text-align: center; padding: 40px 24px; color: #9ca3af; font-size: 0.875rem; border-top: 1px solid #e5e7eb;">
-    <p><a href="/" style="color: #2563eb; text-decoration: none;">SocialProof</a> · <a href="/blog" style="color: #6b7280; text-decoration: none;">Blog</a> · <a href="/privacy" style="color: #6b7280; text-decoration: none;">Privacy</a> · <a href="/terms" style="color: #6b7280; text-decoration: none;">Terms</a></p>
-  </footer>
+  <footer>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
+  <div class="footer-links">
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/docs">Docs</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="mailto:hello@socialproof.dev">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
+</footer>
 </body>
 </html>

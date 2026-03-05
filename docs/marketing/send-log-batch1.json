@@ -1,0 +1,232 @@
+{
+  "batchNum": 1,
+  "timestamp": "2026-03-05T11:27:06.112Z",
+  "mode": "dry-run",
+  "results": [
+    {
+      "target": {
+        "num": 1,
+        "name": "Contact",
+        "email": "contact@successbusinesscoach.ca",
+        "niche": "Business Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 2,
+        "name": "Lisa",
+        "email": "info@coachlisa.ca",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 3,
+        "name": "Lisa",
+        "email": "lisa@fullonlife.ca",
+        "niche": "Wellness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 4,
+        "name": "Daniel",
+        "email": "daniel@levelupcoach.ca",
+        "niche": "Life/Career Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 5,
+        "name": "Chris",
+        "email": "chris@mindset-coach.com",
+        "niche": "Mindset Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 6,
+        "name": "Patricia Carr",
+        "email": "info@patriciamindsetcoach.ca",
+        "niche": "Mindset Coach, Ottawa"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 7,
+        "name": "Val Malnar",
+        "email": "val@valmalnar.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 8,
+        "name": "Tracey Jazmin",
+        "email": "info@traceyjazmin.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 9,
+        "name": "Sylvia Colucci",
+        "email": "info@sylviacolucci.com",
+        "niche": "Executive Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 10,
+        "name": "Mark Diamond",
+        "email": "mark@mddiamond.ca",
+        "niche": "Business Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 11,
+        "name": "Team Ironelles",
+        "email": "info@teamironelles.com",
+        "niche": "Fitness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 12,
+        "name": "Paul",
+        "email": "paulthewellnesscoach@gmail.com",
+        "niche": "Wellness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 13,
+        "name": "Catherine Roscoe-Barr",
+        "email": "catherineroscoebarr@gmail.com",
+        "niche": "Wellness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 14,
+        "name": "George T.",
+        "email": "georgetcounselling@gmail.com",
+        "niche": "Life Coach/Counsellor"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 15,
+        "name": "Nurture Wellness",
+        "email": "nurturewellnesscoaching@gmail.com",
+        "niche": "Wellness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 16,
+        "name": "Yuri",
+        "email": "yuri.lifecoach@gmail.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 17,
+        "name": "Tom",
+        "email": "tom@calgaryfitnesscoach.com",
+        "niche": "Fitness/Life Coach, Calgary"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 18,
+        "name": "Leslie Genoway",
+        "email": "lesliegenoway@gmail.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 19,
+        "name": "Joyce Kaplan",
+        "email": "joyce@kaplancoaching.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 20,
+        "name": "Delaney",
+        "email": "delaney@webuildadream.com",
+        "niche": "Career/Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 21,
+        "name": "Careers by Design",
+        "email": "support@careersbydesign.ca",
+        "niche": "Career Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 22,
+        "name": "Laetitia Felix",
+        "email": "laetitia.felix59@gmail.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 23,
+        "name": "Aimee Kate",
+        "email": "aimee@aimeekateconsulting.com",
+        "niche": "Business Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 24,
+        "name": "Renee Porter",
+        "email": "reneeporterfitness@gmail.com",
+        "niche": "Fitness Coach"
+      },
+      "status": "dry-run"
+    },
+    {
+      "target": {
+        "num": 25,
+        "name": "K. Brozman",
+        "email": "kbrozman@gmail.com",
+        "niche": "Life Coach"
+      },
+      "status": "dry-run"
+    }
+  ]
+}
