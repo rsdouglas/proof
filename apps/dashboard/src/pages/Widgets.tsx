@@ -4,7 +4,7 @@ import { useApi, ApiError } from '../lib/auth'
 import type { PlanLimitError } from '../lib/auth'
 import { Toast } from '../components/Toast'
 import UpgradeModal from '../components/UpgradeModal'
-import { colors, font, radius, shadow, btn, C, spacing, fontSize } from '../design'
+import { colors, font, radius, shadow, btn } from '../design'
 import { Plus, LayoutGrid } from 'lucide-react'
 
 interface Widget {
@@ -17,6 +17,31 @@ interface Widget {
   testimonial_count?: number
 }
 
+const LAYOUT_OPTIONS = [
+  { value: 'grid', label: 'Grid' },
+  { value: 'list', label: 'List' },
+  { value: 'carousel', label: 'Carousel' },
+  { value: 'popup', label: 'Popup' },
+  { value: 'badge', label: 'Badge' },
+]
+
+const THEME_OPTIONS = [
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+]
+
+const selectStyle: React.CSSProperties = {
+  padding: '9px 12px',
+  border: `1px solid ${colors.gray200}`,
+  borderRadius: radius.md,
+  fontSize: 14,
+  fontFamily: font.sans,
+  color: colors.gray900,
+  background: colors.white,
+  cursor: 'pointer',
+  outline: 'none',
+}
+
 export default function Widgets() {
   const { request } = useApi()
   const [planLimitError, setPlanLimitError] = useState<PlanLimitError | null>(null)
@@ -24,8 +49,14 @@ export default function Widgets() {
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState('')
+  const [newLayout, setNewLayout] = useState('grid')
+  const [newTheme, setNewTheme] = useState('light')
   const [showForm, setShowForm] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'success' } | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editLayout, setEditLayout] = useState('grid')
+  const [editTheme, setEditTheme] = useState('light')
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     request<{ widgets: Widget[] }>('/widgets')
@@ -41,10 +72,12 @@ export default function Widgets() {
     try {
       const data = await request<{ widget: Widget }>('/widgets', {
         method: 'POST',
-        body: JSON.stringify({ name: newName.trim() }),
+        body: JSON.stringify({ name: newName.trim(), layout: newLayout, theme: newTheme }),
       })
       setWidgets(ws => [data.widget, ...ws])
       setNewName('')
+      setNewLayout('grid')
+      setNewTheme('light')
       setShowForm(false)
       setToast({ message: 'Widget created!', type: 'success' })
     } catch (err) {
@@ -56,6 +89,29 @@ export default function Widgets() {
       }
     } finally {
       setCreating(false)
+    }
+  }
+
+  function startEdit(w: Widget) {
+    setEditingId(w.id)
+    setEditLayout(w.layout || 'grid')
+    setEditTheme(w.theme || 'light')
+  }
+
+  async function saveEdit(widgetId: string) {
+    setSaving(true)
+    try {
+      await request(`/widgets/${widgetId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ layout: editLayout, theme: editTheme }),
+      })
+      setWidgets(ws => ws.map(w => w.id === widgetId ? { ...w, layout: editLayout, theme: editTheme } : w))
+      setEditingId(null)
+      setToast({ message: 'Widget updated!', type: 'success' })
+    } catch (err) {
+      setToast({ message: (err as Error).message, type: 'error' })
+    } finally {
+      setSaving(false)
     }
   }
 
@@ -82,25 +138,39 @@ export default function Widgets() {
         <form onSubmit={createWidget} style={{
           background: colors.white, border: `1px solid ${colors.gray200}`,
           borderRadius: radius.lg, padding: '20px', marginBottom: 20,
-          display: 'flex', gap: 10, boxShadow: shadow.sm,
+          boxShadow: shadow.sm,
         }}>
-          <input
-            value={newName} onChange={e => setNewName(e.target.value)}
-            placeholder="Widget name (e.g. Homepage testimonials)"
-            required autoFocus
-            style={{
-              flex: 1, padding: '9px 12px',
-              border: `1px solid ${colors.gray200}`,
-              borderRadius: radius.md, fontSize: 14,
-              fontFamily: font.sans, color: colors.gray900, outline: 'none',
-            }}
-          />
-          <button type="submit" disabled={creating} style={btn.primary}>
-            {creating ? 'Creating…' : 'Create'}
-          </button>
-          <button type="button" onClick={() => setShowForm(false)} style={btn.outline}>
-            Cancel
-          </button>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
+            <input
+              value={newName} onChange={e => setNewName(e.target.value)}
+              placeholder="Widget name (e.g. Homepage testimonials)"
+              required autoFocus
+              style={{
+                flex: 1, padding: '9px 12px',
+                border: `1px solid ${colors.gray200}`,
+                borderRadius: radius.md, fontSize: 14,
+                fontFamily: font.sans, color: colors.gray900, outline: 'none',
+              }}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' as const }}>
+            <label style={{ fontSize: 13, color: colors.gray600, minWidth: 50 }}>Layout</label>
+            <select value={newLayout} onChange={e => setNewLayout(e.target.value)} style={selectStyle}>
+              {LAYOUT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+            <label style={{ fontSize: 13, color: colors.gray600, minWidth: 45 }}>Theme</label>
+            <select value={newTheme} onChange={e => setNewTheme(e.target.value)} style={selectStyle}>
+              {THEME_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+              <button type="submit" disabled={creating} style={btn.primary}>
+                {creating ? 'Creating…' : 'Create'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} style={btn.outline}>
+                Cancel
+              </button>
+            </div>
+          </div>
         </form>
       )}
 
@@ -110,65 +180,115 @@ export default function Widgets() {
 
       {!loading && widgets.length === 0 && (
         <div style={{
-          background: colors.white,
-          border: `2px dashed ${colors.gray200}`,
-          borderRadius: radius.lg, padding: 64, textAlign: 'center',
+          padding: '48px 0', textAlign: 'center',
+          background: colors.white, border: `1px solid ${colors.gray200}`,
+          borderRadius: radius.xl, boxShadow: shadow.sm,
         }}>
-          <div style={{ width: 48, height: 48, margin: '0 auto 16px', color: colors.gray300 }}>
-            <LayoutGrid size={48} />
-          </div>
-          <h3 style={{ margin: '0 0 8px', color: colors.gray700, fontSize: 16, fontWeight: 700 }}>No widgets yet</h3>
-          <p style={{ margin: '0 0 20px', color: colors.gray500, fontSize: 14 }}>
-            Create a widget to display testimonials on your site.
-          </p>
-          <button onClick={() => setShowForm(true)} style={btn.primary}>
-            <Plus size={15} /> Create your first widget
-          </button>
+          <LayoutGrid size={36} color={colors.gray300} style={{ marginBottom: 12 }} />
+          <p style={{ margin: '0 0 4px', fontWeight: 600, color: colors.gray700 }}>No widgets yet</p>
+          <p style={{ margin: '0 0 16px', color: colors.gray400, fontSize: 14 }}>Create your first widget to start embedding testimonials</p>
+          <button onClick={() => setShowForm(true)} style={btn.primary}><Plus size={15} /> Create widget</button>
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
-        {widgets.map(w => (
-          <Link key={w.id} to={`/widgets/${w.id}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+      {!loading && widgets.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {widgets.map(w => (
             <div
+              key={w.id}
               style={{
                 background: colors.white, border: `1px solid ${colors.gray200}`,
-                borderRadius: radius.lg, padding: 20,
-                transition: 'border-color 0.15s, box-shadow 0.15s, transform 0.15s',
+                borderRadius: radius.lg, padding: '16px 20px',
                 boxShadow: shadow.sm,
+                transition: 'border-color 0.15s, box-shadow 0.15s, transform 0.15s',
               }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLDivElement
-                el.style.borderColor = colors.brandBorder
-                el.style.boxShadow = `0 4px 16px rgba(79,70,229,0.12)`
-                el.style.transform = 'translateY(-1px)'
+              onMouseEnter={el => {
+                const t = el.currentTarget as HTMLDivElement
+                t.style.borderColor = colors.brand
+                t.style.boxShadow = shadow.md
+                t.style.transform = 'translateY(-1px)'
               }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLDivElement
-                el.style.borderColor = colors.gray200
-                el.style.boxShadow = shadow.sm
-                el.style.transform = 'none'
+              onMouseLeave={el => {
+                const t = el.currentTarget as HTMLDivElement
+                t.style.borderColor = colors.gray200
+                t.style.boxShadow = shadow.sm
+                t.style.transform = 'none'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: colors.gray900 }}>{w.name}</h3>
-                <span style={{
-                  fontSize: 11, padding: '3px 8px', borderRadius: radius.full, fontWeight: 600,
-                  background: colors.brandLight, color: colors.brand,
-                }}>
-                  {w.layout || 'grid'}
-                </span>
-              </div>
-              <div style={{ fontSize: 13, color: colors.gray500, marginBottom: 10 }}>
-                Theme: {w.theme || 'light'} · {w.testimonial_count ?? 0} testimonials
-              </div>
-              <div style={{ fontSize: 12, color: colors.gray400 }}>
-                Created {new Date(w.created_at).toLocaleDateString()}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap' as const, gap: 10 }}>
+                <div style={{ flex: 1, minWidth: 200 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' as const }}>
+                    <span style={{ fontWeight: 700, fontSize: 15, color: colors.gray900 }}>{w.name}</span>
+                    <span style={{
+                      fontSize: 11, fontWeight: 600, letterSpacing: '0.5px',
+                      textTransform: 'uppercase' as const,
+                      background: colors.brandLight, color: colors.brand,
+                      borderRadius: radius.sm, padding: '2px 7px',
+                    }}>
+                      {w.layout || 'grid'}
+                    </span>
+                    <span style={{
+                      fontSize: 11, fontWeight: 600, letterSpacing: '0.5px',
+                      textTransform: 'uppercase' as const,
+                      background: (w.theme || 'light') === 'dark' ? '#1a1a2e' : colors.gray100,
+                      color: (w.theme || 'light') === 'dark' ? '#e2e8f0' : colors.gray600,
+                      borderRadius: radius.sm, padding: '2px 7px',
+                    }}>
+                      {w.theme || 'light'}
+                    </span>
+                  </div>
+                  <p style={{ margin: '2px 0 0', fontSize: 12, color: colors.gray300 }}>
+                    {w.testimonial_count ?? 0} testimonials · Created {new Date(w.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' as const }}>
+                  {editingId === w.id ? (
+                    <>
+                      <select value={editLayout} onChange={e => setEditLayout(e.target.value)} style={{ ...selectStyle, fontSize: 12, padding: '5px 8px' }}>
+                        {LAYOUT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                      </select>
+                      <select value={editTheme} onChange={e => setEditTheme(e.target.value)} style={{ ...selectStyle, fontSize: 12, padding: '5px 8px' }}>
+                        {THEME_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                      </select>
+                      <button
+                        onClick={() => saveEdit(w.id)}
+                        disabled={saving}
+                        style={{ ...btn.primary, fontSize: 12, padding: '5px 12px' }}
+                      >
+                        {saving ? 'Saving…' : 'Save'}
+                      </button>
+                      <button
+                        onClick={() => setEditingId(null)}
+                        style={{ ...btn.outline, fontSize: 12, padding: '5px 10px' }}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => startEdit(w)}
+                      style={{ ...btn.outline, fontSize: 12, padding: '5px 10px' }}
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <Link
+                    to={`/widgets/${w.id}`}
+                    style={{
+                      fontSize: 13, fontWeight: 500, color: colors.brand,
+                      textDecoration: 'none', padding: '5px 12px',
+                      border: `1px solid ${colors.brand}`,
+                      borderRadius: radius.md,
+                    }}
+                  >
+                    Manage →
+                  </Link>
+                </div>
               </div>
             </div>
-          </Link>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
