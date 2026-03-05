@@ -15,7 +15,7 @@ export interface EmailPayload {
   text: string
 }
 
-const FROM = 'Vouch <hello@socialproof.dev>'
+const FROM = 'SocialProof <hello@socialproof.dev>'
 const SETTINGS_URL = 'https://app.socialproof.dev/settings'
 
 /**
@@ -76,7 +76,7 @@ export function buildTestimonialReceivedEmail(opts: {
   <div style="max-width: 560px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1);">
     <!-- Header -->
     <div style="background: #6C5CE7; padding: 24px 32px;">
-      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ Vouch</div>
+      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ SocialProof</div>
     </div>
     <!-- Body -->
     <div style="padding: 32px;">
@@ -94,7 +94,7 @@ export function buildTestimonialReceivedEmail(opts: {
     </div>
     <!-- Footer -->
     <div style="padding: 16px 32px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af;">
-      You're receiving this because you have a Vouch account.<br>
+      You're receiving this because you have a SocialProof account.<br>
       <a href="${SETTINGS_URL}" style="color: #6b7280;">Manage notifications</a> &nbsp;·&nbsp;
       To unsubscribe, reply to this email with "unsubscribe".
     </div>
@@ -113,7 +113,7 @@ Hey ${firstName} — ${opts.customerName} left you a ${opts.rating}-star review:
 Review and approve it here: ${opts.reviewUrl}
 
 ---
-You're receiving this because you have a Vouch account.
+You're receiving this because you have a SocialProof account.
 To unsubscribe, reply with "unsubscribe".`
 
   return {
@@ -140,7 +140,7 @@ export function buildTestimonialApprovedEmail(opts: {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; margin: 0; padding: 20px;">
   <div style="max-width: 560px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1);">
     <div style="background: #6C5CE7; padding: 24px 32px;">
-      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ Vouch</div>
+      <div style="color: #fff; font-size: 18px; font-weight: 700;">✦ SocialProof</div>
     </div>
     <div style="padding: 32px;">
       <h2 style="margin: 0 0 8px; font-size: 20px; color: #111827;">Your review is live! 🎉</h2>
@@ -206,7 +206,7 @@ export function buildTestimonialRequestEmail(opts: {
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:20px;">
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1);">
     <div style="background:#6C5CE7;padding:24px 32px;">
-      <div style="color:#fff;font-size:18px;font-weight:700;">✦ Vouch</div>
+      <div style="color:#fff;font-size:18px;font-weight:700;">✦ SocialProof</div>
     </div>
     <div style="padding:32px;">
       <h2 style="margin:0 0 8px;font-size:20px;color:#111827;">Would you share your experience?</h2>
