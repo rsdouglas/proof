@@ -1,10 +1,10 @@
-# Vouch — Social Proof for Websites
+# SocialProof — Social Proof for Websites
 # https://socialproof.dev
 # llms.txt — machine-readable guide for AI agents and LLM-based tools
 
-## What is Vouch?
+## What is SocialProof?
 
-Vouch lets small businesses collect testimonials from real customers and
+SocialProof lets small businesses collect testimonials from real customers and
 display them on any website. Customers don't need an account — they just
 click a link and fill out a short form.
 
