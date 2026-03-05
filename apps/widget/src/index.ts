@@ -170,6 +170,8 @@ function getWidgetScript(): string {
       '.proof-stars { color: #f59e0b; font-size: 13px; margin-bottom: 12px; letter-spacing: 1px; }',
       /* Grid layout */
       '.proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0; }',
+      '.proof-list { display: flex; flex-direction: column; gap: 0; }',
+      '.proof-list .proof-card { margin: 4px 0; border-radius: 10px; }',
       /* Carousel */
       '.proof-carousel-wrap { overflow: hidden; position: relative; }',
       '.proof-carousel-track { display: flex; transition: transform 0.5s ease; }',
@@ -245,6 +247,10 @@ function getWidgetScript(): string {
     var t = data.testimonials[0];
     if (!t) { el.innerHTML = ''; return; }
     el.innerHTML = '<div class="proof-badge">' + renderCard(t) + '</div>' + attribution();
+  }
+
+  function renderList(data, el) {
+    el.innerHTML = '<div class="proof-list">' + data.testimonials.map(renderCard).join('') + '</div>' + attribution();
   }
 
   function renderCarousel(data, el) {
@@ -435,6 +441,7 @@ function getWidgetScript(): string {
           }
 
           if (resolvedLayout === 'popup') { return; } // popup handled separately
+          else if (resolvedLayout === 'list') renderList(data, el);
           else if (resolvedLayout === 'carousel') renderCarousel(data, el);
           else if (resolvedLayout === 'badge') renderBadge(data, el);
           else renderGrid(data, el);
