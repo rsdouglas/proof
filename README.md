@@ -1,6 +1,6 @@
-# Vouch — Social Proof Toolkit
+# SocialProof — Social Proof Toolkit
 
-**Vouch** helps small businesses collect and display customer testimonials. Share a unique link with your customers, they submit a testimonial, you approve it — and it starts building trust on your site automatically.
+**SocialProof** helps small businesses collect and display customer testimonials. Share a unique link with your customers, they submit a testimonial, you approve it — and it starts building trust on your site automatically.
 
 → [socialproof.dev](https://socialproof.dev)
 
