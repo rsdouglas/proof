@@ -153,7 +153,7 @@ export async function sendCelebrationEmail(
   opts: { email: string; name: string; widgetId: string; testimonialAuthor: string; testimonialText: string }
 ): Promise<void> {
   const first = opts.name.split(' ')[0]
-  const snippet = `<script src="https://widget.socialproof.dev/v1/vouch.js" data-widget-id="${opts.widgetId}" async></script>`
+  const snippet = `<script src="https://widget.socialproof.dev/v1/socialproof.js" data-widget-id="${opts.widgetId}" async></script>`
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">🎉 Your first testimonial just arrived!</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
@@ -177,7 +177,7 @@ export async function sendEmbedNudgeEmail(
   opts: { email: string; name: string; approvedCount: number; widgetId: string }
 ): Promise<void> {
   const first = opts.name.split(' ')[0]
-  const snippet = `<script src="https://widget.socialproof.dev/v1/vouch.js" data-widget-id="${opts.widgetId}" async></script>`
+  const snippet = `<script src="https://widget.socialproof.dev/v1/socialproof.js" data-widget-id="${opts.widgetId}" async></script>`
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your testimonials are ready — add them to your site</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>

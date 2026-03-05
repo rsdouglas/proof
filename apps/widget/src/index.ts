@@ -59,13 +59,23 @@ app.get('/widget.js', async (c) => {
   })
 })
 
-// Alias: /v1/vouch.js → same as /v1/widget.js (vouch.js shown in embed snippets)
-app.get('/v1/vouch.js', async (c) => {
+// Canonical alias: /v1/socialproof.js → same as /v1/widget.js
+app.get('/v1/socialproof.js', async (c) => {
   const widgetJs = getWidgetScript()
   return c.text(widgetJs, 200, {
     'Content-Type': 'application/javascript; charset=utf-8',
     'Cache-Control': 'public, max-age=3600',
   })
+})
+
+// Backward compat: /v1/vouch.js → /v1/socialproof.js (keeps existing embeds working)
+app.get('/v1/vouch.js', async (c) => {
+  return c.redirect('/v1/socialproof.js', 301)
+})
+
+// Top-level compat alias
+app.get('/vouch.js', async (c) => {
+  return c.redirect('/v1/socialproof.js', 301)
 })
 
 // Serve widget data as JSON
