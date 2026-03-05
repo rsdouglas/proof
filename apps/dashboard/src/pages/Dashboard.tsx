@@ -13,6 +13,7 @@ import {
   AlertTriangle,
   Bell,
   PartyPopper,
+  Code2,
 } from 'lucide-react'
 import { colors, font, shadow, radius, card } from '../design'
 
@@ -23,6 +24,70 @@ interface Stats {
   approved: number
   pending: number
   total_widgets: number
+}
+
+
+function EmbedNudgeBanner({ approvedCount }: { approvedCount: number }) {
+  const [dismissed, setDismissed] = useState(
+    () => localStorage.getItem('embed_nudge_dismissed') === '1'
+  )
+  if (dismissed) return null
+
+  function dismiss() {
+    localStorage.setItem('embed_nudge_dismissed', '1')
+    setDismissed(true)
+  }
+
+  return (
+    <div style={{
+      background: '#f0f9ff',
+      border: '1.5px solid #7dd3fc',
+      borderRadius: radius.lg,
+      padding: '20px 24px',
+      marginBottom: 28,
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: 16,
+    }}>
+      <Code2 size={20} color="#0369a1" style={{ flexShrink: 0, marginTop: 2 }} />
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: 700, fontSize: 15, color: '#0c4a6e', marginBottom: 4 }}>
+          Your testimonials aren't on your site yet
+        </div>
+        <div style={{ fontSize: 13, color: '#0369a1', lineHeight: 1.5, marginBottom: 14 }}>
+          You have {approvedCount} approved testimonial{approvedCount > 1 ? 's' : ''}.
+          Add them to your site in 2 minutes.
+        </div>
+        <Link
+          to="/widgets"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '8px 16px',
+            background: '#0369a1',
+            color: '#fff',
+            borderRadius: radius.md,
+            fontSize: 13,
+            fontWeight: 600,
+            textDecoration: 'none',
+            fontFamily: font.sans,
+          }}
+        >
+          Get embed code →
+        </Link>
+      </div>
+      <button
+        onClick={dismiss}
+        style={{
+          background: 'none', border: 'none', cursor: 'pointer',
+          fontSize: 18, color: '#7dd3fc', flexShrink: 0,
+          lineHeight: 1, padding: 0,
+        }}
+        aria-label="Dismiss"
+      >×</button>
+    </div>
+  )
 }
 
 function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
@@ -412,12 +477,13 @@ export default function Dashboard() {
   const [recent, setRecent] = useState<Array<{ id: string; display_name: string; display_text: string; status: string }>>([])
   const [collectFormId, setCollectFormId] = useState<string | null>(null)
   const [accountCreatedAt, setAccountCreatedAt] = useState<string | null>(null)
+  const [widgets, setWidgets] = useState<Array<{ id: string; created_at: string; embed_verified_at?: string | null }> | null>(null)
 
   const load = useCallback(async () => {
     try {
       const [tData, wData, fData, meData] = await Promise.all([
         request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
-        request('/widgets') as Promise<{ widgets: Array<{ id: string }> }>,
+        request('/widgets') as Promise<{ widgets: Array<{ id: string; created_at: string; embed_verified_at?: string | null }> }>,
         request('/forms') as Promise<{ forms: Array<{ id: string }> }>,
         request('/accounts/me') as Promise<{ account: { created_at: string } }>,
       ])
@@ -429,6 +495,7 @@ export default function Dashboard() {
         pending: ts.filter((t) => t.status === 'pending').length,
         total_widgets: (wData.widgets || []).length,
       })
+      setWidgets(wData.widgets || [])
       if (fData.forms?.length > 0) setCollectFormId(fData.forms[0].id)
       if (meData.account?.created_at) setAccountCreatedAt(meData.account.created_at)
     } catch {
@@ -449,6 +516,14 @@ export default function Dashboard() {
   const hasPending = stats !== null && stats.pending > 0
   const isFirstPending = hasPending && stats!.approved === 0
 
+  // Embed nudge: has approved testimonials, has widgets, but none are embed-verified, and it's been 48h since account creation
+  const hasApproved = stats !== null && stats.approved > 0
+  const hasWidgets = widgets !== null && widgets.length > 0
+  const allWidgetsUnverified = hasWidgets && widgets!.every(w => !w.embed_verified_at)
+  const isOldEnough = accountCreatedAt !== null &&
+    (Date.now() - new Date(accountCreatedAt).getTime() > 48 * 60 * 60 * 1000)
+  const isEmbedNudge = hasApproved && hasWidgets && allWidgetsUnverified && isOldEnough && !isZeroState
+
   return (
     <div style={{ maxWidth: 900 }}>
       {/* Page header */}
@@ -465,6 +540,7 @@ export default function Dashboard() {
       {is24hNudge && <NudgeBanner collectUrl={collectUrl} />}
       {isZeroState && !is24hNudge && <ZeroStateBanner collectUrl={collectUrl} />}
       {hasPending && <PendingApprovalBanner count={stats!.pending} firstTime={isFirstPending} />}
+      {isEmbedNudge && <EmbedNudgeBanner approvedCount={stats!.approved} />}
 
       {/* Stat cards — all use same design language */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 32 }}>
