@@ -16,6 +16,7 @@ import { webhooks } from './routes/webhooks'
 import { apiKeys, resolveApiKey } from './routes/api_keys'
 import waitlist from './routes/waitlist'
 import { agent } from './routes/agent'
+import { admin } from './routes/admin'
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -25,6 +26,7 @@ export interface Env {
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
   RESEND_API_KEY?: string
+  ADMIN_SECRET?: string
 }
 
 export type Variables = {
@@ -80,6 +82,9 @@ app.route('/api/waitlist', waitlist)
 
 // Agent registration (public, no auth required)
 app.route('/agent', agent)
+
+// Admin metrics (protected by ADMIN_SECRET header)
+app.route('/api/admin', admin)
 
 // Stripe webhook (no JWT - validated by signature)
 app.post('/api/billing/webhook', async (c) => {
