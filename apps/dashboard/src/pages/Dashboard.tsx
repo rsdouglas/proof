@@ -480,22 +480,24 @@ export default function Dashboard() {
   const [widgets, setWidgets] = useState<Array<{ id: string; created_at: string; embed_verified_at?: string | null }> | null>(null)
 
   const load = useCallback(async () => {
-    const [tRes, wRes, fRes, meRes] = await Promise.allSettled([
-      request('/testimonials') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
+    const [statsRes, tRes, wRes, fRes, meRes] = await Promise.allSettled([
+      request('/stats') as Promise<{ testimonials: number; widgets: number; pending: number; approved: number }>,
+      request('/testimonials?limit=5') as Promise<{ testimonials: Array<{ id: string; display_name: string; display_text: string; status: string }> }>,
       request('/widgets') as Promise<{ widgets: Array<{ id: string; created_at: string; embed_verified_at?: string | null }> }>,
       request('/collection-forms') as Promise<{ forms: Array<{ id: string }> }>,
       request('/accounts/me') as Promise<{ account: { created_at: string } }>,
     ])
+    const st = statsRes.status === 'fulfilled' ? statsRes.value : null
     const ts = tRes.status === 'fulfilled' ? (tRes.value.testimonials || []) : []
     const ws = wRes.status === 'fulfilled' ? (wRes.value.widgets || []) : []
     const fs = fRes.status === 'fulfilled' ? (fRes.value.forms || []) : []
     const me = meRes.status === 'fulfilled' ? meRes.value : null
     setRecent(ts.slice(0, 5))
     setStats({
-      total_testimonials: ts.length,
-      approved: ts.filter((t) => t.status === 'approved').length,
-      pending: ts.filter((t) => t.status === 'pending').length,
-      total_widgets: ws.length,
+      total_testimonials: st?.testimonials ?? ts.length,
+      approved: st?.approved ?? ts.filter((t) => t.status === 'approved').length,
+      pending: st?.pending ?? ts.filter((t) => t.status === 'pending').length,
+      total_widgets: st?.widgets ?? ws.length,
     })
     setWidgets(ws)
     if (fs.length > 0) setCollectFormId(fs[0].id)
