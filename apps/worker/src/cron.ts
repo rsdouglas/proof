@@ -8,13 +8,18 @@
  * - Embed nudge: fires when user has ≥1 approved testimonial but widget not verified
  * - Celebration: fires when first testimonial approved
  *
- * Idempotent: uses drip_day2_sent_at, drip_day5_sent_at columns to prevent duplicates.
+ * - Email 4 (Day 4): fires if no approved testimonials yet (issue #243)
+ * - Email 5 (Day 14): final win-back if still no approved testimonials (issue #243)
+ *
+ * Idempotent: uses drip_day2_sent_at, drip_day5_sent_at, drip_day4_sent_at, drip_day14_sent_at columns.
  * Cron: 0 * * * * (every hour on Cloudflare Workers)
  */
 
 import {
   sendDay2NudgeEmail,
   sendDay5NudgeEmail,
+  sendDay4NoTestimonialsEmail,
+  sendDay14WinbackEmail,
   sendCelebrationEmail,
   sendEmbedNudgeEmail,
 } from './lib/onboarding'
@@ -175,6 +180,81 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
       console.log(`[drip-cron] embed-nudge sent to ${acct.email}`)
     } catch (err) {
       console.error(`[drip-cron] embed-nudge failed for ${acct.email}:`, err)
+    }
+  }
+
+  // ── Day 4: no-testimonials nudge (issue #243) ─────────────────────────────
+  // Fires when: account created ~96h ago, 0 approved testimonials, not yet sent
+  const day4Cutoff   = new Date(now.getTime() - 96 * 60 * 60 * 1000).toISOString()
+  const day4Ceiling  = new Date(now.getTime() - 120 * 60 * 60 * 1000).toISOString()
+
+  const day4Candidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT form_id FROM collection_forms WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) AS form_id
+    FROM accounts a
+    WHERE a.created_at < ?
+      AND a.created_at > ?
+      AND a.drip_day4_sent_at IS NULL
+      AND (
+        SELECT COUNT(*) FROM testimonials
+        WHERE account_id = a.id AND status = 'approved'
+      ) = 0
+    LIMIT 50
+  `).bind(day4Cutoff, day4Ceiling).all<{
+    id: string; email: string; name: string | null; form_id: string | null
+  }>()
+
+  for (const acct of day4Candidates.results) {
+    if (!acct.form_id) continue
+    try {
+      await sendDay4NoTestimonialsEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        formId: acct.form_id,
+      })
+      await DB.prepare('UPDATE accounts SET drip_day4_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] day4-nudge sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] day4-nudge failed for ${acct.email}:`, err)
+    }
+  }
+
+  // ── Day 14: win-back (issue #243) ─────────────────────────────────────────
+  // Fires when: account created ~336h ago, 0 approved testimonials, not yet sent
+  // This is the final drip email — after this we stop emailing.
+  const day14Cutoff  = new Date(now.getTime() - 336 * 60 * 60 * 1000).toISOString()
+  const day14Ceiling = new Date(now.getTime() - 360 * 60 * 60 * 1000).toISOString()
+
+  const day14Candidates = await DB.prepare(`
+    SELECT a.id, a.email, a.name,
+           (SELECT form_id FROM collection_forms WHERE account_id = a.id ORDER BY created_at ASC LIMIT 1) AS form_id
+    FROM accounts a
+    WHERE a.created_at < ?
+      AND a.created_at > ?
+      AND a.drip_day14_sent_at IS NULL
+      AND (
+        SELECT COUNT(*) FROM testimonials
+        WHERE account_id = a.id AND status = 'approved'
+      ) = 0
+    LIMIT 50
+  `).bind(day14Cutoff, day14Ceiling).all<{
+    id: string; email: string; name: string | null; form_id: string | null
+  }>()
+
+  for (const acct of day14Candidates.results) {
+    if (!acct.form_id) continue
+    try {
+      await sendDay14WinbackEmail(RESEND_API_KEY, {
+        email: acct.email,
+        name: acct.name ?? acct.email,
+        formId: acct.form_id,
+      })
+      await DB.prepare('UPDATE accounts SET drip_day14_sent_at = ? WHERE id = ?')
+        .bind(now.toISOString(), acct.id).run()
+      console.log(`[drip-cron] day14-winback sent to ${acct.email}`)
+    } catch (err) {
+      console.error(`[drip-cron] day14-winback failed for ${acct.email}:`, err)
     }
   }
 }
