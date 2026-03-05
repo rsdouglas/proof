@@ -494,3 +494,50 @@ wall.get('/:widgetId/badge', async (c) => {
     'Cache-Control': 's-maxage=300, public',
   })
 })
+
+// ── Widget Embed Preview ──────────────────────────────────────────────────────
+// GET /wall/:widgetId/preview
+// Returns a minimal HTML page that loads the actual widget embed script.
+// Used by the dashboard iframe to show a live preview of the embed.
+wall.get('/:widgetId/preview', async (c) => {
+  const widgetId = c.req.param('widgetId')
+
+  // Fetch widget config to know layout/theme
+  const widgetRow = await c.env.DB.prepare(
+    'SELECT id, name, slug, type, config FROM widgets WHERE (id = ? OR slug = ?) AND active = 1'
+  ).bind(widgetId, widgetId).first<{ id: string; name: string; slug: string | null; type: string; config: string }>()
+
+  if (!widgetRow) {
+    return c.html(`<!DOCTYPE html><html><body style="font-family:sans-serif;padding:40px;color:#666">Widget not found.</body></html>`, 404)
+  }
+
+  const cfg = JSON.parse(widgetRow.config || '{}') as Record<string, string>
+  const layout = cfg['layout'] ?? widgetRow.type ?? 'grid'
+  const isPopup = layout === 'popup'
+  const WIDGET_URL = 'https://widget.socialproof.dev/v1'
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Widget Preview — ${escapeHtml(widgetRow.name)}</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; min-height: 100vh; }
+  </style>
+</head>
+<body>
+  ${isPopup
+    ? `<div data-widget-popup="${escapeHtml(widgetRow.id)}" data-popup-position="bottom-left"></div>`
+    : `<div id="socialproof-widget" data-widget-id="${escapeHtml(widgetRow.id)}" data-layout="${escapeHtml(layout)}"></div>`
+  }
+  <script src="${WIDGET_URL}/widget.js" async></script>
+</body>
+</html>`
+
+  return c.html(html, 200, {
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Cache-Control': 'no-store',
+  })
+})

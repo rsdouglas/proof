@@ -249,6 +249,7 @@ export default function WidgetDetail() {
     : `<div id="socialproof-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
   const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
+  const previewUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}/preview`
   const badgeUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}/badge`
   const badgeHtml = `<a href="${wallUrl}">\n  <img src="${badgeUrl}" alt="${widget.name} reviews" width="200" height="56">\n</a>`
 
@@ -439,14 +440,14 @@ export default function WidgetDetail() {
             </div>
             <div style={{ border: '1px solid #e5e7eb', borderRadius: radius.sm, overflow: 'hidden', background: '#f9fafb' }}>
               <iframe
-                key={wallUrl}
-                src={wallUrl}
-                style={{ width: '100%', height: 320, border: 'none', display: 'block' }}
+                key={previewUrl}
+                src={previewUrl}
+                style={{ width: '100%', height: 380, border: 'none', display: 'block' }}
                 title="Widget preview"
               />
             </div>
             <p style={{ margin: '6px 0 0', fontSize: 11, color: colors.gray400 }}>
-              Shows your public testimonial wall. Approve testimonials to see them here.
+              Live preview of your embedded widget. Approve testimonials to see them here.
             </p>
           </div>
         </div>
