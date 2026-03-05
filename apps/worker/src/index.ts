@@ -28,6 +28,7 @@ export interface Env {
   STRIPE_PRO_PRICE_ID: string
   RESEND_API_KEY?: string
   ADMIN_SECRET?: string
+  ADMIN_TOKEN?: string
 }
 
 export type Variables = {
