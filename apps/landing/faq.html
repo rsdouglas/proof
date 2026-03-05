@@ -10,8 +10,52 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="description" content="Common questions about SocialProof — how to collect testimonials, how the widget works, what's free, and how to embed social proof on your site.">
   <link rel="canonical" href="https://socialproof.dev/faq">
-  <link rel="stylesheet" href="/style.css">
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #6C5CE7;
+      --purple-light: #a29bfe;
+      --dark: #0f0e17;
+      --darker: #0a0910;
+      --text: #f0eeff;
+      --muted: #9d99b8;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 64px;
+      background: rgba(15,14,23,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 20px; font-weight: 700; color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-logo span { color: var(--purple); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn-primary {
+      background: var(--purple); color: #fff; border: none; border-radius: 8px;
+      padding: 8px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: #5a4bd1; color: #fff; }
+
     .faq-hero {
       padding: 80px 24px 48px;
       text-align: center;
@@ -21,12 +65,12 @@
     .faq-hero h1 {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #111;
+      color: var(--text);
       margin-bottom: 16px;
     }
     .faq-hero p {
       font-size: 1.2rem;
-      color: #555;
+      color: var(--muted);
     }
     .faq-container {
       max-width: 720px;
@@ -38,11 +82,11 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #888;
+      color: var(--muted);
       margin: 48px 0 16px;
     }
     .faq-item {
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border);
       padding: 20px 0;
     }
     .faq-item:last-child {
@@ -51,12 +95,12 @@
     .faq-question {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #111;
+      color: var(--text);
       margin-bottom: 10px;
     }
     .faq-answer {
       font-size: 1rem;
-      color: #444;
+      color: var(--muted);
       line-height: 1.7;
     }
     .faq-answer a {
@@ -81,18 +125,18 @@
     .faq-cta h2 {
       font-size: 1.6rem;
       font-weight: 700;
-      color: #111;
+      color: var(--text);
       margin-bottom: 12px;
     }
     .faq-cta p {
-      color: #555;
+      color: var(--muted);
       margin-bottom: 24px;
     }
   </style>
 </head>
-<body>
-<nav class="navbar">
-  <a href="/" class="nav-logo">SocialProof</a>
+<body style="padding-top: 64px;">
+<nav>
+  <a href="/" class="nav-logo"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
   <div class="nav-links">
     <a href="/blog">Blog</a>
     <a href="/faq">FAQ</a>
