@@ -83,9 +83,13 @@ export default function Settings() {
     setBillingLoading(true)
     setMsg(null)
     try {
-      const data = await request<{ url: string }>('/billing/checkout', { method: 'POST' })
+      const data = await request<{ url?: string; pro_waitlist?: boolean; message?: string }>('/billing/checkout', { method: 'POST' })
       if (data.url) {
         window.location.href = data.url
+      } else if (data.pro_waitlist) {
+        // Stripe not yet configured — show waitlist message
+        setMsg({ type: 'ok', text: "🚀 You're on the Pro waitlist! We'll notify you the moment billing is live." })
+        setBillingLoading(false)
       } else {
         setMsg({ type: 'err', text: 'Failed to start checkout. Please try again.' })
         setBillingLoading(false)
