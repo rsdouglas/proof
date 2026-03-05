@@ -28,6 +28,7 @@ const LAYOUT_OPTIONS = [
 const THEME_OPTIONS = [
   { value: 'light', label: 'Light' },
   { value: 'dark', label: 'Dark' },
+  { value: 'minimal', label: 'Minimal' },
 ]
 
 const selectStyle: React.CSSProperties = {
