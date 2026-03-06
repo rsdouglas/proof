@@ -70,7 +70,7 @@ export default function Login() {
             </svg>
           </div>
           <h1 style={{ margin: '0 0 4px', fontSize: 22, fontWeight: 800, color: colors.gray900, letterSpacing: '-0.3px' }}>
-            SocialProof
+            Vouch
           </h1>
           <p style={{ margin: 0, color: colors.gray500, fontSize: 14 }}>
             {mode === 'login' ? 'Sign in to your account' : 'Create your free account'}

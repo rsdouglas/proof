@@ -1,5 +1,5 @@
 /**
- * SocialProof Design Tokens
+ * Vouch Design Tokens
  * Single source of truth for colors, spacing, shadows, radii.
  * All inline-style components should import from here.
  */
