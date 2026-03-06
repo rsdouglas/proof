@@ -1,5 +1,5 @@
 ---
-layout: ../../../layouts/BlogPost.astro
+layout: ../../layouts/BlogPost.astro
 title: "Testimonials for Event Planners: Turn Every Event Into Your Next Booking"
 description: "Weddings, corporate events, parties — clients choose event planners based on trust. Learn how to systematically collect and display testimonials that fill your calendar."
 pubDate: "2026-03-06"

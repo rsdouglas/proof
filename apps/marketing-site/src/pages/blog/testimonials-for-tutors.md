@@ -1,5 +1,5 @@
 ---
-layout: ../../../layouts/BlogPost.astro
+layout: ../../layouts/BlogPost.astro
 title: "How Private Tutors Use Testimonials to Fill Their Schedule"
 description: "Parents choose tutors based on trust and results. Learn how to collect and display student success stories that convert inquiries into bookings — without pressuring families."
 pubDate: "2026-03-06"
