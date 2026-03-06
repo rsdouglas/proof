@@ -78,7 +78,7 @@ export default function WelcomePro() {
             ['✦', 'Unlimited widgets', 'Create as many widgets as you need'],
             ['✦', 'Unlimited testimonials', 'No cap on how many you collect'],
             ['✦', 'Analytics', 'See which testimonials drive the most clicks'],
-            ['✦', 'Custom branding', 'Remove the "Powered by Vouch" badge'],
+            ['✦', 'Custom branding', 'Remove the "Powered by SocialProof" badge'],
             ['✦', 'Google rich results', 'Star ratings in your search listings'],
           ].map(([icon, title, desc]) => (
             <div key={title} style={{

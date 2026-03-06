@@ -487,7 +487,7 @@ function shareOnTwitter(t: Testimonial) {
   const maxLen = 240
   let quote = t.display_text
   if (quote.length > 120) quote = quote.slice(0, 119) + '…'
-  const text = `"${quote}" — ${t.display_name}${t.company ? `, ${t.company}` : ''}\n\nCollected with Vouch ✨ vouch.run`
+  const text = `"${quote}" — ${t.display_name}${t.company ? `, ${t.company}` : ''}\n\nCollected with SocialProof ✨ socialproof.dev`
   const trimmed = text.length > maxLen ? text.slice(0, maxLen - 1) + '…' : text
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(trimmed)}`, '_blank', 'noopener,noreferrer,width=600,height=400')
 }
