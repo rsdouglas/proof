@@ -1,5 +1,5 @@
 ---
-layout: ../../../layouts/BlogPost.astro
+layout: ../../layouts/BlogPost.astro
 title: "Testimonials for Auto Repair Shops: Build the Trust That Keeps Cars Coming Back"
 description: "Auto repair is a trust business — customers fear being overcharged or misled. Testimonials are your most powerful tool for converting new customers and building loyalty."
 pubDate: "2026-03-06"

@@ -1,5 +1,5 @@
 ---
-layout: ../../../layouts/BlogPost.astro
+layout: ../../layouts/BlogPost.astro
 title: "Testimonials for Cleaning Services: How to Win More Recurring Clients"
 description: "House cleaning and commercial cleaning businesses live on trust and recurring bookings. Here's how to collect testimonials that do your marketing for you — and fill your schedule."
 pubDate: "2026-03-06"
