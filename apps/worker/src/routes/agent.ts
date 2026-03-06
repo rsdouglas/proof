@@ -14,7 +14,7 @@ export const agent = new Hono<{ Bindings: Env }>()
 
 const COLLECT_BASE = 'https://socialproof.dev/c'
 const CDN_BASE = 'https://widget.socialproof.dev/v1'
-const DASH_URL = 'https://app.vouch.run'
+const DASH_URL = 'https://app.socialproof.dev'
 
 function prefixedId(prefix: string): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -28,7 +28,7 @@ async function sendVerificationEmail(
   name: string,
   verifyUrl: string,
 ): Promise<void> {
-  const FROM = 'Vouch <hello@vouch.run>'
+  const FROM = 'SocialProof <hello@socialproof.dev>'
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
 <div style="max-width:560px;margin:40px auto;padding:0 16px">

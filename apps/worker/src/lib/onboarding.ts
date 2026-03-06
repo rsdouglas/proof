@@ -9,7 +9,7 @@
  * Suppression: stop all emails once user has ≥1 approved testimonial.
  */
 
-const FROM = 'Vouch <hello@vouch.run>'
+const FROM = 'SocialProof <hello@socialproof.dev>'
 const COLLECT_BASE = 'https://collect.socialproof.dev/c'
 const DASH = 'https://app.socialproof.dev'
 

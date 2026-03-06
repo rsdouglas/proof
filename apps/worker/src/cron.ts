@@ -304,7 +304,7 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Vouch Ops <noreply@vouch.run>',
+          from: 'SocialProof <noreply@socialproof.dev>',
           to: [adminEmail],
           subject: `📊 SocialProof Daily: ${total} users, ${approved} approved testimonials`,
           text,
