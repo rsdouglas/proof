@@ -5,6 +5,15 @@ import { Hono } from 'hono'
 import type { Env } from '../index'
 import { checkRateLimit } from '../lib/ratelimit'
 
+function escapeHtml(s: string): string {
+  return (s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 // Strip HTML tags and limit field lengths to prevent XSS stored in DB
 function sanitizeText(s: string | undefined | null, maxLen: number): string | null {
   if (!s) return null
@@ -51,7 +60,7 @@ collect.get('/:formId', async (c) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${form ? `How was your experience with ${form.business_name}?` : 'Not Found'}</title>
+<title>${form ? `How was your experience with ${escapeHtml(form.business_name)}?` : 'Not Found'}</title>
 <style>
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:40px 16px}
   .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px;max-width:480px;margin:0 auto}
@@ -69,7 +78,7 @@ collect.get('/:formId', async (c) => {
 <body>
 ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
 <div class="card">
-  <h1>How was your experience with ${form.business_name}?</h1>
+  <h1>How was your experience with ${escapeHtml(form.business_name)}?</h1>
   <p>Your honest words help others find them — and mean the world to a small business.</p>
   <div id="form">
     <input id="name" placeholder="Your name" required />
@@ -86,7 +95,7 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
   <div class="success" id="success" style="display:none">
     <div style="font-size:48px">🎉</div>
     <h2 id="success-heading">Thank you!</h2>
-    <p>${form.business_name} will review your testimonial shortly. Your words make a real difference for a small business.</p>
+    <p>${escapeHtml(form.business_name)} will review your testimonial shortly. Your words make a real difference for a small business.</p>
   </div>
   ${poweredByBadge}
 </div>
