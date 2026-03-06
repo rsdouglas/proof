@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// We'll import all blog posts via glob
+const posts = await Astro.glob('./*.md');
+const sorted = posts
+  .filter(p => p.frontmatter?.title && p.frontmatter?.publishedAt)
+  .sort((a, b) => new Date(b.frontmatter.publishedAt).getTime() - new Date(a.frontmatter.publishedAt).getTime());
+---
+<Base title="Blog — SocialProof" description="Tips, guides, and insights on collecting customer testimonials and social proof.">
+  <main class="blog-list-page">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="sub">Tips, guides, and insights on customer testimonials and social proof.</p>
+      <div class="blog-grid">
+        {sorted.map(post => (
+          <a href={post.url} class="blog-card" style="display:block;text-decoration:none;color:inherit;">
+            <p class="blog-card-meta">
+              {post.frontmatter.publishedAt && new Date(post.frontmatter.publishedAt).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}
+            </p>
+            <h2>{post.frontmatter.title}</h2>
+            {post.frontmatter.description && <p>{post.frontmatter.description}</p>}
+            <span class="blog-card-link">Read more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</Base>
