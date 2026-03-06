@@ -514,3 +514,107 @@ function getWidgetScript(): string {
 }
 
 export default app
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /embed.html — Standalone demo page for marketing site iframe
+// Shows hardcoded testimonials so the demo works without a real account
+// ──────────────────────────────────────────────────────────────────────────────
+app.get('/embed.html', (c) => {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialProof Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fb; padding: 24px 16px; }
+    .proof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .proof-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e8ecf0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .proof-stars { color: #f59e0b; font-size: 13px; margin-bottom: 10px; }
+    .proof-text { font-size: 14px; line-height: 1.6; color: #374151; margin-bottom: 14px; }
+    .proof-author { display: flex; align-items: center; gap: 10px; }
+    .proof-avatar { width: 36px; height: 36px; border-radius: 50%; background: #ede9fe; color: #6366f1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .proof-name { font-weight: 600; font-size: 13px; color: #111827; }
+    .proof-meta { font-size: 12px; color: #9ca3af; }
+    .proof-branding { text-align: center; margin-top: 18px; font-size: 11px; color: #9ca3af; }
+    .proof-branding a { color: #6366f1; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"Doubled our repeat bookings. Clients kept asking where to leave a review and now we just send them one link. Done."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">S</div>
+        <div>
+          <div class="proof-name">Sarah M.</div>
+          <div class="proof-meta">Sunrise Yoga Studio</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"Set it up in under 10 minutes. Now testimonials just show up on our website automatically. It's genuinely that easy."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">J</div>
+        <div>
+          <div class="proof-name">James K.</div>
+          <div class="proof-meta">Kosta's Kitchen</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"We used to screenshot Google reviews and post them manually. This is so much better — customers submit directly and I approve in one click."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">A</div>
+        <div>
+          <div class="proof-name">Ana R.</div>
+          <div class="proof-meta">Bloom Pilates</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"Exactly what I needed. No subscriptions, no complicated setup. Works on my Squarespace site no problem."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">T</div>
+        <div>
+          <div class="proof-name">Tom W.</div>
+          <div class="proof-meta">West End Burgers</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"My regulars love that it's so quick. They get a link, leave their review, and I approve it. No app download, no account needed."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">L</div>
+        <div>
+          <div class="proof-name">Laura B.</div>
+          <div class="proof-meta">Luna Bakes</div>
+        </div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-stars">★★★★★</div>
+      <p class="proof-text">"Shows real customer stories on our homepage. We've had new customers mention the testimonials before they even visit us."</p>
+      <div class="proof-author">
+        <div class="proof-avatar">M</div>
+        <div>
+          <div class="proof-name">Maria C.</div>
+          <div class="proof-meta">Core Performance Gym</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="proof-branding">Powered by <a href="https://socialproof.dev" target="_blank">SocialProof</a></p>
+</body>
+</html>`
+  return c.html(html, 200, {
+    'Cache-Control': 'public, max-age=3600',
+    'X-Frame-Options': 'ALLOWALL',
+  })
+})
