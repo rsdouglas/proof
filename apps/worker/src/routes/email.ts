@@ -15,8 +15,8 @@ export interface EmailPayload {
   text: string
 }
 
-const FROM = 'Vouch <hello@vouch.run>'
-const SETTINGS_URL = 'https://app.vouch.run/settings'
+const FROM = 'SocialProof <hello@socialproof.dev>'
+const SETTINGS_URL = 'https://app.socialproof.dev/settings'
 
 /**
  * Send an email via Resend.

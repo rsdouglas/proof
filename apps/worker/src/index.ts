@@ -43,8 +43,8 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 app.use('*', cors({
   origin: (origin) => {
     const allowed = [
-      'https://vouch.run',
-      'https://www.vouch.run',
+      'https://socialproof.dev',
+      'https://www.socialproof.dev',
       'https://socialproof.dev',
       'https://app.socialproof.dev',
       'http://localhost:3000',

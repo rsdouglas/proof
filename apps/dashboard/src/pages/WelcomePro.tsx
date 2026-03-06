@@ -141,7 +141,7 @@ export default function WelcomePro() {
           marginTop: 24,
           marginBottom: 0,
         }}>
-          Questions? Reply to your confirmation email or reach us at team@vouch.run
+          Questions? Reply to your confirmation email or reach us at team@socialproof.dev
         </p>
       </div>
     </div>

@@ -127,7 +127,7 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
     }
   }
 </script>`}
-<div class="brand">Powered by <a href="https://vouch.run">Vouch</a></div>
+<div class="brand">Powered by <a href="https://socialproof.dev">SocialProof</a></div>
 </body>
 </html>`
 
