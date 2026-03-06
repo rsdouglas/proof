@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/BlogPost.astro
 title: "NiceJob Alternative: When You Want Testimonials, Not Just Review Stars"
-description: "NiceJob automates review requests for home services businesses. But if you want actual customer testimonials on your website — stories, quotes, videos — there's a better fit."
+description: "NiceJob automates review requests for home services businesses. But if you want actual customer testimonials on your website — stories, quotes, written testimonials — there's a better fit."
 pubDate: "2026-03-06"
 tags: ["nicejob alternative", "testimonials", "review management", "small business", "home services"]
 ---
@@ -12,7 +12,7 @@ NiceJob has built a solid business in a clear niche: home services companies (cl
 
 If that's your situation, NiceJob is worth evaluating. It does what it says.
 
-But there's a meaningful gap between **review stars on Google** and **compelling testimonials on your website**. If you're looking for the latter — if you want your customers' actual words, photos, and videos displayed on your site — NiceJob isn't designed for that, and you might be looking for something different.
+But there's a meaningful gap between **review stars on Google** and **compelling testimonials on your website**. If you're looking for the latter — if you want your customers' actual words and stories displayed on your site — NiceJob isn't designed for that, and you might be looking for something different.
 
 This post covers when NiceJob is the right fit, when it's not, and what alternatives serve which needs.
 
@@ -50,7 +50,7 @@ There's a conceptual difference worth naming:
 
 **Reviews** (Google, Yelp, Facebook) are third-party, star-based, indexed in search. They affect local SEO and discovery. NiceJob and Birdeye specialize here.
 
-**Testimonials** are first-party, often richer — quotes, stories, video, photos. They live on your website. They're what converts a visitor who's already on your site into a customer. SocialProof specializes here.
+**Testimonials** are first-party, often richer — quotes, stories, written in your customers' own words. They live on your website. They're what converts a visitor who's already on your site into a customer. SocialProof specializes here.
 
 Both matter. Most small businesses underinvest in first-party testimonials because tools like NiceJob have convinced them that Google reviews are the whole game.
 
@@ -60,7 +60,7 @@ The highest-converting small business websites typically have both: strong Googl
 
 If you want testimonials on your website:
 
-- **Share a link** with customers — they fill out a short form or record a video
+- **Share a link** with customers — they fill out a short form
 - **Embed the widget** on your site with 2 lines of code
 - **Free forever for 1 active widget** — 25 testimonials, no credit card required
 

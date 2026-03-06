@@ -44,7 +44,7 @@ That's achievable for free or near-free.
 
 **For collecting and displaying testimonials on your website:**
 
-**SocialProof** — Collect video and written testimonials via a simple shareable link. Display them on your website with a 2-line embed code. Customers click the link, fill out a short form or record a video, and their testimonial shows up on your site. Free forever for 1 active widget. No SMS infrastructure, no per-message fees, no enterprise contract. If your goal is trust-building on your website, this is purpose-built for that.
+**SocialProof** — Collect written testimonials via a simple shareable link. Display them on your website with a 2-line embed code. Customers click the link, fill out a short form, and their testimonial shows up on your site. Free forever for 1 active widget. No SMS infrastructure, no per-message fees, no enterprise contract. If your goal is trust-building on your website, this is purpose-built for that.
 
 **For review requests via text (Podium's core feature):**
 
@@ -77,7 +77,7 @@ If you're a retail shop, a fitness studio, or a service business where most inte
 
 **Next layer (low cost):**
 4. Add a testimonial widget to your website — SocialProof, free tier, takes 20 minutes to set up
-5. Collect video testimonials from your best customers — more trust, higher conversion
+5. Ask your best customers for a written testimonial — their words, on your site
 
 **Only then:**
 6. If you're overwhelmed by volume and need automation, evaluate Podium, NiceJob, or Birdeye based on whether SMS is central to your workflow

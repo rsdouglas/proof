@@ -49,7 +49,7 @@ That's it. You don't need sentiment analysis. You don't need multi-location mana
 
 ## Alternatives to Birdeye for small businesses
 
-**SocialProof** — Built specifically for small businesses. Collect video and written testimonials through a simple link. Display them on your website with an embeddable widget. Free forever for 1 active widget. No per-location fees. No enterprise pricing. If you need your customers to trust you before they walk in the door, this is the tool.
+**SocialProof** — Built specifically for small businesses. Collect written testimonials through a simple link. Display them on your website with an embeddable widget. Free forever for 1 active widget. No per-location fees. No enterprise pricing. If you need your customers to trust you before they walk in the door, this is the tool.
 
 What it doesn't do: It's not a review *response* management platform or a listings management tool. It's focused on collecting and displaying customer testimonials — the actual words customers say about you — rather than aggregating third-party review platforms.
 
