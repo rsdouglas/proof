@@ -223,6 +223,9 @@ interface SendRequestCardProps {
 }
 
 function SendRequestCard({ widgets, request }: SendRequestCardProps) {
+  const [tab, setTab] = useState<'single' | 'bulk'>('single')
+
+  // Single send state
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [note, setNote] = useState('')
@@ -230,6 +233,13 @@ function SendRequestCard({ widgets, request }: SendRequestCardProps) {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
+
+  // Bulk send state
+  const [bulkEmails, setBulkEmails] = useState('')
+  const [bulkNote, setBulkNote] = useState('')
+  const [bulkSending, setBulkSending] = useState(false)
+  const [bulkResult, setBulkResult] = useState<{ sent: number; failed: string[]; errors: string[] } | null>(null)
+  const [bulkError, setBulkError] = useState('')
 
   // Default to first widget
   useEffect(() => {
@@ -265,6 +275,41 @@ function SendRequestCard({ widgets, request }: SendRequestCardProps) {
     }
   }
 
+  async function handleBulkSend(e: React.FormEvent) {
+    e.preventDefault()
+    if (!widgetId) { setBulkError('No widget found — create one first.'); return }
+    const emails = bulkEmails
+      .split(/[,\n\r]+/)
+      .map((s: string) => s.trim())
+      .filter((s: string) => s.length > 0)
+    if (emails.length === 0) { setBulkError('Enter at least one email.'); return }
+    if (emails.length > 100) { setBulkError('Maximum 100 emails per bulk send.'); return }
+    setBulkSending(true)
+    setBulkError('')
+    setBulkResult(null)
+    try {
+      const result = await request('/testimonials/request-bulk', {
+        method: 'POST',
+        body: JSON.stringify({
+          emails,
+          widget_id: widgetId,
+          personal_note: bulkNote.trim() || undefined,
+        }),
+      }) as { sent: number; failed: string[]; errors: string[] }
+      setBulkResult(result)
+      if (result.sent > 0) setBulkEmails('')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      setBulkError(msg || 'Failed to send. Try again.')
+    } finally {
+      setBulkSending(false)
+    }
+  }
+
+  function countBulkEmails(raw: string) {
+    return raw.split(/[,\n\r]+/).map((s: string) => s.trim()).filter((s: string) => s.length > 0).length
+  }
+
   return (
     <div style={card}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
@@ -279,125 +324,248 @@ function SendRequestCard({ widgets, request }: SendRequestCardProps) {
             Request by email
           </h2>
           <p style={{ margin: 0, fontSize: 13, color: colors.gray400 }}>
-            We'll send a personalised request email on your behalf
+            {"We'll send a personalised request email on your behalf"}
           </p>
         </div>
       </div>
 
-      {sent && (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          background: '#f0fdf4', border: '1px solid #bbf7d0',
-          borderRadius: radius.md, padding: '10px 14px', marginBottom: 16,
-        }}>
-          <CheckCircle2 size={15} color="#16a34a" />
-          <span style={{ fontSize: 13, color: '#15803d', fontWeight: 600 }}>Request sent!</span>
-        </div>
-      )}
-
-      {error && (
-        <div style={{
-          background: '#fef2f2', border: '1px solid #fecaca',
-          borderRadius: radius.md, padding: '10px 14px', marginBottom: 16,
-          fontSize: 13, color: '#dc2626',
-        }}>
-          {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <div style={{ flex: 1 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
-              Customer email *
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="customer@example.com"
-              required
-              style={{
-                width: '100%', padding: '9px 12px',
-                border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
-                fontSize: 14, fontFamily: font.sans, color: colors.gray900,
-                outline: 'none', boxSizing: 'border-box',
-              }}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
-              Their name (optional)
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="Jane Smith"
-              style={{
-                width: '100%', padding: '9px 12px',
-                border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
-                fontSize: 14, fontFamily: font.sans, color: colors.gray900,
-                outline: 'none', boxSizing: 'border-box',
-              }}
-            />
-          </div>
-        </div>
-
-        <div>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
-            Personal note (optional)
-          </label>
-          <textarea
-            value={note}
-            onChange={e => setNote(e.target.value)}
-            placeholder="e.g. We really enjoyed working together on your website redesign…"
-            rows={2}
+      {/* Tab switcher */}
+      <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderRadius: radius.md, border: `1px solid ${colors.gray200}`, overflow: 'hidden', width: 'fit-content' }}>
+        {(['single', 'bulk'] as const).map(t => (
+          <button
+            key={t}
+            onClick={() => { setTab(t); setError(''); setBulkError(''); setBulkResult(null) }}
             style={{
-              width: '100%', padding: '9px 12px',
-              border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
-              fontSize: 14, fontFamily: font.sans, color: colors.gray900,
-              outline: 'none', resize: 'vertical', boxSizing: 'border-box',
+              padding: '7px 18px', fontSize: 13, fontWeight: 600, fontFamily: font.sans,
+              border: 'none', cursor: 'pointer',
+              background: tab === t ? colors.brand : '#fff',
+              color: tab === t ? '#fff' : colors.gray600,
+              transition: 'all 0.15s',
             }}
-          />
-        </div>
+          >
+            {t === 'single' ? 'Single' : 'Bulk (up to 100)'}
+          </button>
+        ))}
+      </div>
 
-        {widgets.length > 1 && (
-          <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
-              Widget
-            </label>
-            <select
-              value={widgetId}
-              onChange={e => setWidgetId(e.target.value)}
+      {tab === 'single' && (
+        <>
+          {sent && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              background: '#f0fdf4', border: '1px solid #bbf7d0',
+              borderRadius: radius.md, padding: '10px 14px', marginBottom: 16,
+            }}>
+              <CheckCircle2 size={15} color="#16a34a" />
+              <span style={{ fontSize: 13, color: '#15803d', fontWeight: 600 }}>Request sent!</span>
+            </div>
+          )}
+          {error && (
+            <div style={{
+              background: '#fef2f2', border: '1px solid #fecaca',
+              borderRadius: radius.md, padding: '10px 14px', marginBottom: 16,
+              fontSize: 13, color: '#dc2626',
+            }}>
+              {error}
+            </div>
+          )}
+          <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                  Customer email *
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="customer@example.com"
+                  required
+                  style={{
+                    width: '100%', padding: '9px 12px',
+                    border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                    fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                    outline: 'none', boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                  Customer name
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  placeholder="Jane Smith (optional)"
+                  style={{
+                    width: '100%', padding: '9px 12px',
+                    border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                    fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                    outline: 'none', boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+            </div>
+            {widgets.length > 1 && (
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                  Widget
+                </label>
+                <select
+                  value={widgetId}
+                  onChange={e => setWidgetId(e.target.value)}
+                  style={{
+                    width: '100%', padding: '9px 12px',
+                    border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                    fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                    outline: 'none', background: '#fff',
+                  }}
+                >
+                  {widgets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
+                </select>
+              </div>
+            )}
+            <div>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                Personal note <span style={{ fontWeight: 400, color: colors.gray400 }}>(optional)</span>
+              </label>
+              <textarea
+                value={note}
+                onChange={e => setNote(e.target.value)}
+                placeholder={"Thanks for being a customer! We'd love your feedback…"}
+                rows={3}
+                style={{
+                  width: '100%', padding: '9px 12px',
+                  border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                  fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                  outline: 'none', resize: 'vertical', boxSizing: 'border-box',
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={sending || !email.trim()}
               style={{
-                width: '100%', padding: '9px 12px',
-                border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
-                fontSize: 14, fontFamily: font.sans, color: colors.gray900,
-                outline: 'none', background: colors.white, boxSizing: 'border-box',
+                ...btn.primary,
+                display: 'flex', alignItems: 'center', gap: 8,
+                justifyContent: 'center', padding: '10px 20px',
+                opacity: sending || !email.trim() ? 0.6 : 1,
+                cursor: sending || !email.trim() ? 'not-allowed' : 'pointer',
               }}
             >
-              {widgets.map(w => (
-                <option key={w.id} value={w.id}>{w.name}</option>
-              ))}
-            </select>
-          </div>
-        )}
+              <Send size={14} />
+              {sending ? 'Sending…' : 'Send request'}
+            </button>
+          </form>
+        </>
+      )}
 
-        <button
-          type="submit"
-          disabled={sending || !email.trim()}
-          style={{
-            ...btn.primary,
-            gap: 8, alignSelf: 'flex-start',
-            opacity: sending || !email.trim() ? 0.6 : 1,
-            cursor: sending || !email.trim() ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <Send size={14} />
-          {sending ? 'Sending…' : 'Send request'}
-        </button>
-      </form>
+      {tab === 'bulk' && (
+        <>
+          {bulkResult && (
+            <div style={{
+              background: bulkResult.sent > 0 ? '#f0fdf4' : '#fef2f2',
+              border: `1px solid ${bulkResult.sent > 0 ? '#bbf7d0' : '#fecaca'}`,
+              borderRadius: radius.md, padding: '12px 16px', marginBottom: 16,
+            }}>
+              <div style={{ fontWeight: 700, fontSize: 14, color: bulkResult.sent > 0 ? '#15803d' : '#dc2626', marginBottom: 4 }}>
+                {bulkResult.sent > 0 ? `✓ ${bulkResult.sent} request${bulkResult.sent > 1 ? 's' : ''} sent!` : 'No emails sent'}
+              </div>
+              {bulkResult.failed.length > 0 && (
+                <div style={{ fontSize: 12, color: '#dc2626' }}>
+                  Failed: {bulkResult.failed.join(', ')}
+                </div>
+              )}
+            </div>
+          )}
+          {bulkError && (
+            <div style={{
+              background: '#fef2f2', border: '1px solid #fecaca',
+              borderRadius: radius.md, padding: '10px 14px', marginBottom: 16,
+              fontSize: 13, color: '#dc2626',
+            }}>
+              {bulkError}
+            </div>
+          )}
+          <form onSubmit={handleBulkSend} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                Customer emails * <span style={{ fontWeight: 400, color: colors.gray400 }}>(one per line or comma-separated, max 100)</span>
+              </label>
+              <textarea
+                value={bulkEmails}
+                onChange={e => setBulkEmails(e.target.value)}
+                placeholder={"alice@example.com\nbob@example.com\ncarla@example.com"}
+                rows={6}
+                style={{
+                  width: '100%', padding: '9px 12px',
+                  border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                  fontSize: 13, fontFamily: font.sans, color: colors.gray900,
+                  outline: 'none', resize: 'vertical', boxSizing: 'border-box',
+                }}
+              />
+              {bulkEmails.trim() && (
+                <div style={{ fontSize: 11, color: colors.gray400, marginTop: 4 }}>
+                  {countBulkEmails(bulkEmails)} email(s) detected
+                </div>
+              )}
+            </div>
+            {widgets.length > 1 && (
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                  Widget
+                </label>
+                <select
+                  value={widgetId}
+                  onChange={e => setWidgetId(e.target.value)}
+                  style={{
+                    width: '100%', padding: '9px 12px',
+                    border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                    fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                    outline: 'none', background: '#fff',
+                  }}
+                >
+                  {widgets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
+                </select>
+              </div>
+            )}
+            <div>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: colors.gray600, marginBottom: 4 }}>
+                Personal note <span style={{ fontWeight: 400, color: colors.gray400 }}>(optional — same note sent to all)</span>
+              </label>
+              <textarea
+                value={bulkNote}
+                onChange={e => setBulkNote(e.target.value)}
+                placeholder={"Thanks for being a customer! We'd love your feedback…"}
+                rows={3}
+                style={{
+                  width: '100%', padding: '9px 12px',
+                  border: `1px solid ${colors.gray200}`, borderRadius: radius.md,
+                  fontSize: 14, fontFamily: font.sans, color: colors.gray900,
+                  outline: 'none', resize: 'vertical', boxSizing: 'border-box',
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={bulkSending || !bulkEmails.trim()}
+              style={{
+                ...btn.primary,
+                display: 'flex', alignItems: 'center', gap: 8,
+                justifyContent: 'center', padding: '10px 20px',
+                opacity: bulkSending || !bulkEmails.trim() ? 0.6 : 1,
+                cursor: bulkSending || !bulkEmails.trim() ? 'not-allowed' : 'pointer',
+              }}
+            >
+              <Send size={14} />
+              {bulkSending
+                ? 'Sending…'
+                : `Send to ${countBulkEmails(bulkEmails)} customer${countBulkEmails(bulkEmails) !== 1 ? 's' : ''}`}
+            </button>
+          </form>
+        </>
+      )}
     </div>
   )
 }
