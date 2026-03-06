@@ -286,7 +286,7 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
       const date = now.toISOString().slice(0, 10)
 
       const text = [
-        `Vouch Daily Stats — ${date}`,
+        `SocialProof Daily Stats — ${date}`,
         '',
         `Users:        ${total} total  (+${last7d} last 7d)`,
         `Testimonials: ${allTests} total  (${approved} approved, ${pending} pending)`,
@@ -306,7 +306,7 @@ export async function handleCron(_event: ScheduledController, env: Env): Promise
         body: JSON.stringify({
           from: 'Vouch Ops <noreply@vouch.run>',
           to: [adminEmail],
-          subject: `📊 Vouch Daily: ${total} users, ${approved} approved testimonials`,
+          subject: `📊 SocialProof Daily: ${total} users, ${approved} approved testimonials`,
           text,
         }),
       })

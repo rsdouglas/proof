@@ -1,5 +1,5 @@
 /**
- * Onboarding drip email sequence for new Vouch users.
+ * Onboarding drip email sequence for new SocialProof users.
  *
  * Revised per CEO spec (issue #231):
  *   Email 1 — Welcome (Day 0, immediate): drive collection link SENDING
@@ -19,12 +19,12 @@ function wrap(body: string): string {
 <div style="max-width:560px;margin:40px auto;padding:0 16px">
   <div style="background:#fff;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden">
     <div style="background:#6C5CE7;padding:24px 32px">
-      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ Vouch</span>
+      <span style="color:#fff;font-weight:700;font-size:18px;letter-spacing:-0.3px">✦ SocialProof</span>
     </div>
     <div style="padding:32px">${body}</div>
   </div>
   <p style="text-align:center;margin:20px 0;color:#9ca3af;font-size:12px">
-    <a href="${DASH}" style="color:#6C5CE7;text-decoration:none">Vouch Dashboard</a>
+    <a href="${DASH}" style="color:#6C5CE7;text-decoration:none">SocialProof Dashboard</a>
     &nbsp;&middot;&nbsp;
     <a href="${DASH}/settings" style="color:#9ca3af;text-decoration:none">Unsubscribe</a>
   </p>
@@ -65,7 +65,7 @@ export async function sendWelcomeEmail(
       <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;font-style:italic">"Hey [name] — I'm collecting testimonials for my site. Would you mind leaving a quick one? Takes 2 minutes: ${link}"</p>
     </div>
     <p style="margin:0 0 4px;color:#374151;font-size:15px;line-height:1.6">When their testimonial arrives, we'll email you. You approve it. Then paste one line of code and you're live.</p>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `You're in — do this one thing today`, html)
 }
@@ -80,14 +80,14 @@ export async function sendDay2NudgeEmail(
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Did anyone see your collection link?</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Quick check — have you sent your Vouch collection link to a customer yet?</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Quick check — have you sent your SocialProof collection link to a customer yet?</p>
     <p style="margin:0 0 8px;color:#374151;font-size:15px;line-height:1.6">Here's your link:</p>
     <div style="background:#f3f0ff;border-radius:8px;padding:16px 20px;margin:0 0 20px">
       <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
     </div>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Most people send it to one happy customer by Slack or email and hear back same day. That's all it takes to get your first testimonial on your site.</p>
     <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Send your collection link →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `Did anyone see your collection link?`, html)
 }
@@ -114,7 +114,7 @@ export async function sendDay5NudgeEmail(
       <a href="${link}" style="color:#6C5CE7;font-weight:700;font-size:15px;text-decoration:none;word-break:break-all">${link}</a>
     </div>
     <a href="${link}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Get your first testimonial →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `One testimonial = 34% more conversions`, html)
 }
@@ -166,7 +166,7 @@ export async function sendCelebrationEmail(
       <code style="color:#a6e3a1;font-size:13px;font-family:'Courier New',monospace;white-space:pre-wrap;word-break:break-all">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
     </div>
     <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Go to dashboard →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `🎉 Your first testimonial just arrived`, html)
 }
@@ -181,13 +181,13 @@ export async function sendEmbedNudgeEmail(
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your testimonials are ready — add them to your site</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You've got <strong>${opts.approvedCount} approved testimonial${opts.approvedCount > 1 ? 's' : ''}</strong> sitting in Vouch — but they're not on your site yet.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You've got <strong>${opts.approvedCount} approved testimonial${opts.approvedCount > 1 ? 's' : ''}</strong> sitting in SocialProof  — but they're not on your site yet.</p>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">One paste is all it takes:</p>
     <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow-x:auto">
       <code style="color:#a6e3a1;font-size:13px;font-family:'Courier New',monospace;white-space:pre-wrap;word-break:break-all">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
     </div>
     <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Get embed code →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `Your testimonials are ready — add them to your site`, html)
 }
@@ -203,7 +203,7 @@ export async function sendDay4NoTestimonialsEmail(
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your collection link is just sitting there</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hi ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You signed up for Vouch a few days ago. But your collection link hasn't been shared yet — which means no testimonials are flowing in.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You signed up for SocialProof a few days ago. But your collection link hasn't been shared yet — which means no testimonials are flowing in.</p>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">The hardest part isn't the tech. It's asking. Most business owners have 3–5 happy customers who would leave a glowing review today if you just sent them a link.</p>
     <p style="margin:0 0 8px;color:#111;font-weight:600;font-size:15px">Your collection link:</p>
     <div style="background:#f3f4f6;border-radius:8px;padding:12px 16px;margin:0 0 20px">
@@ -215,7 +215,7 @@ export async function sendDay4NoTestimonialsEmail(
       <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;font-style:italic">"Hey [name], would you leave me a quick testimonial? ${collectUrl} — takes 2 minutes."</p>
     </div>
     <a href="${collectUrl}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Share your link →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">Questions? Hit reply — I read everything.<br>— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">Questions? Hit reply — I read everything.<br>— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `Your collection link is just sitting there`, html)
 }
@@ -231,7 +231,7 @@ export async function sendDay14WinbackEmail(
   const html = wrap(`
     <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Still here if you need social proof</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hi ${first},</p>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You created a Vouch account two weeks ago. We haven't seen any testimonials come through yet — which might mean life got in the way, or you hit a friction point.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">You created a SocialProof account two weeks ago. We haven't seen any testimonials come through yet — which might mean life got in the way, or you hit a friction point.</p>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Either way, your account is still active and your collection link still works. If you want to start, it's a 2-minute task:</p>
     <div style="background:#f9fafb;border-radius:8px;padding:20px;margin:0 0 20px">
       <p style="margin:0 0 8px;color:#111;font-weight:700;font-size:15px">Step 1</p>
@@ -242,7 +242,7 @@ export async function sendDay14WinbackEmail(
       <p style="margin:0;color:#374151;font-size:14px;line-height:1.5">Your widget shows it on your site. Done.</p>
     </div>
     <a href="${collectUrl}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Open your collection link →</a>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">This is the last email we'll send about this. Your account stays active forever on the free plan.<br>— The Vouch team</p>
+    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">This is the last email we'll send about this. Your account stays active forever on the free plan.<br>— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `Still here if you need social proof`, html)
 }
