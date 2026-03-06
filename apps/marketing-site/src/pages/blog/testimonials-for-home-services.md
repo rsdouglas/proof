@@ -4,7 +4,7 @@ description: "Plumbers, electricians, cleaners, landscapers — trust is everyth
 author: "SocialProof Team"
 date: "2026-03-06"
 tags: ["testimonials", "home services", "local business", "social proof", "plumbers", "electricians"]
-layout: "../../../layouts/BlogPost.astro"
+layout: "../../layouts/BlogPost.astro"
 ---
 
 When someone invites a plumber, electrician, house cleaner, or landscaper into their home, they're making a trust decision. Not just about competence — about character. Are you someone they want inside their house?

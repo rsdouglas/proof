@@ -4,7 +4,7 @@ description: "Pet owners are deeply loyal — and deeply skeptical about trustin
 author: "SocialProof Team"
 date: "2026-03-06"
 tags: ["testimonials", "veterinarians", "local business", "social proof"]
-layout: "../../../layouts/BlogPost.astro"
+layout: "../../layouts/BlogPost.astro"
 ---
 
 When a pet owner is looking for a new vet, the stakes feel sky-high. This isn't choosing a plumber. This is their dog. Their cat. The animal that sleeps at the foot of their bed.
