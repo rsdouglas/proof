@@ -270,7 +270,7 @@ Most visitors never click to your case study library. Your best proof should liv
 ## Collecting B2B Testimonials With SocialProof
 
 
-SocialProof makes the collection process frictionless for both you and your customers. Share a branded collection link via email or Slack, and customers can submit written or video testimonials in under two minutes—no account required on their end.
+SocialProof makes the collection process frictionless for both you and your customers. Share a branded collection link via email or Slack, and customers can submit written testimonials in under two minutes—no account required on their end.
 
 
 You get a library of testimonials you can embed anywhere with a single widget snippet. Filter by industry, use case, or star rating to always show the most relevant proof to each segment of buyers.

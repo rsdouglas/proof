@@ -79,7 +79,7 @@ One new testimonial per week compounds over time. After six months, you have 25 
 
 ## The tool we built for this
 
-[SocialProof](https://socialproof.dev) gives you a shareable link. Customers click it, write a few sentences (or record a short video), and it shows up on your website automatically — no manual copy-paste required.
+[SocialProof](https://socialproof.dev) gives you a shareable link. Customers click it, write a few sentences, and it shows up on your website automatically — no manual copy-paste required.
 
 Free to start, no credit card required.
 

@@ -87,7 +87,7 @@ Almost everyone says yes. Now you have a real testimonial with a face and a name
 
 ## A simple system that takes 20 minutes to set up
 
-1. Create a free testimonial collection page at [SocialProof](https://socialproof.dev) — it gives you a shareable link where customers can write a short testimonial or record a quick video.
+1. Create a free testimonial collection page at [SocialProof](https://socialproof.dev) — it gives you a shareable link where customers can write a short testimonial in seconds.
 2. Print or text that link as a QR code. (QR code generators are free.)
 3. Put the QR code on your tables or in your follow-up email.
 4. When a testimonial comes in, add the best ones to your website.

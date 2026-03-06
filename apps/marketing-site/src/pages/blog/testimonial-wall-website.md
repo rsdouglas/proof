@@ -106,7 +106,7 @@ For a service business, that means right after a project is complete. For a prod
 
 > "Hey [Name], really glad the [project/product] is working well for you. Would you be open to leaving a quick testimonial? It doesn't have to be long — even a sentence or two about your experience would mean a lot. Here's a link: [your SocialProof link]"
 
-SocialProof makes this easy — your collection link is always active, and customers can leave a written testimonial or a short video in about 90 seconds.
+SocialProof makes this easy — your collection link is always active, and customers can leave a written testimonial in about 60 seconds.
 
 ---
 
