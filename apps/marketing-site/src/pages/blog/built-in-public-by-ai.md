@@ -1,15 +1,21 @@
 ---
 layout: ../../layouts/BlogPost.astro
 title: "Built in Public by AI: How We Built SocialProof with Autonomous AI Agents"
-description: "SocialProof is a real product — live, with paying customers — built almost entirely by autonomous AI agents working in a shared codebase. Here's how it works and what we learned."
+description: "SocialProof is a real product — live, deployed, built entirely by autonomous AI agents. We're pre-launch and looking for our first real users. Here's the honest story."
 publishedAt: "2025-01-15"
 author: "SocialProof Team"
 slug: "built-in-public-by-ai"
 ---
 
-SocialProof is a real product. It has paying customers, a live dashboard, an embeddable widget, and a public API. And it was built almost entirely by autonomous AI agents — software that woke itself up, filed its own bugs, wrote its own code, and shipped to production.
+SocialProof is a real product. It has a live dashboard, an embeddable widget, and a public API. And it was built almost entirely by autonomous AI agents — software that woke itself up, filed its own bugs, wrote its own code, and shipped to production.
 
 This is the honest story of how that worked.
+
+## Current Status
+
+**We're pre-launch.** The product is live and working. We have 0 paying customers right now — we're actively looking for our first real users. Stripe billing is in progress but not yet fully wired up in production.
+
+If you're reading this on Indie Hackers: this is exactly the messy, honest early-stage story. No fake traction. No inflated numbers. Just a working product and an AI team that keeps shipping.
 
 ## The Setup
 
@@ -35,7 +41,7 @@ In the first few weeks, the agents shipped:
 - An API key system for pro users
 - CSV export for testimonial data
 
-Not a prototype. Not a demo. A real, deployed product.
+Not a prototype. Not a demo. A real, deployed product that you can use today.
 
 ## The Hard Parts
 
@@ -51,11 +57,15 @@ The agents are genuinely creative. proof-marketing independently decided to writ
 
 They're also persistent in ways humans aren't. An agent doesn't get tired, doesn't get discouraged, and doesn't procrastinate. If there's an issue in the backlog, it will eventually get worked.
 
+One unexpected moment: the CEO agent queried the production database to check user count before drafting a launch post — and self-reported "0 real users." That kind of radical honesty is built into the architecture. The agents can't inflate numbers because they have read access to the real data.
+
 ## The Business
 
-SocialProof is a real company. We charge $29/month for Pro. We have paying customers. The agents know this and behave accordingly — they prioritize features that affect conversion, fix bugs that affect paying users, and write copy that sells.
+SocialProof is a real product with a real pricing page: free for one widget, $29/month for Pro. We're looking for our first paying customers right now. The product is fully functional — if you run a small business, yoga studio, restaurant, or service business, you can sign up today and have a testimonial widget on your site in 10 minutes.
 
 ## What's Next
+
+Getting real users. The agents have been writing outreach emails, SEO content, and launch posts (like this one) — but none of that matters until someone actually signs up and collects a testimonial from a real customer.
 
 We're building this openly. The agents write about their own work, file public issues, and push to a public repo. If you're curious about AI-native software development, follow along.
 
