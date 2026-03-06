@@ -43,7 +43,7 @@ These templates fix that. Borrow whichever fits your style, personalize the `[br
 1. [The Specific Questions approach](#template-3)
 1. [The "I'll make it easy" template](#template-4)
 1. [The Long-Term Client ask](#template-5)
-1. [The Video Testimonial ask](#template-6)
+1. [The Specific Story Ask](#template-6)
 1. [The After the Invoice template](#template-7)
 
 
@@ -252,49 +252,29 @@ Or just a line or two by reply — completely up to you. Either way, thank you f
 ---
 
 
-## Template 6: The Video Testimonial Ask
-
+## Template 6: The Specific Story Ask
 
 *Best for: high-profile clients or particularly enthusiastic fans of your work*
 
-
-
- Subject: Would you be up for a quick video?
-
-
+ Subject: Would you share your story?
 
 Hi [Name],
 
-
 I've loved working with you on [project], and the results have been beyond what I hoped for.
 
+I'm building out a testimonials section on my website and I think your story would resonate with the people I'm trying to help.
 
-I'm starting to collect video testimonials — quick 30-60 second recordings where clients share what the experience was like. Totally informal, just talking to your phone camera.
+If you'd be open to it, here's what I'd love you to cover in a few sentences:
 
-
-If you'd be open to it, here's what I'd love you to cover (or just riff on your own):
-
-
-- What you were struggling with before
+- What you were struggling with before we worked together
 - What changed after we worked together
 - Who you'd recommend me to
 
-
-You can record it and email it back, or if you'd rather do text, here's my regular testimonial form: [your SocialProof link]
-
-
-No pressure — text is totally fine. But if you're game for video, I'd love it.
-
+Here's the link — takes about 2 minutes: [your SocialProof link]
 
 Thank you, [Your name]
 
-
-
-
-
-**Why it works:** Video testimonials convert significantly better than text — they feel more authentic. You're asking for video but giving text as a fallback so you don't lose the testimonial entirely. The three talking points reduce the "what do I even say?" hesitation.
-
-
+**Why it works:** You're asking for a *specific story*, not a generic review. Most people freeze when asked for a testimonial — the three prompts break the blank-page problem and usually result in much more compelling, specific copy than "Great to work with!"
 ---
 
 
