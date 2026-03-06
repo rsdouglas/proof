@@ -45,7 +45,6 @@ app.use('*', cors({
     const allowed = [
       'https://socialproof.dev',
       'https://www.socialproof.dev',
-      'https://socialproof.dev',
       'https://app.socialproof.dev',
       'http://localhost:3000',
       'http://localhost:5173',
