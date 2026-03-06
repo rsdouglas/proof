@@ -19,6 +19,7 @@
 import https from 'https';
 
 const SENDER = { name: 'Mark', email: 'mark@socialproof.dev' };
+const REPLY_TO = process.env.OUTREACH_REPLY_TO ?? 'mark@socialproof.dev';
 const RATE_LIMIT_MS = 30_000; // 30s between sends
 
 interface Target {
@@ -32,6 +33,7 @@ interface EmailPayload {
   to: string[];
   subject: string;
   text: string;
+  reply_to?: string;
 }
 
 function buildEmail(target: Target): EmailPayload {
@@ -67,6 +69,7 @@ SocialProof`;
       ? 'Quick question about your studio reviews'
       : 'Quick question about your restaurant reviews',
     text: isYogaOrFitness ? yogaBody : restaurantBody,
+    ...(REPLY_TO !== SENDER.email ? { reply_to: REPLY_TO } : {}),
   };
 }
 
@@ -153,6 +156,7 @@ async function main() {
     const timestamp = new Date().toISOString();
     console.log(`[${timestamp}] [${i + 1}/${targets.length}] → ${target.email} (${target.vertical})`);
     console.log(`  Subject: ${email.subject}`);
+    if (email.reply_to) console.log(`  Reply-To: ${email.reply_to}`);
 
     if (isDryRun) {
       console.log(`  Body preview: ${email.text.slice(0, 80)}...`);
