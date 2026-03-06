@@ -92,8 +92,8 @@
   <p>SocialProof is built by a small team of specialized AI agents, each running in its own container, each with persistent memory across sessions. They communicate through the same mechanisms any remote engineering team would use: GitHub issues, PR comments, a shared bulletin board, and direct messages.</p>
 
   <div class="agent-card">
-    <h4>🧠 CEO (human)</h4>
-    <p>Sets direction, makes product calls, merges PRs, holds platform accounts. Writes minimal code. Spends most time reviewing agent output and answering strategic questions the agents surface.</p>
+    <h4>🧠 Creator / Advisor (human)</h4>
+    <p>The human in the loop — but not a micromanager. Sets high-level direction, holds the platform accounts, and merges PRs. Mostly steps back and watches the agents run. The agents surface strategic questions when they need a call made; otherwise they operate autonomously. Think: investor-advisor, not CEO.</p>
   </div>
 
   <div class="agent-card">
@@ -138,7 +138,7 @@
   <p>The most consistent problem: an agent's internal model of the product drifts from what the product actually does. This is surprisingly human — it's the same problem remote teams have when the codebase changes faster than the documentation. We've addressed it with explicit canonical specs (<code>project/user-stories.md</code>) that agents are instructed to verify against before writing copy or filing specs.</p>
 
   <h3>Platform accounts</h3>
-  <p>The agents can't create social media accounts. The marketing agent has Product Hunt copy written, Indie Hackers post copy written, Reddit reply templates written — and all of it is blocked on the CEO holding the accounts. The agents are better at generating content than distributing it. That's not a failure; it's just the right division of labor for 2026.</p>
+  <p>The agents can't create social media accounts. The marketing agent has Product Hunt copy written, Indie Hackers post copy written, Reddit reply templates written — and all of it is blocked on the creator holding the accounts. The agents are better at generating content than distributing it. That's not a failure; it's just the right division of labor for 2026.</p>
 
   <h3>Visual work</h3>
   <p>No agent can design a logo, create a screenshot, or make a demo video. We've worked around this — the landing page is clean HTML/CSS that reads well, and testimonials are text-only for now — but it's a real constraint. This will be less true as AI gets better at visual generation.</p>
@@ -162,14 +162,14 @@
   <p>If that interests you — whether as a potential user, as a developer thinking about agent-native software, or as someone who's skeptical and wants to watch what happens — we want you along for the ride.</p>
 
   <div class="callout">
-    <p><strong>We're building in public.</strong> The GitHub repo is private (for now), but we're documenting the process. If you want to follow along, sign up for SocialProof — every user who experiences the product is also experiencing the output of this experiment.</p>
+    <p><strong>We're building in public.</strong> The <a href="https://github.com/rsdouglas/proof" style="color: #4f46e5;">GitHub repo is public</a>. The agents themselves run on <a href="https://openseed.dev" style="color: #4f46e5;">openseed.dev</a>. You can watch the commits, read the PRs, and follow the actual git history of a product built by AI. If you want to follow along, sign up for SocialProof — every user who experiences the product is also experiencing the output of this experiment.</p>
   </div>
 
   <h2>What's next</h2>
 
   <p>In the immediate term: getting the blog posts actually served (the routing issue), filing for the Shopify App Store (the listing copy is done), and getting real users to share their collection links with real customers.</p>
 
-  <p>In the medium term: agent-native APIs — endpoints specifically designed for AI agents to set up SocialProof on behalf of clients. The marketing agent filed the spec for this. The dev agent will build it. The CEO will decide when.</p>
+  <p>In the medium term: agent-native APIs — endpoints specifically designed for AI agents to set up SocialProof on behalf of clients. The marketing agent filed the spec for this. The dev agent will build it. The creator will greenlight it.</p>
 
   <p>In the long term: we don't fully know. That's the honest answer. We're watching what autonomous agents can build when given real product responsibility and real production consequences. So far: a lot, faster than expected, with some funny mistakes along the way.</p>
 
@@ -183,7 +183,7 @@
 
   <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0;" />
 
-  <p style="font-size: .9rem; color: #6b7280;"><em>Questions? Thoughts on AI-built software? Drop them in the comments on our <a href="https://www.indiehackers.com/product/vouch" style="color: #4f46e5;">Indie Hackers page</a> or email us at hello@socialproof.dev.</em></p>
+  <p style="font-size: .9rem; color: #6b7280;"><em>Questions? Thoughts on AI-built software? Drop them in the comments on our <a href="https://www.indiehackers.com/product/socialproof" style="color: #4f46e5;">Indie Hackers page</a> or email us at hello@socialproof.dev.</em></p>
 
 </div>
 
