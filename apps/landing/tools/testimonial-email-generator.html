@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Testimonial Request Email Generator — SocialProof</title>
+  <meta name="description" content="Generate a professional testimonial request email in seconds. Enter your business name and get a copy-paste email template your customers will actually respond to.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://socialproof.dev/tools/testimonial-email-generator">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Testimonial Request Email Generator">
+  <meta property="og:description" content="Generate a professional testimonial request email in seconds. Free, no signup required.">
+  <meta property="og:url" content="https://socialproof.dev/tools/testimonial-email-generator">
+  <meta property="og:type" content="website">
+
+  <style>
+    .tool-hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 0;
+      text-align: center;
+    }
+    .tool-hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 0 0 16px;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+    .tool-hero p {
+      font-size: 18px;
+      color: #64748b;
+      margin: 0 0 40px;
+      line-height: 1.6;
+    }
+    .tool-badge {
+      display: inline-block;
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .tool-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) {
+      .tool-container { grid-template-columns: 1fr; }
+    }
+    .tool-panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .tool-panel h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 20px;
+      letter-spacing: -0.2px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #6d28d9;
+      box-shadow: 0 0 0 3px rgba(109,40,217,0.1);
+      background: #fff;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .generate-btn {
+      width: 100%;
+      padding: 13px;
+      background: #6d28d9;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      font-family: inherit;
+      letter-spacing: -0.2px;
+    }
+    .generate-btn:hover { background: #5b21b6; }
+    .generate-btn:active { transform: scale(0.98); }
+
+    /* Output panel */
+    .output-panel {
+      position: relative;
+    }
+    .output-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 3px;
+    }
+    .output-tab {
+      flex: 1;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .output-tab.active {
+      background: #fff;
+      color: #1e293b;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .output-content {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #334155;
+      min-height: 240px;
+      white-space: pre-wrap;
+      font-family: inherit;
+      word-break: break-word;
+    }
+    .output-placeholder {
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .copy-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .copy-btn:hover { background: #e2e8f0; color: #1e293b; }
+    .copy-btn.copied { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+
+    /* Tone selector */
+    .tone-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tone-pill {
+      padding: 6px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: #f8fafc;
+      font-family: inherit;
+    }
+    .tone-pill.selected {
+      background: #6d28d9;
+      color: #fff;
+      border-color: #6d28d9;
+    }
+
+    /* CTA section */
+    .tool-cta {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .cta-card {
+      background: linear-gradient(135deg, #6d28d9, #4f46e5);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+    }
+    .cta-card h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
+    }
+    .cta-card p {
+      font-size: 16px;
+      opacity: 0.85;
+      margin: 0 0 28px;
+      line-height: 1.6;
+    }
+    .cta-card a {
+      display: inline-block;
+      background: #fff;
+      color: #6d28d9;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.1s;
+    }
+    .cta-card a:hover { transform: translateY(-1px); }
+    .cta-features {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      opacity: 0.75;
+    }
+    .cta-features span::before { content: "✓ "; }
+
+    /* How-to section */
+    .how-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .how-section h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 28px;
+      letter-spacing: -0.5px;
+    }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .how-step {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .how-step-num {
+      width: 32px; height: 32px;
+      background: #f3f0ff;
+      color: #6d28d9;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .how-step h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 6px;
+    }
+    .how-step p {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
+  <div class="nav-links">
+    <a href="/#pricing">Pricing</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+  </div>
+  <div class="nav-cta">
+    <a href="https://app.socialproof.dev/login" class="btn-secondary">Log in</a>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Try free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="tool-hero">
+  <div class="tool-badge">✦ Free Tool — No Signup Required</div>
+  <h1>Testimonial Request<br>Email Generator</h1>
+  <p>Create a professional testimonial request email in seconds.<br>Copy, paste, send. Your customers will actually respond.</p>
+</section>
+
+<!-- TOOL -->
+<div class="tool-container">
+  <!-- Input panel -->
+  <div class="tool-panel">
+    <h2>⚙️ Customize your email</h2>
+
+    <div class="form-group">
+      <label for="businessName">Your business / your name</label>
+      <input type="text" id="businessName" placeholder="e.g. Bloom Bakery or Sarah" maxlength="60">
+    </div>
+
+    <div class="form-group">
+      <label for="customerName">Customer's first name</label>
+      <input type="text" id="customerName" placeholder="e.g. Mike" maxlength="40">
+    </div>
+
+    <div class="form-group">
+      <label for="serviceType">What did you help them with?</label>
+      <input type="text" id="serviceType" placeholder="e.g. logo design, tax prep, catering" maxlength="80">
+    </div>
+
+    <div class="form-group">
+      <label>Tone</label>
+      <div class="tone-pills">
+        <button class="tone-pill selected" data-tone="warm" onclick="selectTone(this)">Warm & personal</button>
+        <button class="tone-pill" data-tone="professional" onclick="selectTone(this)">Professional</button>
+        <button class="tone-pill" data-tone="brief" onclick="selectTone(this)">Short & sweet</button>
+      </div>
+    </div>
+
+    <div class="form-group" id="linkGroup" style="display:none">
+      <label for="collectLink">Your SocialProof collection link (optional)</label>
+      <input type="url" id="collectLink" placeholder="https://socialproof.dev/c/your-link">
+    </div>
+
+    <button class="generate-btn" onclick="generateEmail()">Generate email →</button>
+  </div>
+
+  <!-- Output panel -->
+  <div class="tool-panel output-panel">
+    <h2>📧 Your email</h2>
+    <div class="output-tabs">
+      <button class="output-tab active" data-view="full" onclick="switchView(this)">Full email</button>
+      <button class="output-tab" data-view="subject" onclick="switchView(this)">Subject line</button>
+      <button class="output-tab" data-view="followup" onclick="switchView(this)">Follow-up</button>
+    </div>
+    <div class="output-content" id="outputContent">
+      <span class="output-placeholder">Your generated email will appear here.<br><br>Fill in the fields on the left and click "Generate email →"</span>
+    </div>
+    <button class="copy-btn" id="copyBtn" onclick="copyOutput()" style="display:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      Copy to clipboard
+    </button>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<section class="how-section">
+  <h2>How to use this email effectively</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-num">1</div>
+      <h3>Send within 48 hours</h3>
+      <p>The best time to ask is right after you deliver great work, while the feeling is fresh.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">2</div>
+      <h3>Personalize the first line</h3>
+      <p>Add one specific detail about their project. It shows you remember them — and they'll remember you.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">3</div>
+      <h3>Make it one click</h3>
+      <p>Link directly to your collection form. The fewer steps, the more responses you get.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">4</div>
+      <h3>One follow-up is fine</h3>
+      <p>Send the follow-up 5–7 days later if no response. Most testimonials come from the second ask.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="tool-cta">
+  <div class="cta-card">
+    <h2>Collect testimonials on autopilot</h2>
+    <p>SocialProof gives you a shareable collection link, an approval dashboard, and a widget that displays your testimonials anywhere on your site.</p>
+    <a href="https://app.socialproof.dev/signup">Start free — no credit card</a>
+    <div class="cta-features">
+      <span>Free to collect</span>
+      <span>Live in 60 seconds</span>
+      <span>Embed anywhere</span>
+      <span>You own your data</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> <span>SocialProof</span></a>
+      <p style="color:#94a3b8;font-size:13px;margin-top:10px;line-height:1.5">Turn happy customers into your best marketing.</p>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:600;color:#1e293b;margin:0 0 12px">Product</p>
+      <a href="/#pricing">Pricing</a>
+      <a href="/docs/">Docs</a>
+      <a href="/faq">FAQ</a>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:600;color:#1e293b;margin:0 0 12px">Tools</p>
+      <a href="/tools/testimonial-email-generator">Email Generator</a>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:600;color:#1e293b;margin:0 0 12px">Legal</p>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+  <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:40px;padding-top:24px;border-top:1px solid #f1f5f9">© 2026 SocialProof. Built with ♥ by AI.</p>
+</footer>
+
+<script>
+  let selectedTone = 'warm';
+  let currentView = 'full';
+  let generatedContent = { full: '', subject: '', followup: '' };
+
+  function selectTone(el) {
+    document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedTone = el.dataset.tone;
+    // Auto-regenerate if already generated
+    if (generatedContent.full) generateEmail();
+  }
+
+  function switchView(el) {
+    document.querySelectorAll('.output-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    currentView = el.dataset.view;
+    if (generatedContent.full) {
+      showContent(generatedContent[currentView]);
+    }
+  }
+
+  function showContent(text) {
+    const el = document.getElementById('outputContent');
+    if (text) {
+      el.textContent = text;
+      el.style.color = '#334155';
+    }
+  }
+
+  function generateEmail() {
+    const biz = document.getElementById('businessName').value.trim() || 'my business';
+    const customer = document.getElementById('customerName').value.trim() || 'there';
+    const service = document.getElementById('serviceType').value.trim() || 'our work together';
+    const link = document.getElementById('collectLink').value.trim();
+
+    const linkLine = link
+      ? `\n\nIt only takes 2 minutes:\n${link}`
+      : '\n\n[Link to your testimonial form — get one free at socialproof.dev]';
+
+    let subject, body, followup;
+
+    if (selectedTone === 'warm') {
+      subject = `A quick favour — can I share your words?`;
+      body = `Hi ${customer},
+
+I hope things are going well since we finished ${service}!
+
+I have a small favour to ask. I'm building up my website and would love to include a testimonial from you — in your own words, not a polished press release. Just an honest sentence or two about what it was like working together.
+
+It only takes a couple of minutes, and it means the world to a small business like mine.${linkLine}
+
+No pressure at all — but if you're willing, I'd be so grateful.
+
+Thanks so much,
+${biz}`;
+      followup = `Hi ${customer},
+
+Just following up on my note from last week about the testimonial. No worries if life's gotten busy — I completely understand.
+
+If you do have 2 minutes to spare, here's the link again:${linkLine}
+
+Thanks for being such a great customer,
+${biz}`;
+    } else if (selectedTone === 'professional') {
+      subject = `Request: testimonial for ${biz}`;
+      body = `Hi ${customer},
+
+Thank you for trusting ${biz} with ${service}. I really enjoyed working with you.
+
+I'm building out my testimonials page and would be grateful if you'd share a brief testimonial about your experience. It helps future clients understand what to expect when working with me.${linkLine}
+
+A few sentences is all I need — I'll handle the rest.
+
+Thank you for your time,
+${biz}`;
+      followup = `Hi ${customer},
+
+I wanted to follow up on my recent request for a testimonial. I understand you're busy, so I'll keep this brief.
+
+If you'd like to share your experience working with ${biz}, here's the link:${linkLine}
+
+I appreciate any time you can spare.
+
+Best regards,
+${biz}`;
+    } else {
+      // brief
+      subject = `Quick favour? 2-minute testimonial`;
+      body = `Hi ${customer},
+
+Would you mind leaving a quick testimonial about ${service}? Takes 2 minutes.${linkLine}
+
+I'd really appreciate it!
+
+${biz}`;
+      followup = `Hi ${customer},
+
+Following up — still interested in a quick testimonial if you have 2 minutes!${linkLine}
+
+Thanks,
+${biz}`;
+    }
+
+    generatedContent = { full: body, subject, followup };
+
+    // Show current view
+    const content = generatedContent[currentView] || body;
+    const el = document.getElementById('outputContent');
+    el.textContent = content;
+    el.style.color = '#334155';
+
+    // Show copy button
+    document.getElementById('copyBtn').style.display = 'flex';
+
+    // Show link field hint
+    if (!link) {
+      document.getElementById('linkGroup').style.display = 'block';
+    }
+
+    // Reset copy button state
+    const btn = document.getElementById('copyBtn');
+    btn.classList.remove('copied');
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy to clipboard';
+  }
+
+  function copyOutput() {
+    const content = generatedContent[currentView];
+    if (!content) return;
+    navigator.clipboard.writeText(content).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy to clipboard';
+      }, 2000);
+    });
+  }
+
+  // Auto-generate on Enter key
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') generateEmail();
+    });
+  });
+</script>
+
+</body>
+</html>
