@@ -356,9 +356,9 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
     },
     {
       done: stats.total_testimonials > 0,
-      title: 'Share your collection link',
-      desc: 'Your link is ready — send it to customers right now. No setup needed.',
-      action: { to: '/collect', label: 'Copy link' },
+      title: 'Send your first request',
+      desc: 'Email a happy customer and ask for a testimonial — takes 30 seconds.',
+      action: { to: '/collect', label: 'Send an email' },
     },
     {
       done: stats.approved > 0,
@@ -581,7 +581,7 @@ export default function Dashboard() {
         }}>
           <div>
             <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>Collect Testimonials</div>
-            <div style={{ fontSize: 13, opacity: 0.8 }}>Share your collection link</div>
+            <div style={{ fontSize: 13, opacity: 0.8 }}>Send an email request</div>
           </div>
           <Share2 size={24} style={{ opacity: 0.7 }} />
         </Link>
@@ -620,7 +620,7 @@ export default function Dashboard() {
           }}>
             No testimonials yet.{' '}
             <Link to="/collect" style={{ color: colors.brand, textDecoration: 'none', fontWeight: 500 }}>
-              Share your collection link
+              Send a request
             </Link>{' '}
             to get started.
           </div>

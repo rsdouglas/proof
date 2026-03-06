@@ -380,6 +380,7 @@ function SendRequestCard({ widgets, request }: SendRequestCardProps) {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="customer@example.com"
+                  autoFocus
                   required
                   style={{
                     width: '100%', padding: '9px 12px',

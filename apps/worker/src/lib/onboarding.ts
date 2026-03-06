@@ -65,7 +65,11 @@ export async function sendWelcomeEmail(
       <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;font-style:italic">"Hey [name] — I'm collecting testimonials for my site. Would you mind leaving a quick one? Takes 2 minutes: ${link}"</p>
     </div>
     <p style="margin:0 0 4px;color:#374151;font-size:15px;line-height:1.6">When their testimonial arrives, we'll email you. You approve it. Then paste one line of code and you're live.</p>
-    <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0">
+    <p style="margin:0 0 10px;color:#111;font-weight:700;font-size:15px">Already have customers? Import them in bulk.</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:14px;line-height:1.6">Got an Etsy, Shopify, or client list? Upload up to <strong>100 email addresses</strong> and send all your requests in one click — no copy-pasting needed.</p>
+    <a href="${DASH}/collect" style="display:inline-block;background:#fff;color:#6C5CE7;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;border:2px solid #6C5CE7;margin:0 0 8px">Import customers →</a>
+    <p style="margin:12px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
   await send(apiKey, opts.email, `You're in — do this one thing today`, html)
 }
