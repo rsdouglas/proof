@@ -117,7 +117,7 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     var email = document.getElementById('email').value.trim();
     var company = document.getElementById('company').value.trim();
     var title = document.getElementById('title').value.trim();
-    if (email) body.submitter_email = email;
+    if (email) body.author_email = email;
     if (company) body.company = company;
     if (title) body.title = title;
     if (rating) body.rating = rating;
@@ -144,8 +144,8 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
 // Public: Submit a testimonial via collection form
 collect.post('/submit/:formId', async (c) => {
   const form = await c.env.DB.prepare(
-    'SELECT f.id, f.account_id FROM collection_forms f WHERE f.id = ? AND f.active = 1'
-  ).bind(c.req.param('formId')).first<{ id: string; account_id: string }>()
+    'SELECT f.id, f.account_id, f.widget_id FROM collection_forms f WHERE f.id = ? AND f.active = 1'
+  ).bind(c.req.param('formId')).first<{ id: string; account_id: string; widget_id: string | null }>()
   if (!form) return c.json({ error: 'Form not found' }, 404)
 
   // Rate limit: 10 submissions per IP per hour per form
@@ -173,9 +173,9 @@ collect.post('/submit/:formId', async (c) => {
   const cleanEmail = body.author_email ? body.author_email.trim().slice(0, 254) : null
 
   await c.env.DB.prepare(
-    `INSERT INTO testimonials (id, account_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
-  ).bind(id, form.account_id, cleanName, cleanText,
+    `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
+  ).bind(id, form.account_id, form.widget_id ?? null, cleanName, cleanText,
     body.rating ?? null, cleanCompany, cleanTitle,
     cleanEmail, 'form', 'pending', now, now).run()
 
@@ -214,7 +214,7 @@ collect.post('/submit/:formId', async (c) => {
   ).bind(form.account_id).first<{ email: string; name: string; widget_name: string; widget_id: string }>()
 
   if (owner?.email) {
-    const reviewUrl = `https://app.vouch.run/widgets/${owner.widget_id}`
+    const reviewUrl = `https://app.socialproof.dev/widgets/${owner.widget_id}`
     await sendEmail(
       buildTestimonialReceivedEmail({
         ownerEmail: owner.email,
