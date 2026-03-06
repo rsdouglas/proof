@@ -35,12 +35,12 @@ export default function ApiKeys() {
     setCreating(true)
     setMsg(null)
     try {
-      const data = await request<{ key: ApiKey & { plaintext: string } }>('/api-keys', {
+      const data = await request<{ key: ApiKey; secret: string }>('/api-keys', {
         method: 'POST',
         body: JSON.stringify({ name: newName.trim() }),
       })
       setKeys(prev => [data.key, ...prev])
-      setRevealedKey(data.key.plaintext)
+      setRevealedKey(data.secret)
       setNewName('')
       setShowForm(false)
       setMsg({ type: 'ok', text: 'API key created. Copy it now — it won\'t be shown again.' })
