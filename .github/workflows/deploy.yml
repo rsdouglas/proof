@@ -160,6 +160,7 @@ jobs:
         run: npm run build
 
       - name: Deploy marketing site to Pages
+        continue-on-error: true
         working-directory: apps/marketing-site
         run: npx wrangler pages deploy dist --project-name=socialproof-marketing
         env:
