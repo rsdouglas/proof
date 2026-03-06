@@ -51,7 +51,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('proof_token'))
   const [account, setAccountState] = useState<Account | null>(() => {
     const s = localStorage.getItem('proof_account')
-    return s ? JSON.parse(s) : null
+    if (!s || s === 'undefined' || s === 'null') return null
+    try { return JSON.parse(s) } catch { return null }
   })
 
   const persist = (tok: string, acc: Account) => {

@@ -60,11 +60,11 @@ testimonials.get('/export/csv', async (c) => {
 
   const { results } = await c.env.DB.prepare(query).bind(...bindings).all<{
     id: string; display_name: string; display_text: string; rating: number | null;
-    company: string | null; title: string | null; submitter_email: string | null;
+    company: string | null; title: string | null; author_email: string | null;
     source: string; status: string; featured: number; created_at: string;
   }>()
 
-  const headers = ['id', 'display_name', 'display_text', 'rating', 'company', 'title', 'submitter_email', 'source', 'status', 'featured', 'created_at']
+  const headers = ['id', 'display_name', 'display_text', 'rating', 'company', 'title', 'author_email', 'source', 'status', 'featured', 'created_at']
   const escape = (v: unknown): string => {
     if (v === null || v === undefined) return ''
     const s = String(v)
@@ -100,7 +100,7 @@ testimonials.get('/:id', async (c) => {
 testimonials.patch('/:id', async (c) => {
   const accountId = c.get('accountId')
   const id = c.req.param('id')
-  const body = await c.req.json<{ status?: string; featured?: boolean; response?: string }>()
+  const body = await c.req.json<{ status?: string; featured?: boolean }>()
   const now = new Date().toISOString()
 
   const fields: string[] = []
@@ -108,7 +108,6 @@ testimonials.patch('/:id', async (c) => {
 
   if (body.status !== undefined) { fields.push('status = ?'); values.push(body.status) }
   if (body.featured !== undefined) { fields.push('featured = ?'); values.push(body.featured ? 1 : 0) }
-  if (body.response !== undefined) { fields.push('response = ?'); values.push(body.response) }
 
   if (fields.length === 0) return c.json({ error: 'Nothing to update' }, 400)
 
@@ -122,16 +121,16 @@ testimonials.patch('/:id', async (c) => {
   // If status just changed to 'approved' and the submitter has an email, notify them
   if (body.status === 'approved') {
     const t = await c.env.DB.prepare(
-      'SELECT t.submitter_email, t.display_name, t.display_text, w.name as widget_name, w.id as widget_id, w.slug FROM testimonials t JOIN widgets w ON w.account_id = t.account_id WHERE t.id = ? LIMIT 1'
-    ).bind(id).first<{ submitter_email: string | null; display_name: string; display_text: string; widget_name: string; widget_id: string; slug: string | null }>()
+      'SELECT t.author_email, t.display_name, t.display_text, w.name as widget_name, w.id as widget_id, w.slug FROM testimonials t LEFT JOIN widgets w ON w.id = t.widget_id WHERE t.id = ? LIMIT 1'
+    ).bind(id).first<{ author_email: string | null; display_name: string; display_text: string; widget_name: string | null; widget_id: string | null; slug: string | null }>()
 
-    if (t?.submitter_email) {
-      const wallUrl = `https://api.socialproof.dev/wall/${t.slug || t.widget_id}`
+    if (t?.author_email) {
+      const wallUrl = `https://api.socialproof.dev/wall/${t.slug || t.widget_id || ""}` 
       await sendEmail(
         buildTestimonialApprovedEmail({
-          customerEmail: t.submitter_email,
+          customerEmail: t.author_email,
           customerName: t.display_name,
-          widgetName: t.widget_name,
+          widgetName: t.widget_name ?? 'your widget',
           text: t.display_text,
           wallUrl,
         }),
@@ -206,7 +205,7 @@ testimonials.post('/', async (c) => {
   const accountId = c.get('accountId')
   const body = await c.req.json<{
     display_name: string; display_text: string; rating?: number;
-    company?: string; title?: string; submitter_email?: string;
+    company?: string; title?: string; author_email?: string;
     status?: string; source?: string; widget_id?: string;
   }>()
 
@@ -227,7 +226,7 @@ testimonials.post('/', async (c) => {
   const cleanText = (body.display_text.replace(/<[^>]*>/g, '').trim()).slice(0, 2000)
 
   await c.env.DB.prepare(
-    `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+    `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)`
   ).bind(
     id, accountId, body.widget_id ?? null,
@@ -235,7 +234,7 @@ testimonials.post('/', async (c) => {
     body.rating ?? null,
     sanitizeField(body.company, 120),
     sanitizeField(body.title, 120),
-    body.submitter_email ? body.submitter_email.trim().slice(0, 254) : null,
+    body.author_email ? body.author_email.trim().slice(0, 254) : null,
     source, status, now, now
   ).run()
 
@@ -382,7 +381,7 @@ testimonials.post('/import-csv', async (c) => {
     try {
       const id = crypto.randomUUID()
       await c.env.DB.prepare(
-        `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, submitter_email, source, status, featured, created_at, updated_at)
+        `INSERT INTO testimonials (id, account_id, widget_id, display_name, display_text, rating, company, title, author_email, source, status, featured, created_at, updated_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'csv_import', ?, 0, ?, ?)`
       ).bind(
         id, accountId, null,
