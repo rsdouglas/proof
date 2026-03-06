@@ -14,7 +14,7 @@ collectWidget.get('/:widgetId', async (c) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${widget ? `How was your experience with ${widget.business_name}?` : 'Not Found'} — SocialProof</title>
+<title>${widget ? `How was your experience with ${widget.business_name}?` : 'Not Found'} — Vouch</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;margin:0;padding:40px 16px;min-height:100vh}
@@ -127,7 +127,7 @@ ${!widget ? '<div class="card"><h1>Form not found</h1><p style="color:#6b7280">T
     }
   }
 </script>`}
-<div class="brand">Powered by <a href="https://socialproof.dev">SocialProof</a></div>
+<div class="brand">Powered by <a href="https://vouch.run">Vouch</a></div>
 </body>
 </html>`
 

@@ -29,11 +29,11 @@ export default function Settings() {
         setPlan(data.account.plan)
         setName(data.account.name || '')
         setEmail(data.account.email || '')
-        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to SocialProof Pro! Your plan has been upgraded.' })
+        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
         else if (canceled) setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
       })
       .catch(() => {
-        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to SocialProof Pro! Your plan has been upgraded.' })
+        if (upgraded) setMsg({ type: 'ok', text: '🎉 Welcome to Vouch Pro! Your plan has been upgraded.' })
         else if (canceled) setMsg({ type: 'err', text: 'Checkout was canceled. No changes were made.' })
       })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -173,7 +173,7 @@ export default function Settings() {
             <p style={{ margin: `0 0 ${spacing[2]}`, fontWeight: 600, fontSize: fontSize.sm, color: C.gray[800] }}>Pro plan — $9/month</p>
             <ul style={{ margin: `0 0 ${spacing[4]}`, paddingLeft: 18, fontSize: fontSize.sm, color: C.gray[700], lineHeight: 1.8 }}>
               <li>Unlimited testimonials &amp; widgets</li>
-              <li>Remove SocialProof branding</li>
+              <li>Remove Vouch branding</li>
               <li>Email notifications</li>
               <li>Advanced widget themes</li>
               <li>Analytics dashboard</li>

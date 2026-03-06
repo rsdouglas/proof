@@ -202,7 +202,7 @@ export default function Analytics() {
                 <TrendingUp size={24} color={colors.brand} />
               </div>
               <p style={{ fontSize: 16, fontWeight: 600, color: colors.gray800, margin: '0 0 8px' }}>
-                Your analytics will appear here once you've added SocialProof to your website.
+                Your analytics will appear here once you've added Vouch to your website.
               </p>
               <p style={{ fontSize: 14, margin: '0 0 24px', color: colors.gray500 }}>
                 Add the embed snippet to your site to start tracking impressions and clicks.

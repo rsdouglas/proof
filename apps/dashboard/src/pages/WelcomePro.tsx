@@ -78,7 +78,7 @@ export default function WelcomePro() {
             ['✦', 'Unlimited widgets', 'Create as many widgets as you need'],
             ['✦', 'Unlimited testimonials', 'No cap on how many you collect'],
             ['✦', 'Analytics', 'See which testimonials drive the most clicks'],
-            ['✦', 'Custom branding', 'Remove the "Powered by SocialProof" badge'],
+            ['✦', 'Custom branding', 'Remove the "Powered by Vouch" badge'],
             ['✦', 'Google rich results', 'Star ratings in your search listings'],
           ].map(([icon, title, desc]) => (
             <div key={title} style={{
@@ -141,7 +141,7 @@ export default function WelcomePro() {
           marginTop: 24,
           marginBottom: 0,
         }}>
-          Questions? Reply to your confirmation email or reach us at team@socialproof.dev
+          Questions? Reply to your confirmation email or reach us at team@vouch.run
         </p>
       </div>
     </div>
