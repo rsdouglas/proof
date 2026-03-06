@@ -1,9 +1,8 @@
 import { fireWebhooks } from './webhooks'
-import { sendEmail, buildTestimonialApprovedEmail, buildTestimonialRequestEmail } from './email'
+import { sendEmail, buildTestimonialApprovedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
 import { checkPlanLimit } from '../lib/planLimits'
-import { checkRateLimit } from '../lib/ratelimit'
 
 export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -241,63 +240,7 @@ testimonials.post('/', async (c) => {
   return c.json({ testimonial: { id, status } }, 201)
 })
 
-testimonials.post('/request', async (c) => {
-  const accountId = c.get('accountId')
-
-  // Rate limit: 20 single requests per hour per account
-  const requestRateOk = await checkRateLimit(c.env.WIDGET_KV, `req-email:${accountId}`, 20, 3600)
-  if (!requestRateOk) return c.json({ error: 'Rate limit exceeded. Maximum 20 request emails per hour.' }, 429)
-
-  const body = await c.req.json<{
-    email: string
-    name?: string
-    widget_id: string
-    personal_note?: string
-  }>()
-
-  if (!body.email?.trim()) return c.json({ error: 'email required' }, 400)
-  if (!body.widget_id?.trim()) return c.json({ error: 'widget_id required' }, 400)
-
-  // Validate email format
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRe.test(body.email.trim())) return c.json({ error: 'invalid email' }, 400)
-
-  // Fetch widget + account info
-  const row = await c.env.DB.prepare(
-    `SELECT w.id, w.name as widget_name, w.slug, a.name as business_name, a.email as owner_email, a.name as owner_name
-     FROM widgets w
-     JOIN accounts a ON a.id = w.account_id
-     WHERE w.id = ? AND w.account_id = ?`
-  ).bind(body.widget_id, accountId).first<{
-    id: string; widget_name: string; slug: string | null;
-    business_name: string; owner_email: string; owner_name: string
-  }>()
-
-  if (!row) return c.json({ error: 'widget not found' }, 404)
-
-  // Find the collection form for this widget
-  const form = await c.env.DB.prepare(
-    'SELECT id FROM collection_forms WHERE account_id = ? AND active = 1 ORDER BY created_at ASC LIMIT 1'
-  ).bind(accountId).first<{ id: string }>()
-
-  const collectPath = form
-    ? `https://api.socialproof.dev/c/form/${form.id}`
-    : `https://api.socialproof.dev/wall/${row.slug || row.id}`
-
-  await sendEmail(
-    buildTestimonialRequestEmail({
-      customerEmail: body.email.trim(),
-      customerName: body.name?.trim(),
-      businessName: row.business_name,
-      ownerName: row.owner_name,
-      personalNote: body.personal_note?.trim(),
-      collectUrl: collectPath,
-    }),
-    c.env
-  )
-
-  // Log the request for dedup / audit (we can add a table later; for now just return ok)
-  return c.json({ ok: true, sent_to: body.email.trim() }, 200)})
+testimonials.post('/request', (c) => c.json({ error: 'This feature has been removed. Copy your collect link and share it directly with customers.' }, 410))
 
 
 // POST /api/testimonials/import-csv
@@ -400,85 +343,4 @@ testimonials.post('/import-csv', async (c) => {
 })
 
 
-// POST /api/testimonials/request-bulk
-// Send testimonial request emails to multiple customers at once
-// Body: { emails: string[], widget_id: string, personal_note?: string }
-// Returns: { sent: number, failed: string[], errors: string[] }
-testimonials.post('/request-bulk', async (c) => {
-  const accountId = c.get('accountId')
-
-  // Rate limit: 5 bulk sends per hour per account (each bulk can have up to 100 emails)
-  const bulkRateOk = await checkRateLimit(c.env.WIDGET_KV, `req-bulk:${accountId}`, 5, 3600)
-  if (!bulkRateOk) return c.json({ error: 'Rate limit exceeded. Maximum 5 bulk sends per hour.' }, 429)
-
-  const body = await c.req.json<{
-    emails: string[]
-    widget_id: string
-    personal_note?: string
-  }>()
-
-  if (!Array.isArray(body.emails) || body.emails.length === 0) {
-    return c.json({ error: 'emails array required' }, 400)
-  }
-  if (!body.widget_id?.trim()) return c.json({ error: 'widget_id required' }, 400)
-
-  const MAX_BULK = 100
-  if (body.emails.length > MAX_BULK) {
-    return c.json({ error: `Maximum ${MAX_BULK} emails per bulk send` }, 400)
-  }
-
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-  // Fetch widget + account info
-  const row = await c.env.DB.prepare(
-    `SELECT w.id, w.name as widget_name, w.slug, a.name as business_name, a.email as owner_email, a.name as owner_name
-     FROM widgets w
-     JOIN accounts a ON a.id = w.account_id
-     WHERE w.id = ? AND w.account_id = ?`
-  ).bind(body.widget_id, accountId).first<{
-    id: string; widget_name: string; slug: string | null;
-    business_name: string; owner_email: string; owner_name: string
-  }>()
-
-  if (!row) return c.json({ error: 'widget not found' }, 404)
-
-  const form = await c.env.DB.prepare(
-    'SELECT id FROM collection_forms WHERE account_id = ? AND active = 1 ORDER BY created_at ASC LIMIT 1'
-  ).bind(accountId).first<{ id: string }>()
-
-  const collectPath = form
-    ? `https://api.socialproof.dev/c/form/${form.id}`
-    : `https://api.socialproof.dev/wall/${row.slug || row.id}`
-
-  const sent: string[] = []
-  const failed: string[] = []
-  const errors: string[] = []
-
-  for (const rawEmail of body.emails) {
-    const email = rawEmail.trim().toLowerCase()
-    if (!email) continue
-    if (!emailRe.test(email)) {
-      failed.push(email)
-      errors.push(`Invalid email: ${email}`)
-      continue
-    }
-    try {
-      await sendEmail(
-        buildTestimonialRequestEmail({
-          customerEmail: email,
-          businessName: row.business_name,
-          ownerName: row.owner_name,
-          personalNote: body.personal_note?.trim(),
-          collectUrl: collectPath,
-        }),
-        c.env
-      )
-      sent.push(email)
-    } catch (e) {
-      failed.push(email)
-      errors.push(`${email}: ${(e as Error).message}`)
-    }
-  }
-
-  return c.json({ sent: sent.length, sent_to: sent, failed, errors })
-})
+testimonials.post('/request-bulk', (c) => c.json({ error: 'This feature has been removed. Copy your collect link and share it directly with customers.' }, 410))
