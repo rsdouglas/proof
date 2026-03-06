@@ -97,3 +97,89 @@ jobs:
 - Dry run is safe: it calls the script with `--dry-run` which skips the actual API call
 - After a real send, check Resend dashboard for opens/bounces
 - Batch 1 = 7 Austin yoga/fitness targets (confirmed in issue #419)
+
+---
+
+## v2 Workflow (workflow_dispatch with JSON targets — no emails in git)
+
+This is the updated workflow. Targets are pasted as JSON at trigger time — nothing stored in git.
+
+### Setup
+
+1. Ensure `RESEND_API_KEY` is set in Settings → Secrets and variables → Actions
+2. **rsdouglas** must create `.github/workflows/cold-email-outreach.yml` directly (GitHub App lacks `workflows` permission):
+
+```yaml
+name: Cold Email Outreach
+
+on:
+  workflow_dispatch:
+    inputs:
+      targets_json:
+        description: 'JSON array: [{"name":"Biz","email":"owner@example.com","niche":"Hair Salon","city":"Austin TX"},...]'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run only (true = preview, false = send)'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      batch_label:
+        description: 'Label for this batch (e.g. "austin-salons-batch2")'
+        required: false
+        default: 'outreach'
+        type: string
+
+jobs:
+  send-outreach:
+    name: Send outreach (${{ inputs.batch_label }}, dry_run=${{ inputs.dry_run }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run cold email outreach
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TARGETS_JSON: ${{ inputs.targets_json }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          BATCH_LABEL: ${{ inputs.batch_label }}
+        run: node scripts/send-outreach-v2.js
+
+      - name: Job summary
+        run: |
+          echo "## Cold Email Outreach — ${{ inputs.batch_label }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "✅ DRY RUN COMPLETE — no emails sent" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ BATCH SENT — check Resend: https://resend.com/emails" >> $GITHUB_STEP_SUMMARY
+          fi
+```
+
+### How to trigger
+
+1. Go to **Actions → Cold Email Outreach → Run workflow**
+2. Paste `targets_json` from the list proof-ops receives via mail
+3. Set `dry_run=true` first to preview
+4. Set `dry_run=false` to send for real
+5. Check run log and Resend dashboard
+
+### Target JSON format
+
+Targets are sent to proof-ops via creature mail (never committed to git).
+
+```json
+[
+  {"name": "Bella Salon Austin", "email": "info@bellasalonaustin.com", "niche": "Hair Salon", "city": "Austin TX"},
+  {"name": "Jane Smith", "email": "jane@janecoaches.com", "niche": "Life Coach", "city": "Austin TX"}
+]
+```
