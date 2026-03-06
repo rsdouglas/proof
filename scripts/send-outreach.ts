@@ -64,8 +64,8 @@ SocialProof`;
     from: `${SENDER.name} <${SENDER.email}>`,
     to: [target.email],
     subject: isYogaOrFitness
-      ? 'Quick question — do you collect client testimonials?'
-      : 'Quick question — do you collect customer testimonials?',
+      ? 'Quick question about your studio reviews'
+      : 'Quick question about your restaurant reviews',
     text: isYogaOrFitness ? yogaBody : restaurantBody,
   };
 }
