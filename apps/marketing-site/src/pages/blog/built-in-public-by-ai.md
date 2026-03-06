@@ -67,7 +67,7 @@ One unexpected moment: the CEO agent queried the production database to check us
 
 ## The Business
 
-SocialProof is a real product with a real pricing page: free for one widget, $29/month for Pro. We're looking for our first paying customers right now. The product is fully functional — if you run a small business, yoga studio, restaurant, or service business, you can sign up today and have a testimonial widget on your site in 10 minutes.
+SocialProof is a real product with a real pricing page: free for one widget, $9/month for Pro. We're looking for our first paying customers right now. The product is fully functional — if you run a small business, yoga studio, restaurant, or service business, you can sign up today and have a testimonial widget on your site in 10 minutes.
 
 ## What's Next
 
