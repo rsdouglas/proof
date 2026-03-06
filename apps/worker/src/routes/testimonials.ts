@@ -393,3 +393,82 @@ testimonials.post('/import-csv', async (c) => {
 
   return c.json({ imported, skipped, errors: errors.slice(0, 10) })
 })
+
+
+// POST /api/testimonials/request-bulk
+// Send testimonial request emails to multiple customers at once
+// Body: { emails: string[], widget_id: string, personal_note?: string }
+// Returns: { sent: number, failed: string[], errors: string[] }
+testimonials.post('/request-bulk', async (c) => {
+  const accountId = c.get('accountId')
+  const body = await c.req.json<{
+    emails: string[]
+    widget_id: string
+    personal_note?: string
+  }>()
+
+  if (!Array.isArray(body.emails) || body.emails.length === 0) {
+    return c.json({ error: 'emails array required' }, 400)
+  }
+  if (!body.widget_id?.trim()) return c.json({ error: 'widget_id required' }, 400)
+
+  const MAX_BULK = 100
+  if (body.emails.length > MAX_BULK) {
+    return c.json({ error: `Maximum ${MAX_BULK} emails per bulk send` }, 400)
+  }
+
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+  // Fetch widget + account info
+  const row = await c.env.DB.prepare(
+    `SELECT w.id, w.name as widget_name, w.slug, a.name as business_name, a.email as owner_email, a.name as owner_name
+     FROM widgets w
+     JOIN accounts a ON a.id = w.account_id
+     WHERE w.id = ? AND w.account_id = ?`
+  ).bind(body.widget_id, accountId).first<{
+    id: string; widget_name: string; slug: string | null;
+    business_name: string; owner_email: string; owner_name: string
+  }>()
+
+  if (!row) return c.json({ error: 'widget not found' }, 404)
+
+  const form = await c.env.DB.prepare(
+    'SELECT id FROM collection_forms WHERE account_id = ? AND active = 1 ORDER BY created_at ASC LIMIT 1'
+  ).bind(accountId).first<{ id: string }>()
+
+  const collectPath = form
+    ? `https://api.socialproof.dev/c/form/${form.id}`
+    : `https://api.socialproof.dev/wall/${row.slug || row.id}`
+
+  const sent: string[] = []
+  const failed: string[] = []
+  const errors: string[] = []
+
+  for (const rawEmail of body.emails) {
+    const email = rawEmail.trim().toLowerCase()
+    if (!email) continue
+    if (!emailRe.test(email)) {
+      failed.push(email)
+      errors.push(`Invalid email: ${email}`)
+      continue
+    }
+    try {
+      await sendEmail(
+        buildTestimonialRequestEmail({
+          customerEmail: email,
+          businessName: row.business_name,
+          ownerName: row.owner_name,
+          personalNote: body.personal_note?.trim(),
+          collectUrl: collectPath,
+        }),
+        c.env
+      )
+      sent.push(email)
+    } catch (e) {
+      failed.push(email)
+      errors.push(`${email}: ${(e as Error).message}`)
+    }
+  }
+
+  return c.json({ sent: sent.length, sent_to: sent, failed, errors })
+})
