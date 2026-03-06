@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonial Response Rate Calculator — Free Tool</title>
+  <meta name="description" content="Calculate how many customers you need to contact to reach your testimonial goal. Based on real industry response rates. Free, no signup required.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://socialproof.dev/tools/testimonial-response-calculator">
+  <meta property="og:title" content="Testimonial Response Rate Calculator — Free Tool">
+  <meta property="og:description" content="Calculate how many customers you need to contact to reach your testimonial goal. Free, no signup required.">
+  <meta property="og:url" content="https://socialproof.dev/tools/testimonial-response-calculator">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    .tool-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #6d28d9;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .tool-header { margin-bottom: 32px; }
+    .tool-header h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      color: #0f172a;
+      margin: 0 0 10px;
+    }
+    .tool-header p {
+      font-size: 16px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .calc-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-group input[type="number"],
+    .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #0f172a;
+      background: #f9fafb;
+      transition: border-color 0.15s;
+      appearance: none;
+    }
+    .form-group input[type="number"]:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #6d28d9;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(109,40,217,0.08);
+    }
+    .form-group .hint {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .rate-slider-group { margin-bottom: 20px; }
+    .rate-slider-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+    .rate-slider-group label span {
+      font-size: 18px;
+      font-weight: 900;
+      color: #6d28d9;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: #6d28d9;
+      cursor: pointer;
+    }
+    .rate-presets {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .preset-btn {
+      background: #f5f3ff;
+      color: #6d28d9;
+      border: 1.5px solid #ddd6fe;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .preset-btn:hover, .preset-btn.active {
+      background: #6d28d9;
+      color: #fff;
+      border-color: #6d28d9;
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      display: none;
+    }
+    .result-card.show { display: block; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 500px) {
+      .result-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .result-stat {
+      text-align: center;
+    }
+    .result-stat .num {
+      display: block;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .result-stat .label {
+      display: block;
+      font-size: 11px;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .result-timeline {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .result-timeline h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #c4b5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 10px;
+    }
+    .timeline-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #e2e8f0;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row strong { color: #fff; }
+
+    .tip-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #c4b5fd;
+      line-height: 1.55;
+    }
+    .tip-box strong { color: #fff; }
+
+    .cta-card {
+      background: #faf5ff;
+      border: 1.5px solid #e9d5ff;
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+    .cta-card h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px;
+      letter-spacing: -0.3px;
+    }
+    .cta-card p {
+      font-size: 15px;
+      color: #64748b;
+      margin: 0 0 20px;
+      line-height: 1.5;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #6d28d9;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #5b21b6; }
+
+    .article-section {
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .article-section h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 16px;
+      letter-spacing: -0.3px;
+    }
+    .article-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 24px 0 8px;
+    }
+    .article-section p {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0 0 14px;
+    }
+    .article-section ul {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+    .article-section ul li {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.65;
+      margin-bottom: 6px;
+    }
+    .stat-highlight {
+      display: inline-block;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
+  <div class="nav-links">
+    <a href="/tools/">Tools</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+  </div>
+  <div class="nav-cta">
+    <a href="https://app.socialproof.dev/login" class="btn-secondary">Log in</a>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Try free</a>
+  </div>
+</nav>
+
+<div class="tool-wrap">
+  <a href="/tools/" class="back-link">← All free tools</a>
+
+  <div class="tool-header">
+    <h1>Testimonial Response Rate Calculator</h1>
+    <p>Find out exactly how many customers you need to reach out to — and how long it will take — to collect your target number of testimonials.</p>
+  </div>
+
+  <div class="calc-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="goal">How many testimonials do you want?</label>
+        <input type="number" id="goal" min="1" max="1000" value="10" oninput="recalculate()">
+        <div class="hint">e.g. 10 to get started, 25 for a strong library</div>
+      </div>
+      <div class="form-group">
+        <label for="outreach">How many customers can you contact per week?</label>
+        <input type="number" id="outreach" min="1" max="10000" value="20" oninput="recalculate()">
+        <div class="hint">Your email list, past customers, etc.</div>
+      </div>
+    </div>
+
+    <div class="rate-slider-group">
+      <label for="rate">Your expected response rate <span id="rateDisplay">15%</span></label>
+      <input type="range" id="rate" min="1" max="60" value="15" oninput="updateRate(this.value); recalculate()">
+      <div class="rate-presets">
+        <button class="preset-btn" onclick="setRate(5)">Cold email (5%)</button>
+        <button class="preset-btn active" onclick="setRate(15)">Warm email (15%)</button>
+        <button class="preset-btn" onclick="setRate(25)">Existing clients (25%)</button>
+        <button class="preset-btn" onclick="setRate(40)">Delighted customers (40%)</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="channel">Outreach channel</label>
+      <select id="channel" onchange="channelChange()">
+        <option value="email">Email</option>
+        <option value="sms">SMS / Text</option>
+        <option value="phone">Phone call</option>
+        <option value="inperson">In person / Post-purchase</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-grid">
+      <div class="result-stat">
+        <span class="num" id="totalContacts">—</span>
+        <span class="label">Total contacts needed</span>
+      </div>
+      <div class="result-stat">
+        <span class="num" id="weeksNeeded">—</span>
+        <span class="label">Weeks to reach goal</span>
+      </div>
+      <div class="result-stat">
+        <span class="num" id="conversionCost">—</span>
+        <span class="label">Per testimonial</span>
+      </div>
+    </div>
+
+    <div class="result-timeline" id="timelineSection">
+      <h3>Timeline</h3>
+      <div id="timelineRows"></div>
+    </div>
+
+    <div class="tip-box" id="tipBox"></div>
+  </div>
+
+  <div class="cta-card">
+    <h2>Ready to start collecting?</h2>
+    <p>SocialProof gives you a shareable collection link and auto-sends requests to your customers. Most users see their first testimonial within 48 hours.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no credit card →</a>
+  </div>
+
+  <div class="article-section">
+    <h2>What response rate should you expect for testimonial requests?</h2>
+    <p>Response rates vary significantly depending on your relationship with the customer and how you reach out. Here's what the data shows:</p>
+
+    <h3>Cold email outreach: 3–8%</h3>
+    <p>If you're reaching people who don't know you well, expect a low response rate. Subject lines matter enormously here — personalization can double your rate.</p>
+
+    <h3>Warm email to past customers: 10–20%</h3>
+    <p>The most common scenario for small businesses. You've served them well; they're happy. A well-timed, personal email asking for a testimonial typically gets a <span class="stat-highlight">10–20%</span> response rate.</p>
+
+    <h3>Post-purchase / in-person ask: 25–45%</h3>
+    <p>Asking right after a great experience — in person, or via a receipt email — is the highest-converting approach. The customer's satisfaction is fresh, making them more likely to respond.</p>
+
+    <h3>SMS / text message: 20–35%</h3>
+    <p>Texts have much higher open rates than email (98% vs. 20%). Even a simple "Hi [Name], can you leave us a quick review?" via text often outperforms a lengthy email.</p>
+
+    <h2>How to improve your testimonial response rate</h2>
+
+    <h3>1. Time it right</h3>
+    <p>Ask within 48–72 hours of a completed project or purchase. The customer's satisfaction is highest then. Waiting weeks causes the memory to fade.</p>
+
+    <h3>2. Make it effortless</h3>
+    <p>Give them a direct link to a simple form. Don't make them write a long essay — one or two sentences is enough. The less friction, the higher your response rate.</p>
+
+    <h3>3. Personalize every message</h3>
+    <p>Use their name and reference the specific product or service they purchased. A generic "please review us" gets ignored. A personal note gets responses.</p>
+
+    <h3>4. Send a single follow-up</h3>
+    <p>Send a brief reminder 5–7 days later for non-responders. One follow-up can <span class="stat-highlight">increase responses by 40%</span>. Don't send more than one — it becomes spam.</p>
+
+    <h3>5. Show what you're asking for</h3>
+    <p>Include an example testimonial in your email so customers know what "good" looks like. This reduces the blank-page anxiety that kills response rates.</p>
+
+    <h2>How many testimonials do you actually need?</h2>
+
+    <ul>
+      <li><strong>5–10 testimonials</strong> — Enough to get started. Cover your homepage and product page.</li>
+      <li><strong>15–25 testimonials</strong> — A healthy library. Rotate them on your site and use the best ones in ads.</li>
+      <li><strong>50+ testimonials</strong> — A strong social proof moat. Display counts ("Join 50+ happy customers") and create category-specific pages.</li>
+    </ul>
+
+    <p>Quality matters more than quantity. Two detailed, specific testimonials from real customers beat ten generic "great service!" reviews every time.</p>
+  </div>
+</div>
+
+<footer>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
+  <div class="footer-links">
+    <a href="/tools/">Tools</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
+</footer>
+
+<script>
+function updateRate(v) {
+  document.getElementById('rateDisplay').textContent = v + '%';
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+}
+
+function setRate(v) {
+  document.getElementById('rate').value = v;
+  updateRate(v);
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    if (parseInt(b.textContent) === v || b.textContent.includes('(' + v + '%')) b.classList.add('active');
+  });
+  // Simple match by value
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    const match = b.getAttribute('onclick').includes('setRate(' + v + ')');
+    if (match) b.classList.add('active');
+  });
+  recalculate();
+}
+
+function channelChange() {
+  const ch = document.getElementById('channel').value;
+  const rates = { email: 15, sms: 28, phone: 35, inperson: 40 };
+  setRate(rates[ch]);
+}
+
+function recalculate() {
+  const goal = parseInt(document.getElementById('goal').value) || 10;
+  const outreach = parseInt(document.getElementById('outreach').value) || 20;
+  const rate = parseInt(document.getElementById('rate').value) || 15;
+
+  const totalNeeded = Math.ceil(goal / (rate / 100));
+  const weeks = Math.ceil(totalNeeded / outreach);
+  const perTestimonial = totalNeeded;
+
+  document.getElementById('totalContacts').textContent = totalNeeded.toLocaleString();
+  document.getElementById('weeksNeeded').textContent = weeks === 1 ? '< 1 week' : weeks + ' weeks';
+  document.getElementById('conversionCost').textContent = Math.round(totalNeeded / goal) + ' asks';
+
+  // Timeline
+  const milestones = [
+    { label: '1st testimonial', contacts: Math.ceil(1 / (rate / 100)) },
+    { label: '5 testimonials', contacts: Math.ceil(5 / (rate / 100)) },
+    { label: 'Goal: ' + goal + ' testimonials', contacts: totalNeeded },
+  ].filter((m, i, arr) => i === 0 || m.contacts > arr[i-1].contacts);
+
+  let html = '';
+  for (const m of milestones) {
+    const w = Math.ceil(m.contacts / outreach);
+    html += `<div class="timeline-row"><span>${m.label}</span><strong>Week ${w}</strong></div>`;
+  }
+  document.getElementById('timelineRows').innerHTML = html;
+
+  // Tip
+  const tips = {
+    low: rate < 10,
+    medium: rate >= 10 && rate < 25,
+    high: rate >= 25
+  };
+  let tip = '';
+  if (tips.low) {
+    tip = '💡 <strong>Tip:</strong> A response rate under 10% suggests cold outreach. Try sending a personalized email referencing their specific purchase — it can double your response rate.';
+  } else if (tips.medium) {
+    tip = '💡 <strong>Tip:</strong> At ' + rate + '%, you\'re getting solid results. Add a single follow-up 5–7 days later and you could hit ' + Math.round(rate * 1.4) + '%+ response.';
+  } else {
+    tip = '🎉 <strong>Great rate!</strong> At ' + rate + '%, you\'re above average. Make sure you have a smooth collection flow so respondents can actually complete the testimonial easily.';
+  }
+  document.getElementById('tipBox').innerHTML = tip;
+
+  document.getElementById('resultCard').classList.add('show');
+}
+
+// Init
+recalculate();
+</script>
+</body>
+</html>
