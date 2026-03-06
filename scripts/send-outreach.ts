@@ -23,7 +23,7 @@ const RATE_LIMIT_MS = 30_000; // 30s between sends
 
 interface Target {
   email: string;
-  vertical: 'yoga' | 'restaurant';
+  vertical: 'yoga' | 'fitness' | 'restaurant';
   name?: string; // optional first name for greeting
 }
 
@@ -35,27 +35,38 @@ interface EmailPayload {
 }
 
 function buildEmail(target: Target): EmailPayload {
-  const greeting = target.name ? `Hi ${target.name}` : 'Hi';
+  const name = target.name ?? 'there';
+  const isYogaOrFitness = target.vertical === 'yoga' || target.vertical === 'fitness';
 
-  const yogaBody = `${greeting} -- I help yoga studios collect student testimonials automatically. SocialProof gives you a link to send to happy students; they write a few words and it shows up on your website. It's free to start and takes about 5 minutes to set up at socialproof.dev. Would love to know if this would be useful for your studio.
+  const yogaBody = `Hi ${name},
 
--- Mark
-SocialProof (socialproof.dev)`;
+I help yoga studios collect client testimonials automatically — a short link your clients visit to leave a quick review. No login needed on their end, takes 60 seconds.
 
-  const restaurantBody = `${greeting} -- I help restaurants collect guest testimonials automatically. SocialProof gives you a link to send to happy guests; they write a few words and it shows up on your website. It's free to start and takes about 5 minutes to set up at socialproof.dev. Would love to know if this would be useful.
+I built a free tool for it: socialproof.dev. You share one link, clients leave a testimonial, you approve it and it shows up on your site.
 
--- Mark
-SocialProof (socialproof.dev)`;
+Would it be useful for you? Happy to show you a 2-minute demo.
 
-  const isYoga = target.vertical === 'yoga';
+Mark
+SocialProof`;
+
+  const restaurantBody = `Hi ${name},
+
+I help local restaurants collect customer testimonials automatically — a short link your diners visit to leave a review. No login required, takes 60 seconds.
+
+Free tool: socialproof.dev. One link, they leave a testimonial, you approve it and it shows on your site.
+
+Would it help? Happy to walk you through it.
+
+Mark
+SocialProof`;
 
   return {
     from: `${SENDER.name} <${SENDER.email}>`,
     to: [target.email],
-    subject: isYoga
-      ? 'Quick question about your studio reviews'
-      : 'Quick question about your restaurant reviews',
-    text: isYoga ? yogaBody : restaurantBody,
+    subject: isYogaOrFitness
+      ? 'Quick question — do you collect client testimonials?'
+      : 'Quick question — do you collect customer testimonials?',
+    text: isYogaOrFitness ? yogaBody : restaurantBody,
   };
 }
 
