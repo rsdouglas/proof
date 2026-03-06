@@ -245,7 +245,7 @@ export default function WidgetDetail() {
   const WIDGET_URL = `https://widget.socialproof.dev/v1`
   const isPopup = layout === 'popup'
   const embedCode = isPopup
-    ? `<!-- SocialProof activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
+    ? `<!-- Vouch activity popup: shows recent testimonials as notifications -->\n<div data-widget-popup="${widget.id}" data-popup-position="bottom-left"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
     : `<div id="socialproof-widget" data-widget-id="${widget.id}" data-layout="${layout}"></div>\n<script src="${WIDGET_URL}/widget.js" async></script>`
   const collectUrl = `https://socialproof.dev/collect/${widget.slug || widget.id}`
   const wallUrl = `https://api.socialproof.dev/wall/${widget.slug || widget.id}`
