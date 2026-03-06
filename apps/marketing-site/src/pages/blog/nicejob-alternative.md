@@ -1,5 +1,5 @@
 ---
-layout: ../../../layouts/BlogPost.astro
+layout: ../../layouts/BlogPost.astro
 title: "NiceJob Alternative: When You Want Testimonials, Not Just Review Stars"
 description: "NiceJob automates review requests for home services businesses. But if you want actual customer testimonials on your website — stories, quotes, written testimonials — there's a better fit."
 pubDate: "2026-03-06"
