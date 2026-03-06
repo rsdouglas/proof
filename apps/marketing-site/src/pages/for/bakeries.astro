@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials & Reviews for Bakeries — SocialProof" description="Turn happy customers into your best marketing. Collect real bakery reviews and display them on your own website — so every visitor sees why people love your bakes. Free for one widget." canonical="https://socialproof.dev/for/bakeries">
+<style>
+
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .own-your-reviews { background: #fff7ed; padding: 60px 24px; }
+    .own-inner { max-width: 700px; margin: 0 auto; }
+    .own-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .own-inner p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+    .steps-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .steps-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .step { display: flex; gap: 20px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .step-content h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .testimonials-section { background: #f9f9f9; padding: 60px 24px; }
+    .testimonials-inner { max-width: 900px; margin: 0 auto; }
+    .testimonials-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .testimonial-card { background: #fff; border-radius: 12px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .testimonial-card .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px; }
+    .testimonial-card p { font-size: 0.95rem; color: #444; line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+    .testimonial-card .author { font-size: 0.85rem; color: #888; font-weight: 600; font-style: normal; }
+    .use-case-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .use-case-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .use-case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .use-case-card { border: 1.5px solid #eee; border-radius: 12px; padding: 24px; }
+    .use-case-card .emoji { font-size: 2rem; margin-bottom: 12px; }
+    .use-case-card h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .use-case-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
+  
+</style>
+<section class="hero">
+    <h1>The easiest way to collect bakery reviews<br>and show them on your website</h1>
+    <p>Send a link. Get testimonials. Display them in minutes — right on your bakery's site, not buried on Yelp.</p>
+    <div class="cta-group">
+      <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no credit card</a>
+      <a href="/blog/testimonials-for-bakeries" class="btn-secondary">Why bakeries need this</a>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2>Why word-of-mouth isn't enough anymore</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🔍 People search before they visit</h3>
+        <p>Most new customers Google your bakery before walking in. If your website doesn't show reviews, they keep scrolling — even if your croissants are perfect.</p>
+      </div>
+      <div class="why-card">
+        <h3>📱 Your regulars won't write Google reviews</h3>
+        <p>They love your bakes but won't leave a public review. A private collection link makes it easy: they click, write, done. No Google account required.</p>
+      </div>
+      <div class="why-card">
+        <h3>🎂 Custom orders need social proof most</h3>
+        <p>Someone ordering a $400 wedding cake wants to see that others had a great experience. A testimonial wall on your orders page converts browsers into bookings.</p>
+      </div>
+      <div class="why-card">
+        <h3>📍 Own your reputation</h3>
+        <p>Yelp can suppress reviews. Google can change its algorithm. Testimonials you collect and display yourself? Those are yours — forever, on your domain.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="testimonials-inner">
+      <h2>What bakery testimonials actually look like</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The custom birthday cake was absolutely stunning — and tasted even better than it looked. Our guests couldn't stop talking about it. Will order again without hesitation."</p>
+          <span class="author">— Sarah M., via SocialProof</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Found them through a friend's recommendation and now I'm a weekly regular. The sourdough is the best in the city, full stop. My coworkers are obsessed."</p>
+          <span class="author">— James K., via SocialProof</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Ordered gluten-free pastries for a meeting. Everyone assumed they were regular pastries — that's how good they were. Finally a bakery that nails the texture."</p>
+          <span class="author">— Priya D., via SocialProof</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-section">
+    <h2>Up and running in 10 minutes</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Sign up free</h3>
+        <p>Create your SocialProof account — no credit card needed. Your unique collection link is created automatically on signup.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Send the link to happy customers</h3>
+        <p>Text it to regulars, add it to your order receipts, put it on your packaging insert, or include it in your email newsletter. Most bakeries get their first testimonial within hours.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Embed the widget on your website</h3>
+        <p>Copy one line of code. Paste it on your homepage, your custom orders page, or anywhere you want social proof. Testimonials appear automatically as they come in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="use-case-section">
+    <h2>Where bakeries put testimonials</h2>
+    <div class="use-case-grid">
+      <div class="use-case-card">
+        <div class="emoji">🎂</div>
+        <h3>Custom orders page</h3>
+        <p>Show reviews from previous custom cake customers right where people are deciding whether to book. Highest-converting placement for premium bakeries.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="emoji">🏠</div>
+        <h3>Homepage hero section</h3>
+        <p>A rotating testimonial below your headline instantly builds trust for first-time visitors arriving from Google or Instagram.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="emoji">🛒</div>
+        <h3>Online order / catering form</h3>
+        <p>Add testimonials next to your catering inquiry form to push hesitant customers over the line.</p>
+      </div>
+      <div class="use-case-card">
+        <div class="emoji">📸</div>
+        <h3>Instagram link-in-bio landing page</h3>
+        <p>Build a simple page that shows off testimonials alongside your best photos. Convert followers into customers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="own-your-reviews">
+    <div class="own-inner">
+      <h2>Free forever for one widget</h2>
+      <p>SocialProof is free to start — collect unlimited testimonials, embed one widget on your site, no credit card ever required. Most bakeries never need more than that.</p>
+      <p>When you're ready to display testimonials in multiple places (homepage + orders page + catering page), upgrade to Pro for $9/month. No long-term commitment.</p>
+      <a href="https://app.socialproof.dev/signup" class="btn-primary" style="margin-top: 8px;">Get started free</a>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <blockquote>"The widget went live on our custom orders page in about 15 minutes. We didn't change anything else — just added testimonials — and our conversion rate on custom cake inquiries noticeably improved."</blockquote>
+    <cite>— Independent bakery owner using SocialProof</cite>
+  </section>
+
+  <section class="cta-section">
+    <h2>Your regulars love you. Let your website prove it.</h2>
+    <p>Start collecting testimonials today — free, no credit card, takes 10 minutes to set up.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-white">Start free →</a>
+  </section>
+</Base>

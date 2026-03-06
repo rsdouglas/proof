@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Coaches & Consultants — SocialProof" description="Coaches and consultants: collect and display client testimonials on your website in minutes. SocialProof makes it easy to turn happy clients into social proof that wins you new business." canonical="https://socialproof.dev/for/coaches">
+<style>
+
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+  
+</style>
+<section class="hero">
+    <h1>Turn client wins into testimonials that fill your coaching practice</h1>
+    <p>Your results speak for themselves — if your website actually shows them. SocialProof makes it effortless to collect, manage, and display client testimonials on any site.</p>
+    <div class="cta-group">
+      <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no card required</a>
+      <a href="/faq" class="btn-secondary">How it works</a>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2>Why coaches need a testimonial system</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🏆 Your best marketing is already written</h3>
+        <p>Clients send you emails and messages saying "this changed everything." Those words are your most powerful marketing asset — but only if prospects can see them.</p>
+      </div>
+      <div class="why-card">
+        <h3>📲 A link they can fill in 60 seconds</h3>
+        <p>Stop asking clients to "leave a Google review" and waiting. Share your SocialProof link — they fill in a short form at their own pace, you approve it, done.</p>
+      </div>
+      <div class="why-card">
+        <h3>🌐 Works on any website</h3>
+        <p>Squarespace, WordPress, Kajabi, custom — one script tag and your testimonial wall is live. No developer needed, no platform lock-in.</p>
+      </div>
+      <div class="why-card">
+        <h3>✅ You control what appears</h3>
+        <p>Every submission goes through your approval queue first. Curate the testimonials that best represent your work before they go live.</p>
+      </div>
+      <div class="why-card">
+        <h3>💬 Rich format support</h3>
+        <p>Name, photo, role, star rating, long-form quote. Collect the full picture so prospects see real people with real context, not anonymous blurbs.</p>
+      </div>
+      <div class="why-card">
+        <h3>🆓 Free to start</h3>
+        <p>One widget, up to 25 testimonials — free forever. When you're ready for multiple widgets or analytics, Pro is $9/mo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-section">
+    <div class="steps-inner">
+      <h2>From zero to testimonials on your site in 10 minutes</h2>
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Sign up and get your collection link</h3>
+            <p>Your unique collection link is created automatically when you sign up. Share it anywhere — email, Instagram bio, onboarding packet.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Clients submit at their own pace</h3>
+            <p>A simple, mobile-friendly form. Name, photo, rating, their words. No account creation required. Takes under two minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Approve and publish</h3>
+            <p>Review submissions in your SocialProof dashboard. Approve the ones you want to show, and they go live on your widget instantly.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Embed on your site with one script tag</h3>
+            <p>Paste a single &lt;script&gt; tag wherever you want the widget to appear. Grid, list, or carousel layout — matches your existing design.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <blockquote>"Before SocialProof I had dozens of amazing client emails sitting in my inbox and nothing to show on my website. Now I share a link at the end of every engagement and my testimonial wall practically fills itself."</blockquote>
+    <cite>— Life coach, 12 clients enrolled in the past 2 months</cite>
+  </section>
+
+  <section class="cta-section">
+    <h2>Start collecting client testimonials today. Free.</h2>
+    <p>Your first widget is free forever. No credit card. No setup. Your collection link is ready the moment you sign up.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-white">Create your free SocialProof account</a>
+  </section>
+</Base>

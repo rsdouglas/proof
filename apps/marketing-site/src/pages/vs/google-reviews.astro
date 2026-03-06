@@ -1,0 +1,162 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Google Reviews — Which is better for your website? | SocialProof" description="Google Reviews are great for local SEO. But they can't go on your website. SocialProof lets you collect and embed testimonials anywhere — in minutes." canonical="https://socialproof.dev/vs/google-reviews">
+<style>
+
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .insight-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 1.75rem; margin: 2rem 0; }
+    .insight-box h3 { font-size: 1rem; font-weight: 800; color: #1d4ed8; margin: 0 0 .75rem; }
+    .insight-box p { margin: 0; color: #374151; font-size: 0.95rem; line-height: 1.6; }
+    .use-both { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    .use-both h3 { font-size: 1.1rem; font-weight: 800; color: #15803d; margin: 0 0 .75rem; }
+    .use-both p { margin: 0; color: #374151; font-size: 0.95rem; line-height: 1.6; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.google { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,0.85); margin-bottom: 1.75rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+    .bottom-cta a:hover { background: #e0e7ff; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; margin: 0 .5rem; }
+    @media (max-width: 600px) { .winner-grid { grid-template-columns: 1fr; } }
+  
+</style>
+<div class="hero">
+  <span class="vs-badge">SocialProof vs Google Reviews</span>
+  <h1>Google Reviews are on Google.<br/><span>Your testimonials should be on your site.</span></h1>
+  <p>Google Reviews are free and great for local SEO — but you can't embed them on your website or control what shows up. SocialProof gives you testimonials you own and display anywhere.</p>
+  <a href="https://app.socialproof.dev" class="hero-cta">Try SocialProof free — no card required</a>
+</div>
+
+<section>
+  <div class="insight-box">
+    <h3>💡 The honest take: these tools do different jobs</h3>
+    <p>Google Reviews help people <em>find</em> your business via Google search and Maps. SocialProof helps people <em>trust</em> your business when they land on your website. Smart businesses use both — and we'll show you exactly how.</p>
+  </div>
+
+  <h2>Side-by-side comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>✓ SocialProof</th>
+        <th>Google Reviews</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Price</td><td class="yes">Free + $9/mo Pro</td><td class="yes">Free</td></tr>
+      <tr><td>Embed reviews on your website</td><td class="yes">Yes — native widget</td><td class="no">No — Google's page only</td></tr>
+      <tr><td>You control which reviews display</td><td class="yes">Yes — full moderation</td><td class="no">No — all reviews are public</td></tr>
+      <tr><td>Remove unfair/fake reviews</td><td class="yes">Yes</td><td class="partial">Appeal process (rarely works)</td></tr>
+      <tr><td>Custom design to match your brand</td><td class="yes">Yes</td><td class="no">No — Google's styling only</td></tr>
+      <tr><td>Collect via shareable link</td><td class="yes">Yes</td><td class="partial">Send Google Review link manually</td></tr>
+      <tr><td>Photo + rich testimonials</td><td class="yes">Yes</td><td class="partial">Text + star rating only</td></tr>
+      <tr><td>Helps with local Google SEO</td><td class="partial">Not directly</td><td class="yes">Yes — major ranking factor</td></tr>
+      <tr><td>Works for non-local / online businesses</td><td class="yes">Yes</td><td class="partial">Mostly local-focused</td></tr>
+      <tr><td>No Google account required to review</td><td class="yes">Yes</td><td class="no">Reviewer needs Google account</td></tr>
+      <tr><td>Verified buyer / customer context</td><td class="yes">Yes — you add context</td><td class="no">Anonymous by default</td></tr>
+      <tr><td>Works on any website platform</td><td class="yes">Yes — 1 script tag</td><td class="no">Embed widget often broken</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section style="background:#fafafa; border-radius:16px; margin: 0 2rem;">
+  <h2>Why Google Reviews alone aren't enough</h2>
+  <p style="color:#444; font-size:0.97rem; line-height:1.6; margin-bottom:1.5rem;">Google Reviews are a trust signal for <em>discovery</em>. But once someone lands on your website, they need proof on the page they're reading — not a link that takes them away to Google.</p>
+
+  <div class="winner-grid">
+    <div class="winner-card" style="background:#fff8f8; border-color:#fecaca;">
+      <h3 style="color:#dc2626;">❌ What you can't do with Google Reviews on your site</h3>
+      <ul>
+        <li>Embed a testimonials section on your homepage</li>
+        <li>Show 5-star quotes on a landing page or pricing page</li>
+        <li>Display reviews without linking visitors away to Google</li>
+        <li>Control which reviews appear (negative ones show too)</li>
+        <li>Collect feedback from customers without a Google account</li>
+        <li>Get rich, story-driven testimonials with photos and context</li>
+      </ul>
+    </div>
+    <div class="winner-card" style="background:#f0fdf4; border-color:#86efac;">
+      <h3 style="color:#15803d;">✅ What SocialProof gives you</h3>
+      <ul>
+        <li>A testimonial widget that lives on your website</li>
+        <li>A shareable link to collect testimonials anytime</li>
+        <li>Moderation — you approve before anything goes live</li>
+        <li>Custom styling that matches your brand</li>
+        <li>Rich format: name, role, company, photo, quote, rating</li>
+        <li>Works even if your customer doesn't have a Google account</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="use-both">
+    <h3>🔑 Pro tip: Use Google Reviews AND SocialProof together</h3>
+    <p>Google Reviews = more people find you on Google Maps and local search.<br/>
+    SocialProof = once they're on your site, they see proof that converts.<br/><br/>
+    Many SocialProof customers ask happy clients to leave <em>both</em>: a Google Review for SEO, and a SocialProof testimonial for the website. Takes 5 extra minutes and doubles your social proof everywhere that matters.</p>
+  </div>
+
+  <h2>Who should use what?</h2>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✅ Use SocialProof if you…</h3>
+      <ul>
+        <li>Want testimonials embedded on your own website</li>
+        <li>Sell online (course, SaaS, agency, consulting)</li>
+        <li>Want to approve reviews before they go live</li>
+        <li>Have customers who don't have Google accounts</li>
+        <li>Need longer, richer testimonials (not just star ratings)</li>
+        <li>Want custom-styled social proof for landing pages</li>
+      </ul>
+    </div>
+    <div class="winner-card google">
+      <h3>Use Google Reviews if you…</h3>
+      <ul>
+        <li>Are a local brick-and-mortar business (restaurant, salon, etc.)</li>
+        <li>Want to rank higher in Google Maps results</li>
+        <li>Need public third-party verification for trust</li>
+        <li>Already get traffic from "near me" searches</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Add testimonials to your website in 10 minutes</h2>
+    <p>Keep your Google Reviews for local SEO. Use SocialProof to show social proof where it converts — on your website. Free forever for 1 active widget.</p>
+    <a href="https://app.socialproof.dev">Start collecting testimonials free →</a>
+  </div>
+</section>
+</Base>
