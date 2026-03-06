@@ -52,7 +52,7 @@ The key is making it feel like sharing, not reviewing.
 
 ## A simple system that actually works
 
-1. **Create a testimonial link** — one shareable URL where students can leave written feedback or record a quick video
+1. **Create a testimonial link** — one shareable URL where students can leave written feedback in 2–3 sentences
 2. **Text it to new students** on day 3 (after the "new student" glow, before they forget)
 3. **Email it to monthly members** once a quarter
 4. **Show testimonials on your website** — on your pricing page and homepage
@@ -79,7 +79,7 @@ A testimonial that answers these three questions is worth ten generic five-star 
 
 ## The tool we built for this
 
-[SocialProof](https://socialproof.dev) gives you a single shareable link. Students click it, type a few sentences (or record a quick video), and it shows up on your website automatically.
+[SocialProof](https://socialproof.dev) gives you a single shareable link. Students click it, type a few sentences, and it shows up on your website automatically.
 
 Free to start, no credit card required. Takes about 5 minutes to set up.
 
