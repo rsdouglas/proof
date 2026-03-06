@@ -3,6 +3,7 @@ import { sendEmail, buildTestimonialApprovedEmail, buildTestimonialRequestEmail 
 import { Hono } from 'hono'
 import type { Env, Variables } from '../index'
 import { checkPlanLimit } from '../lib/planLimits'
+import { checkRateLimit } from '../lib/ratelimit'
 
 export const testimonials = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -243,6 +244,11 @@ testimonials.post('/', async (c) => {
 
 testimonials.post('/request', async (c) => {
   const accountId = c.get('accountId')
+
+  // Rate limit: 20 single requests per hour per account
+  const requestRateOk = await checkRateLimit(c.env.WIDGET_KV, `req-email:${accountId}`, 20, 3600)
+  if (!requestRateOk) return c.json({ error: 'Rate limit exceeded. Maximum 20 request emails per hour.' }, 429)
+
   const body = await c.req.json<{
     email: string
     name?: string
@@ -401,6 +407,11 @@ testimonials.post('/import-csv', async (c) => {
 // Returns: { sent: number, failed: string[], errors: string[] }
 testimonials.post('/request-bulk', async (c) => {
   const accountId = c.get('accountId')
+
+  // Rate limit: 5 bulk sends per hour per account (each bulk can have up to 100 emails)
+  const bulkRateOk = await checkRateLimit(c.env.WIDGET_KV, `req-bulk:${accountId}`, 5, 3600)
+  if (!bulkRateOk) return c.json({ error: 'Rate limit exceeded. Maximum 5 bulk sends per hour.' }, 429)
+
   const body = await c.req.json<{
     emails: string[]
     widget_id: string

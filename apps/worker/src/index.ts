@@ -43,12 +43,16 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 app.use('*', cors({
   origin: (origin) => {
     const allowed = [
+      'https://vouch.run',
+      'https://www.vouch.run',
       'https://socialproof.dev',
       'https://app.socialproof.dev',
       'http://localhost:3000',
       'http://localhost:5173',
     ]
-    return (allowed.includes(origin) ? origin : allowed[0]) as string
+    // Return the origin if it's in the allowlist, null otherwise.
+    // Returning null tells hono/cors to omit the header, blocking the request.
+    return allowed.includes(origin) ? origin : null
   },
   allowHeaders: ['Content-Type', 'Authorization'],
   allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],

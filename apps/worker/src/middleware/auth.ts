@@ -1,5 +1,6 @@
 import type { Context, Next } from 'hono'
 import type { Env, Variables } from '../index'
+import { verifyToken } from '../routes/auth'
 
 export async function authMiddleware(c: Context<{ Bindings: Env; Variables: Variables }>, next: Next): Promise<Response | void> {
   const auth = c.req.header('Authorization')
@@ -7,15 +8,14 @@ export async function authMiddleware(c: Context<{ Bindings: Env; Variables: Vari
     return c.json({ error: 'Unauthorized' }, 401)
   }
   const token = auth.slice(7)
-  const parts = token.split('.')
-  if (parts.length !== 3) return c.json({ error: 'Unauthorized' }, 401)
-  try {
-    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'))) as { sub: string; exp: number; plan?: string }
-    if (payload.exp < Math.floor(Date.now() / 1000)) return c.json({ error: 'Token expired' }, 401)
-    c.set('accountId', payload.sub)
-    c.set('plan', payload.plan || 'free')
-  } catch {
+
+  // Verify HMAC signature — do NOT just decode without verification
+  const claims = await verifyToken(token, c.env.JWT_SECRET)
+  if (!claims) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
+
+  c.set('accountId', claims.sub)
+  c.set('plan', claims.plan || 'free')
   await next()
 }
