@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="Testimonials & Reviews for Restaurants — SocialProof" description="Help diners find your restaurant with confidence. Collect and display real customer reviews on your own website — not just Yelp and Google. Free for one widget." canonical="https://socialproof.dev/for/restaurants">
+<Base title="Testimonials & Reviews for Restaurants — SocialProof" description="Turn happy diners into repeat business. Collect real testimonials from your guests and display them on your restaurant's website — free for one widget." canonical="https://socialproof.dev/for/restaurants">
 <style>
 
     .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
@@ -14,7 +14,7 @@ import Base from '../../layouts/Base.astro';
     .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
     .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
     .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .own-your-reviews { background: #fff7ed; padding: 60px 24px; }
+    .own-your-reviews { background: #fff8f0; padding: 60px 24px; }
     .own-inner { max-width: 700px; margin: 0 auto; }
     .own-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; }
     .own-inner p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
@@ -35,64 +35,154 @@ import Base from '../../layouts/Base.astro';
     .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
     footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
     footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
-  
+    .steps-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .steps-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .step { display: flex; gap: 20px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .step-content h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+    .faq-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .faq-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+    .faq-item h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .faq-item p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+    .social-proof-strip { background: #f5f5f5; padding: 40px 24px; text-align: center; }
+    .social-proof-strip p { color: #888; font-size: 0.9rem; margin-bottom: 8px; }
+    .social-proof-strip strong { color: #111; font-size: 1.1rem; }
 </style>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/for/yoga-studios">Yoga Studios</a>
+      <a href="/for/contractors">Contractors</a>
+      <a href="/blog">Blog</a>
+      <a href="https://app.socialproof.dev/signup" class="btn-nav">Get started free</a>
+    </div>
+  </div>
+</nav>
+
 <section class="hero">
-    <h1>Show off your happy diners — right on your restaurant website</h1>
-    <p>Yelp and Google own your reviews. SocialProof lets you collect and display glowing customer feedback on your own site, in your own words, on your own terms.</p>
-    <div class="cta-group">
-      <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no card required</a>
-      <a href="/faq" class="btn-secondary">See how it works</a>
+  <h1>Turn happy diners into<br/>repeat business</h1>
+  <p>Collect real testimonials from your guests and display them where it matters — your website, reservation page, and social media. No tech skills needed.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Collect your first testimonial free</a>
+    <a href="/tools/testimonial-wall-generator" class="btn-secondary">See a live example</a>
+  </div>
+</section>
+
+<section class="why-section">
+  <h2>Why restaurants use SocialProof</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>🍽️ Own your reviews — don't rent them</h3>
+      <p>Yelp and Google own their reviews. A single algorithm change can bury your 4.8-star rating. SocialProof testimonials live on your site, under your control, forever.</p>
     </div>
-  </section>
-
-  <section class="why-section">
-    <h2>Why restaurants use SocialProof</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>🍽️ Own your review channel</h3>
-        <p>Third-party platforms change algorithms and bury your 5-star reviews under ads. SocialProof puts customer love directly on your website where you control the presentation.</p>
-      </div>
-      <div class="why-card">
-        <h3>📱 QR code on the table</h3>
-        <p>Print your SocialProof collection link as a QR code. Guests scan it at the end of their meal and leave a review while the experience is still fresh.</p>
-      </div>
-      <div class="why-card">
-        <h3>🌟 Feature your signature dishes</h3>
-        <p>Ask customers to mention their favorite dish in the prompt. Curate reviews that highlight your must-orders and create mouth-watering social proof.</p>
-      </div>
-      <div class="why-card">
-        <h3>📆 Perfect for events & catering</h3>
-        <p>After every private dining event or catering job, collect a testimonial from the organizer. Build a case study gallery that wins you more bookings.</p>
-      </div>
-      <div class="why-card">
-        <h3>🔧 No tech skills needed</h3>
-        <p>Paste one script tag on your site, or have your web person do it once. After that, managing your testimonials takes five minutes a week.</p>
-      </div>
-      <div class="why-card">
-        <h3>💸 Free to get started</h3>
-        <p>One widget, up to 25 testimonials — free forever. Upgrade to Pro for unlimited testimonials and multiple widgets.</p>
-      </div>
+    <div class="why-card">
+      <h3>📅 Fill tables on slow nights</h3>
+      <p>A genuine quote from a happy diner — "Best pasta in Austin, we come every Friday" — on your reservation page converts better than any coupon. Real words from real guests.</p>
     </div>
-  </section>
-
-  <section class="own-your-reviews">
-    <div class="own-inner">
-      <h2>Stop renting your reputation from Yelp</h2>
-      <p>When a customer searches your restaurant name and lands on your website, what do they see? If it's just a menu and a contact form, you're missing the moment to convert a curious visitor into a reservation.</p>
-      <p>SocialProof lets you place real customer testimonials right on your homepage, your "About" page, or anywhere else that matters. You choose which reviews appear and in what order. You're not subject to Yelp's sort algorithm or Google's "helpful" filter.</p>
-      <p>The collection link takes the friction out of asking: guests scan a QR code or click a link in your post-visit email, and they're on a clean, mobile-optimized form. No login, no app download, done in two minutes.</p>
+    <div class="why-card">
+      <h3>🔁 Drive repeat visits</h3>
+      <p>Email your guests after a great experience. A short "Thank you — would you share a few words?" lands in their inbox and brings them back. Automated, one-time setup.</p>
     </div>
-  </section>
+    <div class="why-card">
+      <h3>🏆 Stand out on Google</h3>
+      <p>Rich testimonial content on your website helps Google understand what your restaurant is known for — "romantic anniversary dinner," "best brunch," "gluten-free options" — and rank you for it.</p>
+    </div>
+    <div class="why-card">
+      <h3>💬 Beat the big chains</h3>
+      <p>Corporate chains spend millions on ads. Independent restaurants win on authenticity. Real voices from real guests in your neighborhood are your competitive edge.</p>
+    </div>
+    <div class="why-card">
+      <h3>⚡ Ready in 5 minutes</h3>
+      <p>Paste one line of code to embed testimonials on your site. Or share a link. No developer, no monthly contract, no complicated setup.</p>
+    </div>
+  </div>
+</section>
 
-  <section class="quote-section">
-    <blockquote>"We put a QR code on every table and now collect three or four testimonials a week without asking anyone directly. Our website review section is the first thing new customers mention when they walk in."</blockquote>
-    <cite>— Restaurant owner, 47 seats, local dining destination</cite>
-  </section>
+<section class="own-your-reviews">
+  <div class="own-inner">
+    <h2>Yelp and Google Reviews are not yours</h2>
+    <p>Every review you earn on Yelp gets filtered, hidden, or buried by an algorithm you can't control. Google can suppress reviews with no warning. You've spent years earning that reputation — why leave it on someone else's platform?</p>
+    <p>SocialProof gives you a direct line to your happiest guests. Send them a request, collect their words, display them on your site. Your reviews, your data, your brand.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start collecting today — it's free</a>
+  </div>
+</section>
 
-  <section class="cta-section">
-    <h2>Start showing off your happy diners today. Free.</h2>
-    <p>One widget. Free forever. Your collection link is ready the moment you sign up.</p>
-    <a href="https://app.socialproof.dev/signup" class="btn-white">Create your free SocialProof account</a>
-  </section>
+<section class="steps-section">
+  <h2>How it works</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Share your collection link with guests</h3>
+      <p>After a great meal, text or email your guest a link. They click, type a few sentences, done. No login, no friction. Takes them under 2 minutes.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Approve and display</h3>
+      <p>Testimonials land in your dashboard. Approve the ones you love, reject the rest. Then embed a beautiful testimonial wall on your website with one line of code.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>Use them everywhere</h3>
+      <p>Your testimonial widget works on any website — Squarespace, Wix, WordPress, or a custom site. Copy the embed code once and your newest reviews appear automatically.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote>"We started asking guests for testimonials after every private event. Within a month we had 12 quotes on our site. Bookings for private dining went up noticeably — people want to read real experiences before committing to a reservation."</blockquote>
+  <cite>— Restaurant owner, Austin TX</cite>
+</section>
+
+<section class="faq-section">
+  <h2>Questions from restaurant owners</h2>
+  <div class="faq-item">
+    <h3>Is this different from Yelp or Google Reviews?</h3>
+    <p>Yes. Yelp and Google reviews are public platforms you have no control over. SocialProof testimonials are collected directly from your guests and displayed on your own website. You approve every testimonial before it goes live.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How do I ask guests for testimonials without being pushy?</h3>
+    <p>The best time is right after a great experience — a follow-up text or email 24 hours later. Something like: "It was great having you in. If you have 2 minutes, we'd love a few words: [link]." Our collection page is clean and takes under 2 minutes.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Will this work with my existing website?</h3>
+    <p>Yes. SocialProof works with any website — Squarespace, Wix, WordPress, or a custom-built site. Paste one embed code and your testimonials appear automatically.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What does it cost?</h3>
+    <p>Free for up to 25 testimonials and one widget — enough to get started and see results. Pro is $9/month for unlimited testimonials, unlimited widgets, and no SocialProof branding.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I collect testimonials from past guests I already have emails for?</h3>
+    <p>Yes. SocialProof has a bulk request feature — paste up to 100 guest emails and send them all a testimonial request at once. Perfect if you have a reservation history or email list.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do my guests need to create an account?</h3>
+    <p>No. Guests click a link, type their testimonial, and hit submit. No sign-up, no password, no friction. That's why the completion rate is high.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Start collecting testimonials today</h2>
+  <p>Free for up to 25 testimonials. No credit card required. Set up in under 5 minutes.</p>
+  <a href="https://app.socialproof.dev/signup" class="btn-white">Collect your first testimonial free →</a>
+</section>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/for/yoga-studios">Yoga Studios</a>
+  <a href="/for/contractors">Contractors</a>
+  <a href="/for/therapists">Therapists</a>
+  <a href="/blog">Blog</a>
+  <a href="/tools">Free Tools</a>
+  <a href="https://app.socialproof.dev/signup">Sign up free</a>
+</footer>
+
 </Base>
