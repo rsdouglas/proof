@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="SocialProof — Turn happy customers into your best marketing">
+  <!-- HERO -->
+  <section class="hero">
+    <p class="section-label">✦ Free forever plan</p>
+    <h1>Turn happy customers into<br/><span class="highlight">your best marketing</span></h1>
+    <p>Collect video and text testimonials in 60 seconds — embed anywhere, no code needed.</p>
+    <div class="hero-buttons">
+      <a href="https://app.socialproof.dev/signup" class="btn btn-primary btn-lg">Start free &rarr;</a>
+      <a href="#demo" class="btn btn-outline btn-lg">See how it works</a>
+    </div>
+    <p class="hero-trust">No credit card &bull; Free forever &bull; 2-minute setup</p>
+  </section>
+
+  <!-- DEMO EMBED -->
+  <section id="demo" style="background:var(--bg-alt);padding:60px 0;">
+    <div class="container" style="text-align:center;">
+      <p class="section-label">See it live</p>
+      <h2 class="section-title">A real testimonial widget</h2>
+      <p class="section-sub">This is an actual SocialProof widget — the same one your customers will see.</p>
+      <div style="max-width:700px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.1);">
+        <iframe
+          src="https://widget.socialproof.dev/embed.html?account=demo"
+          width="100%"
+          height="420"
+          frameborder="0"
+          title="SocialProof Demo Widget"
+          style="display:block;"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container" style="text-align:center;">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need, nothing you don't</h2>
+      <p class="section-sub">Simple by design. Powerful enough to run your social proof operation end-to-end.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>60-second collection</h3>
+          <p>Send a link. Customers record or type a testimonial. You get notified. That's it.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎥</div>
+          <h3>Video & text</h3>
+          <p>Support both video recordings and written testimonials. Auto-transcribed. Always searchable.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔌</div>
+          <h3>One-line embed</h3>
+          <p>Drop a script tag on any page. Your testimonials appear instantly, styled to match your brand.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3>Moderation controls</h3>
+          <p>Approve or reject before anything goes live. You're always in control of what customers see.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Live dashboard</h3>
+          <p>See every submission, manage approvals, export to CSV, and track performance — all in one place.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔑</div>
+          <h3>API access</h3>
+          <p>Full REST API with API key auth. Automate collection, integrate with your CRM, build anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="background:var(--bg-alt);">
+    <div class="container" style="text-align:center;">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Up and running in 3 steps</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;margin-top:48px;text-align:left;">
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">1</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Sign up free</h3>
+          <p style="color:var(--text-muted);">Create your account in seconds. No credit card required. Your first widget is ready immediately.</p>
+        </div>
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">2</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Send to customers</h3>
+          <p style="color:var(--text-muted);">Share your collection link via email, Slack, or your post-purchase flow. Customers submit in under a minute.</p>
+        </div>
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">3</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Embed anywhere</h3>
+          <p style="color:var(--text-muted);">Add one line of code to your site. Testimonials appear live, automatically, after you approve them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container" style="text-align:center;">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-title">Start free, upgrade when you grow</h2>
+      <p class="section-sub">No tricks. No hidden fees. Cancel anytime.</p>
+      <div class="pricing-grid" style="max-width:900px;margin:0 auto;">
+        <div class="pricing-card">
+          <p class="pricing-name">Free</p>
+          <p class="pricing-price">$0<span>/mo</span></p>
+          <p class="pricing-desc">Everything you need to get started.</p>
+          <ul class="pricing-features">
+            <li>1 widget</li>
+            <li>Up to 10 testimonials</li>
+            <li>Video &amp; text</li>
+            <li>Moderation dashboard</li>
+            <li>SocialProof branding</li>
+          </ul>
+          <a href="https://app.socialproof.dev/signup" class="btn btn-outline" style="width:100%;justify-content:center;">Get started free</a>
+        </div>
+        <div class="pricing-card popular">
+          <p class="pricing-name">Pro</p>
+          <p class="pricing-price">$29<span>/mo</span></p>
+          <p class="pricing-desc">For growing teams who need more power.</p>
+          <ul class="pricing-features">
+            <li>Unlimited widgets</li>
+            <li>Unlimited testimonials</li>
+            <li>Remove SocialProof branding</li>
+            <li>Custom domain collection page</li>
+            <li>API access</li>
+            <li>CSV export</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="https://app.socialproof.dev/signup?plan=pro" class="btn btn-primary" style="width:100%;justify-content:center;">Start Pro trial</a>
+        </div>
+        <div class="pricing-card">
+          <p class="pricing-name">Enterprise</p>
+          <p class="pricing-price" style="font-size:28px;">Custom</p>
+          <p class="pricing-desc">For large teams with specific needs.</p>
+          <ul class="pricing-features">
+            <li>Everything in Pro</li>
+            <li>SSO / SAML</li>
+            <li>Dedicated support</li>
+            <li>Custom integrations</li>
+            <li>SLA</li>
+          </ul>
+          <a href="mailto:team@socialproof.dev" class="btn btn-outline" style="width:100%;justify-content:center;">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:linear-gradient(135deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:80px 0;">
+    <div class="container">
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:16px;">Ready to collect your first testimonial?</h2>
+      <p style="font-size:18px;opacity:0.85;margin-bottom:36px;">Join thousands of businesses using SocialProof to turn customers into advocates.</p>
+      <a href="https://app.socialproof.dev/signup" class="btn" style="background:#fff;color:var(--brand);font-size:17px;padding:14px 32px;">Start free — no credit card &rarr;</a>
+    </div>
+  </section>
+</Base>
