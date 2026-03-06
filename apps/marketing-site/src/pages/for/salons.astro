@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Salons & Spas — SocialProof" description="Salons and spas: collect client reviews and display them on your website automatically. SocialProof turns happy clients into bookings — no tech skills needed." canonical="https://socialproof.dev/for/salons">
+<style>
+
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+  
+</style>
+<section class="hero">
+    <h1>Turn happy clients into your best marketing</h1>
+    <p>Salons and spas: automatically collect reviews after every appointment and display them where new clients decide to book. No spreadsheets, no chasing Google reviews manually.</p>
+    <div class="cta-group">
+      <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no card needed</a>
+      <a href="/blog/how-to-collect-testimonials" class="btn-secondary">See how it works</a>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2>Why salons run on social proof</h2>
+    <p style="text-align:center;color:#555;max-width:580px;margin:0 auto;">New clients can't try before they buy. A wall of real client reviews is the closest thing to a personal referral — and it works 24/7.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>📅 Bookings from browsing</h3>
+        <p>Most salon clients decide who to book from a website search. Real testimonials on your site convert visitors into first-time clients faster than any discount.</p>
+      </div>
+      <div class="why-card">
+        <h3>⭐ Beyond Google reviews</h3>
+        <p>Google reviews are great — but you can't control the layout, the timing, or what they highlight. SocialProof lets you curate your best reviews and embed them exactly where they matter.</p>
+      </div>
+      <div class="why-card">
+        <h3>📱 Collect via text-style link</h3>
+        <p>Send your collection link by SMS or email after checkout. Clients tap, write a quick review, and you're done. No app download, no login required for them.</p>
+      </div>
+      <div class="why-card">
+        <h3>💇 Staff-level testimonials</h3>
+        <p>Ask clients to mention their stylist or therapist by name. Reviews that call out specific staff become your best retention and hiring tool.</p>
+      </div>
+      <div class="why-card">
+        <h3>🔄 Always fresh</h3>
+        <p>New testimonials flow in automatically. Your site always shows recent reviews — not stale ones from two years ago that nobody believes.</p>
+      </div>
+      <div class="why-card">
+        <h3>🎨 Matches your brand</h3>
+        <p>Customise widget colours to match your salon palette. Clean, professional — nothing that looks like a third-party add-on bolted on as an afterthought.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-section">
+    <div class="steps-inner">
+      <h2>Live in under 10 minutes</h2>
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Create your free account</h3>
+            <p>Sign up at SocialProof — no credit card, no commitment. Your collection link is ready immediately.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Share after checkout</h3>
+            <p>Add your link to your checkout text, booking confirmation email, or printed card at reception. Clients tap and leave a review in 60 seconds.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Embed on your site</h3>
+            <p>Paste one line of code into your website — works with Squarespace, Wix, WordPress, and any booking system. Reviews appear automatically as they come in.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Watch new clients arrive</h3>
+            <p>Visitors see real reviews from real local clients. That's the trust that converts a browser into a booking.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <blockquote>"I used to beg clients to leave Google reviews. Now they just click my link after their appointment. I've collected more reviews in a month than in the previous two years."</blockquote>
+    <cite>— Salon owner, early SocialProof user</cite>
+  </section>
+
+  <section class="cta-section">
+    <h2>Start collecting reviews today</h2>
+    <p>Free forever for one widget. No credit card. Cancel anytime — though you won't want to.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-white">Get started free</a>
+  </section>
+</Base>

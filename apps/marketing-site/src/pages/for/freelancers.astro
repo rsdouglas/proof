@@ -1,0 +1,149 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Freelancers — SocialProof" description="Freelancers: collect and display client testimonials on your portfolio site in minutes. Win more projects with social proof that prospects trust." canonical="https://socialproof.dev/for/freelancers">
+<style>
+
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f0fdf4; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #16a34a; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .platform-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
+    .platform-section h2 { font-size: 1.8rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .platform-section p { font-size: 1rem; color: #555; max-width: 600px; margin: 0 auto 32px; }
+    .platform-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .pill { background: #fff; border: 1.5px solid #ddd; padding: 10px 20px; border-radius: 50px; font-size: 0.95rem; color: #555; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+  
+</style>
+<section class="hero">
+    <h1>Your portfolio is strong. Your testimonials should match.</h1>
+    <p>Freelancers win projects with trust. SocialProof makes it simple to collect real client testimonials and display them on your portfolio — without chasing anyone down.</p>
+    <div class="cta-group">
+      <a href="https://app.socialproof.dev/signup" class="btn-primary">Get started free</a>
+      <a href="/blog/testimonials-for-freelancers" class="btn-secondary">Read the guide</a>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2>Why freelancers trust SocialProof</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🔗 Send a link, not a chore</h3>
+        <p>Clients don't want to log into Upwork, write a LinkedIn recommendation, or find your Google page. A simple SocialProof link takes two minutes — they actually do it.</p>
+      </div>
+      <div class="why-card">
+        <h3>📁 Keep it with your portfolio</h3>
+        <p>Don't split your social proof across platforms you don't own. SocialProof widgets live on your site, your domain, your brand.</p>
+      </div>
+      <div class="why-card">
+        <h3>🎯 Targeted by project type</h3>
+        <p>Use multiple widgets (Pro) to display different testimonials for different services: design work on one page, strategy work on another.</p>
+      </div>
+      <div class="why-card">
+        <h3>⭐ Star ratings built in</h3>
+        <p>Optional star ratings help prospects quickly scan your quality level. Show the number that matters most.</p>
+      </div>
+      <div class="why-card">
+        <h3>🧩 Works everywhere you work</h3>
+        <p>WordPress, Webflow, Framer, Squarespace, custom HTML — one script tag. Your testimonial wall renders perfectly on any platform.</p>
+      </div>
+      <div class="why-card">
+        <h3>💸 Free forever for one widget</h3>
+        <p>Most freelancers only need one widget. Start free, never pay unless your needs grow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-section">
+    <div class="steps-inner">
+      <h2>Build your testimonial wall in minutes</h2>
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Sign up and grab your link</h3>
+            <p>Your collection link exists the moment you create an account. Share it right away — no setup wizard, no configuration required.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Send it to past clients</h3>
+            <p>Add it to your project wrap-up email, your invoices, or your email signature. Past clients can submit anytime.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Approve what you want shown</h3>
+            <p>Every submission is held for your review first. Publish the strongest ones, keep the rest in your archive.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Paste one tag on your portfolio</h3>
+            <p>The embed code is a single &lt;script&gt; tag. Place it on your About, Work, or Testimonials page and you're live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="platform-section">
+    <h2>Works with every portfolio platform</h2>
+    <p>No matter where you built your site, SocialProof's script tag drops in without any plugin or theme change.</p>
+    <div class="platform-pills">
+      <span class="pill">WordPress</span>
+      <span class="pill">Webflow</span>
+      <span class="pill">Framer</span>
+      <span class="pill">Squarespace</span>
+      <span class="pill">Wix</span>
+      <span class="pill">Notion (Super)</span>
+      <span class="pill">Custom HTML</span>
+      <span class="pill">Ghost</span>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <blockquote>"I used to ask clients to leave a LinkedIn recommendation and most never did. With SocialProof I send the link right after the project wraps and I get testimonials back within 24 hours."</blockquote>
+    <cite>— Freelance designer, 40+ clients over 5 years</cite>
+  </section>
+
+  <section class="cta-section">
+    <h2>Start collecting testimonials today. Free.</h2>
+    <p>One widget. Up to 25 testimonials. No credit card. Ready in minutes.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-white">Create your free SocialProof account</a>
+  </section>
+</Base>
