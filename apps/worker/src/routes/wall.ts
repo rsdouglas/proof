@@ -562,7 +562,9 @@ wall.get('/:widgetId/preview', async (c) => {
 </html>`
 
   return c.html(html, 200, {
-    'X-Frame-Options': 'SAMEORIGIN',
+    // Allow the dashboard to embed the preview in an iframe.
+    // SAMEORIGIN would block cross-subdomain embeds (app. vs api.).
+    'Content-Security-Policy': "frame-ancestors 'self' https://app.socialproof.dev",
     'Cache-Control': 'no-store',
   })
 })
