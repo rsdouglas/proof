@@ -113,9 +113,13 @@ testimonials.patch('/:id', async (c) => {
   fields.push('updated_at = ?')
   values.push(now, id, accountId)
 
-  await c.env.DB.prepare(
+  const result = await c.env.DB.prepare(
     `UPDATE testimonials SET ${fields.join(', ')} WHERE id = ? AND account_id = ?`
   ).bind(...values).run()
+
+  if (result.meta.changes === 0) {
+    return c.json({ error: 'Not found' }, 404)
+  }
 
   // If status just changed to 'approved' and the submitter has an email, notify them
   if (body.status === 'approved') {
