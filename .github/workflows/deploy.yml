@@ -159,8 +159,8 @@ jobs:
         working-directory: apps/marketing-site
         run: npm run build
 
+      # Deploy result is only trustworthy if failures are surfaced and the intended Pages/custom domain binding is verified separately.
       - name: Deploy marketing site to Pages
-        continue-on-error: true
         working-directory: apps/marketing-site
         run: npx wrangler pages deploy dist --project-name=socialproof-marketing
         env:
