@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Trustindex — Testimonial tool comparison | SocialProof" description="Trustindex starts at $9.99/mo but caps widgets and imports. SocialProof is free to start and $9/mo Pro — unlimited testimonials, no widget fees. Honest comparison." canonical="https://socialproof.dev/vs/trustindex">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .savings-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .savings-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,0.85); margin-bottom: 1.75rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+    .bottom-cta a:hover { background: #e0e7ff; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; margin: 0 .5rem; }
+    @media (max-width: 600px) { .winner-grid { grid-template-columns: 1fr; } .price-callout { flex-direction: column; gap: 1rem; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/vs/trustindex">vs Trustindex</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vs-badge">SocialProof vs Trustindex</span>
+  <h1>Trustindex imports reviews.<br/><span>SocialProof collects them.</span></h1>
+  <p>Trustindex pulls in existing Google and Facebook reviews. SocialProof helps you actively collect fresh testimonials from happy customers — then embed them anywhere.</p>
+  <div class="price-callout">
+    <div class="item vouch"><div class="price">Free</div><div class="label">SocialProof starter</div></div>
+    <div class="item other"><div class="price">$9.99+</div><div class="label">Trustindex starter</div></div>
+  </div>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>Feature comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>Trustindex</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Free tier</td><td class="yes">✓ Free forever (1 widget)</td><td class="partial">⚠ 7-day trial only</td></tr>
+      <tr><td>Collect new testimonials</td><td class="yes">✓ Shareable link, one click</td><td class="no">✗ Import only — no collection</td></tr>
+      <tr><td>Embed on any website</td><td class="yes">✓ Works everywhere</td><td class="yes">✓ WordPress-focused</td></tr>
+      <tr><td>Custom branding</td><td class="yes">✓ Pro</td><td class="partial">⚠ Higher-tier plans</td></tr>
+      <tr><td>No credit card to start</td><td class="yes">✓ Always</td><td class="no">✗ Required at signup</td></tr>
+      <tr><td>Plain-text testimonials</td><td class="yes">✓ Fast, low friction</td><td class="partial">⚠ Review import focus</td></tr>
+      <tr><td>Simple setup (under 5 min)</td><td class="yes">✓ Paste one script tag</td><td class="partial">⚠ WordPress plugin install</td></tr>
+      <tr><td>Pro price</td><td class="yes">✓ $9/mo flat</td><td class="no">✗ $9.99–$39.99/mo</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>The key difference</h2>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✅ SocialProof is best for...</h3>
+      <ul>
+        <li>Businesses that want to <strong>collect fresh testimonials</strong> from real customers</li>
+        <li>Non-WordPress sites (Webflow, Squarespace, Shopify, custom)</li>
+        <li>Founders who want a simple tool, not a plugin ecosystem</li>
+        <li>Anyone who doesn't want to put in a credit card to try something</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Trustindex is best for...</h3>
+      <ul>
+        <li>WordPress users who want to display existing Google/Facebook reviews</li>
+        <li>Businesses with strong existing review profiles they want to showcase</li>
+        <li>Teams already deep in the WordPress ecosystem</li>
+      </ul>
+    </div>
+  </div>
+  <div class="savings-box">
+    <h3>⚡ The biggest difference: collection vs. import</h3>
+    <p>Trustindex pulls in reviews you already have. SocialProof helps you <em>get more</em> — send a shareable link to any customer, they type their testimonial in seconds. If your review count is low, SocialProof actively builds it up. Trustindex just displays what's already there.</p>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Start collecting testimonials free</h2>
+    <p>No credit card. No plugin needed. Works on any website in under 5 minutes.</p>
+    <a href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/">SocialProof</a> · <a href="/vs/senja">vs Senja</a> · <a href="/vs/trustpilot">vs Trustpilot</a> · <a href="/vs/google-reviews">vs Google Reviews</a>
+</footer>
+</Base>

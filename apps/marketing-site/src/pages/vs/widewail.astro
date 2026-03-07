@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Widewail — Review management compared | SocialProof" description="Widewail is enterprise reputation management at $300+/mo. SocialProof is $9/mo — simple testimonial collection and embedding for small businesses." canonical="https://socialproof.dev/vs/widewail">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .savings-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .savings-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,0.85); margin-bottom: 1.75rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+    .bottom-cta a:hover { background: #e0e7ff; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; margin: 0 .5rem; }
+    @media (max-width: 600px) { .winner-grid { grid-template-columns: 1fr; } .price-callout { flex-direction: column; gap: 1rem; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/vs/widewail">vs Widewail</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vs-badge">SocialProof vs Widewail</span>
+  <h1>Widewail is for enterprises.<br/><span>SocialProof is for everyone else.</span></h1>
+  <p>Widewail is a reputation management platform built for large multi-location businesses. SocialProof does one thing well: helps small businesses collect and display customer testimonials, starting free.</p>
+  <div class="price-callout">
+    <div class="item vouch"><div class="price">Free</div><div class="label">SocialProof starter</div></div>
+    <div class="item other"><div class="price">$300+</div><div class="label">Widewail estimated monthly</div></div>
+  </div>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>Feature comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>Widewail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Free tier</td><td class="yes">✓ Free forever (1 widget)</td><td class="no">✗ No free tier — custom pricing</td></tr>
+      <tr><td>Pricing transparency</td><td class="yes">✓ $9/mo flat on website</td><td class="no">✗ "Contact sales" only</td></tr>
+      <tr><td>Setup time</td><td class="yes">✓ Under 5 minutes</td><td class="no">✗ Enterprise onboarding required</td></tr>
+      <tr><td>Collect testimonials via link</td><td class="yes">✓ Share a link, done</td><td class="partial">⚠ SMS/email review requests</td></tr>
+      <tr><td>Embed on website</td><td class="yes">✓ Script tag, any site</td><td class="partial">⚠ Widget available</td></tr>
+      <tr><td>Single-location businesses</td><td class="yes">✓ Built for this</td><td class="no">✗ Optimized for multi-location</td></tr>
+      <tr><td>No contracts</td><td class="yes">✓ Month to month</td><td class="no">✗ Enterprise contracts</td></tr>
+      <tr><td>Small business pricing</td><td class="yes">✓ $9/mo Pro</td><td class="no">✗ Not designed for small biz</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>The honest comparison</h2>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✅ SocialProof is best for...</h3>
+      <ul>
+        <li>Small businesses — restaurants, salons, coaches, freelancers</li>
+        <li>Anyone who wants to be up and running today, not after a sales call</li>
+        <li>Businesses on a budget who don't need enterprise reputation management</li>
+        <li>Founders who want a tool that costs less than a lunch</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Widewail is best for...</h3>
+      <ul>
+        <li>Large chains with dozens of locations needing centralized review management</li>
+        <li>Enterprises that need managed response services and reputation analytics</li>
+        <li>Automotive dealership groups, franchise networks</li>
+      </ul>
+    </div>
+  </div>
+  <div class="savings-box">
+    <h3>⚡ You probably don't need enterprise reputation management</h3>
+    <p>Widewail is a powerful tool — for the right customer. If you have 50+ locations and a dedicated marketing team, it makes sense. If you're a single-location business who wants more testimonials on your website, SocialProof delivers that in under 5 minutes with no sales call.</p>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Start collecting testimonials free</h2>
+    <p>No enterprise contract. No sales call. Just sign up and share a link with your next happy customer.</p>
+    <a href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/">SocialProof</a> · <a href="/vs/podium">vs Podium</a> · <a href="/vs/birdeye">vs Birdeye</a> · <a href="/vs/trustpilot">vs Trustpilot</a>
+</footer>
+</Base>
