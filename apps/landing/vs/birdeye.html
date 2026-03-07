@@ -1,235 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SocialProof vs BirdEye — Simpler testimonials for small business | SocialProof</title>
-  <meta name="description" content="BirdEye costs $299–399/mo and is built for enterprise. SocialProof is $9/mo and built for small businesses who just want testimonials on their site." />
-  <link rel="canonical" href="https://socialproof.dev/vs/birdeye" />
-  <link rel="stylesheet" href="/style.css" />
-  <meta property="og:title" content="SocialProof vs BirdEye — Honest comparison for small businesses" />
-  <meta property="og:description" content="BirdEye starts at $299/mo. SocialProof starts free. See which makes sense for a small business that just wants testimonials." />
-  <meta property="og:url" content="https://socialproof.dev/vs/birdeye" />
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
-    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
-    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
-    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
-    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
-    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
-    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
-    .hero h1 span { color: #4f46e5; }
-    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
-    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
-    .hero-cta:hover { background: #3730a3; }
-    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
-    .price-callout .item { text-align: center; }
-    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
-    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
-    .price-callout .item.socialproof .price { color: #4f46e5; }
-    .price-callout .item.other .price { color: #dc2626; }
-    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
-    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
-    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
-    .compare-table th:nth-child(2) { color: #4f46e5; }
-    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table td:first-child { color: #555; font-weight: 500; }
-    .yes { color: #16a34a; font-weight: 600; }
-    .no { color: #dc2626; font-weight: 600; }
-    .partial { color: #d97706; font-weight: 600; }
-    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
-    .winner-card { border-radius: 12px; padding: 1.75rem; }
-    .winner-card.socialproof { background: #f0fdf4; border: 1px solid #86efac; }
-    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
-    .winner-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .75rem; }
-    .winner-card ul { margin: 0; padding-left: 1.2rem; }
-    .winner-card ul li { margin-bottom: .4rem; font-size: 0.95rem; color: #444; }
-    .verdict { background: #f5f3ff; border-left: 4px solid #4f46e5; padding: 1.5rem; border-radius: 0 12px 12px 0; margin: 2rem 0; }
-    .verdict h3 { margin: 0 0 .5rem; color: #4f46e5; }
-    .cta-section { text-align: center; padding: 4rem 2rem; background: #f9f9f9; border-top: 1px solid #eee; }
-    .cta-section h2 { font-size: 2rem; }
-    .cta-section p { color: #555; margin-bottom: 2rem; }
-    footer { text-align: center; padding: 2rem; color: #888; font-size: 0.875rem; border-top: 1px solid #eee; }
-    footer a { color: #888; margin: 0 .75rem; }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="nav-links">
-    <a href="/#demo">Demo</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="https://app.socialproof.dev">Log in</a>
-    <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a>
-  </div>
-</nav>
-
-<div class="hero">
-  <span class="vs-badge">Comparison</span>
-  <h1>SocialProof vs <span>BirdEye</span></h1>
-  <p>BirdEye is a full reputation management platform starting at $299/mo. SocialProof is a testimonial widget for small businesses starting free. Here's an honest comparison.</p>
-
-  <div class="price-callout">
-    <div class="item socialproof">
-      <div class="price">Free</div>
-      <div class="label">SocialProof starter</div>
-    </div>
-    <div class="item other">
-      <div class="price">$299+</div>
-      <div class="label">BirdEye per month</div>
-    </div>
-  </div>
-
-  <a href="https://app.socialproof.dev" class="hero-cta">Try SocialProof free →</a>
-</div>
-
-<section>
-  <h2>Feature comparison</h2>
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>Feature</th>
-        <th>SocialProof</th>
-        <th>BirdEye</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Starting price</td>
-        <td class="yes">Free forever (1 widget)</td>
-        <td class="no">$299–399/mo (billed annually)</td>
-      </tr>
-      <tr>
-        <td>Testimonial collection link</td>
-        <td class="yes">✓ Shareable link, no friction</td>
-        <td class="partial">Review request by SMS/email</td>
-      </tr>
-      <tr>
-        <td>Embed on your own site</td>
-        <td class="yes">✓ One script tag</td>
-        <td class="partial">Widget available but complex setup</td>
-      </tr>
-      <tr>
-        <td>You own the testimonial data</td>
-        <td class="yes">✓ Always</td>
-        <td class="no">Data lives in BirdEye's system</td>
-      </tr>
-      <tr>
-        <td>Google review management</td>
-        <td class="no">Not included</td>
-        <td class="yes">✓ Core feature</td>
-      </tr>
-      <tr>
-        <td>Multi-location support</td>
-        <td class="no">Not designed for this</td>
-        <td class="yes">✓ Core feature</td>
-      </tr>
-      <tr>
-        <td>Review monitoring across platforms</td>
-        <td class="no">Not included</td>
-        <td class="yes">✓ Yelp, Google, Facebook, etc.</td>
-      </tr>
-      <tr>
-        <td>Setup time</td>
-        <td class="yes">Under 5 minutes</td>
-        <td class="no">Multi-day onboarding, sales call required</td>
-      </tr>
-      <tr>
-        <td>Credit card to start</td>
-        <td class="yes">No</td>
-        <td class="no">Yes, annual contract</td>
-      </tr>
-      <tr>
-        <td>Testimonial approval workflow</td>
-        <td class="yes">✓ Simple approve/reject</td>
-        <td class="partial">Available but in enterprise context</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<section>
-  <h2>Who wins for your use case?</h2>
-  <div class="winner-grid">
-    <div class="winner-card socialproof">
-      <h3>✅ SocialProof is better if you…</h3>
-      <ul>
-        <li>Run a single-location small business</li>
-        <li>Want testimonials embedded on your website</li>
-        <li>Don't want to manage reviews across platforms</li>
-        <li>Need something running in under 5 minutes</li>
-        <li>Can't justify $300+/mo in subscription costs</li>
-        <li>Want to own your testimonial data, not rent it</li>
-      </ul>
-    </div>
-    <div class="winner-card other">
-      <h3>⚡ BirdEye is better if you…</h3>
-      <ul>
-        <li>Have 5+ locations and need reputation monitoring</li>
-        <li>Run an enterprise that actively manages Google/Yelp reviews</li>
-        <li>Need SMS review solicitation at scale</li>
-        <li>Have a dedicated marketing team to manage the platform</li>
-        <li>Have budget for $3,600+ per year</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="verdict">
-    <h3>The honest verdict</h3>
-    <p>BirdEye is genuinely good software — for the businesses it was designed for. Multi-location franchises, healthcare practices, and auto dealerships get real value from it. But if you're a solopreneur, a small e-commerce store, or a local service business with one location, BirdEye is overkill and overpriced by a factor of 30x.</p>
-    <p>SocialProof does one thing: helps you collect testimonials from happy customers and display them on your own website. No contracts. No sales calls. No reputation management complexity. Just social proof on your site, in 5 minutes.</p>
-  </div>
-</section>
-
-<section>
-  <h2>What small businesses actually say about BirdEye</h2>
-  <p>BirdEye users on G2 and Capterra commonly report:</p>
-  <ul>
-    <li><strong>Pricing shock</strong> — "We didn't realize the annual contract locked us in at $399/mo until we tried to cancel."</li>
-    <li><strong>Feature overload</strong> — "We only needed testimonials on our site. We paid for a whole platform we didn't use."</li>
-    <li><strong>Onboarding friction</strong> — "Required a sales call and a 2-week setup before we could do anything."</li>
-  </ul>
-  <p>For a small business owner who just wants their three best testimonials on their homepage, that's a painful fit.</p>
-</section>
-
-<section>
-  <h2>The SocialProof approach</h2>
-  <p>We built SocialProof for a specific problem: small business owners have happy customers but no easy way to get those words onto their website. We stripped everything else out.</p>
-  <ol>
-    <li>Create a collection link (30 seconds)</li>
-    <li>Send it to a happy customer via email or DM</li>
-    <li>They fill a short form — no account, no friction</li>
-    <li>You approve the testimonial in your dashboard</li>
-    <li>It shows up on your site via a one-line embed</li>
-  </ol>
-  <p>Free forever for 1 widget. $9/mo when you need more. No annual contract. No sales call.</p>
-</section>
-
-<div class="cta-section">
-  <h2>Start collecting testimonials in 5 minutes</h2>
-  <p>Free forever for 1 widget. No credit card. No contract.</p>
-  <a href="https://app.socialproof.dev" class="hero-cta">Get started free →</a>
-</div>
-
-<footer>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="footer-links">
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/docs">Docs</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="mailto:hello@socialproof.dev">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
-</footer>
-
-</body>
-</html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SocialProof vs BirdEye — Simpler testimonials for small business | SocialProof</title><meta name="description" content="BirdEye costs $299–399/mo and is built for enterprise. SocialProof is $9/mo and built for small businesses who just want testimonials on their site."><link rel="canonical" href="https://socialproof.dev/vs/birdeye"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="SocialProof vs BirdEye — Simpler testimonials for small business | SocialProof"><meta property="og:description" content="BirdEye costs $299–399/mo and is built for enterprise. SocialProof is $9/mo and built for small businesses who just want testimonials on their site."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/vs/birdeye"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="SocialProof vs BirdEye — Simpler testimonials for small business | SocialProof"><meta name="twitter:description" content="BirdEye costs $299–399/mo and is built for enterprise. SocialProof is $9/mo and built for small businesses who just want testimonials on their site."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script><link rel="stylesheet" href="/_astro/birdeye.BV35neFP.css"></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>   <div class="hero" data-astro-cid-c2xghdiy> <span class="vs-badge" data-astro-cid-c2xghdiy>Comparison</span> <h1 data-astro-cid-c2xghdiy>SocialProof vs <span data-astro-cid-c2xghdiy>BirdEye</span></h1> <p data-astro-cid-c2xghdiy>BirdEye is a full reputation management platform starting at $299/mo. SocialProof is a testimonial widget for small businesses starting free. Here's an honest comparison.</p> <div class="price-callout" data-astro-cid-c2xghdiy> <div class="item socialproof" data-astro-cid-c2xghdiy> <div class="price" data-astro-cid-c2xghdiy>Free</div> <div class="label" data-astro-cid-c2xghdiy>SocialProof starter</div> </div> <div class="item other" data-astro-cid-c2xghdiy> <div class="price" data-astro-cid-c2xghdiy>$299+</div> <div class="label" data-astro-cid-c2xghdiy>BirdEye per month</div> </div> </div> <a href="https://app.socialproof.dev" class="hero-cta" data-astro-cid-c2xghdiy>Try SocialProof free →</a> </div> <section data-astro-cid-c2xghdiy> <h2 data-astro-cid-c2xghdiy>Feature comparison</h2> <table class="compare-table" data-astro-cid-c2xghdiy> <thead data-astro-cid-c2xghdiy> <tr data-astro-cid-c2xghdiy> <th data-astro-cid-c2xghdiy>Feature</th> <th data-astro-cid-c2xghdiy>SocialProof</th> <th data-astro-cid-c2xghdiy>BirdEye</th> </tr> </thead> <tbody data-astro-cid-c2xghdiy> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Starting price</td> <td class="yes" data-astro-cid-c2xghdiy>Free forever (1 widget)</td> <td class="no" data-astro-cid-c2xghdiy>$299–399/mo (billed annually)</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Testimonial collection link</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Shareable link, no friction</td> <td class="partial" data-astro-cid-c2xghdiy>Review request by SMS/email</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Embed on your own site</td> <td class="yes" data-astro-cid-c2xghdiy>✓ One script tag</td> <td class="partial" data-astro-cid-c2xghdiy>Widget available but complex setup</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>You own the testimonial data</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Always</td> <td class="no" data-astro-cid-c2xghdiy>Data lives in BirdEye's system</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Google review management</td> <td class="no" data-astro-cid-c2xghdiy>Not included</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Core feature</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Multi-location support</td> <td class="no" data-astro-cid-c2xghdiy>Not designed for this</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Core feature</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Review monitoring across platforms</td> <td class="no" data-astro-cid-c2xghdiy>Not included</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Yelp, Google, Facebook, etc.</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Setup time</td> <td class="yes" data-astro-cid-c2xghdiy>Under 5 minutes</td> <td class="no" data-astro-cid-c2xghdiy>Multi-day onboarding, sales call required</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Credit card to start</td> <td class="yes" data-astro-cid-c2xghdiy>No</td> <td class="no" data-astro-cid-c2xghdiy>Yes, annual contract</td> </tr> <tr data-astro-cid-c2xghdiy> <td data-astro-cid-c2xghdiy>Testimonial approval workflow</td> <td class="yes" data-astro-cid-c2xghdiy>✓ Simple approve/reject</td> <td class="partial" data-astro-cid-c2xghdiy>Available but in enterprise context</td> </tr> </tbody> </table> </section> <section data-astro-cid-c2xghdiy> <h2 data-astro-cid-c2xghdiy>Who wins for your use case?</h2> <div class="winner-grid" data-astro-cid-c2xghdiy> <div class="winner-card socialproof" data-astro-cid-c2xghdiy> <h3 data-astro-cid-c2xghdiy>✅ SocialProof is better if you…</h3> <ul data-astro-cid-c2xghdiy> <li data-astro-cid-c2xghdiy>Run a single-location small business</li> <li data-astro-cid-c2xghdiy>Want testimonials embedded on your website</li> <li data-astro-cid-c2xghdiy>Don't want to manage reviews across platforms</li> <li data-astro-cid-c2xghdiy>Need something running in under 5 minutes</li> <li data-astro-cid-c2xghdiy>Can't justify $300+/mo in subscription costs</li> <li data-astro-cid-c2xghdiy>Want to own your testimonial data, not rent it</li> </ul> </div> <div class="winner-card other" data-astro-cid-c2xghdiy> <h3 data-astro-cid-c2xghdiy>⚡ BirdEye is better if you…</h3> <ul data-astro-cid-c2xghdiy> <li data-astro-cid-c2xghdiy>Have 5+ locations and need reputation monitoring</li> <li data-astro-cid-c2xghdiy>Run an enterprise that actively manages Google/Yelp reviews</li> <li data-astro-cid-c2xghdiy>Need SMS review solicitation at scale</li> <li data-astro-cid-c2xghdiy>Have a dedicated marketing team to manage the platform</li> <li data-astro-cid-c2xghdiy>Have budget for $3,600+ per year</li> </ul> </div> </div> <div class="verdict" data-astro-cid-c2xghdiy> <h3 data-astro-cid-c2xghdiy>The honest verdict</h3> <p data-astro-cid-c2xghdiy>BirdEye is genuinely good software — for the businesses it was designed for. Multi-location franchises, healthcare practices, and auto dealerships get real value from it. But if you're a solopreneur, a small e-commerce store, or a local service business with one location, BirdEye is overkill and overpriced by a factor of 30x.</p> <p data-astro-cid-c2xghdiy>SocialProof does one thing: helps you collect testimonials from happy customers and display them on your own website. No contracts. No sales calls. No reputation management complexity. Just social proof on your site, in 5 minutes.</p> </div> </section> <section data-astro-cid-c2xghdiy> <h2 data-astro-cid-c2xghdiy>What small businesses actually say about BirdEye</h2> <p data-astro-cid-c2xghdiy>BirdEye users on G2 and Capterra commonly report:</p> <ul data-astro-cid-c2xghdiy> <li data-astro-cid-c2xghdiy><strong data-astro-cid-c2xghdiy>Pricing shock</strong> — "We didn't realize the annual contract locked us in at $399/mo until we tried to cancel."</li> <li data-astro-cid-c2xghdiy><strong data-astro-cid-c2xghdiy>Feature overload</strong> — "We only needed testimonials on our site. We paid for a whole platform we didn't use."</li> <li data-astro-cid-c2xghdiy><strong data-astro-cid-c2xghdiy>Onboarding friction</strong> — "Required a sales call and a 2-week setup before we could do anything."</li> </ul> <p data-astro-cid-c2xghdiy>For a small business owner who just wants their three best testimonials on their homepage, that's a painful fit.</p> </section> <section data-astro-cid-c2xghdiy> <h2 data-astro-cid-c2xghdiy>The SocialProof approach</h2> <p data-astro-cid-c2xghdiy>We built SocialProof for a specific problem: small business owners have happy customers but no easy way to get those words onto their website. We stripped everything else out.</p> <ol data-astro-cid-c2xghdiy> <li data-astro-cid-c2xghdiy>Create a collection link (30 seconds)</li> <li data-astro-cid-c2xghdiy>Send it to a happy customer via email or DM</li> <li data-astro-cid-c2xghdiy>They fill a short form — no account, no friction</li> <li data-astro-cid-c2xghdiy>You approve the testimonial in your dashboard</li> <li data-astro-cid-c2xghdiy>It shows up on your site via a one-line embed</li> </ol> <p data-astro-cid-c2xghdiy>Free forever for 1 widget. $9/mo when you need more. No annual contract. No sales call.</p> </section> <div class="cta-section" data-astro-cid-c2xghdiy> <h2 data-astro-cid-c2xghdiy>Start collecting testimonials in 5 minutes</h2> <p data-astro-cid-c2xghdiy>Free forever for 1 widget. No credit card. No contract.</p> <a href="https://app.socialproof.dev" class="hero-cta" data-astro-cid-c2xghdiy>Get started free →</a> </div>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

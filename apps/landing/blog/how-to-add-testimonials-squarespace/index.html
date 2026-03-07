@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/how-to-add-testimonials-squarespace/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/how-to-add-testimonials-squarespace/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>You’ve worked hard to get good testimonials. A client says you changed their business. A happy customer raves about your product. And then you… paste it into a Squarespace text block, manually, and it sits there forever, static, looking like an afterthought.</p>
+<p>There’s a better way. This guide walks you through adding a live testimonial widget to any Squarespace page — one that you can update from a dashboard without touching your site, one that collects <em>new</em> testimonials automatically, and one that takes about two minutes to set up.</p>
+<h2 id="why-squarespaces-default-testimonials-fall-short">Why Squarespace’s Default Testimonials Fall Short</h2>
+<p>Squarespace has a built-in Testimonials block. It’s fine if you just need to paste in a quote or two. But it has real limitations:</p>
+<ul>
+<li><strong>No collection mechanism</strong> — you have to manually ask customers, receive their quote somewhere, then log into Squarespace to paste it in.</li>
+<li><strong>No automatic updates</strong> — if you get a great new review, you have to go back into the editor every time.</li>
+<li><strong>Limited styling</strong> — you get one layout. No carousels, no grid, no star ratings.</li>
+<li><strong>No social proof signals</strong> — no verified badges, no photos, no connection to real reviews.</li>
+</ul>
+<p>What you actually want is a widget that stays fresh automatically, matches your brand, and does the heavy lifting of getting new testimonials from happy customers.</p>
+<h2 id="what-youll-need">What You’ll Need</h2>
+<ul>
+<li>A Squarespace site (any plan — Business plan or higher required for Code Blocks)</li>
+<li>A free SocialProof account at <a href="https://app.socialproof.dev">app.socialproof.dev</a></li>
+<li>About 2 minutes</li>
+</ul>
+<p>💡 Squarespace plan note: Code blocks (where you paste embed code) require the Business plan or higher. If you’re on Personal, you’ll need to upgrade to use this method. The Personal plan doesn’t support custom code — it’s a Squarespace restriction, not ours.</p>
+<h2 id="step-by-step-add-a-testimonial-widget-to-squarespace">Step-by-Step: Add a Testimonial Widget to Squarespace</h2>
+<p>Step 1 of 5</p>
+<h3 id="create-your-free-socialproof-account">Create your free SocialProof account</h3>
+<p>Go to <a href="https://app.socialproof.dev">app.socialproof.dev</a> and sign up free. No credit card required. You get one widget free forever — enough to collect and display real testimonials from your customers.</p>
+<p>Once you’re in, you’ll land on the dashboard. Click <strong>“New Widget”</strong> to create your first testimonial widget.</p>
+<p>Step 2 of 5</p>
+<h3 id="set-up-your-widget">Set up your widget</h3>
+<p>Give your widget a name (e.g., “Homepage testimonials”) and choose a display style:</p>
+<ul>
+<li><strong>Carousel</strong> — rotating cards, great for homepage hero sections</li>
+<li><strong>Grid</strong> — shows multiple testimonials at once, good for a dedicated social proof section</li>
+<li><strong>Single card</strong> — one rotating testimonial, subtle and unobtrusive</li>
+</ul>
+<p>You can also customize colors to match your Squarespace theme. The widget inherits your font automatically since it renders in-page.</p>
+<p>Step 3 of 5</p>
+<h3 id="add-your-testimonials">Add your testimonials</h3>
+<p>You have two ways to populate your widget with testimonials:</p>
+<p><strong>Option A: Paste existing quotes.</strong> If you have testimonials from emails, texts, or DMs, click “Add testimonial” and paste them in manually. You can add a name, photo, title, and star rating for each.</p>
+<p><strong>Option B: Send a collection link.</strong> This is the better long-term move. SocialProof generates a shareable link you send to customers — they click it, fill out a short form (takes 60 seconds), and their testimonial appears in your dashboard ready to approve and display. No chasing, no copy-pasting.</p>
+<p>For now, add at least one or two to get started. You can collect more later.</p>
+<p>Step 4 of 5</p>
+<h3 id="copy-your-embed-code">Copy your embed code</h3>
+<p>From your widget dashboard, click <strong>“Get embed code.”</strong> You’ll see a small snippet that looks like this:</p>
+<p>Your embed code</p>
+ <script src="https://widget.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"></script>
+<p>Copy this. The <code>data-widget-id</code> is unique to your widget — it tells the script which testimonials to load.</p>
+<p>Step 5 of 5</p>
+<h3 id="paste-it-into-your-squarespace-page">Paste it into your Squarespace page</h3>
+<p>Now open your Squarespace editor and navigate to the page where you want testimonials to appear.</p>
+<ol>
+<li>Click the <strong>”+”</strong> to add a new section or block where you want the testimonials</li>
+<li>Search for <strong>“Code”</strong> and select the <strong>Code block</strong></li>
+<li>In the editor that opens, paste your embed code</li>
+<li>Make sure the mode is set to <strong>HTML</strong> (not CSS or JavaScript)</li>
+<li>Click <strong>Apply</strong></li>
+</ol>
+<p>You’ll see a placeholder in the editor. Click <strong>Preview</strong> or <strong>Save</strong> and view the live page — your testimonial widget will render fully there.</p>
+<p>Note: Squarespace’s editor sometimes shows embed code as a gray placeholder box. This is normal — the widget renders correctly on the live published page. Always preview in a new tab to see the real result.</p>
+<p>That’s it. Your testimonial widget is live on your Squarespace site. When you add new testimonials to your SocialProof dashboard (or approve incoming ones from customers), they automatically appear in the widget. No more logging into Squarespace to update copy.</p>
+<hr>
+<h2 id="where-to-place-your-testimonial-widget-on-squarespace">Where to Place Your Testimonial Widget on Squarespace</h2>
+<p>Placement matters as much as the testimonials themselves. Here’s where testimonials convert best:</p>
+<h3 id="-homepage--just-below-your-hero">🏠 Homepage — just below your hero</h3>
+<p>The first thing visitors see after your headline. A rotating carousel here builds instant credibility before they’ve read a single word of your pitch. This is the highest-converting placement for most service businesses and coaches.</p>
+<h3 id="-services-or-products-page">📄 Services or products page</h3>
+<p>Place testimonials <em>adjacent to</em> your offer description or pricing. The visitor is evaluating whether to hire you or buy — a peer’s words at that moment reduce friction more than any feature list.</p>
+<h3 id="-contact-or-booking-page">📬 Contact or booking page</h3>
+<p>People hesitate before hitting “send.” A testimonial right before the contact form (“Here’s what working with me looks like…”) is remarkably effective at converting hesitant inquiries.</p>
+<h3 id="️-checkout-page-if-using-squarespace-commerce">🛍️ Checkout page (if using Squarespace Commerce)</h3>
+<p>If you sell products, a single rotating testimonial in the sidebar or above the cart summary can reduce abandonment. “I ordered this for my wedding — the quality blew me away” is more persuasive than a policy page.</p>
+<p>Power move: Add a different widget to each key page, with testimonials specific to that page’s context. SocialProof’s Free plan gives you 1 active widget — upgrade to Pro ($9/mo) for unlimited widgets across your whole site.</p>
+<hr>
+<h2 id="socialproof-vs-squarespaces-built-in-testimonials-block">SocialProof vs. Squarespace’s Built-In Testimonials Block</h2>
+<p>Feature
+Squarespace built-in
+SocialProof widget</p>
+<p>Paste in quotes manually
+✓
+✓</p>
+<p>Collect new testimonials automatically
+✗
+✓</p>
+<p>Approve before publishing
+✗
+✓</p>
+<p>Star ratings display
+✗
+✓</p>
+<p>Customer photo + name + title
+Name only
+✓</p>
+<p>Update without editing site
+✗
+✓</p>
+<p>Works on any Squarespace page
+✓
+✓ (Business plan+)</p>
+<p>Google rich results (structured data)
+✗
+Pro plan</p>
+<p>Cost
+Included
+Free / $9 mo (Pro)</p>
+<hr>
+<h2 id="how-to-get-testimonials-from-your-customers-without-awkward-asks">How to Get Testimonials From Your Customers (Without Awkward Asks)</h2>
+<p>Having the widget is step one. Having great testimonials to fill it is step two. Here’s what works:</p>
+<h3 id="1-send-the-collection-link-right-after-a-win">1. Send the collection link right after a win</h3>
+<p>Timing is everything. The best moment to ask is right after you deliver something: a finished project, a shipped product, a completed coaching call. Your customer is at peak satisfaction. Send them your SocialProof collection link with a short message:</p>
+<p>Hi [Name], so glad you loved [result]! If you have 60 seconds, I’d love a quick testimonial — it really helps other [clients/customers] find me. [Your SocialProof link]</p>
+<h3 id="2-add-it-to-your-invoice-or-receipt">2. Add it to your invoice or receipt</h3>
+<p>If you use invoicing software (HoneyBook, Dubsado, Wave), add your SocialProof collection link to the footer of your invoices. “Loved working together? Share a testimonial →” Right when they’re paying — they’re happy, they’re grateful, and they’ll click.</p>
+<h3 id="3-put-it-in-your-email-signature">3. Put it in your email signature</h3>
+<p>Every email you send is a touchpoint. Add one line to your signature: “Enjoyed working together? <a href="#">Share a quick testimonial</a> — it takes 60 seconds.” Passive collection that works while you sleep.</p>
+<h3 id="4-follow-up-with-existing-clients">4. Follow up with existing clients</h3>
+<p>Go through your last 12 months of clients. Send a simple email: “We worked together on [X] — I’d be so grateful if you’d share a quick testimonial for my site. Here’s a link that makes it easy: [SocialProof link].” Most people who had a good experience will say yes. You just have to ask.</p>
+<hr>
+<h2 id="troubleshooting-common-squarespace-embed-issues">Troubleshooting: Common Squarespace Embed Issues</h2>
+<h3 id="the-widget-shows-as-a-gray-box-in-the-editor">The widget shows as a gray box in the editor</h3>
+<p>Normal. Squarespace shows all embed/code blocks as placeholders in the editor. View the published page to see the real widget. Click <strong>Preview</strong> → <strong>View in new tab</strong>.</p>
+<h3 id="this-feature-requires-a-business-plan-or-higher-error">”This feature requires a Business plan or higher” error</h3>
+<p>Code blocks require Squarespace Business plan ($23/mo) or higher. Personal plans don’t support custom code. You’ll need to upgrade your Squarespace plan to use embed widgets.</p>
+<h3 id="the-widget-doesnt-appear-on-the-live-page">The widget doesn’t appear on the live page</h3>
+<p>Check these in order: (1) Did you save and publish the page? (2) Is your widget ID correct in the embed code? (3) Is your SocialProof widget set to “Active”? Go to your SocialProof dashboard → widget settings → toggle on. (4) Try a hard refresh (Cmd+Shift+R / Ctrl+Shift+R).</p>
+<h3 id="the-widget-styling-looks-off">The widget styling looks off</h3>
+<p>If the widget colors clash with your site, go to your SocialProof dashboard → widget → Customize. You can set custom colors, font sizes, and padding. The widget uses your page’s base font automatically.</p>
+<h3 id="i-want-testimonials-on-multiple-pages">I want testimonials on multiple pages</h3>
+<p>Create a separate widget for each page (so you can show relevant testimonials per context). The Free plan gives you 1 active widget. <a href="/#pricing">Upgrade to Pro</a> for unlimited widgets — it’s $9/mo.</p>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<p>Do I need to know how to code?
+No. You’re copying one line of HTML and pasting it into a Code block. If you can paste text, you can do this. The setup takes under 2 minutes.</p>
+<p>Will it slow down my Squarespace site?
+No. The widget script loads asynchronously — it doesn’t block your page from loading. The script itself is under 10KB. You won’t notice any performance impact.</p>
+<p>Can I use this on Squarespace Personal plan?
+Unfortunately, no. Squarespace restricts Code blocks to Business plan and above. This is a Squarespace limitation — if you’re on Personal, you’d need to upgrade your Squarespace plan to use any embed widget (not just SocialProof).</p>
+<p>What happens when I get more than 25 testimonials?
+The Free plan stores up to 25 testimonials. Once you hit that, you can either upgrade to Pro (unlimited testimonials + unlimited widgets + analytics for $9/mo) or choose which 25 testimonials to keep active.</p>
+<p>Can I moderate testimonials before they go live?
+Yes. Every submitted testimonial sits in your SocialProof inbox as “Pending” until you approve it. Nothing goes live on your site without your sign-off. You’re always in control of what appears.</p>
+<p>Does the widget work with Squarespace’s mobile templates?
+Yes. The widget is fully responsive — it adapts to any screen size. On mobile it stacks into a single-column layout automatically.</p>
+<p>Is SocialProof only for Squarespace?
+No — it works on any website. The embed code works on Squarespace, Shopify, Webflow, WordPress, Wix, and plain HTML sites. One script tag, works everywhere.</p>
+<hr>
+<h3 id="ready-to-add-real-testimonials-to-your-squarespace-site">Ready to add real testimonials to your Squarespace site?</h3>
+<p>Free forever for 1 widget. No credit card required. Setup takes 2 minutes.</p>
+<p>Start free →</p>
+<p>Or <a href="/blog/how-to-ask-for-a-testimonial.html">read our guide to asking for testimonials →</a></p>
+<h2 id="related-guides">Related Guides</h2>
+<p>Tutorial
+How to Add Testimonials to Your Shopify Store</p>
+<p>Strategy
+How to Ask for a Testimonial: 7 Scripts That Work</p>
+<p>Strategy
+How Testimonials Increase Conversion Rate (With Data)</p>
+<p>Comparison
+SocialProof vs. Senja: Which Testimonial Tool Is Right for You?</p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

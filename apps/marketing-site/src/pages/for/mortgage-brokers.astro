@@ -1,9 +1,9 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import Base from '../../layouts/Base.astro';
 const title = "SocialProof for Mortgage Brokers — Turn Closed Loans Into Future Clients";
 const description = "Homebuyers research mortgage brokers extensively before calling. Brokers with visible client testimonials get more qualified leads and close more loans. SocialProof makes it simple.";
 ---
-<Layout title={title} description={description}>
+<Base title={title} description={description}>
   <main class="for-page">
     <section class="hero">
       <div class="container">
@@ -85,7 +85,7 @@ const description = "Homebuyers research mortgage brokers extensively before cal
       </div>
     </section>
   </main>
-</Layout>
+</Base>
 
 <style>
   .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }

@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/embed-google-reviews-website/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/embed-google-reviews-website/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>You’ve got great Google reviews. Now you want them on your website. Makes sense — visitors on your site are already paying attention. A five-star rating right there in the page header could be what tips a visitor into becoming a customer.</p>
+<p>Here are four ways to get there, from simplest to most technical.</p>
+<h2 id="option-1-googles-own-place-badge">Option 1: Google’s own Place badge</h2>
+<p>Google provides a small widget you can embed on any site. It shows your star rating and a link to your Google profile.</p>
+<p><strong>How to get it:</strong></p>
+<ol>
+<li>Go to <a href="https://www.google.com/business/">Google My Business</a></li>
+<li>Find your listing and click “Share”</li>
+<li>Look for the embed option (HTML snippet)</li>
+</ol>
+<p><strong>Limitations:</strong> It’s just a badge. It doesn’t show the actual text of your reviews. The styling is minimal. You can’t control which reviews show.</p>
+<p>This is fine as a trust signal, but it’s not the same as showing the actual reviews.</p>
+<hr>
+<h2 id="option-2-a-google-reviews-widget-third-party-tools">Option 2: A Google Reviews widget (third-party tools)</h2>
+<p>Several tools connect to the Google Places API and embed reviews on your site. Common ones include:</p>
+<ul>
+<li><strong>EmbedSocial</strong> — pulls from Google, Facebook, Yelp. Plans from $19–79/mo.</li>
+<li><strong>Elfsight</strong> — Google Reviews widget. Starts around $5–9/mo.</li>
+<li><strong>Tagembed</strong> — aggregates multiple review sources. Plans from free to $29/mo.</li>
+</ul>
+<p><strong>How they work:</strong> You connect your Google Business Profile, the tool pulls your reviews via the API, and you paste an embed snippet into your site.</p>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Monthly fees add up ($60–300/year)</li>
+<li>Google rate-limits API requests — if you have lots of visitors, your widget may not load</li>
+<li>You can’t edit or filter <em>which</em> reviews appear (you get what Google shows)</li>
+<li>Google can change its API at any time, breaking the widget</li>
+</ul>
+<hr>
+<h2 id="option-3-build-it-yourself-with-the-google-places-api">Option 3: Build it yourself with the Google Places API</h2>
+<p>If you have a developer, you can pull reviews directly using the Google Places API.</p>
+<p><strong>What you need:</strong></p>
+<ol>
+<li>A Google Cloud project with the Places API enabled</li>
+<li>An API key</li>
+<li>Code to fetch and cache your reviews (you have to cache — the API has per-request costs)</li>
+<li>HTML/CSS to display them</li>
+</ol>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Requires developer time</li>
+<li>API has per-request costs</li>
+<li>Google’s API returns a maximum of 5 reviews (yes, just 5)</li>
+</ul>
+<p>That last point surprises a lot of people: the Google Places API only returns your 5 “most relevant” reviews. You don’t get to pick which ones. So if you want to display your best reviews, you can’t guarantee which ones will show up.</p>
+<hr>
+<h2 id="option-4-collect-your-own-testimonials-full-control-no-google-dependency">Option 4: Collect your own testimonials (full control, no Google dependency)</h2>
+<p>Here’s the alternative worth considering: instead of relying on Google’s API and their 5-review limit, <em>collect your own testimonials directly</em>.</p>
+<p>This gives you:</p>
+<ul>
+<li>Complete control over which testimonials appear</li>
+<li>No API dependency, no rate limits, no monthly API costs</li>
+<li>The ability to feature the reviews that actually convert</li>
+<li>Testimonials that work even if someone hasn’t left a Google review yet</li>
+</ul>
+<p><strong>How it works with SocialProof:</strong></p>
+<ol>
+<li>Send a collection link to your customers (they don’t need an account)</li>
+<li>They submit their testimonial (text, name, optional photo/rating)</li>
+<li>You approve it in your dashboard</li>
+<li>It embeds on your site with one script tag</li>
+</ol>
+<p>Your existing Google reviews can still live on your Google profile and drive search visibility. The testimonials on your website serve a different purpose: they convert visitors who are already on your site.</p>
+<h3 id="bonus-ask-for-both">Bonus: ask for both</h3>
+<p>When you send a testimonial request, you can include a second ask: “If you have a moment, a Google review would also help us a lot — [your Google review link].” You get the on-site widget AND the Google review.</p>
+<hr>
+<h2 id="which-approach-is-right-for-you">Which approach is right for you?</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Goal</th><th>Best approach</th></tr></thead><tbody><tr><td>Show your Google star rating</td><td>Google badge (free)</td></tr><tr><td>Show actual Google review text</td><td>Third-party widget ($5–29/mo)</td></tr><tr><td>Full control over which testimonials appear</td><td>SocialProof (free plan available)</td></tr><tr><td>Convert website visitors</td><td>SocialProof — you pick the best ones</td></tr></tbody></table>
+<hr>
+<h2 id="embedding-your-testimonials-with-socialproof">Embedding your testimonials with SocialProof</h2>
+<p>Once you’ve collected a few testimonials, embedding them is one line of code:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://socialproof.dev/widget.js"</span><span style="color:#B392F0"> data-widget-id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"YOUR_ID"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p>Put it anywhere on your page — homepage hero, pricing section, checkout page. The widget is responsive, loads fast (async), and doesn’t require your visitors to send a request to Google’s servers.</p>
+<p><a href="https://socialproof.dev">Start collecting testimonials free →</a></p>
+<p>No credit card. Free forever for 1 widget.</p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

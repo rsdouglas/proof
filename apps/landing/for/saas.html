@@ -1,241 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testimonial Widget for SaaS — SocialProof</title>
-  <meta name="description" content="Turn your happiest users into your best sales asset. SocialProof collects, moderates, and embeds real customer testimonials on your SaaS landing page — no dev work required.">
-  <link rel="canonical" href="https://socialproof.dev/for/saas">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
-    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
-    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .stat-strip { background: #f5f3ff; padding: 32px 24px; }
-    .stat-inner { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; max-width: 700px; margin: 0 auto; text-align: center; }
-    .stat { }
-    .stat-num { font-size: 2rem; font-weight: 800; color: #6c47ff; }
-    .stat-label { font-size: 0.9rem; color: #666; margin-top: 4px; }
-    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
-    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
-    .why-section > p { text-align: center; color: #555; font-size: 1.05rem; max-width: 600px; margin: 0 auto 40px; }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
-    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
-    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .usecase-strip { max-width: 760px; margin: 0 auto; padding: 0 24px 48px; text-align: center; }
-    .usecase-strip p { font-size: 0.95rem; color: #888; margin-bottom: 14px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-    .tag { background: #f0ecff; color: #6c47ff; border-radius: 20px; padding: 6px 16px; font-size: 0.875rem; font-weight: 500; }
-    .steps-section { background: #f5f3ff; padding: 60px 24px; }
-    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
-    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
-    .step { display: flex; gap: 18px; align-items: flex-start; }
-    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
-    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .vs-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
-    .vs-section h2 { font-size: 1.8rem; font-weight: 700; color: #111; margin-bottom: 24px; text-align: center; }
-    .vs-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    .vs-table th { text-align: left; padding: 12px 16px; background: #f9f9f9; color: #555; font-weight: 600; }
-    .vs-table td { padding: 12px 16px; border-bottom: 1px solid #eee; color: #333; }
-    .vs-table td.vouch { color: #16a34a; font-weight: 600; }
-    .vs-table td.them { color: #dc2626; }
-    .quote-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
-    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin: 0 auto 16px; max-width: 600px; }
-    .quote-section cite { font-size: 0.9rem; color: #888; }
-    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
-    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
-    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid #eee; }
-    .nav-logo { font-size: 1.25rem; font-weight: 800; color: #111; text-decoration: none; }
-    .nav-cta { font-size: 0.9rem; font-weight: 600; color: #6c47ff; text-decoration: none; }
-    footer { padding: 32px 24px; text-align: center; font-size: 0.875rem; color: #aaa; border-top: 1px solid #eee; }
-    footer a { color: #888; text-decoration: none; margin: 0 12px; }
-  </style>
-</head>
-<body>
-  <nav>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="nav-links">
-    <a href="/#demo">Demo</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="https://app.socialproof.dev">Log in</a>
-    <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a>
-  </div>
-</nav>
-
-  <section class="hero">
-    <h1>Social proof that actually converts SaaS visitors into trials</h1>
-    <p>Your happiest users are your strongest salespeople. SocialProof makes it easy to collect their words and display them where it counts — on your pricing page, homepage, and feature pages.</p>
-    <div class="cta-group">
-      <a class="btn-primary" href="https://app.socialproof.dev/register">Start free — no credit card</a>
-      <a class="btn-secondary" href="/#demo">See it live</a>
-    </div>
-  </section>
-
-  <div class="stat-strip">
-    <div class="stat-inner">
-      <div class="stat">
-        <div class="stat-num">92%</div>
-        <div class="stat-label">of SaaS buyers read reviews before trialing</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">34%</div>
-        <div class="stat-label">higher trial conversion with testimonials near CTA</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5 min</div>
-        <div class="stat-label">to add your first testimonial widget</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="usecase-strip">
-    <p style="margin-top: 40px;">Works for every kind of SaaS</p>
-    <div class="tags">
-      <span class="tag">B2B SaaS</span>
-      <span class="tag">Developer tools</span>
-      <span class="tag">Productivity apps</span>
-      <span class="tag">Marketing software</span>
-      <span class="tag">Analytics platforms</span>
-      <span class="tag">HR &amp; hiring tools</span>
-      <span class="tag">Fintech</span>
-      <span class="tag">No-code builders</span>
-      <span class="tag">AI tools</span>
-    </div>
-  </div>
-
-  <section class="why-section">
-    <h2>Why SaaS teams use SocialProof</h2>
-    <p>G2, Capterra, and Trustpilot collect reviews on <em>their</em> platform. SocialProof puts testimonials on <em>yours</em> — exactly where prospects are deciding.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>🎯 Place them where decisions happen</h3>
-        <p>Pricing page, feature pages, trial CTA — drop the widget anywhere with one script tag. No engineering ticket needed.</p>
-      </div>
-      <div class="why-card">
-        <h3>🔗 Your own collection link</h3>
-        <p>Share a link after onboarding or at the 30-day mark. Users click, type their testimonial, done. No survey fatigue, no back-and-forth.</p>
-      </div>
-      <div class="why-card">
-        <h3>✅ Moderate before it goes live</h3>
-        <p>Every testimonial is pending until you approve. You control what shows — keep it accurate and on-brand.</p>
-      </div>
-      <div class="why-card">
-        <h3>🎨 Matches your design system</h3>
-        <p>The widget inherits your brand colors. No "Powered by [Third Party]" badges polluting your carefully designed UI.</p>
-      </div>
-      <div class="why-card">
-        <h3>📊 See what's working (Pro)</h3>
-        <p>Analytics show which testimonials get seen and on which pages — so you can move the strongest ones to the highest-converting spots.</p>
-      </div>
-      <div class="why-card">
-        <h3>⭐ Google rich results (Pro)</h3>
-        <p>Structured data markup makes your testimonials eligible for star ratings in Google search results — organic trust at scale.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="steps-section">
-    <div class="steps-inner">
-      <h2>Live on your pricing page in 3 steps</h2>
-      <div class="steps-list">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Sign up and copy your collection link</h3>
-            <p>Your link is ready the moment you register. No setup required.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>Send it to your best users</h3>
-            <p>Email it after onboarding, add it to your 30-day check-in, or include it in your NPS survey follow-up.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Embed the widget — one script tag</h3>
-            <p>Paste one line of HTML. Works on any stack: React, Next.js, Webflow, HTML, Framer. Done.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="vs-section">
-    <h2>SocialProof vs. review platforms</h2>
-    <table class="vs-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>SocialProof</th>
-          <th>G2 / Capterra</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Testimonials on <em>your</em> site</td>
-          <td class="vouch">✓ Yes</td>
-          <td class="them">✗ Hosted on their site</td>
-        </tr>
-        <tr>
-          <td>Custom design / brand match</td>
-          <td class="vouch">✓ Fully branded</td>
-          <td class="them">✗ Their badge only</td>
-        </tr>
-        <tr>
-          <td>Moderation control</td>
-          <td class="vouch">✓ You approve each one</td>
-          <td class="them">✗ Platform decides</td>
-        </tr>
-        <tr>
-          <td>Placement on pricing / CTA</td>
-          <td class="vouch">✓ Anywhere you want</td>
-          <td class="them">✗ Must link off-site</td>
-        </tr>
-        <tr>
-          <td>Pricing</td>
-          <td class="vouch">Free forever / $9 pro</td>
-          <td class="them">$300–$1,000+/mo (vendor plans)</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="quote-section">
-    <blockquote>"We put a SocialProof widget next to our pricing CTA and saw an immediate lift. Took 10 minutes to set up — I expected it to take a sprint."</blockquote>
-    <cite>— Founder, B2B SaaS startup</cite>
-  </section>
-
-  <section class="cta-section">
-    <h2>Start collecting testimonials today</h2>
-    <p>Free forever for 1 active widget. No credit card required.</p>
-    <a class="btn-white" href="https://app.socialproof.dev/register">Create your free account →</a>
-  </section>
-
-  <footer>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="footer-links">
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/docs">Docs</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="mailto:hello@socialproof.dev">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
-</footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Testimonial Widget for SaaS — SocialProof</title><meta name="description" content="Turn your happiest users into your best sales asset. SocialProof collects, moderates, and embeds real customer testimonials on your SaaS landing page — no dev work required."><link rel="canonical" href="https://socialproof.dev/for/saas"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="Testimonial Widget for SaaS — SocialProof"><meta property="og:description" content="Turn your happiest users into your best sales asset. SocialProof collects, moderates, and embeds real customer testimonials on your SaaS landing page — no dev work required."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/for/saas"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Testimonial Widget for SaaS — SocialProof"><meta name="twitter:description" content="Turn your happiest users into your best sales asset. SocialProof collects, moderates, and embeds real customer testimonials on your SaaS landing page — no dev work required."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script><link rel="stylesheet" href="/_astro/saas.Dtr4To6c.css"></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>   <section class="hero" data-astro-cid-hrsdqffm> <h1 data-astro-cid-hrsdqffm>Social proof that actually converts SaaS visitors into trials</h1> <p data-astro-cid-hrsdqffm>Your happiest users are your strongest salespeople. SocialProof makes it easy to collect their words and display them where it counts — on your pricing page, homepage, and feature pages.</p> <div class="cta-group" data-astro-cid-hrsdqffm> <a class="btn-primary" href="https://app.socialproof.dev/register" data-astro-cid-hrsdqffm>Start free — no credit card</a> <a class="btn-secondary" href="/#demo" data-astro-cid-hrsdqffm>See it live</a> </div> </section> <div class="stat-strip" data-astro-cid-hrsdqffm> <div class="stat-inner" data-astro-cid-hrsdqffm> <div class="stat" data-astro-cid-hrsdqffm> <div class="stat-num" data-astro-cid-hrsdqffm>92%</div> <div class="stat-label" data-astro-cid-hrsdqffm>of SaaS buyers read reviews before trialing</div> </div> <div class="stat" data-astro-cid-hrsdqffm> <div class="stat-num" data-astro-cid-hrsdqffm>34%</div> <div class="stat-label" data-astro-cid-hrsdqffm>higher trial conversion with testimonials near CTA</div> </div> <div class="stat" data-astro-cid-hrsdqffm> <div class="stat-num" data-astro-cid-hrsdqffm>5 min</div> <div class="stat-label" data-astro-cid-hrsdqffm>to add your first testimonial widget</div> </div> </div> </div> <div class="usecase-strip" data-astro-cid-hrsdqffm> <p style="margin-top: 40px;" data-astro-cid-hrsdqffm>Works for every kind of SaaS</p> <div class="tags" data-astro-cid-hrsdqffm> <span class="tag" data-astro-cid-hrsdqffm>B2B SaaS</span> <span class="tag" data-astro-cid-hrsdqffm>Developer tools</span> <span class="tag" data-astro-cid-hrsdqffm>Productivity apps</span> <span class="tag" data-astro-cid-hrsdqffm>Marketing software</span> <span class="tag" data-astro-cid-hrsdqffm>Analytics platforms</span> <span class="tag" data-astro-cid-hrsdqffm>HR &amp; hiring tools</span> <span class="tag" data-astro-cid-hrsdqffm>Fintech</span> <span class="tag" data-astro-cid-hrsdqffm>No-code builders</span> <span class="tag" data-astro-cid-hrsdqffm>AI tools</span> </div> </div> <section class="why-section" data-astro-cid-hrsdqffm> <h2 data-astro-cid-hrsdqffm>Why SaaS teams use SocialProof</h2> <p data-astro-cid-hrsdqffm>G2, Capterra, and Trustpilot collect reviews on <em data-astro-cid-hrsdqffm>their</em> platform. SocialProof puts testimonials on <em data-astro-cid-hrsdqffm>yours</em> — exactly where prospects are deciding.</p> <div class="why-grid" data-astro-cid-hrsdqffm> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>🎯 Place them where decisions happen</h3> <p data-astro-cid-hrsdqffm>Pricing page, feature pages, trial CTA — drop the widget anywhere with one script tag. No engineering ticket needed.</p> </div> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>🔗 Your own collection link</h3> <p data-astro-cid-hrsdqffm>Share a link after onboarding or at the 30-day mark. Users click, type their testimonial, done. No survey fatigue, no back-and-forth.</p> </div> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>✅ Moderate before it goes live</h3> <p data-astro-cid-hrsdqffm>Every testimonial is pending until you approve. You control what shows — keep it accurate and on-brand.</p> </div> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>🎨 Matches your design system</h3> <p data-astro-cid-hrsdqffm>The widget inherits your brand colors. No "Powered by [Third Party]" badges polluting your carefully designed UI.</p> </div> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>📊 See what's working (Pro)</h3> <p data-astro-cid-hrsdqffm>Analytics show which testimonials get seen and on which pages — so you can move the strongest ones to the highest-converting spots.</p> </div> <div class="why-card" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>⭐ Google rich results (Pro)</h3> <p data-astro-cid-hrsdqffm>Structured data markup makes your testimonials eligible for star ratings in Google search results — organic trust at scale.</p> </div> </div> </section> <section class="steps-section" data-astro-cid-hrsdqffm> <div class="steps-inner" data-astro-cid-hrsdqffm> <h2 data-astro-cid-hrsdqffm>Live on your pricing page in 3 steps</h2> <div class="steps-list" data-astro-cid-hrsdqffm> <div class="step" data-astro-cid-hrsdqffm> <div class="step-num" data-astro-cid-hrsdqffm>1</div> <div class="step-content" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>Sign up and copy your collection link</h3> <p data-astro-cid-hrsdqffm>Your link is ready the moment you register. No setup required.</p> </div> </div> <div class="step" data-astro-cid-hrsdqffm> <div class="step-num" data-astro-cid-hrsdqffm>2</div> <div class="step-content" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>Send it to your best users</h3> <p data-astro-cid-hrsdqffm>Email it after onboarding, add it to your 30-day check-in, or include it in your NPS survey follow-up.</p> </div> </div> <div class="step" data-astro-cid-hrsdqffm> <div class="step-num" data-astro-cid-hrsdqffm>3</div> <div class="step-content" data-astro-cid-hrsdqffm> <h3 data-astro-cid-hrsdqffm>Embed the widget — one script tag</h3> <p data-astro-cid-hrsdqffm>Paste one line of HTML. Works on any stack: React, Next.js, Webflow, HTML, Framer. Done.</p> </div> </div> </div> </div> </section> <section class="vs-section" data-astro-cid-hrsdqffm> <h2 data-astro-cid-hrsdqffm>SocialProof vs. review platforms</h2> <table class="vs-table" data-astro-cid-hrsdqffm> <thead data-astro-cid-hrsdqffm> <tr data-astro-cid-hrsdqffm> <th data-astro-cid-hrsdqffm>Feature</th> <th data-astro-cid-hrsdqffm>SocialProof</th> <th data-astro-cid-hrsdqffm>G2 / Capterra</th> </tr> </thead> <tbody data-astro-cid-hrsdqffm> <tr data-astro-cid-hrsdqffm> <td data-astro-cid-hrsdqffm>Testimonials on <em data-astro-cid-hrsdqffm>your</em> site</td> <td class="vouch" data-astro-cid-hrsdqffm>✓ Yes</td> <td class="them" data-astro-cid-hrsdqffm>✗ Hosted on their site</td> </tr> <tr data-astro-cid-hrsdqffm> <td data-astro-cid-hrsdqffm>Custom design / brand match</td> <td class="vouch" data-astro-cid-hrsdqffm>✓ Fully branded</td> <td class="them" data-astro-cid-hrsdqffm>✗ Their badge only</td> </tr> <tr data-astro-cid-hrsdqffm> <td data-astro-cid-hrsdqffm>Moderation control</td> <td class="vouch" data-astro-cid-hrsdqffm>✓ You approve each one</td> <td class="them" data-astro-cid-hrsdqffm>✗ Platform decides</td> </tr> <tr data-astro-cid-hrsdqffm> <td data-astro-cid-hrsdqffm>Placement on pricing / CTA</td> <td class="vouch" data-astro-cid-hrsdqffm>✓ Anywhere you want</td> <td class="them" data-astro-cid-hrsdqffm>✗ Must link off-site</td> </tr> <tr data-astro-cid-hrsdqffm> <td data-astro-cid-hrsdqffm>Pricing</td> <td class="vouch" data-astro-cid-hrsdqffm>Free forever / $9 pro</td> <td class="them" data-astro-cid-hrsdqffm>$300–$1,000+/mo (vendor plans)</td> </tr> </tbody> </table> </section> <section class="quote-section" data-astro-cid-hrsdqffm> <blockquote data-astro-cid-hrsdqffm>"We put a SocialProof widget next to our pricing CTA and saw an immediate lift. Took 10 minutes to set up — I expected it to take a sprint."</blockquote> <cite data-astro-cid-hrsdqffm>— Founder, B2B SaaS startup</cite> </section> <section class="cta-section" data-astro-cid-hrsdqffm> <h2 data-astro-cid-hrsdqffm>Start collecting testimonials today</h2> <p data-astro-cid-hrsdqffm>Free forever for 1 active widget. No credit card required.</p> <a class="btn-white" href="https://app.socialproof.dev/register" data-astro-cid-hrsdqffm>Create your free account →</a> </section>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

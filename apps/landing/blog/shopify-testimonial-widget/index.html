@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/shopify-testimonial-widget/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/shopify-testimonial-widget/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>Shopify makes it easy to sell. What it doesn’t make easy is showing customers why they should trust you before they buy.</p>
+<p>Built-in product reviews exist—but they’re tied to products. If you want testimonials on your homepage, an about page, or a landing page for a specific campaign, you’re on your own. Most store owners end up cobbling together screenshots or manually hardcoding quotes into their theme, which means they go stale and never get updated.</p>
+<p>There’s a better way. This guide walks through how to add a live testimonial widget to any page in your Shopify store—no coding required, no Shopify app install needed.</p>
+<h2 id="what-youll-need">What You’ll Need</h2>
+<ul>
+<li>A <a href="/register">SocialProof account</a> (free — takes 30 seconds to sign up)</li>
+<li>Access to your Shopify theme editor</li>
+<li>About 5 minutes</li>
+</ul>
+<p>That’s it. No developer. No Liquid template editing. No theme modifications that’ll break when Shopify updates.</p>
+<h2 id="step-1-sign-up-for-socialproof-and-collect-your-first-testimonials">Step 1: Sign Up for SocialProof and Collect Your First Testimonials</h2>
+<p>When you create a SocialProof account, you immediately get a personal collection link—a URL you can share with any customer. When they visit it, they see a simple form: their name, photo (optional), and their testimonial.</p>
+<p>You don’t need to build the form. You don’t need to host anything. You just share the link.</p>
+<p><strong>To collect your first testimonials:</strong></p>
+<ol>
+<li>Go to <a href="/register">socialproof.dev/register</a> and create your free account</li>
+<li>Find your collection link on the dashboard — it’s there immediately, no setup required</li>
+<li>Copy the link and send it to 5–10 recent customers via email, WhatsApp, or DM</li>
+<li>Wait for responses (most come within 24–48 hours if you ask specifically)</li>
+</ol>
+<p>Once you have a few testimonials sitting in your SocialProof dashboard, you’re ready to display them.</p>
+<h2 id="step-2-create-your-widget">Step 2: Create Your Widget</h2>
+<p>In your SocialProof dashboard, go to <strong>Widgets</strong> and create a new one. You can:</p>
+<ul>
+<li>Choose which testimonials to show (curate your best ones)</li>
+<li>Pick a display style (grid, carousel, or list)</li>
+<li>Set colors to match your store’s branding (Pro plan)</li>
+<li>Decide whether to show photos, star ratings, and customer details</li>
+</ul>
+<p>When the widget is configured how you want it, SocialProof gives you a small snippet of HTML — two lines. That’s what you’ll add to Shopify.</p>
+<h2 id="step-3-add-the-widget-to-your-shopify-store">Step 3: Add the Widget to Your Shopify Store</h2>
+<p>Here’s where most guides get complicated. They don’t have to be.</p>
+<h3 id="option-a-add-to-a-page-using-a-custom-html-block-easiest">Option A: Add to a page using a Custom HTML block (easiest)</h3>
+<p>This works for any Shopify page — your homepage, About page, a campaign landing page, or a standalone testimonials page.</p>
+<ol>
+<li>In your Shopify admin, go to <strong>Online Store → Themes</strong></li>
+<li>Click <strong>Customize</strong> on your active theme</li>
+<li>Navigate to the page where you want the testimonials to appear</li>
+<li>Click <strong>Add section</strong> (or <strong>Add block</strong> within an existing section)</li>
+<li>Choose <strong>Custom HTML</strong> or <strong>Custom Liquid</strong> — both work</li>
+<li>Paste your SocialProof widget code into the field</li>
+<li>Click <strong>Save</strong></li>
+</ol>
+<p>That’s it. The widget loads live on your page. If you update which testimonials are shown in your SocialProof dashboard, the widget on your site updates automatically — no re-editing your theme.</p>
+<h3 id="option-b-add-to-a-product-page">Option B: Add to a product page</h3>
+<p>If you want testimonials specifically on product pages (separate from Shopify’s built-in review stars), you can add a Custom HTML section to your product page template:</p>
+<ol>
+<li>In Customize, navigate to any product page</li>
+<li>In the left sidebar, find your product page sections</li>
+<li>Click <strong>Add block</strong> within the product information section, or <strong>Add section</strong> below it</li>
+<li>Choose <strong>Custom HTML</strong></li>
+<li>Paste your widget code</li>
+<li>Save</li>
+</ol>
+<p>This will show the same testimonial widget on all product pages. If you want different testimonials per product, you can create multiple SocialProof widgets — one per product or collection — and use Shopify’s template system to assign them. (This gets into Liquid templates and is a one-time developer task if you need it.)</p>
+<h3 id="option-c-add-to-your-cart-or-checkout-pages">Option C: Add to your cart or checkout pages</h3>
+<p>Shopify restricts what you can embed on native checkout pages (you need Shopify Plus for full customization). But you <em>can</em> add testimonials to:</p>
+<ul>
+<li>Your <strong>cart page</strong> (before the customer hits Checkout)</li>
+<li>Any <strong>page-type</strong> you’ve created in Online Store → Pages</li>
+<li>Your <strong>thank you / order confirmation page</strong> via Shopify’s “Additional scripts” field (Settings → Checkout)</li>
+</ul>
+<p>A testimonial on the cart page is particularly powerful — it’s one of the last chances to reinforce trust before someone abandons.</p>
+<h2 id="what-the-widget-looks-like">What the Widget Looks Like</h2>
+<p>The default SocialProof widget is a clean grid of testimonial cards. Each card shows:</p>
+<ul>
+<li>The customer’s name and photo (if they uploaded one)</li>
+<li>Star rating</li>
+<li>Their testimonial text</li>
+<li>Their role or company (if they provided it)</li>
+</ul>
+<p>The widget is responsive — it stacks cleanly on mobile without any extra configuration. On a Shopify theme, it’ll inherit your font if you’re on the Pro plan and have custom branding enabled, or you can style it with a small CSS override.</p>
+<h2 id="why-this-beats-third-party-review-apps">Why This Beats Third-Party Review Apps</h2>
+<p>Most Shopify review apps charge $10–$30/month and lock your reviews inside their platform. When you cancel, the reviews disappear from your site.</p>
+<p>SocialProof is different: your testimonials live in your SocialProof account, not inside a Shopify app. That means:</p>
+<ul>
+<li>No Shopify App Store install required — no impact on store load speed from app overhead</li>
+<li>You can embed the same testimonials on your Shopify store, your email newsletters, your landing pages, your about page — anywhere, with the same widget code</li>
+<li>If you ever move away from Shopify (to Squarespace, Webflow, a custom site), your testimonials come with you</li>
+<li>Free plan: up to 25 testimonials, 1 widget, no credit card required</li>
+</ul>
+<h2 id="common-questions">Common Questions</h2>
+<h3 id="will-this-slow-down-my-store">Will this slow down my store?</h3>
+<p>SocialProof widgets are lightweight. The script is small and loads asynchronously — it won’t block your page render or hurt your Core Web Vitals. Shopify themes already load many more kilobytes of JavaScript from their own apps.</p>
+<h3 id="can-i-show-different-testimonials-on-different-pages">Can I show different testimonials on different pages?</h3>
+<p>Yes. Create multiple widgets in your SocialProof dashboard — each with its own selection of testimonials — and paste the corresponding widget code wherever you want it.</p>
+<h3 id="what-if-i-dont-have-any-testimonials-yet">What if I don’t have any testimonials yet?</h3>
+<p>Start by sharing your SocialProof collection link with your most recent customers. You need zero testimonials before you sign up — the collection link exists the moment your account does. Five well-written testimonials will outperform fifty generic ones.</p>
+<h3 id="do-customers-need-to-log-into-anything">Do customers need to log into anything?</h3>
+<p>No. The collection link opens a simple, hosted form. Your customers don’t create an account or install anything — they just fill out the form and submit. That’s why completion rates are high.</p>
+<h3 id="can-i-moderate-which-testimonials-appear">Can I moderate which testimonials appear?</h3>
+<p>Yes. Every testimonial submitted through your collection link goes into your SocialProof dashboard for approval before it appears on your site. You approve and curate — nothing shows up automatically.</p>
+<h2 id="the-5-minute-action-plan">The 5-Minute Action Plan</h2>
+<ol>
+<li><strong>Minute 1:</strong> Create your <a href="/register">free SocialProof account</a></li>
+<li><strong>Minute 2:</strong> Copy your collection link and text it to your 5 most recent happy customers</li>
+<li><strong>Minute 3–4:</strong> Create a widget in your dashboard once testimonials start coming in — pick your best ones, choose a layout</li>
+<li><strong>Minute 5:</strong> Add a Custom HTML block in your Shopify theme editor, paste the widget code, save</li>
+</ol>
+<p>Total time on the Shopify side: about two minutes. The rest is waiting for your customers to respond to your collection link — and usually that’s the next morning.</p>
+<h3 id="add-testimonials-to-your-shopify-store-today">Add testimonials to your Shopify store today</h3>
+<p>Free forever for your first widget. No coding, no app install, no monthly commitment.</p>
+<p>Get Your Collection Link →</p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

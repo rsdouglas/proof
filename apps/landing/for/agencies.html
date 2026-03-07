@@ -1,252 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testimonial Widget for Agencies — SocialProof</title>
-  <meta name="description" content="Agencies: collect client testimonials once and show them on every client site. SocialProof is built for multi-client workflows — one account, unlimited embed locations.">
-  <link rel="canonical" href="https://socialproof.dev/for/agencies">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
-    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
-    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .pain-section { max-width: 860px; margin: 0 auto; padding: 60px 24px; }
-    .pain-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 12px; text-align: center; }
-    .pain-section > p { text-align: center; color: #555; font-size: 1.05rem; max-width: 580px; margin: 0 auto 40px; }
-    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
-    .pain-card { border: 1.5px solid #eee; border-radius: 12px; padding: 24px; }
-    .pain-card .pain-emoji { font-size: 1.5rem; margin-bottom: 12px; }
-    .pain-card h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
-    .pain-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
-    .why-section { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
-    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
-    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
-    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .usecase-strip { background: #f5f3ff; padding: 40px 24px; text-align: center; }
-    .usecase-strip h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 16px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-    .tag { background: #ede9fe; color: #6c47ff; border-radius: 20px; padding: 6px 16px; font-size: 0.875rem; font-weight: 500; }
-    .steps-section { background: #111; color: #fff; padding: 60px 24px; }
-    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 40px; }
-    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
-    .step { display: flex; gap: 18px; align-items: flex-start; }
-    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-    .step-content h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .step-content p { font-size: 0.95rem; color: #bbb; line-height: 1.6; }
-    .vs-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
-    .vs-section h2 { font-size: 1.8rem; font-weight: 700; color: #111; margin-bottom: 24px; text-align: center; }
-    .vs-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    .vs-table th { text-align: left; padding: 12px 16px; background: #f9f9f9; color: #555; font-weight: 600; }
-    .vs-table td { padding: 12px 16px; border-bottom: 1px solid #eee; color: #333; }
-    .vs-table td.vouch { color: #16a34a; font-weight: 600; }
-    .vs-table td.them { color: #dc2626; }
-    .quote-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
-    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin: 0 auto 16px; max-width: 600px; }
-    .quote-section cite { font-size: 0.9rem; color: #888; }
-    .cta-section { background: #6c47ff; color: #fff; padding: 60px 24px; text-align: center; }
-    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-    .cta-section p { font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
-    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid #eee; }
-    .nav-logo { font-size: 1.25rem; font-weight: 800; color: #111; text-decoration: none; }
-    .nav-cta { font-size: 0.9rem; font-weight: 600; color: #6c47ff; text-decoration: none; }
-    footer { padding: 32px 24px; text-align: center; font-size: 0.875rem; color: #aaa; border-top: 1px solid #eee; }
-    footer a { color: #888; text-decoration: none; margin: 0 12px; }
-  </style>
-</head>
-<body>
-  <nav>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="nav-links">
-    <a href="/#demo">Demo</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="https://app.socialproof.dev">Log in</a>
-    <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a>
-  </div>
-</nav>
-
-  <section class="hero">
-    <h1>The testimonial tool agencies actually recommend to clients</h1>
-    <p>Collect client praise once. Display it anywhere — on your agency site, your clients' sites, your proposals. SocialProof is built for multi-site workflows and doesn't require a developer for each deployment.</p>
-    <div class="cta-group">
-      <a class="btn-primary" href="https://app.socialproof.dev/register">Start free — no credit card</a>
-      <a class="btn-secondary" href="/blog/">See how it works</a>
-    </div>
-  </section>
-
-  <section class="pain-section">
-    <h2>The agency testimonial problem</h2>
-    <p>You deliver great results. Clients tell you. But capturing that praise — and putting it where it matters — is always an afterthought.</p>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-emoji">📧</div>
-        <h3>It lives in email threads</h3>
-        <p>Your best client feedback is buried in a reply from 6 months ago. You remember it was good. You can't find it.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-emoji">🔒</div>
-        <h3>Google reviews are locked to Google</h3>
-        <p>You have 22 Google reviews. None of them appear on your site. Prospects have to leave your page to read them.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-emoji">😬</div>
-        <h3>Asking is awkward</h3>
-        <p>Clients are busy. A LinkedIn recommendation request feels like a favor. A form feels impersonal. You don't ask at all.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-emoji">🏗️</div>
-        <h3>No dev, no embed</h3>
-        <p>You want testimonials on the homepage. Dev is on a different client project. It never gets done.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="why-section">
-    <h2>How SocialProof fixes it</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>🔗 One link, unlimited responses</h3>
-        <p>Your collection link works the moment you sign up. Send it to clients via email, Slack, or project handoff. They click, they type, done.</p>
-      </div>
-      <div class="why-card">
-        <h3>✅ You approve before it goes live</h3>
-        <p>Every testimonial sits in a moderation queue until you approve. Control exactly what the world sees — nothing slips through.</p>
-      </div>
-      <div class="why-card">
-        <h3>🖥️ Embed anywhere, no developer</h3>
-        <p>One script tag. Works on Webflow, Squarespace, WordPress, Framer, plain HTML. Anyone on your team can deploy it.</p>
-      </div>
-      <div class="why-card">
-        <h3>🎨 Matches every client's brand</h3>
-        <p>The widget adapts to your site's colors — or your client's. No third-party logos. No off-brand review badges.</p>
-      </div>
-      <div class="why-card">
-        <h3>📍 Put them in the right place</h3>
-        <p>Service page, case study page, proposal template, pricing section — drop the widget exactly where the decision happens.</p>
-      </div>
-      <div class="why-card">
-        <h3>💰 Priced for agencies, not enterprises</h3>
-        <p>Free forever for 1 widget. Pro is $9/mo — less than one hour of your time. No per-seat, no per-client fees.</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="usecase-strip">
-    <h3>Built for every type of agency</h3>
-    <div class="tags">
-      <span class="tag">Digital marketing agencies</span>
-      <span class="tag">Web design studios</span>
-      <span class="tag">SEO agencies</span>
-      <span class="tag">Paid media agencies</span>
-      <span class="tag">Branding studios</span>
-      <span class="tag">Social media agencies</span>
-      <span class="tag">Video production</span>
-      <span class="tag">PR firms</span>
-      <span class="tag">Copywriting studios</span>
-    </div>
-  </div>
-
-  <section class="steps-section">
-    <div class="steps-inner">
-      <h2>Set up in 3 steps</h2>
-      <div class="steps-list">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Sign up — your collection link is instant</h3>
-            <p>No forms to build, no survey tools to configure. Your link is ready on signup.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>Send it at project close</h3>
-            <p>Add it to your delivery email, your client portal, or your offboarding checklist. One link, every client.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Approve and embed</h3>
-            <p>Approve the good ones, drop the script tag on your site. Your team can do it without a dev ticket.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="vs-section">
-    <h2>SocialProof vs. other options</h2>
-    <table class="vs-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>SocialProof</th>
-          <th>Google Reviews / LinkedIn</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Testimonials on your own site</td>
-          <td class="vouch">✓ Embedded widget</td>
-          <td class="them">✗ Hosted elsewhere — link only</td>
-        </tr>
-        <tr>
-          <td>Moderation &amp; approval</td>
-          <td class="vouch">✓ Full control</td>
-          <td class="them">✗ Platform controls</td>
-        </tr>
-        <tr>
-          <td>Custom branding</td>
-          <td class="vouch">✓ Matches your site</td>
-          <td class="them">✗ Always shows their logo</td>
-        </tr>
-        <tr>
-          <td>No developer needed</td>
-          <td class="vouch">✓ One script tag</td>
-          <td class="them">✗ Manual copy-paste, no live sync</td>
-        </tr>
-        <tr>
-          <td>Pricing</td>
-          <td class="vouch">Free / $9/mo Pro</td>
-          <td class="them">Free but zero embed control</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="quote-section">
-    <blockquote>"I spent years copying client praise from emails and pasting it into Squarespace. Now I just send my SocialProof link at project close and the testimonials appear on my site automatically."</blockquote>
-    <cite>— Founder, digital marketing agency</cite>
-  </section>
-
-  <section class="cta-section">
-    <h2>Start building your testimonial library</h2>
-    <p>Free forever for 1 active widget. Upgrade to Pro at $9/mo when you're ready.</p>
-    <a class="btn-white" href="https://app.socialproof.dev/register">Create your free account →</a>
-  </section>
-
-  <footer>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="footer-links">
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/docs">Docs</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="mailto:hello@socialproof.dev">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
-</footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Testimonial Widget for Agencies — SocialProof</title><meta name="description" content="Agencies: collect client testimonials once and show them on every client site. SocialProof is built for multi-client workflows — one account, unlimited embed locations."><link rel="canonical" href="https://socialproof.dev/for/agencies"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="Testimonial Widget for Agencies — SocialProof"><meta property="og:description" content="Agencies: collect client testimonials once and show them on every client site. SocialProof is built for multi-client workflows — one account, unlimited embed locations."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/for/agencies"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Testimonial Widget for Agencies — SocialProof"><meta name="twitter:description" content="Agencies: collect client testimonials once and show them on every client site. SocialProof is built for multi-client workflows — one account, unlimited embed locations."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script><link rel="stylesheet" href="/_astro/agencies.DaI6BnAP.css"></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>   <section class="hero" data-astro-cid-r6aczghp> <h1 data-astro-cid-r6aczghp>The testimonial tool agencies actually recommend to clients</h1> <p data-astro-cid-r6aczghp>Collect client praise once. Display it anywhere — on your agency site, your clients' sites, your proposals. SocialProof is built for multi-site workflows and doesn't require a developer for each deployment.</p> <div class="cta-group" data-astro-cid-r6aczghp> <a class="btn-primary" href="https://app.socialproof.dev/register" data-astro-cid-r6aczghp>Start free — no credit card</a> <a class="btn-secondary" href="/blog/" data-astro-cid-r6aczghp>See how it works</a> </div> </section> <section class="pain-section" data-astro-cid-r6aczghp> <h2 data-astro-cid-r6aczghp>The agency testimonial problem</h2> <p data-astro-cid-r6aczghp>You deliver great results. Clients tell you. But capturing that praise — and putting it where it matters — is always an afterthought.</p> <div class="pain-grid" data-astro-cid-r6aczghp> <div class="pain-card" data-astro-cid-r6aczghp> <div class="pain-emoji" data-astro-cid-r6aczghp>📧</div> <h3 data-astro-cid-r6aczghp>It lives in email threads</h3> <p data-astro-cid-r6aczghp>Your best client feedback is buried in a reply from 6 months ago. You remember it was good. You can't find it.</p> </div> <div class="pain-card" data-astro-cid-r6aczghp> <div class="pain-emoji" data-astro-cid-r6aczghp>🔒</div> <h3 data-astro-cid-r6aczghp>Google reviews are locked to Google</h3> <p data-astro-cid-r6aczghp>You have 22 Google reviews. None of them appear on your site. Prospects have to leave your page to read them.</p> </div> <div class="pain-card" data-astro-cid-r6aczghp> <div class="pain-emoji" data-astro-cid-r6aczghp>😬</div> <h3 data-astro-cid-r6aczghp>Asking is awkward</h3> <p data-astro-cid-r6aczghp>Clients are busy. A LinkedIn recommendation request feels like a favor. A form feels impersonal. You don't ask at all.</p> </div> <div class="pain-card" data-astro-cid-r6aczghp> <div class="pain-emoji" data-astro-cid-r6aczghp>🏗️</div> <h3 data-astro-cid-r6aczghp>No dev, no embed</h3> <p data-astro-cid-r6aczghp>You want testimonials on the homepage. Dev is on a different client project. It never gets done.</p> </div> </div> </section> <section class="why-section" data-astro-cid-r6aczghp> <h2 data-astro-cid-r6aczghp>How SocialProof fixes it</h2> <div class="why-grid" data-astro-cid-r6aczghp> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>🔗 One link, unlimited responses</h3> <p data-astro-cid-r6aczghp>Your collection link works the moment you sign up. Send it to clients via email, Slack, or project handoff. They click, they type, done.</p> </div> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>✅ You approve before it goes live</h3> <p data-astro-cid-r6aczghp>Every testimonial sits in a moderation queue until you approve. Control exactly what the world sees — nothing slips through.</p> </div> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>🖥️ Embed anywhere, no developer</h3> <p data-astro-cid-r6aczghp>One script tag. Works on Webflow, Squarespace, WordPress, Framer, plain HTML. Anyone on your team can deploy it.</p> </div> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>🎨 Matches every client's brand</h3> <p data-astro-cid-r6aczghp>The widget adapts to your site's colors — or your client's. No third-party logos. No off-brand review badges.</p> </div> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>📍 Put them in the right place</h3> <p data-astro-cid-r6aczghp>Service page, case study page, proposal template, pricing section — drop the widget exactly where the decision happens.</p> </div> <div class="why-card" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>💰 Priced for agencies, not enterprises</h3> <p data-astro-cid-r6aczghp>Free forever for 1 widget. Pro is $9/mo — less than one hour of your time. No per-seat, no per-client fees.</p> </div> </div> </section> <div class="usecase-strip" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>Built for every type of agency</h3> <div class="tags" data-astro-cid-r6aczghp> <span class="tag" data-astro-cid-r6aczghp>Digital marketing agencies</span> <span class="tag" data-astro-cid-r6aczghp>Web design studios</span> <span class="tag" data-astro-cid-r6aczghp>SEO agencies</span> <span class="tag" data-astro-cid-r6aczghp>Paid media agencies</span> <span class="tag" data-astro-cid-r6aczghp>Branding studios</span> <span class="tag" data-astro-cid-r6aczghp>Social media agencies</span> <span class="tag" data-astro-cid-r6aczghp>Video production</span> <span class="tag" data-astro-cid-r6aczghp>PR firms</span> <span class="tag" data-astro-cid-r6aczghp>Copywriting studios</span> </div> </div> <section class="steps-section" data-astro-cid-r6aczghp> <div class="steps-inner" data-astro-cid-r6aczghp> <h2 data-astro-cid-r6aczghp>Set up in 3 steps</h2> <div class="steps-list" data-astro-cid-r6aczghp> <div class="step" data-astro-cid-r6aczghp> <div class="step-num" data-astro-cid-r6aczghp>1</div> <div class="step-content" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>Sign up — your collection link is instant</h3> <p data-astro-cid-r6aczghp>No forms to build, no survey tools to configure. Your link is ready on signup.</p> </div> </div> <div class="step" data-astro-cid-r6aczghp> <div class="step-num" data-astro-cid-r6aczghp>2</div> <div class="step-content" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>Send it at project close</h3> <p data-astro-cid-r6aczghp>Add it to your delivery email, your client portal, or your offboarding checklist. One link, every client.</p> </div> </div> <div class="step" data-astro-cid-r6aczghp> <div class="step-num" data-astro-cid-r6aczghp>3</div> <div class="step-content" data-astro-cid-r6aczghp> <h3 data-astro-cid-r6aczghp>Approve and embed</h3> <p data-astro-cid-r6aczghp>Approve the good ones, drop the script tag on your site. Your team can do it without a dev ticket.</p> </div> </div> </div> </div> </section> <section class="vs-section" data-astro-cid-r6aczghp> <h2 data-astro-cid-r6aczghp>SocialProof vs. other options</h2> <table class="vs-table" data-astro-cid-r6aczghp> <thead data-astro-cid-r6aczghp> <tr data-astro-cid-r6aczghp> <th data-astro-cid-r6aczghp>Feature</th> <th data-astro-cid-r6aczghp>SocialProof</th> <th data-astro-cid-r6aczghp>Google Reviews / LinkedIn</th> </tr> </thead> <tbody data-astro-cid-r6aczghp> <tr data-astro-cid-r6aczghp> <td data-astro-cid-r6aczghp>Testimonials on your own site</td> <td class="vouch" data-astro-cid-r6aczghp>✓ Embedded widget</td> <td class="them" data-astro-cid-r6aczghp>✗ Hosted elsewhere — link only</td> </tr> <tr data-astro-cid-r6aczghp> <td data-astro-cid-r6aczghp>Moderation &amp; approval</td> <td class="vouch" data-astro-cid-r6aczghp>✓ Full control</td> <td class="them" data-astro-cid-r6aczghp>✗ Platform controls</td> </tr> <tr data-astro-cid-r6aczghp> <td data-astro-cid-r6aczghp>Custom branding</td> <td class="vouch" data-astro-cid-r6aczghp>✓ Matches your site</td> <td class="them" data-astro-cid-r6aczghp>✗ Always shows their logo</td> </tr> <tr data-astro-cid-r6aczghp> <td data-astro-cid-r6aczghp>No developer needed</td> <td class="vouch" data-astro-cid-r6aczghp>✓ One script tag</td> <td class="them" data-astro-cid-r6aczghp>✗ Manual copy-paste, no live sync</td> </tr> <tr data-astro-cid-r6aczghp> <td data-astro-cid-r6aczghp>Pricing</td> <td class="vouch" data-astro-cid-r6aczghp>Free / $9/mo Pro</td> <td class="them" data-astro-cid-r6aczghp>Free but zero embed control</td> </tr> </tbody> </table> </section> <section class="quote-section" data-astro-cid-r6aczghp> <blockquote data-astro-cid-r6aczghp>"I spent years copying client praise from emails and pasting it into Squarespace. Now I just send my SocialProof link at project close and the testimonials appear on my site automatically."</blockquote> <cite data-astro-cid-r6aczghp>— Founder, digital marketing agency</cite> </section> <section class="cta-section" data-astro-cid-r6aczghp> <h2 data-astro-cid-r6aczghp>Start building your testimonial library</h2> <p data-astro-cid-r6aczghp>Free forever for 1 active widget. Upgrade to Pro at $9/mo when you're ready.</p> <a class="btn-white" href="https://app.socialproof.dev/register" data-astro-cid-r6aczghp>Create your free account →</a> </section>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

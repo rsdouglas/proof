@@ -1,250 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SocialProof vs Elfsight — Which widget tool is right for you? | SocialProof</title>
-  <meta name="description" content="Elfsight charges per view and limits widgets by plan. SocialProof is $9/mo flat for unlimited testimonials. Honest comparison for small business owners." />
-  <link rel="canonical" href="https://socialproof.dev/vs/elfsight" />
-  <link rel="stylesheet" href="/style.css" />
-  <meta property="og:title" content="SocialProof vs Elfsight — An honest comparison" />
-  <meta property="og:description" content="Elfsight charges per view and caps widgets per plan. SocialProof is $9/mo flat. See which is right for you." />
-  <meta property="og:url" content="https://socialproof.dev/vs/elfsight" />
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
-    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
-    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
-    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
-    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
-    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
-    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
-    .hero h1 span { color: #4f46e5; }
-    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
-    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
-    .hero-cta:hover { background: #3730a3; }
-    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
-    .price-callout .item { text-align: center; }
-    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
-    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
-    .price-callout .item.vouch .price { color: #4f46e5; }
-    .price-callout .item.other .price { color: #dc2626; }
-    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
-    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
-    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
-    .compare-table th:nth-child(2) { color: #4f46e5; }
-    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table td:first-child { color: #555; font-weight: 500; }
-    .yes { color: #16a34a; font-weight: 600; }
-    .no { color: #dc2626; font-weight: 600; }
-    .partial { color: #d97706; font-weight: 600; }
-    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
-    .winner-card { border-radius: 12px; padding: 1.75rem; }
-    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
-    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
-    .winner-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .75rem; }
-    .winner-card ul { margin: 0; padding-left: 1.25rem; color: #444; font-size: 0.95rem; line-height: 1.8; }
-    .savings-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 12px; padding: 2rem; text-align: center; margin: 2rem 0; }
-    .savings-box .amount { font-size: 2.5rem; font-weight: 800; color: #1d4ed8; }
-    .savings-box p { color: #1e40af; margin: .5rem 0 0; font-size: 0.95rem; }
-    .vs-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-    .vs-links a { color: #4f46e5; font-size: 0.95rem; text-decoration: none; }
-    .vs-links a:hover { text-decoration: underline; }
-    .cta-section { background: #4f46e5; color: #fff; text-align: center; padding: 4rem 2rem; }
-    .cta-section h2 { color: #fff; margin-bottom: 1rem; }
-    .cta-section p { color: rgba(255,255,255,0.85); margin-bottom: 2rem; font-size: 1.05rem; }
-    .cta-btn { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
-    .cta-btn:hover { background: #f0f0ff; }
-    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
-    footer a { color: #777; text-decoration: none; margin: 0 .75rem; }
-    @media (max-width: 640px) {
-      .winner-grid { grid-template-columns: 1fr; }
-      .price-callout { flex-direction: column; gap: 1rem; }
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SocialProof vs Elfsight — Which widget tool is right for you? | SocialProof</title><meta name="description" content="Elfsight charges per view and limits widgets by plan. SocialProof is $9/mo flat for unlimited testimonials. Honest comparison for small business owners."><link rel="canonical" href="https://socialproof.dev/vs/elfsight"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="SocialProof vs Elfsight — Which widget tool is right for you? | SocialProof"><meta property="og:description" content="Elfsight charges per view and limits widgets by plan. SocialProof is $9/mo flat for unlimited testimonials. Honest comparison for small business owners."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/vs/elfsight"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="SocialProof vs Elfsight — Which widget tool is right for you? | SocialProof"><meta name="twitter:description" content="Elfsight charges per view and limits widgets by plan. SocialProof is $9/mo flat for unlimited testimonials. Honest comparison for small business owners."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
     }
-  </style>
-</head>
-<body>
-
-<nav>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="nav-links">
-    <a href="/#demo">Demo</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="https://app.socialproof.dev">Log in</a>
-    <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a>
-  </div>
-</nav>
-
-<div class="hero">
-  <span class="vs-badge">SocialProof vs Elfsight</span>
-  <h1>Elfsight is a widget toolkit.<br /><span>SocialProof is built for testimonials.</span></h1>
-  <p>Elfsight charges per page view and caps how many widgets you can create. SocialProof is one flat price with no view limits — and it's built specifically for collecting and displaying customer testimonials.</p>
-
-  <div class="price-callout">
-    <div class="item vouch">
-      <div class="price">$9</div>
-      <div class="label">SocialProof Pro / mo</div>
-    </div>
-    <div class="item other">
-      <div class="price">$10–20</div>
-      <div class="label">Elfsight Pro–Premium / mo</div>
-    </div>
-  </div>
-
-  <a href="https://app.socialproof.dev/register" class="hero-cta">Try SocialProof free — no card needed</a>
-</div>
-
-<section>
-  <h2>What each tool actually does</h2>
-  <p style="color:#555; margin-bottom:1.5rem;">Elfsight is a widget marketplace with 90+ widget types — Instagram feeds, countdown timers, chatbots, forms, and yes, a testimonials widget. It's a horizontal tool covering many use cases. SocialProof does one thing: helps you collect real customer testimonials via a shareable link and display them on your site. No social feeds, no countdowns. Just testimonials.</p>
-
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>Feature</th>
-        <th>SocialProof</th>
-        <th>Elfsight</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Primary use case</td>
-        <td><span class="yes">Collect + display testimonials</span></td>
-        <td>90+ generic website widgets</td>
-      </tr>
-      <tr>
-        <td>Collect testimonials via link</td>
-        <td><span class="yes">✓ Built-in collect link</span></td>
-        <td><span class="no">✗ Display only (import manually)</span></td>
-      </tr>
-      <tr>
-        <td>Pricing model</td>
-        <td><span class="yes">Flat $9/mo — no view limits</span></td>
-        <td><span class="no">Per-view tiers (200 to 150k views)</span></td>
-      </tr>
-      <tr>
-        <td>Widget limit on entry paid plan</td>
-        <td><span class="yes">Unlimited (Pro)</span></td>
-        <td><span class="partial">3 widgets ($5/mo Basic)</span></td>
-      </tr>
-      <tr>
-        <td>Free plan</td>
-        <td><span class="yes">Free forever — 1 widget, 25 testimonials</span></td>
-        <td><span class="partial">Free — 1 widget, 200 views/mo only</span></td>
-      </tr>
-      <tr>
-        <td>Testimonial approval / moderation</td>
-        <td><span class="yes">✓ Built-in approval flow</span></td>
-        <td><span class="no">✗ No native moderation</span></td>
-      </tr>
-      <tr>
-        <td>Google rich results (JSON-LD)</td>
-        <td><span class="yes">✓ On Pro plan</span></td>
-        <td><span class="no">✗ Not for testimonials</span></td>
-      </tr>
-      <tr>
-        <td>Custom branding removal</td>
-        <td><span class="yes">✓ Pro plan</span></td>
-        <td><span class="partial">Paid plans only</span></td>
-      </tr>
-      <tr>
-        <td>Embed anywhere (1 script tag)</td>
-        <td><span class="yes">✓</span></td>
-        <td><span class="yes">✓</span></td>
-      </tr>
-      <tr>
-        <td>Works on Shopify, Wix, Squarespace</td>
-        <td><span class="yes">✓</span></td>
-        <td><span class="yes">✓</span></td>
-      </tr>
-      <tr>
-        <td>Analytics</td>
-        <td><span class="yes">✓ Pro plan</span></td>
-        <td><span class="partial">Basic view counts</span></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<section>
-  <h2>The view-limit problem</h2>
-  <p style="color:#555; line-height:1.7;">Elfsight's free plan gives you 200 page views per month before your widget goes dark. Their Basic plan ($5/mo) allows 5,000 views. If your site gets real traffic, you'll quickly hit a wall and need to upgrade to Pro ($10/mo, 50,000 views) or Premium ($20/mo, 150,000 views).</p>
-  <p style="color:#555; line-height:1.7;">SocialProof has no view limits. Your testimonial widget loads for every visitor, on every plan — including Free. When you upgrade to Pro at $9/mo, you get unlimited widgets, unlimited testimonials, analytics, and no caps. Ever.</p>
-
-  <div class="savings-box">
-    <div class="amount">No surprises</div>
-    <p>SocialProof Pro is $9/mo flat. No view tiers, no widget caps, no overage charges. Know exactly what you'll pay.</p>
-  </div>
-</section>
-
-<section>
-  <h2>Who wins in each scenario</h2>
-  <div class="winner-grid">
-    <div class="winner-card vouch">
-      <h3>✅ Choose SocialProof if you…</h3>
-      <ul>
-        <li>Want to actively collect testimonials from customers</li>
-        <li>Need a shareable link to send via email or SMS</li>
-        <li>Want to moderate testimonials before they go live</li>
-        <li>Care about Google rich results / star ratings in search</li>
-        <li>Have growing traffic and hate per-view pricing</li>
-        <li>Run a service business, coaching, consulting, or e-commerce store</li>
-        <li>Want one focused tool, not a multi-widget dashboard</li>
-      </ul>
-    </div>
-    <div class="winner-card other">
-      <h3>Consider Elfsight if you…</h3>
-      <ul>
-        <li>Need multiple widget types — not just testimonials (Instagram feed, chatbot, countdown, etc.)</li>
-        <li>Already have testimonials collected elsewhere and just need to display them</li>
-        <li>Have very low-traffic sites and want to stay on a $5/mo plan</li>
-        <li>Prefer a widget marketplace with broad integrations</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>The collection gap</h2>
-  <p style="color:#555; line-height:1.7;">The biggest difference most people miss: <strong>Elfsight doesn't help you collect testimonials</strong>. It's a display tool. You gather feedback somewhere else (email, Google Forms, DMs) and paste it in manually.</p>
-  <p style="color:#555; line-height:1.7;">SocialProof gives you a unique collection link the moment you sign up. Share it with a customer, they fill out a short form, you approve it, and it appears in your widget automatically. No copy-pasting. No manual updates.</p>
-  <p style="color:#555; line-height:1.7;">If you're trying to build a steady stream of fresh social proof, that difference matters.</p>
-</section>
-
-<section>
-  <h2>Other comparisons</h2>
-  <div class="vs-links">
-    <a href="/vs/senja">→ SocialProof vs Senja</a>
-    <a href="/vs/trustpilot">→ SocialProof vs Trustpilot</a>
-    <a href="/vs/google-reviews">→ SocialProof vs Google Reviews</a>
-    <a href="/vs/testimonial-io">→ SocialProof vs Testimonial.io</a>
-    <a href="/vs/embedsocial">→ SocialProof vs EmbedSocial</a>
-  </div>
-</section>
-
-<div class="cta-section">
-  <h2>Try SocialProof free — no credit card needed</h2>
-  <p>Get your collection link in 60 seconds. One script tag to embed. Free forever for 1 widget.</p>
-  <a href="https://app.socialproof.dev/register" class="cta-btn">Start collecting testimonials →</a>
-</div>
-
-<footer>
-  <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a>
-  <div class="footer-links">
-    <a href="/blog">Blog</a>
-    <a href="/faq">FAQ</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/docs">Docs</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="mailto:hello@socialproof.dev">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 SocialProof. Built on Cloudflare.</div>
-</footer>
-
-</body>
-</html>
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script><link rel="stylesheet" href="/_astro/elfsight.aw8gA5OJ.css"></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>   <div class="hero" data-astro-cid-zuk3iccq> <span class="vs-badge" data-astro-cid-zuk3iccq>SocialProof vs Elfsight</span> <h1 data-astro-cid-zuk3iccq>Elfsight is a widget toolkit.<br data-astro-cid-zuk3iccq><span data-astro-cid-zuk3iccq>SocialProof is built for testimonials.</span></h1> <p data-astro-cid-zuk3iccq>Elfsight charges per page view and caps how many widgets you can create. SocialProof is one flat price with no view limits — and it's built specifically for collecting and displaying customer testimonials.</p> <div class="price-callout" data-astro-cid-zuk3iccq> <div class="item vouch" data-astro-cid-zuk3iccq> <div class="price" data-astro-cid-zuk3iccq>$9</div> <div class="label" data-astro-cid-zuk3iccq>SocialProof Pro / mo</div> </div> <div class="item other" data-astro-cid-zuk3iccq> <div class="price" data-astro-cid-zuk3iccq>$10–20</div> <div class="label" data-astro-cid-zuk3iccq>Elfsight Pro–Premium / mo</div> </div> </div> <a href="https://app.socialproof.dev/register" class="hero-cta" data-astro-cid-zuk3iccq>Try SocialProof free — no card needed</a> </div> <section data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>What each tool actually does</h2> <p style="color:#555; margin-bottom:1.5rem;" data-astro-cid-zuk3iccq>Elfsight is a widget marketplace with 90+ widget types — Instagram feeds, countdown timers, chatbots, forms, and yes, a testimonials widget. It's a horizontal tool covering many use cases. SocialProof does one thing: helps you collect real customer testimonials via a shareable link and display them on your site. No social feeds, no countdowns. Just testimonials.</p> <table class="compare-table" data-astro-cid-zuk3iccq> <thead data-astro-cid-zuk3iccq> <tr data-astro-cid-zuk3iccq> <th data-astro-cid-zuk3iccq>Feature</th> <th data-astro-cid-zuk3iccq>SocialProof</th> <th data-astro-cid-zuk3iccq>Elfsight</th> </tr> </thead> <tbody data-astro-cid-zuk3iccq> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Primary use case</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>Collect + display testimonials</span></td> <td data-astro-cid-zuk3iccq>90+ generic website widgets</td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Collect testimonials via link</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓ Built-in collect link</span></td> <td data-astro-cid-zuk3iccq><span class="no" data-astro-cid-zuk3iccq>✗ Display only (import manually)</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Pricing model</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>Flat $9/mo — no view limits</span></td> <td data-astro-cid-zuk3iccq><span class="no" data-astro-cid-zuk3iccq>Per-view tiers (200 to 150k views)</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Widget limit on entry paid plan</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>Unlimited (Pro)</span></td> <td data-astro-cid-zuk3iccq><span class="partial" data-astro-cid-zuk3iccq>3 widgets ($5/mo Basic)</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Free plan</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>Free forever — 1 widget, 25 testimonials</span></td> <td data-astro-cid-zuk3iccq><span class="partial" data-astro-cid-zuk3iccq>Free — 1 widget, 200 views/mo only</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Testimonial approval / moderation</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓ Built-in approval flow</span></td> <td data-astro-cid-zuk3iccq><span class="no" data-astro-cid-zuk3iccq>✗ No native moderation</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Google rich results (JSON-LD)</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓ On Pro plan</span></td> <td data-astro-cid-zuk3iccq><span class="no" data-astro-cid-zuk3iccq>✗ Not for testimonials</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Custom branding removal</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓ Pro plan</span></td> <td data-astro-cid-zuk3iccq><span class="partial" data-astro-cid-zuk3iccq>Paid plans only</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Embed anywhere (1 script tag)</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓</span></td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Works on Shopify, Wix, Squarespace</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓</span></td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓</span></td> </tr> <tr data-astro-cid-zuk3iccq> <td data-astro-cid-zuk3iccq>Analytics</td> <td data-astro-cid-zuk3iccq><span class="yes" data-astro-cid-zuk3iccq>✓ Pro plan</span></td> <td data-astro-cid-zuk3iccq><span class="partial" data-astro-cid-zuk3iccq>Basic view counts</span></td> </tr> </tbody> </table> </section> <section data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>The view-limit problem</h2> <p style="color:#555; line-height:1.7;" data-astro-cid-zuk3iccq>Elfsight's free plan gives you 200 page views per month before your widget goes dark. Their Basic plan ($5/mo) allows 5,000 views. If your site gets real traffic, you'll quickly hit a wall and need to upgrade to Pro ($10/mo, 50,000 views) or Premium ($20/mo, 150,000 views).</p> <p style="color:#555; line-height:1.7;" data-astro-cid-zuk3iccq>SocialProof has no view limits. Your testimonial widget loads for every visitor, on every plan — including Free. When you upgrade to Pro at $9/mo, you get unlimited widgets, unlimited testimonials, analytics, and no caps. Ever.</p> <div class="savings-box" data-astro-cid-zuk3iccq> <div class="amount" data-astro-cid-zuk3iccq>No surprises</div> <p data-astro-cid-zuk3iccq>SocialProof Pro is $9/mo flat. No view tiers, no widget caps, no overage charges. Know exactly what you'll pay.</p> </div> </section> <section data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>Who wins in each scenario</h2> <div class="winner-grid" data-astro-cid-zuk3iccq> <div class="winner-card vouch" data-astro-cid-zuk3iccq> <h3 data-astro-cid-zuk3iccq>✅ Choose SocialProof if you…</h3> <ul data-astro-cid-zuk3iccq> <li data-astro-cid-zuk3iccq>Want to actively collect testimonials from customers</li> <li data-astro-cid-zuk3iccq>Need a shareable link to send via email or SMS</li> <li data-astro-cid-zuk3iccq>Want to moderate testimonials before they go live</li> <li data-astro-cid-zuk3iccq>Care about Google rich results / star ratings in search</li> <li data-astro-cid-zuk3iccq>Have growing traffic and hate per-view pricing</li> <li data-astro-cid-zuk3iccq>Run a service business, coaching, consulting, or e-commerce store</li> <li data-astro-cid-zuk3iccq>Want one focused tool, not a multi-widget dashboard</li> </ul> </div> <div class="winner-card other" data-astro-cid-zuk3iccq> <h3 data-astro-cid-zuk3iccq>Consider Elfsight if you…</h3> <ul data-astro-cid-zuk3iccq> <li data-astro-cid-zuk3iccq>Need multiple widget types — not just testimonials (Instagram feed, chatbot, countdown, etc.)</li> <li data-astro-cid-zuk3iccq>Already have testimonials collected elsewhere and just need to display them</li> <li data-astro-cid-zuk3iccq>Have very low-traffic sites and want to stay on a $5/mo plan</li> <li data-astro-cid-zuk3iccq>Prefer a widget marketplace with broad integrations</li> </ul> </div> </div> </section> <section data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>The collection gap</h2> <p style="color:#555; line-height:1.7;" data-astro-cid-zuk3iccq>The biggest difference most people miss: <strong data-astro-cid-zuk3iccq>Elfsight doesn't help you collect testimonials</strong>. It's a display tool. You gather feedback somewhere else (email, Google Forms, DMs) and paste it in manually.</p> <p style="color:#555; line-height:1.7;" data-astro-cid-zuk3iccq>SocialProof gives you a unique collection link the moment you sign up. Share it with a customer, they fill out a short form, you approve it, and it appears in your widget automatically. No copy-pasting. No manual updates.</p> <p style="color:#555; line-height:1.7;" data-astro-cid-zuk3iccq>If you're trying to build a steady stream of fresh social proof, that difference matters.</p> </section> <section data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>Other comparisons</h2> <div class="vs-links" data-astro-cid-zuk3iccq> <a href="/vs/senja" data-astro-cid-zuk3iccq>→ SocialProof vs Senja</a> <a href="/vs/trustpilot" data-astro-cid-zuk3iccq>→ SocialProof vs Trustpilot</a> <a href="/vs/google-reviews" data-astro-cid-zuk3iccq>→ SocialProof vs Google Reviews</a> <a href="/vs/testimonial-io" data-astro-cid-zuk3iccq>→ SocialProof vs Testimonial.io</a> <a href="/vs/embedsocial" data-astro-cid-zuk3iccq>→ SocialProof vs EmbedSocial</a> </div> </section> <div class="cta-section" data-astro-cid-zuk3iccq> <h2 data-astro-cid-zuk3iccq>Try SocialProof free — no credit card needed</h2> <p data-astro-cid-zuk3iccq>Get your collection link in 60 seconds. One script tag to embed. Free forever for 1 widget.</p> <a href="https://app.socialproof.dev/register" class="cta-btn" data-astro-cid-zuk3iccq>Start collecting testimonials →</a> </div>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

@@ -1,9 +1,9 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import Base from '../../layouts/Base.astro';
 const title = "SocialProof for Physical Therapists — Turn Patient Outcomes Into New Referrals";
 const description = "Physical therapy practices that collect patient testimonials see more self-pay patients and fewer no-shows. SocialProof helps you gather and display real patient stories — compliantly.";
 ---
-<Layout title={title} description={description}>
+<Base title={title} description={description}>
   <main class="for-page">
     <section class="hero">
       <div class="container">
@@ -85,7 +85,7 @@ const description = "Physical therapy practices that collect patient testimonial
       </div>
     </section>
   </main>
-</Layout>
+</Base>
 
 <style>
   .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }

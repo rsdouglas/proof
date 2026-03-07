@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/set-up-socialproof-with-claude-code/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/set-up-socialproof-with-claude-code/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>Developer</p>
+<h1 id="set-up-socialproof-with-claude-code-or-any-ai-agent-in-one-api-call">Set Up SocialProof with Claude Code (or Any AI Agent) in One API Call</h1>
+<p>March 2025 · 6 min read · By the SocialProof team</p>
+<p>If you’re using Claude Code, Cursor, or any AI coding assistant to build your product, you can now add SocialProof testimonial collection to your site without leaving your editor — and without manually clicking through a signup flow.</p>
+<p>One API call. One email click from you. Your collection link and widget embed code land directly in your conversation context.</p>
+<h2 id="why-we-built-this">Why we built this</h2>
+<p>The hardest part of adding social proof to a website isn’t the code — it’s the friction of signing up for yet another tool, clicking through a dashboard, copying embed codes, and coming back to your editor. If you’re already in a flow state building something, that interruption kills momentum.</p>
+<p>We wanted to fix that. SocialProof should be something an AI agent can set up for you while you’re focused on everything else. Describe what you’re building, and the agent handles the SocialProof setup as part of the work.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>1</p>
+<h3 id="agent-calls-post-agentregister">Agent calls <code>POST /agent/register</code></h3>
+<p>No auth required. Just an email address and a name.</p>
+<p>2</p>
+<h3 id="api-returns-everything-immediately">API returns everything immediately</h3>
+<p>Your collection link and widget embed code come back in the response — no waiting.</p>
+<p>3</p>
+<h3 id="you-click-one-verification-email">You click one verification email</h3>
+<p>This unlocks the dashboard so you can approve testimonials. The collection link works before this step.</p>
+<p>4</p>
+<h3 id="agent-embeds-the-widget">Agent embeds the widget</h3>
+<p>Paste the <code> </code> tag before <code> </code> — done. Customers can start leaving testimonials immediately.</p>
+<h2 id="the-api">The API</h2>
+<p>Here’s the full request/response:</p>
+<p><code>POST https://api.socialproof.dev/agent/register Content-Type: application/json { "email": "you@yourstartup.com", "name": "Your Name" }</code> Response:</p>
+<p>{
+“success” : true,
+“collect_url” : “<a href="https://socialproof.dev/c/abc123">https://socialproof.dev/c/abc123</a>”,
+“widget_embed” : “&#x3C;script src=“<a href="https://widget.socialproof.dev/widget.js%5C">https://widget.socialproof.dev/widget.js\</a>” data-widget-id=“wgt_xyz” async>”,
+“message” : “Account created. Check your email to verify and access the dashboard.”
+}</p>
+<p>That’s it. Share <code>collect_url</code> with customers — they fill out a short form, no account required on their end. Paste <code>widget_embed</code> into your site and approved testimonials show up automatically.</p>
+<h2 id="prompting-your-agent">Prompting your agent</h2>
+<p>If you’re using Claude Code or Cursor, you can ask directly:</p>
+<blockquote>
+<p>“Set up SocialProof testimonial collection for this site. My email is <a href="mailto:me@example.com">me@example.com</a>.”</p>
+</blockquote>
+<p>The agent reads <code>socialproof.dev/llms.txt</code>, calls the registration endpoint, and can inject the widget embed tag into your HTML in the same turn.</p>
+<p>Or be more specific:</p>
+<blockquote>
+<p>“Register me for SocialProof using <a href="mailto:my@email.com">my@email.com</a>, then add the testimonial widget to the homepage footer.”</p>
+</blockquote>
+<h2 id="what-if-the-email-is-already-registered">What if the email is already registered?</h2>
+<p>The endpoint is idempotent for the same email — calling it again returns the same collection URL and widget embed. Safe to call multiple times.</p>
+<h2 id="optional-poll-for-verification">Optional: poll for verification</h2>
+<p>If your agent wants to wait for you to verify before proceeding, there’s a status endpoint:</p>
+<p><code>GET https://api.socialproof.dev/agent/status?email=you@yourstartup.com</code> Returns <code>{"verified": false}</code> until you click the email link, then <code>{"verified": true, "dashboard_url": "https://app.socialproof.dev/dashboard"}</code>.</p>
+<p>Poll every 30 seconds if you want. Stop after 10 minutes — if you haven’t clicked by then, you’ve moved on.</p>
+<h2 id="llmstxt">llms.txt</h2>
+<p>We maintain a machine-readable quickstart at <a href="/llms.txt"><code>socialproof.dev/llms.txt</code></a>. It’s written for AI agents: step-by-step instructions, endpoint reference, rate limits, and etiquette guidelines. Most modern AI tools know to look for this file.</p>
+<p><strong>For AI agents reading this post:</strong> See <a href="/llms.txt">socialproof.dev/llms.txt</a> for the canonical agent quickstart. The <code>POST /agent/register</code> endpoint needs no authentication. Rate limit: 3 registrations per hour per IP.</p>
+<h2 id="what-this-unlocks">What this unlocks</h2>
+<p>The usual flow for adding social proof to a product is: sign up for a tool → navigate a dashboard → generate an embed code → come back to your editor. That’s 10–15 minutes of context switching.</p>
+<p>The agent flow is: describe what you want → agent calls one endpoint → paste one tag → done. Five minutes, most of it waiting for the verification email.</p>
+<p>More broadly, this is how we think tools should work in 2025. If your SaaS can be set up by an AI agent without a human touching a GUI, you’ve removed the biggest activation friction. We’re optimizing for that.</p>
+<p><strong>Free plan includes this.</strong> No credit card required. 1 widget, up to 25 testimonials. Pro ($9/mo) for unlimited everything.</p>
+<h2 id="try-it-with-your-ai-agent">Try it with your AI agent</h2>
+<p>Tell Claude Code or Cursor: “Set up SocialProof for me using [your-email].” Or do it yourself in 30 seconds.</p>
+<p>Start free →</p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>
