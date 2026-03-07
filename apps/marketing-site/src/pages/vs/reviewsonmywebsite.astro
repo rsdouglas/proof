@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs ReviewsOnMyWebsite — Testimonial widget comparison | SocialProof" description="Comparing SocialProof and ReviewsOnMyWebsite for embedding reviews on your site. See pricing, features, and which wins for small business." canonical="https://socialproof.dev/vs/reviewsonmywebsite">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin: 0 0 1rem; }
+    .hero p { font-size: 1.1rem; color: #555; max-width: 560px; margin: 0 auto 2rem; line-height: 1.6; }
+    .vs-badge { display: inline-block; background: #f1f5f9; color: #475569; font-size: 0.85rem; font-weight: 600; padding: .4rem 1rem; border-radius: 99px; margin-bottom: 1.25rem; letter-spacing: .04em; }
+    section { max-width: 880px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
+    .compare-table th { background: #f8fafc; padding: .75rem 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e2e8f0; }
+    .compare-table th:nth-child(2) { background: #eff6ff; color: #2563eb; }
+    .compare-table td { padding: .75rem 1rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    .compare-table tr:hover td { background: #fafafa; }
+    .check { color: #16a34a; font-weight: 700; }
+    .cross { color: #dc2626; font-weight: 700; }
+    .neutral { color: #6b7280; }
+    .highlight-row td { font-weight: 600; }
+    .winner-badge { display: inline-block; background: #dcfce7; color: #16a34a; font-size: 0.75rem; font-weight: 700; padding: .2rem .6rem; border-radius: 99px; margin-left: .5rem; }
+    .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+    .summary-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; }
+    .summary-card.sp { border-color: #bfdbfe; background: #eff6ff; }
+    .summary-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .75rem; }
+    .summary-card ul { margin: 0; padding-left: 1.25rem; }
+    .summary-card ul li { font-size: 0.88rem; color: #444; margin-bottom: .4rem; line-height: 1.5; }
+    .cta-block { text-align: center; background: #2563eb; color: #fff; border-radius: 16px; padding: 3rem 2rem; margin: 3rem 0; }
+    .cta-block h2 { color: #fff; margin-bottom: .75rem; }
+    .cta-block p { color: #bfdbfe; max-width: 440px; margin: 0 auto 2rem; }
+    .cta-btn { display: inline-block; background: #fff; color: #2563eb; padding: .9rem 2.25rem; border-radius: 8px; font-weight: 800; text-decoration: none; }
+    footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; }
+    @media (max-width: 640px) { .summary-grid { grid-template-columns: 1fr; } .compare-table { font-size: 0.82rem; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/vs/">Compare</a>
+    <a href="/pricing">Pricing</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vs-badge">SocialProof vs ReviewsOnMyWebsite</span>
+  <h1>SocialProof vs ReviewsOnMyWebsite — which embeds reviews better?</h1>
+  <p>ReviewsOnMyWebsite and SocialProof both let you embed Google reviews and testimonials on your site. Here's how they compare on price, features, and ease of use.</p>
+</div>
+
+<section>
+  <h2>Side-by-side comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof <span class="winner-badge">our pick</span></th>
+        <th>ReviewsOnMyWebsite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td>Starting price</td>
+        <td class="check">Free forever (1 widget)</td>
+        <td class="neutral">$9/month (limited free trial)</td>
+      </tr>
+      <tr>
+        <td>Google Reviews import</td>
+        <td class="check">✓ Yes</td>
+        <td class="check">✓ Yes</td>
+      </tr>
+      <tr>
+        <td>Custom testimonials</td>
+        <td class="check">✓ Collect via shareable link</td>
+        <td class="neutral">Limited</td>
+      </tr>
+      <tr>
+        <td>Facebook Reviews</td>
+        <td class="cross">✗ No</td>
+        <td class="check">✓ Yes</td>
+      </tr>
+      <tr>
+        <td>Yelp, Tripadvisor, Trustpilot</td>
+        <td class="cross">✗ No</td>
+        <td class="check">✓ Multiple platforms</td>
+      </tr>
+      <tr>
+        <td>Widget designs</td>
+        <td class="check">Carousel, grid, masonry, list</td>
+        <td class="check">Carousel, slider, list</td>
+      </tr>
+      <tr>
+        <td>Branding/white-label</td>
+        <td class="check">✓ Full custom branding</td>
+        <td class="neutral">✓ With paid plans</td>
+      </tr>
+      <tr>
+        <td>Review collection form</td>
+        <td class="check">✓ Built-in collect page</td>
+        <td class="cross">✗ Display only</td>
+      </tr>
+      <tr>
+        <td>Setup time</td>
+        <td class="check">5 minutes</td>
+        <td class="neutral">15–30 minutes</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="summary-grid">
+    <div class="summary-card sp">
+      <h3>🟦 Choose SocialProof if you…</h3>
+      <ul>
+        <li>Want a permanent free tier — not just a trial</li>
+        <li>Need to actively collect new testimonials, not just display old ones</li>
+        <li>Run a small business or solo practice</li>
+        <li>Don't need to aggregate Facebook or Yelp reviews</li>
+        <li>Want clean embed code that installs in minutes</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <h3>⬜ Consider ReviewsOnMyWebsite if you…</h3>
+      <ul>
+        <li>Need to pull from Facebook, Yelp, Tripadvisor, and Trustpilot in one widget</li>
+        <li>Want a multi-platform aggregator focused on display</li>
+        <li>Already have many reviews across multiple platforms to showcase</li>
+        <li>Don't need to collect new text testimonials from scratch</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The key difference: collect vs. aggregate</h2>
+  <p style="color:#444; line-height:1.7; margin-bottom:1rem;">ReviewsOnMyWebsite shines at aggregating existing reviews from multiple platforms like Facebook, Yelp, and Tripadvisor into one embeddable widget. If you already have reviews scattered across the web and just want to pull them all onto your site, it's a solid choice.</p>
+  <p style="color:#444; line-height:1.7; margin-bottom:1rem;">SocialProof is better if you want to <em>actively collect</em> new testimonials — send a link to clients, gather written feedback, and display it beautifully on your site. It's also free to start, with no trial expiration.</p>
+  <p style="color:#444; line-height:1.7;">For most small businesses starting out, SocialProof's free tier gets you further, faster.</p>
+</section>
+
+<section>
+  <div class="cta-block">
+    <h2>Start collecting testimonials today — free</h2>
+    <p>No credit card. No trial period. One free widget, forever.</p>
+    <a href="https://app.socialproof.dev/signup" class="cta-btn">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/vs/" style="color:#999">All comparisons</a> · <a href="/pricing" style="color:#999">Pricing</a> · <a href="/privacy" style="color:#999">Privacy</a></p>
+</footer>
+</Base>
