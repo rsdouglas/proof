@@ -1,0 +1,106 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Quick Start — SocialProof Docs"
+  description="Get your first customer testimonial in under 5 minutes with SocialProof. No widget setup required to start collecting reviews."
+  canonical="https://socialproof.dev/docs/quickstart"
+>
+<style>
+  .doc-page { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+  .doc-breadcrumb { font-size: 0.85rem; color: #999; margin-bottom: 32px; }
+  .doc-breadcrumb a { color: #6c47ff; text-decoration: none; }
+  .doc-breadcrumb a:hover { text-decoration: underline; }
+  .doc-page h1 { font-size: 2.2rem; font-weight: 800; color: #111; margin-bottom: 12px; }
+  .doc-lead { font-size: 1.15rem; color: #555; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid #eee; }
+  .doc-page h2 { font-size: 1.4rem; font-weight: 700; color: #111; margin: 36px 0 12px; }
+  .doc-page h3 { font-size: 1.1rem; font-weight: 700; color: #333; margin: 24px 0 8px; }
+  .doc-page p { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
+  .doc-page ul, .doc-page ol { padding-left: 24px; margin-bottom: 16px; }
+  .doc-page li { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 6px; }
+  .step-block { background: #f9f9f9; border-radius: 12px; padding: 24px 28px; margin: 24px 0; }
+  .step-block .step-label { font-size: 0.8rem; font-weight: 700; color: #6c47ff; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .step-block h3 { margin: 0 0 10px; font-size: 1.15rem; }
+  .step-block p { margin: 0; }
+  .code-block { background: #1e1e2e; color: #cdd6f4; padding: 20px 24px; border-radius: 10px; font-family: monospace; font-size: 0.9rem; overflow-x: auto; margin: 16px 0; line-height: 1.6; }
+  .callout { background: #f5f3ff; border-left: 4px solid #6c47ff; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .callout p { margin: 0; color: #444; font-size: 0.95rem; }
+  .callout strong { color: #6c47ff; }
+  .cta-block { background: #6c47ff; color: #fff; border-radius: 12px; padding: 32px 28px; text-align: center; margin: 40px 0; }
+  .cta-block h3 { color: #fff; font-size: 1.3rem; margin-bottom: 12px; }
+  .cta-block p { color: rgba(255,255,255,0.85); margin-bottom: 20px; }
+  .cta-block a { background: #fff; color: #6c47ff; padding: 12px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
+  .doc-nav { display: flex; justify-content: flex-end; margin-top: 48px; padding-top: 32px; border-top: 1px solid #eee; }
+  .doc-nav a { color: #6c47ff; font-weight: 600; text-decoration: none; }
+</style>
+
+<div class="doc-page">
+  <div class="doc-breadcrumb">
+    <a href="/docs">Docs</a> / Quick Start
+  </div>
+
+  <h1>Quick Start</h1>
+  <p class="doc-lead">Get your first testimonial in under 5 minutes — no widget setup required to start collecting.</p>
+
+  <div class="step-block">
+    <div class="step-label">Step 1</div>
+    <h3>Create a free account</h3>
+    <p>Go to <a href="https://app.socialproof.dev/signup">app.socialproof.dev/signup</a> and sign up. No credit card required. Your collection link is ready the moment you register.</p>
+  </div>
+
+  <div class="step-block">
+    <div class="step-label">Step 2</div>
+    <h3>Share your collection link</h3>
+    <p>From your dashboard, copy your unique collection link — it looks like:</p>
+    <div class="code-block">https://collect.socialproof.dev/your-business-name</div>
+    <p>Share it with a happy customer:</p>
+    <ul>
+      <li>Paste it in an email: <em>"It would mean a lot if you'd leave a quick testimonial: [link]"</em></li>
+      <li>Drop it in a DM or text message</li>
+      <li>Add it to your email signature or post-purchase thank-you page</li>
+    </ul>
+    <p>The customer clicks the link, fills out a short form (under 2 minutes), and submits.</p>
+  </div>
+
+  <div class="step-block">
+    <div class="step-label">Step 3</div>
+    <h3>Approve your first testimonial</h3>
+    <p>When a testimonial comes in, you'll see it in <strong>Testimonials → Pending</strong> in your dashboard. Review it, click <strong>Approve</strong>, and it's live.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Note:</strong> You'll need to verify your email address before you can approve or moderate testimonials.</p>
+  </div>
+
+  <p>That's it. You just got your first testimonial.</p>
+
+  <h2>Optional: Display testimonials on your website</h2>
+  <p>If you want to embed testimonials on your site, create a widget:</p>
+  <ol>
+    <li>In your dashboard, click <strong>New Widget</strong> and choose a layout (Carousel, Grid, or Single)</li>
+    <li>Copy the embed snippet from widget settings:</li>
+  </ol>
+  <div class="code-block">&lt;script src="https://widget.socialproof.dev/widget.js" data-widget-id="YOUR_WIDGET_ID"&gt;&lt;/script&gt;</div>
+  <ol start="3">
+    <li>Paste it anywhere in your site HTML — SocialProof handles the rest</li>
+  </ol>
+  <p>The widget updates automatically as you approve new testimonials — no re-embedding needed.</p>
+
+  <h2>Next steps</h2>
+  <ul>
+    <li><strong>Ask more customers</strong> — the more testimonials you collect, the stronger your social proof</li>
+    <li><strong>Upgrade to Pro</strong> — unlimited testimonials, multiple widgets, analytics, and Google rich results ($9/mo)</li>
+    <li><strong>Add to more pages</strong> — embed different widgets on your homepage, product pages, or checkout</li>
+  </ul>
+
+  <div class="cta-block">
+    <h3>Ready to get started?</h3>
+    <p>Free forever for 1 active widget. No credit card required.</p>
+    <a href="https://app.socialproof.dev/signup">Create free account →</a>
+  </div>
+
+  <div class="doc-nav">
+    <a href="/docs/collecting">Next: Collecting Testimonials →</a>
+  </div>
+</div>
+</Base>

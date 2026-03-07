@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Collecting Testimonials — SocialProof Docs"
+  description="Learn every way to collect customer testimonials with SocialProof: email requests, collection links, QR codes, and post-purchase flows."
+  canonical="https://socialproof.dev/docs/collecting"
+>
+<style>
+  .doc-page { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+  .doc-breadcrumb { font-size: 0.85rem; color: #999; margin-bottom: 32px; }
+  .doc-breadcrumb a { color: #6c47ff; text-decoration: none; }
+  .doc-breadcrumb a:hover { text-decoration: underline; }
+  .doc-page h1 { font-size: 2.2rem; font-weight: 800; color: #111; margin-bottom: 12px; }
+  .doc-lead { font-size: 1.15rem; color: #555; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid #eee; }
+  .doc-page h2 { font-size: 1.4rem; font-weight: 700; color: #111; margin: 36px 0 12px; }
+  .doc-page h3 { font-size: 1.1rem; font-weight: 700; color: #333; margin: 24px 0 8px; }
+  .doc-page p { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
+  .doc-page ul, .doc-page ol { padding-left: 24px; margin-bottom: 16px; }
+  .doc-page li { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 6px; }
+  .method-block { border: 1px solid #e5e5e5; border-radius: 12px; padding: 28px; margin: 24px 0; }
+  .method-block .method-badge { display: inline-block; background: #6c47ff; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .method-block h3 { margin: 0 0 12px; font-size: 1.2rem; }
+  .quote-example { background: #f5f3ff; border-left: 4px solid #6c47ff; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; font-style: italic; color: #444; font-size: 0.95rem; }
+  .tip-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+  .tip-box p { margin: 0; color: #166534; font-size: 0.95rem; }
+  .tip-box strong { color: #15803d; }
+  .callout { background: #f5f3ff; border-left: 4px solid #6c47ff; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .callout p { margin: 0; color: #444; font-size: 0.95rem; }
+  .doc-nav { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 32px; border-top: 1px solid #eee; }
+  .doc-nav a { color: #6c47ff; font-weight: 600; text-decoration: none; }
+</style>
+
+<div class="doc-page">
+  <div class="doc-breadcrumb">
+    <a href="/docs">Docs</a> / Collecting Testimonials
+  </div>
+
+  <h1>Collecting Testimonials</h1>
+  <p class="doc-lead">SocialProof gives you multiple ways to collect verified testimonials from your customers. Here's every method, and when to use each one.</p>
+
+  <div class="method-block">
+    <span class="method-badge">Recommended</span>
+    <h3>Method 1: Email a customer directly from the dashboard</h3>
+    <p>The fastest way to get your first testimonial is to email a happy customer directly from your SocialProof dashboard.</p>
+    <ol>
+      <li>Go to <strong>Testimonials → Request testimonial</strong></li>
+      <li>Enter the customer's email (required) and name (optional)</li>
+      <li>Choose which widget to link them to (if you have multiple)</li>
+      <li>Add a personal note — strongly recommended</li>
+      <li>Click <strong>Send request</strong></li>
+    </ol>
+    <p>SocialProof sends a branded email with a direct link to your collection form. The customer clicks, fills it out in under 2 minutes, and submits.</p>
+
+    <h3>What to write in the personal note</h3>
+    <div class="quote-example">
+      "Hi [Name], it was such a pleasure working with you on [project]. Your testimonial would really help other [clients/customers] know what to expect. Takes 2 minutes — I really appreciate it."
+    </div>
+
+    <div class="tip-box">
+      <p><strong>💡 Tip:</strong> Personal notes get 3x more responses than blank requests. Always add one — even a single sentence makes a huge difference.</p>
+    </div>
+  </div>
+
+  <div class="method-block">
+    <span class="method-badge" style="background:#374151">Always-on</span>
+    <h3>Method 2: Share your collector link</h3>
+    <p>Every SocialProof account gets a unique hosted collector page:</p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:16px;border-radius:8px;font-size:0.9rem;overflow-x:auto">https://collect.socialproof.dev/your-business-name</pre>
+    <p>This page is mobile-friendly, branded with your business name, and fully hosted — no setup required.</p>
+
+    <h3>Best places to share it</h3>
+    <ul>
+      <li><strong>After a purchase:</strong> "Thanks for your order! If you have a moment, I'd love to hear what you think: [link]"</li>
+      <li><strong>After a service delivery:</strong> "It was great working with you. A quick testimonial would mean a lot: [link]"</li>
+      <li><strong>In your email signature:</strong> "Happy with my work? Leave a testimonial: [link]"</li>
+      <li><strong>In a follow-up sequence:</strong> 3–5 days after delivery is the sweet spot</li>
+      <li><strong>On a thank-you page:</strong> Right after checkout or booking confirmation</li>
+    </ul>
+  </div>
+
+  <h2>When to ask</h2>
+  <p>Timing is everything. The best time to ask is right after a successful outcome — when the customer's satisfaction is highest and the experience is fresh.</p>
+  <ul>
+    <li><strong>Services:</strong> Within 24–48 hours of project completion</li>
+    <li><strong>Products:</strong> 3–7 days after delivery (enough time to use it)</li>
+    <li><strong>Ongoing relationships:</strong> After a major milestone or positive moment</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Don't wait for "the right moment."</strong> The best testimonials come when you ask. Most happy customers simply never think to leave one unprompted.</p>
+  </div>
+
+  <h2>What SocialProof collects</h2>
+  <p>Your collection form captures:</p>
+  <ul>
+    <li>Customer name and (optional) company/role</li>
+    <li>Star rating (1–5)</li>
+    <li>Written testimonial text</li>
+    <li>(Optional) Photo upload</li>
+  </ul>
+  <p>All responses are held in <strong>Testimonials → Pending</strong> until you approve them. You're always in control of what appears on your site.</p>
+
+  <div class="doc-nav">
+    <a href="/docs/quickstart">← Quick Start</a>
+    <a href="/docs/embedding">Next: Embedding Your Widget →</a>
+  </div>
+</div>
+</Base>
