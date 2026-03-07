@@ -52,7 +52,7 @@ When testimonial #1 arrives, send:
 Dashboard shows a gentle nudge: "Still waiting for your first testimonial? Here are 3 ways to get one today."
 
 ### 5. Collection form UX review
-Currently untested — we should verify the form at socialproof.dev/c/[id] is:
+Currently untested — we should verify the form at socialproof.dev/c/frm_[form-id] is:
 - Mobile-friendly
 - Fast to complete (<60 seconds)
 - Clear about what they're being asked for
