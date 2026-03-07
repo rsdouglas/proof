@@ -112,13 +112,31 @@ export default function Testimonials() {
   const filtered = filter === 'all' ? testimonials : testimonials.filter(t => t.status === filter)
 
   async function setStatus(id: string, status: string) {
-    await request(`/testimonials/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) })
+    // Optimistic update
+    const prev = testimonials.find(t => t.id === id)?.status
     setTestimonials(ts => ts.map(t => t.id === id ? { ...t, status } : t))
+    try {
+      await request(`/testimonials/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) })
+      const label = status === 'approved' ? 'Approved' : status === 'rejected' ? 'Rejected' : 'Updated'
+      showToast(`${label} ✓`)
+    } catch (err: unknown) {
+      // Revert optimistic update on failure
+      if (prev !== undefined) setTestimonials(ts => ts.map(t => t.id === id ? { ...t, status: prev } : t))
+      const msg = err instanceof Error ? err.message : 'Failed to update status'
+      showToast(`Error: ${msg}`)
+    }
   }
 
   async function toggleFeatured(id: string, featured: number) {
-    await request(`/testimonials/${id}`, { method: 'PATCH', body: JSON.stringify({ featured: featured ? 0 : 1 }) })
-    setTestimonials(ts => ts.map(t => t.id === id ? { ...t, featured: featured ? 0 : 1 } : t))
+    const newFeatured = featured ? 0 : 1
+    setTestimonials(ts => ts.map(t => t.id === id ? { ...t, featured: newFeatured } : t))
+    try {
+      await request(`/testimonials/${id}`, { method: 'PATCH', body: JSON.stringify({ featured: newFeatured }) })
+    } catch (err: unknown) {
+      // Revert on failure
+      setTestimonials(ts => ts.map(t => t.id === id ? { ...t, featured } : t))
+      showToast('Failed to update featured status')
+    }
   }
 
   async function deleteTestimonial(id: string) {
