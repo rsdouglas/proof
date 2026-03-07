@@ -210,9 +210,9 @@ describe('drip sequence ordering', () => {
 describe('collect link format', () => {
   it('generate collect URL uses the right base path', () => {
     const widgetId = 'abc123'
-    const base = 'https://collect.socialproof.dev/c'
+    const base = 'https://socialproof.dev/c'
     const url = `${base}/${widgetId}`
-    expect(url).toBe('https://collect.socialproof.dev/c/abc123')
+    expect(url).toBe('https://socialproof.dev/c/abc123')
     expect(url).toContain(widgetId)
   })
 })
