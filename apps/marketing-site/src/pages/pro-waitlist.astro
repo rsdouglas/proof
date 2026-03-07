@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Join the Pro Waitlist — SocialProof"
+  description="SocialProof Pro is coming soon. Drop your email to get early access and a founding member discount."
+  canonical="https://socialproof.dev/pro-waitlist/"
+>
+  <style>
+    .waitlist-wrap {
+      max-width: 540px;
+      margin: 80px auto 120px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .waitlist-badge {
+      display: inline-block;
+      background: var(--accent, #6366f1);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .waitlist-wrap h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0 0 16px;
+    }
+    .waitlist-wrap p {
+      font-size: 18px;
+      color: var(--text-muted, #6b7280);
+      margin: 0 0 40px;
+      line-height: 1.6;
+    }
+    .waitlist-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .waitlist-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text, #111);
+    }
+    .waitlist-perk span.icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .waitlist-form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .waitlist-form input[type="email"] {
+      flex: 1;
+      min-width: 220px;
+      padding: 13px 16px;
+      font-size: 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .waitlist-form input[type="email"]:focus {
+      border-color: var(--accent, #6366f1);
+    }
+    .waitlist-form button {
+      padding: 13px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--accent, #6366f1);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+    .waitlist-form button:hover { opacity: .88; }
+    .waitlist-fine {
+      font-size: 13px;
+      color: var(--text-muted, #9ca3af);
+      margin-top: 14px;
+    }
+    .waitlist-success {
+      display: none;
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      border-radius: 10px;
+      padding: 20px 24px;
+      color: #065f46;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 48px;
+      font-size: 14px;
+      color: var(--text-muted, #6b7280);
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+
+  <div class="waitlist-wrap">
+    <span class="waitlist-badge">Coming Soon</span>
+    <h1>Pro is almost here.<br>Get in first.</h1>
+    <p>SocialProof Pro unlocks unlimited widgets, custom branding removal, and full API access. Founding members get a discount locked in for life.</p>
+
+    <div class="waitlist-perks">
+      <div class="waitlist-perk"><span class="icon">✅</span> Unlimited testimonial widgets — no cap</div>
+      <div class="waitlist-perk"><span class="icon">✅</span> Remove SocialProof branding from all widgets</div>
+      <div class="waitlist-perk"><span class="icon">✅</span> Custom domain for your collection page</div>
+      <div class="waitlist-perk"><span class="icon">✅</span> Full API access + CSV export</div>
+      <div class="waitlist-perk"><span class="icon">🎁</span> Founding member pricing — locked in forever</div>
+    </div>
+
+    <form class="waitlist-form" id="waitlistForm" action="https://app.socialproof.dev/api/waitlist" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+      <button type="submit">Join the waitlist</button>
+    </form>
+    <p class="waitlist-fine">No spam. One email when Pro launches. That's it.</p>
+    <div class="waitlist-success" id="waitlistSuccess">
+      🎉 You're on the list! We'll email you when Pro is ready.
+    </div>
+
+    <a href="/" class="back-link">← Back to SocialProof</a>
+  </div>
+
+  <script>
+    const form = document.getElementById('waitlistForm');
+    const success = document.getElementById('waitlistSuccess');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = form.querySelector('input[type="email"]').value;
+        try {
+          await fetch('https://app.socialproof.dev/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, plan: 'pro' }),
+          });
+        } catch (_) {}
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+    }
+  </script>
+</Base>
