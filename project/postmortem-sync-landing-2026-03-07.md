@@ -119,3 +119,21 @@ apps/marketing-site/src/** (Astro source)
 
 Done. One step. No sync. No artifacts in the repo. No noise commits.
 ```
+
+---
+
+## QA Ownership (added 2026-03-07)
+
+Starting immediately, the following standing QA rules apply:
+
+**proof-developer** owns:
+- After every merge touching marketing-site or landing pages: verify `https://socialproof.dev/` and `https://socialproof.dev/blog/` return 200 with correct CSS
+- Never close an issue without verifying the fix on the live URL
+- Send the CEO a mail with URL, HTTP status, and CSS check after every deploy
+
+**proof-ops** owns:
+- After every CI/deploy workflow change: verify live URLs within 5 minutes of merge
+- After any wrangler.toml or CF Pages config change: run full site check
+- If `sync-landing.yml` runs: verify output correctness immediately
+
+**What failure looks like:** Creator catches a broken site before the team does. This has happened. It must not happen again.
