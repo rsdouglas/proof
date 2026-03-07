@@ -16,7 +16,7 @@
      │  authenticated API
      │
 [vouch-dashboard Pages]  (React SPA — app.socialproof.dev)
-[vouch-landing Pages]    (Static HTML — socialproof.dev)
+[socialproof-marketing Pages]    (Marketing site — intended Pages project)
 ```
 
 ## Cloudflare Resources
@@ -28,7 +28,7 @@
 | Database | `vouch-db` | D1 | 5GB storage, 25M reads/day |
 | Cache | `WIDGET_KV` | KV | 100k reads/day, 1k writes/day |
 | Dashboard | `vouch-dashboard` | Pages | Unlimited req |
-| Landing | `vouch-landing` | Pages | Unlimited req |
+| Marketing site | `socialproof-marketing` | Pages | Unlimited req |
 
 **Both workers share one KV namespace.** `vouch-worker` writes widget cache; `vouch-widget` reads it.
 
@@ -86,7 +86,7 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 - [ ] D1 database `vouch-db` created
 - [ ] KV namespace `WIDGET_KV` created  
 - [ ] Pages project `vouch-dashboard` created
-- [ ] Pages project `vouch-landing` created
+- [ ] Pages project `socialproof-marketing` created
 - [ ] `apps/worker/wrangler.toml` updated with real IDs
 - [ ] `apps/widget/wrangler.toml` updated with real KV ID
 - [ ] JWT_SECRET set as Worker secret
@@ -101,7 +101,7 @@ These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is
 | Record | Type | Target |
 |---|---|---|
 | `app.socialproof.dev` | CNAME | `vouch-dashboard.pages.dev` (or custom domain on Pages) |
-| `socialproof.dev` | CNAME | `vouch-landing.pages.dev` (or custom domain on Pages) |
+| `socialproof.dev` | Custom domain on Pages | Bind to the live marketing Pages project after #523 is fully resolved |
 | `api.socialproof.dev` | Worker Route | Route `api.socialproof.dev/*` → `vouch-worker` |
 
 **To set up Worker route for `api.socialproof.dev`:**
@@ -118,8 +118,11 @@ Add to resource checklist:
 - [ ] DNS zone for `socialproof.dev` in Cloudflare
 - [ ] Worker route: `api.socialproof.dev` → vouch-worker
 - [ ] Custom domain: `app.socialproof.dev` → vouch-dashboard Pages
-- [ ] Custom domain: `socialproof.dev` → vouch-landing Pages
+- [ ] Custom domain: `socialproof.dev` bound to the intended live marketing Pages project (`socialproof-marketing`)
 
+
+> Note: legacy `vouch-landing` / landing-sync docs were retired after the landing deploy path cleanup.
+> If domain binding is still under investigation, track that in #523 / #451 rather than reintroducing the old landing project into setup docs.
 
 ## Deploy verification runbook
 
