@@ -1,0 +1,194 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Airtable for Testimonials — Stop Using Spreadsheets | SocialProof" description="Airtable is a database. SocialProof is built for testimonials. If you're storing testimonials in Airtable, there's a better way — free to start." canonical="https://socialproof.dev/vs/airtable">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .insight-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .insight-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .insight-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .workflow-steps { counter-reset: step; list-style: none; padding: 0; margin: 1.5rem 0; }
+    .workflow-steps li { counter-increment: step; display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem; }
+    .workflow-steps li::before { content: counter(step); display: flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem; background: #4f46e5; color: #fff; border-radius: 50%; font-weight: 700; font-size: 0.85rem; }
+    .workflow-steps li p { margin: 0; font-size: 0.95rem; color: #444; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: 1rem; }
+    .bottom-cta p { opacity: .85; margin-bottom: 1.5rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+</style>
+
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for">Use cases</a>
+    <a href="/vs">Compare</a>
+    <a href="https://app.socialproof.dev" class="cta-nav">Try free →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="vs-badge">SocialProof vs Airtable</div>
+  <h1>Stop storing testimonials in <span>Airtable spreadsheets</span></h1>
+  <p>Airtable is a brilliant database. But collecting, displaying, and embedding customer testimonials isn't what it's built for. SocialProof is.</p>
+  <a href="https://app.socialproof.dev" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>The Airtable testimonial workflow (and why it breaks down)</h2>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">You've probably been here: someone says something great about your work, you paste it into Airtable, build a custom view, try to figure out how to display it on your website, and end up with... nothing visible to customers. Or a messy iframe that breaks on mobile.</p>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">Airtable is genuinely powerful for managing data. But testimonials aren't just data — they're trust signals that need to be <em>seen</em>. Collecting them is step one. Displaying them is the whole point.</p>
+
+  <div class="insight-box">
+    <h3>💡 The actual problem</h3>
+    <p>Airtable doesn't have a "collect a testimonial" form that looks professional, a star-rating widget, or a way to embed a beautiful testimonial wall on your site without coding. That's not a bug — it's just not what Airtable is for.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Head-to-head: testimonial use case</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>Airtable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Collect testimonials via shareable link</td>
+        <td class="yes">✓ Built-in, branded</td>
+        <td class="partial">⚠ Build your own form</td>
+      </tr>
+      <tr>
+        <td>Star ratings on testimonials</td>
+        <td class="yes">✓ Native</td>
+        <td class="no">✗ Custom field only</td>
+      </tr>
+      <tr>
+        <td>Embed widget on website</td>
+        <td class="yes">✓ 1-line embed code</td>
+        <td class="no">✗ Build your own display</td>
+      </tr>
+      <tr>
+        <td>Mobile-responsive testimonial wall</td>
+        <td class="yes">✓ Automatic</td>
+        <td class="no">✗ Requires custom dev work</td>
+      </tr>
+      <tr>
+        <td>Moderation / approving testimonials</td>
+        <td class="yes">✓ Built-in approval flow</td>
+        <td class="partial">⚠ Manage manually in views</td>
+      </tr>
+      <tr>
+        <td>Customer-facing collection page</td>
+        <td class="yes">✓ Branded, professional</td>
+        <td class="no">✗ Airtable forms look like... Airtable</td>
+      </tr>
+      <tr>
+        <td>No-code setup</td>
+        <td class="yes">✓ 5 minutes, zero code</td>
+        <td class="partial">⚠ Requires Airtable expertise</td>
+      </tr>
+      <tr>
+        <td>Price to get started</td>
+        <td class="yes">✓ Free forever (1 widget)</td>
+        <td class="partial">Free tier exists, but limited for this use</td>
+      </tr>
+      <tr>
+        <td>Built for testimonials specifically</td>
+        <td class="yes">✓ Yes</td>
+        <td class="no">✗ General-purpose database</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>What using SocialProof looks like instead</h2>
+  <ol class="workflow-steps">
+    <li><p><strong>Create a widget</strong> — name it, set your style. Takes 2 minutes.</p></li>
+    <li><p><strong>Share a collection link</strong> — send it to happy customers. They fill in their name, photo, quote, and star rating. Looks great on mobile.</p></li>
+    <li><p><strong>Approve testimonials</strong> — review submissions and approve the ones you want displayed. One click.</p></li>
+    <li><p><strong>Embed on your site</strong> — paste one line of HTML. Works on any website: Webflow, Squarespace, Wix, WordPress, custom code.</p></li>
+  </ol>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">No Airtable API, no Zapier zaps, no custom CSS. Just testimonials on your site, working.</p>
+</section>
+
+<section>
+  <h2>Who should use what</h2>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>Use SocialProof if you…</h3>
+      <ul>
+        <li>Want testimonials on your website, now</li>
+        <li>Don't want to build a custom display system</li>
+        <li>Need a professional-looking collection form to send clients</li>
+        <li>Are a freelancer, coach, consultant, or small business</li>
+        <li>Want something that works in 5 minutes, not 5 hours</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Keep using Airtable if you…</h3>
+      <ul>
+        <li>Need testimonials as part of a larger data workflow</li>
+        <li>Have a developer who can build a custom display</li>
+        <li>Already have Airtable deeply integrated into your business ops</li>
+        <li>Need to cross-reference testimonials with CRM data</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Honest take</h2>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">Airtable is one of the best tools ever built for managing structured data. We use it ourselves for some things. But "store testimonials in Airtable and display them on your website" is a project that sounds simple and becomes complicated fast — custom forms, display logic, embed code, mobile layouts.</p>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">SocialProof does one thing and does it completely: collects testimonials beautifully, lets you approve them, and embeds a widget on your site. It's the right tool for this specific job.</p>
+  <p style="color:#444;font-size:1.05rem;line-height:1.7;">Free forever for 1 widget. No card needed. Try it and see if your testimonial workflow gets simpler.</p>
+
+  <div class="bottom-cta">
+    <h2>Get testimonials on your site today.</h2>
+    <p>Free forever for 1 active widget. No credit card. No Airtable formulas required.</p>
+    <a href="https://app.socialproof.dev">Start free →</a>
+  </div>
+</section>
+
+<div class="footer-links" style="max-width:900px;margin:0 auto 3rem;padding:1.5rem 2rem;border-top:1px solid #e5e7eb;font-size:0.9rem;">
+  <strong style="color:#374151;">Also explore:</strong>
+  <a href="/for/freelancers" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">For Freelancers</a>
+  <a href="/for/coaches" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">For Coaches</a>
+  <a href="/for/consultants" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">For Consultants</a>
+  <a href="/vs/notion" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">vs Notion</a>
+  <a href="/vs/typeform" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">vs Typeform</a>
+  <a href="/vs/senja" style="display:inline-block;margin:0.3rem 0.5rem 0.3rem 0;color:#2563eb;text-decoration:none;">vs Senja</a>
+</div>
+</Base>
