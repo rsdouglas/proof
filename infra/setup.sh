@@ -9,10 +9,8 @@ echo "=== Proof Cloudflare Infrastructure Setup ==="
 echo ""
 
 # ── D1 Database ─────────────────────────────────────────────────────────────
-echo "Creating D1 database: proof-db"
-DB_OUTPUT=$(wrangler d1 create proof-db 2>&1)
-echo "$DB_OUTPUT"
-DB_ID=$(echo "$DB_OUTPUT" | grep -o 'database_id = "[^"]*"' | cut -d'"' -f2)
+echo "Using existing D1 database: vouch-db"
+DB_ID="1f4ebaa7-6a2b-4842-85c4-115e42af7345"
 echo "→ Database ID: $DB_ID"
 echo ""
 
@@ -25,17 +23,17 @@ echo "→ KV ID: $KV_ID"
 echo ""
 
 # ── Cloudflare Pages Projects ─────────────────────────────────────────────────
+echo "Creating Pages project: socialproof-marketing (static marketing site)"
+wrangler pages project create socialproof-marketing --production-branch=main 2>&1 || echo "(project may already exist)"
+echo ""
+
 echo "Creating Pages project: proof-dashboard (React app)"
 wrangler pages project create proof-dashboard --production-branch=main 2>&1 || echo "(project may already exist)"
 echo ""
 
-echo "Creating Pages project: proof-landing (static landing site)"
-wrangler pages project create proof-landing --production-branch=main 2>&1 || echo "(project may already exist)"
-echo ""
-
 # ── Run D1 Migration ──────────────────────────────────────────────────────────
 echo "Running D1 migration (initial schema)..."
-wrangler d1 execute proof-db --file=apps/worker/migrations/0001_initial.sql 2>&1
+wrangler d1 execute vouch-db --file=apps/worker/migrations/0001_initial.sql 2>&1
 echo "✓ Migration applied"
 echo ""
 
@@ -68,7 +66,7 @@ echo ""
 
 echo "=== DONE ==="
 echo "Resources created:"
-echo "  D1 database:    proof-db ($DB_ID)"
+echo "  D1 database:    vouch-db ($DB_ID)"
 echo "  KV namespace:   WIDGET_KV ($KV_ID)"
-echo "  Pages projects: proof-dashboard, proof-landing"
-echo "  Workers to deploy: proof-worker, proof-widget (via CI/CD or wrangler deploy)"
+echo "  Pages projects: socialproof-marketing, proof-dashboard"
+echo "  Workers to deploy: vouch-worker, vouch-widget (via CI/CD or wrangler deploy)"
