@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Embedding Your Widget — SocialProof Docs"
+  description="Add a testimonial carousel, grid, or badge to any website with one line of code. Works on Shopify, Squarespace, WordPress, and any HTML site."
+  canonical="https://socialproof.dev/docs/embedding"
+>
+<style>
+  .doc-page { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+  .doc-breadcrumb { font-size: 0.85rem; color: #999; margin-bottom: 32px; }
+  .doc-breadcrumb a { color: #6c47ff; text-decoration: none; }
+  .doc-breadcrumb a:hover { text-decoration: underline; }
+  .doc-page h1 { font-size: 2.2rem; font-weight: 800; color: #111; margin-bottom: 12px; }
+  .doc-lead { font-size: 1.15rem; color: #555; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid #eee; }
+  .doc-page h2 { font-size: 1.4rem; font-weight: 700; color: #111; margin: 36px 0 12px; }
+  .doc-page h3 { font-size: 1.1rem; font-weight: 700; color: #333; margin: 24px 0 8px; }
+  .doc-page p { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
+  .doc-page ul, .doc-page ol { padding-left: 24px; margin-bottom: 16px; }
+  .doc-page li { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 6px; }
+  .code-block { background: #1e1e2e; color: #cdd6f4; padding: 20px 24px; border-radius: 10px; font-family: monospace; font-size: 0.88rem; overflow-x: auto; margin: 16px 0; line-height: 1.7; }
+  .layout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+  .layout-card { background: #f9f9f9; border-radius: 10px; padding: 20px; }
+  .layout-card h4 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+  .layout-card p { font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5; }
+  .platform-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+  .platform-item { background: #f9f9f9; border-radius: 8px; padding: 14px 16px; font-size: 0.9rem; color: #333; font-weight: 500; }
+  .callout { background: #f5f3ff; border-left: 4px solid #6c47ff; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+  .callout p { margin: 0; color: #444; font-size: 0.95rem; }
+  .tip-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+  .tip-box p { margin: 0; color: #166534; font-size: 0.95rem; }
+  .cta-block { background: #6c47ff; color: #fff; border-radius: 12px; padding: 32px 28px; text-align: center; margin: 40px 0; }
+  .cta-block h3 { color: #fff; font-size: 1.3rem; margin-bottom: 12px; }
+  .cta-block p { color: rgba(255,255,255,0.85); margin-bottom: 20px; }
+  .cta-block a { background: #fff; color: #6c47ff; padding: 12px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
+  .doc-nav { display: flex; justify-content: flex-start; margin-top: 48px; padding-top: 32px; border-top: 1px solid #eee; }
+  .doc-nav a { color: #6c47ff; font-weight: 600; text-decoration: none; }
+</style>
+
+<div class="doc-page">
+  <div class="doc-breadcrumb">
+    <a href="/docs">Docs</a> / Embedding Your Widget
+  </div>
+
+  <h1>Embedding Your Widget</h1>
+  <p class="doc-lead">SocialProof widgets are embedded with a single script tag. Works on any website — no plugins required.</p>
+
+  <h2>The embed code</h2>
+  <p>Copy your widget ID from the dashboard (Widget Settings → Widget ID), then paste this snippet wherever you want testimonials to appear:</p>
+  <div class="code-block">&lt;script
+  src="https://widget.socialproof.dev/widget.js"
+  data-widget-id="YOUR_WIDGET_ID"&gt;
+&lt;/script&gt;</div>
+
+  <div class="callout">
+    <p><strong>The widget updates automatically</strong> as you approve new testimonials — no re-embedding needed. Change your widget settings in the dashboard and they go live instantly.</p>
+  </div>
+
+  <h2>Layout options</h2>
+  <div class="layout-grid">
+    <div class="layout-card">
+      <h4>🎠 Carousel</h4>
+      <p>A scrolling display of testimonials. Great for hero sections and homepages.</p>
+    </div>
+    <div class="layout-card">
+      <h4>⊞ Grid</h4>
+      <p>Shows 2–4 testimonials at once. Perfect for dedicated testimonials sections.</p>
+    </div>
+    <div class="layout-card">
+      <h4>🏅 Badge</h4>
+      <p>A compact trust badge with your rating. Great for headers and footers.</p>
+    </div>
+  </div>
+
+  <h3>Carousel</h3>
+  <div class="code-block">&lt;script src="https://widget.socialproof.dev/widget.js"
+  data-widget-id="YOUR_ID"
+  data-layout="carousel"&gt;
+&lt;/script&gt;</div>
+
+  <h3>Grid</h3>
+  <div class="code-block">&lt;script src="https://widget.socialproof.dev/widget.js"
+  data-widget-id="YOUR_ID"
+  data-layout="grid"
+  data-columns="3"&gt;
+&lt;/script&gt;</div>
+
+  <h3>Badge</h3>
+  <div class="code-block">&lt;script src="https://widget.socialproof.dev/widget.js"
+  data-widget-id="YOUR_ID"
+  data-layout="badge"&gt;
+&lt;/script&gt;</div>
+
+  <h2>Where to place it</h2>
+  <p>Paste the script tag wherever you want the widget to appear in your HTML. Strategic placements that convert best:</p>
+  <ul>
+    <li><strong>Homepage</strong> — above the fold or in a dedicated "What customers say" section</li>
+    <li><strong>Checkout or booking page</strong> — reduces purchase anxiety right before the decision</li>
+    <li><strong>Services page</strong> — builds trust when you're describing what you offer</li>
+    <li><strong>About page</strong> — humanizes your business with real customer voices</li>
+  </ul>
+  <p>You can place multiple widgets on different pages — each with its own layout and testimonial set.</p>
+
+  <h2>Platform guides</h2>
+  <p>Paste the script tag into the custom code section of your platform:</p>
+  <div class="platform-list">
+    <div class="platform-item">🛍 Shopify</div>
+    <div class="platform-item">◻ Squarespace</div>
+    <div class="platform-item">🔵 WordPress</div>
+    <div class="platform-item">🌐 Webflow</div>
+    <div class="platform-item">⚡ Wix</div>
+    <div class="platform-item">📄 Any HTML site</div>
+  </div>
+
+  <div class="tip-box">
+    <p><strong>💡 Shopify tip:</strong> Go to Online Store → Themes → Edit code → paste the script in <code>theme.liquid</code> before <code>&lt;/body&gt;</code>, or use the Custom HTML section in the page editor.</p>
+  </div>
+
+  <h2>Customizing appearance</h2>
+  <p>Widget colors, fonts, and layout settings are all controlled from your dashboard under <strong>Widget Settings</strong>. Changes apply instantly — no need to update your embed code.</p>
+
+  <div class="cta-block">
+    <h3>Ready to add social proof to your site?</h3>
+    <p>Free forever for 1 active widget. Takes 5 minutes to set up.</p>
+    <a href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+
+  <div class="doc-nav">
+    <a href="/docs/collecting">← Collecting Testimonials</a>
+  </div>
+</div>
+</Base>
