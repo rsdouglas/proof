@@ -11,6 +11,7 @@
     "predev": "bash fix-layout-paths.sh"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.0.0"
   }
 }
