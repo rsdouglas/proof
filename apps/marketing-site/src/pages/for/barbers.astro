@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Barber Shops — SocialProof" description="Barber shops: collect client reviews and display them on your website automatically. SocialProof helps barbers build a loyal clientele through word of mouth." canonical="https://socialproof.dev/for/barbers">
+<style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+</style>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/for/">Industries</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://app.socialproof.dev/register" class="btn-nav">Try free</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Build a loyal clientele with real testimonials</h1>
+  <p>Great barbers grow on reputation. SocialProof makes it easy to collect testimonials from satisfied clients and display them on your website — so every search sends new clients your way.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/register" class="btn-primary">Start free — no credit card</a>
+    <a href="/#how-it-works" class="btn-secondary">See how it works</a>
+  </div>
+</section>
+
+<section class="why-section">
+  <h2>Why barber shops need social proof</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>✂️ New clients choose on trust</h3>
+      <p>Moving to a new barber is a big decision. Real testimonials from regular clients — talking about the clean fades, the hot towel shave, the great conversation — seal the deal.</p>
+    </div>
+    <div class="why-card">
+      <h3>📱 Your website needs more than a price list</h3>
+      <p>When someone lands on your site, a wall of genuine 5-star experiences from real clients is worth more than any marketing copy you could write.</p>
+    </div>
+    <div class="why-card">
+      <h3>🏆 Stand out in a crowded market</h3>
+      <p>Every neighborhood has multiple barbers. The one with authentic, detailed testimonials on their site looks more professional and trustworthy — and gets the call.</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="steps-inner">
+    <h2>Get your first testimonials this week</h2>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Send clients your collection link</h3>
+          <p>After a cut, send a quick text with your SocialProof link. Clients leave a testimonial in under a minute — no app download, no account.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Review and approve</h3>
+          <p>Every submission comes to your dashboard for approval. You decide what goes live on your site — always on your terms.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Embed anywhere in minutes</h3>
+          <p>Paste one snippet into your website — Squarespace, Wix, WordPress, or custom HTML — and your testimonial wall goes live instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote>"I put the link in my Instagram bio and started getting testimonials from clients I'd had for years. My Google ranking improved within a month."</blockquote>
+  <cite>— Barber shop owner, Chicago IL</cite>
+</section>
+
+<section class="cta-section">
+  <h2>Start building your reputation online</h2>
+  <p>Free forever for 1 widget. No monthly fee to get started.</p>
+  <a href="https://app.socialproof.dev/register" class="btn-white">Start free today</a>
+</section>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/for/">All Industries</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="https://app.socialproof.dev/register">Sign up free</a>
+</footer>
+</Base>

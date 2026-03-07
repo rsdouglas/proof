@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Web Designers & Developers — SocialProof" description="Web designers: collect client testimonials and display them on your portfolio automatically. Turn past clients into a lead generation machine." canonical="https://socialproof.dev/for/web-designers">
+<style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+</style>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/for/">Industries</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://app.socialproof.dev/register" class="btn-nav">Try free</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Let your clients sell your next project</h1>
+  <p>Web designers and developers: your portfolio shows what you build. Client testimonials explain what it's like to work with you. SocialProof makes collecting and displaying them effortless.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/register" class="btn-primary">Start free — no credit card</a>
+    <a href="/#how-it-works" class="btn-secondary">See how it works</a>
+  </div>
+</section>
+
+<section class="why-section">
+  <h2>Why web designers need social proof</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>💻 Prospects research before they reach out</h3>
+      <p>A potential client sees your portfolio, then scrolls to testimonials. "She delivered on time, on budget, and the site converts 3x better" closes more deals than any case study.</p>
+    </div>
+    <div class="why-card">
+      <h3>🎯 Testimonials address objections</h3>
+      <p>Clients worry: will they communicate well? Meet deadlines? Get my vision? Real testimonials from past clients answer every objection before the sales call.</p>
+    </div>
+    <div class="why-card">
+      <h3>📈 Compound over time</h3>
+      <p>Every satisfied client is a potential advocate. A library of testimonials grows with every project — so your pipeline improves as your reputation does.</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="steps-inner">
+    <h2>Collect testimonials at project close</h2>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Send the link at handoff</h3>
+          <p>When you deliver a project, include your SocialProof link in the handoff email. Clients are happiest at launch — catch them in that moment.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Approve and curate</h3>
+          <p>Review each submission before it goes live. Keep the ones that speak to your best work and ideal clients.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Embed on your portfolio</h3>
+          <p>One snippet of HTML adds your testimonial wall to any portfolio site. Works with Webflow, Squarespace, custom code — anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote>"I added the testimonial widget to my portfolio and my inquiry-to-close rate improved noticeably. Prospects just need to see that other clients loved working with me."</blockquote>
+  <cite>— Web designer and developer, Remote</cite>
+</section>
+
+<section class="cta-section">
+  <h2>Your portfolio deserves social proof</h2>
+  <p>Free forever for 1 widget. Start collecting testimonials from past clients today.</p>
+  <a href="https://app.socialproof.dev/register" class="btn-white">Start free today</a>
+</section>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/for/">All Industries</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="https://app.socialproof.dev/register">Sign up free</a>
+</footer>
+</Base>
