@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPost.astro
 title: "Testimonial.to Alternative: Simpler, Cheaper, No Branding Tax"
 description: "Outgrowing Testimonial.to or looking for a cheaper option? Here's how SocialProof compares — and why small businesses are switching."
-publishedAt: "2026-04-01"
+publishedAt: "2026-03-07"
 author: "SocialProof Team"
 slug: "testimonial-to-alternative"
 ---

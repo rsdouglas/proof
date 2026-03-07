@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPost.astro
 title: "How to Embed Google Reviews on Your Website (4 Ways)"
 description: "Want to show your Google reviews on your website? Here are the 4 best ways to do it — plus a Google-free option that gives you more control."
-publishedAt: "2026-04-01"
+publishedAt: "2026-03-07"
 author: "SocialProof Team"
 slug: "embed-google-reviews-website"
 ---
