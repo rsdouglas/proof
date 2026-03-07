@@ -26,7 +26,7 @@ SocialProof sends a branded email with a direct link to your collection form. Th
 ## Method 2: Share your collector link
 
 Every SocialProof account gets a unique hosted collector page — something like:
-`https://collect.socialproof.dev/your-business-name`
+`https://socialproof.dev/c/frm_yourFormId`
 
 This page is:
 - Mobile-friendly
