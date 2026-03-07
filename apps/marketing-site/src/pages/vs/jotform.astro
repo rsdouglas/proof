@@ -1,0 +1,206 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs JotForm — Better way to collect testimonials | SocialProof" description="JotForm is a generic form builder. SocialProof is purpose-built for testimonials — collect, approve, and embed customer stories in minutes. Free to start." canonical="https://socialproof.dev/vs/jotform">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .savings-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .savings-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; font-size: 2rem; margin-bottom: 1rem; }
+    .bottom-cta p { color: #c7d2fe; max-width: 500px; margin: 0 auto 2rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+    footer { text-align: center; padding: 2rem; border-top: 1px solid #eee; color: #aaa; font-size: 0.85rem; }
+    footer a { color: #aaa; margin: 0 .5rem; }
+    @media (max-width: 600px) { .winner-grid { grid-template-columns: 1fr; } .price-callout { flex-direction: column; gap: 1rem; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/vs">Compare</a>
+    <a href="/for">Industries</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try free →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vs-badge">SocialProof vs JotForm</span>
+  <h1>A form builder vs a <span>testimonial machine</span></h1>
+  <p>JotForm can collect testimonials — the same way it can collect pizza orders. SocialProof is built for one thing: turning happy customers into visible social proof.</p>
+  <div class="price-callout">
+    <div class="item vouch">
+      <div class="price">Free</div>
+      <div class="label">SocialProof forever plan</div>
+    </div>
+    <div class="item other">
+      <div class="price">$34+/mo</div>
+      <div class="label">JotForm paid (branding removed)</div>
+    </div>
+  </div>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>Head-to-head comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>JotForm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Purpose</td>
+        <td class="yes">Built for testimonials</td>
+        <td class="partial">Generic form builder</td>
+      </tr>
+      <tr>
+        <td>Free plan</td>
+        <td class="yes">Free forever (1 widget)</td>
+        <td class="partial">Free (JotForm branding, 5 forms, 100 submissions/mo)</td>
+      </tr>
+      <tr>
+        <td>Testimonial approval workflow</td>
+        <td class="yes">Built-in approve/reject</td>
+        <td class="no">No — manual export needed</td>
+      </tr>
+      <tr>
+        <td>Embeddable display widget</td>
+        <td class="yes">Yes — copy one line of code</td>
+        <td class="no">No native display widget</td>
+      </tr>
+      <tr>
+        <td>Star ratings + names + photos</td>
+        <td class="yes">Yes — structured by default</td>
+        <td class="partial">Manual field setup required</td>
+      </tr>
+      <tr>
+        <td>Shareable collection link</td>
+        <td class="yes">Yes — send link, get testimonials</td>
+        <td class="yes">Yes — generic form link</td>
+      </tr>
+      <tr>
+        <td>Display on your website</td>
+        <td class="yes">Yes — beautiful, branded widget</td>
+        <td class="no">Requires custom dev work</td>
+      </tr>
+      <tr>
+        <td>Setup time</td>
+        <td class="yes">2 minutes</td>
+        <td class="partial">15–30 minutes (build form, style, integrate)</td>
+      </tr>
+      <tr>
+        <td>Remove branding on free plan</td>
+        <td class="yes">Yes</td>
+        <td class="no">No — JotForm logo on all free forms</td>
+      </tr>
+      <tr>
+        <td>Pricing for small biz</td>
+        <td class="yes">$0–$9/mo</td>
+        <td class="no">$34–$99+/mo</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>The real difference: form tool vs testimonial system</h2>
+  <p>JotForm is powerful at what it does — collecting any kind of data through customizable forms. But that generality is also its weakness for testimonials. You need to:</p>
+  <ul style="color:#444; line-height:1.8; margin-bottom:1.5rem;">
+    <li>Build and style the form from scratch</li>
+    <li>Export responses manually (or pay for integrations)</li>
+    <li>Build your own display — JotForm has no testimonial widget</li>
+    <li>Pay $34+/mo just to remove their branding from your form</li>
+  </ul>
+  <p>SocialProof does exactly one thing — and does it end-to-end. Share a link, collect testimonials, approve them, embed the widget. Every step is handled.</p>
+
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✅ Choose SocialProof if you want to…</h3>
+      <ul>
+        <li>Collect and display testimonials in 2 minutes</li>
+        <li>Approve what goes live before it shows on your site</li>
+        <li>Embed a beautiful widget without writing code</li>
+        <li>Start free without branding or submission limits</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>🔧 Stick with JotForm if you need…</h3>
+      <ul>
+        <li>Complex multi-step forms for other use cases</li>
+        <li>Deep conditional logic and calculations</li>
+        <li>Enterprise workflows beyond testimonials</li>
+        <li>Already pay for JotForm and just need a quick form</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="savings-box">
+    <h3>💰 The math for a small business</h3>
+    <p>JotForm Bronze (no branding removal) is $34/mo. JotForm Silver (needed for most business use) is $39/mo. SocialProof Pro is $9/mo — and the free plan covers most small businesses forever. You'd save $360–$480/year switching to a tool that's actually built for testimonials.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What small business owners say about using JotForm for testimonials</h2>
+  <p style="color:#444;">The most common complaint: <em>"I collected the testimonials in JotForm — now what? I can't easily put them on my website without building something custom or paying a developer."</em></p>
+  <p style="color:#444;">That gap — between <strong>collecting</strong> and <strong>displaying</strong> — is exactly what SocialProof closes. Approve a testimonial and it immediately appears in your embedded widget. No exports, no paste-and-format, no dev work.</p>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Stop wrangling forms. Start showing proof.</h2>
+    <p>SocialProof handles the whole loop: collect → approve → display. Free forever for 1 active widget.</p>
+    <a href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/">SocialProof</a>
+  <a href="/vs">All comparisons</a>
+  <a href="/for">Industries</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <p style="margin-top:1rem;">© 2025 SocialProof. Free testimonial tool for small businesses.</p>
+</footer>
+</Base>
