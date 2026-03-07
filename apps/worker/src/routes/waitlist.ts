@@ -3,46 +3,51 @@ import type { Env } from '../index'
 
 const waitlist = new Hono<{ Bindings: Env }>()
 
-/** POST /api/waitlist — subscribe to launch waitlist */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const ALLOWED_PLANS = new Set(['free', 'pro'])
+
+type WaitlistRow = {
+  email: string
+  plan: 'free' | 'pro'
+  created_at: string
+}
+
+/** POST /api/waitlist — subscribe to waitlist */
 waitlist.post('/', async (c) => {
   let email = ''
-  let source = 'landing'
+  let plan: 'free' | 'pro' = 'free'
+
   try {
     const body = await c.req.json() as Record<string, unknown>
     email = String(body.email ?? '').trim().toLowerCase()
-    source = String(body.source ?? 'landing').slice(0, 50)
+    const rawPlan = String(body.plan ?? 'free').trim().toLowerCase()
+    if (ALLOWED_PLANS.has(rawPlan)) {
+      plan = rawPlan as 'free' | 'pro'
+    }
   } catch {
-    return c.json({ ok: false, error: 'Invalid JSON' }, 400)
+    return c.json({ error: 'Invalid JSON' }, 400)
   }
 
-  if (!email || !email.includes('@') || email.length > 320) {
-    return c.json({ ok: false, error: 'Valid email required' }, 400)
+  if (!EMAIL_RE.test(email) || email.length > 320) {
+    return c.json({ error: 'Invalid email' }, 400)
   }
 
-  const key = `waitlist:${email}`
-  const existing = await c.env.WIDGET_KV.get(key)
+  await c.env.DB.prepare(
+    `INSERT INTO waitlist (email, plan)
+     VALUES (?, ?)
+     ON CONFLICT(email) DO NOTHING`
+  ).bind(email, plan).run()
 
-  if (existing) {
-    return c.json({ ok: true, already: true })
-  }
-
-  await c.env.WIDGET_KV.put(key, JSON.stringify({
-    email,
-    source,
-    created_at: new Date().toISOString(),
-  }))
-
-  const countKey = 'waitlist:__count'
-  const count = parseInt(await c.env.WIDGET_KV.get(countKey) ?? '0', 10)
-  await c.env.WIDGET_KV.put(countKey, String(count + 1))
-
-  return c.json({ ok: true, already: false })
+  return c.json({ success: true })
 })
 
 /** GET /api/waitlist/count — public waitlist count */
 waitlist.get('/count', async (c) => {
-  const count = parseInt(await c.env.WIDGET_KV.get('waitlist:__count') ?? '0', 10)
-  return c.json({ count })
+  const row = await c.env.DB.prepare(
+    'SELECT COUNT(*) as count FROM waitlist'
+  ).first<{ count: number | string }>()
+
+  return c.json({ count: Number(row?.count ?? 0) })
 })
 
 /** GET /api/waitlist/export — CSV export (protected by ADMIN_TOKEN header) */
@@ -53,21 +58,15 @@ waitlist.get('/export', async (c) => {
     return c.json({ ok: false, error: 'Unauthorized' }, 401)
   }
 
-  const list = await c.env.WIDGET_KV.list({ prefix: 'waitlist:', limit: 1000 })
-  const rows: string[] = []
+  const result = await c.env.DB.prepare(
+    'SELECT email, plan, created_at FROM waitlist ORDER BY created_at DESC LIMIT 1000'
+  ).all<WaitlistRow>()
 
-  for (const k of list.keys) {
-    if (k.name === 'waitlist:__count') continue
-    const val = await c.env.WIDGET_KV.get(k.name)
-    if (val) {
-      try {
-        const entry = JSON.parse(val) as { email: string; source: string; created_at: string }
-        rows.push(`${entry.email},${entry.source},${entry.created_at}`)
-      } catch { /* skip corrupt entries */ }
-    }
-  }
+  const rows = (result.results ?? []).map((entry) => (
+    `${entry.email},${entry.plan},${entry.created_at}`
+  ))
 
-  const csv = ['email,source,created_at', ...rows].join('\n')
+  const csv = ['email,plan,created_at', ...rows].join('\n')
   return new Response(csv, {
     headers: {
       'Content-Type': 'text/csv',
