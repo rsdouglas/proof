@@ -1,25 +1,70 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="SocialProof — Turn happy customers into your best marketing">
+<Base title="SocialProof — Your customers' words, on your site">
   <!-- HERO -->
   <section class="hero">
-    <p class="section-label">✦ Free forever plan</p>
-    <h1>Turn happy customers into<br/><span class="highlight">your best marketing</span></h1>
-    <p>Collect genuine text testimonials in 60 seconds — embed anywhere, no code needed.</p>
+    <p class="section-label">✦ Free forever for 1 active widget</p>
+    <h1>Your customers' words,<br/><span class="highlight">on your site</span></h1>
+    <p>The simplest way to collect text testimonials and display them anywhere — send a link, get real words from real people, embed in 60 seconds.</p>
     <div class="hero-buttons">
-      <a href="https://app.socialproof.dev/signup" class="btn btn-primary btn-lg">Start free &rarr;</a>
-      <a href="#demo" class="btn btn-outline btn-lg">See how it works</a>
+      <a href="https://app.socialproof.dev/signup" class="btn btn-primary btn-lg">Collect your first testimonial &rarr;</a>
+      <a href="#demo" class="btn btn-outline btn-lg">See it in action</a>
     </div>
     <p class="hero-trust">No credit card &bull; Free forever &bull; 2-minute setup</p>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section style="background:var(--bg-alt);padding:32px 0;">
+    <div class="container" style="text-align:center;">
+      <p style="color:var(--text-muted);font-size:14px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:20px;">Works for any small business</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 24px;">
+        <a href="/for/coaches" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">🎯 Coaches</a>
+        <a href="/for/restaurants" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">🍽️ Restaurants</a>
+        <a href="/for/fitness-studios" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">💪 Fitness Studios</a>
+        <a href="/for/freelancers" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">💻 Freelancers</a>
+        <a href="/for/salons" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">✂️ Salons</a>
+        <a href="/for/photographers" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">📸 Photographers</a>
+        <a href="/for/therapists" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">🧠 Therapists</a>
+        <a href="/for/real-estate" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">🏠 Real Estate</a>
+        <a href="/for/consultants" style="color:var(--text-muted);font-size:14px;text-decoration:none;white-space:nowrap;">📋 Consultants</a>
+        <a href="/for" style="color:var(--brand);font-size:14px;text-decoration:none;font-weight:600;white-space:nowrap;">+ more →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM SECTION -->
+  <section style="padding:72px 0;">
+    <div class="container" style="max-width:800px;text-align:center;">
+      <p class="section-label">The problem</p>
+      <h2 class="section-title">Your best customers love you.<br/>Nobody else knows it.</h2>
+      <p class="section-sub" style="max-width:600px;margin:0 auto;">You've done great work. Clients are happy. But collecting that proof is awkward — chasing emails, copying reviews, formatting screenshots. And none of it ends up on your actual website.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;text-align:left;">
+        <div style="background:var(--bg-alt);border-radius:12px;padding:24px;">
+          <p style="font-size:24px;margin-bottom:12px;">😬</p>
+          <p style="font-weight:700;margin-bottom:8px;">Asking feels awkward</p>
+          <p style="color:var(--text-muted);font-size:14px;">Most businesses never ask at all. The moment passes. The kind words stay in a DM.</p>
+        </div>
+        <div style="background:var(--bg-alt);border-radius:12px;padding:24px;">
+          <p style="font-size:24px;margin-bottom:12px;">📋</p>
+          <p style="font-weight:700;margin-bottom:8px;">Collecting is a mess</p>
+          <p style="color:var(--text-muted);font-size:14px;">Email threads, Google Forms, sticky notes. Nothing ends up live on your site.</p>
+        </div>
+        <div style="background:var(--bg-alt);border-radius:12px;padding:24px;">
+          <p style="font-size:24px;margin-bottom:12px;">🔧</p>
+          <p style="font-weight:700;margin-bottom:8px;">Embedding takes a developer</p>
+          <p style="color:var(--text-muted);font-size:14px;">Or hours of fiddling. Most testimonial pages look broken and never get updated.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- DEMO EMBED -->
   <section id="demo" style="background:var(--bg-alt);padding:60px 0;">
     <div class="container" style="text-align:center;">
       <p class="section-label">See it live</p>
-      <h2 class="section-title">A real testimonial widget</h2>
-      <p class="section-sub">This is an actual SocialProof widget — the same one your customers will see.</p>
+      <h2 class="section-title">This is SocialProof — live</h2>
+      <p class="section-sub">An actual widget collecting real testimonials. The same one your customers will see.</p>
       <div style="max-width:700px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.1);">
         <iframe
           src="https://widget.socialproof.dev/embed.html?account=demo"
@@ -33,86 +78,86 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section id="features">
+  <!-- HOW IT WORKS -->
+  <section style="padding:72px 0;">
     <div class="container" style="text-align:center;">
-      <p class="section-label">Features</p>
-      <h2 class="section-title">Everything you need, nothing you don't</h2>
-      <p class="section-sub">Simple by design. Powerful enough to run your social proof operation end-to-end.</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>60-second collection</h3>
-          <p>Send a link. Customers type a testimonial in seconds. You get notified. That's it.</p>
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">From signup to live in under 5 minutes</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;margin-top:48px;text-align:left;">
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">1</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Sign up free</h3>
+          <p style="color:var(--text-muted);">No credit card. Your collection link is ready the moment you create your account — share it immediately.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">⭐</div>
-          <h3>Text & star ratings</h3>
-          <p>Rich text testimonials with 5-star ratings. Customers submit in seconds — you approve before anything goes live.</p>
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">2</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Send to a customer</h3>
+          <p style="color:var(--text-muted);">Text, email, or add it to your email signature. They click the link, type a few sentences, and submit. Done.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔌</div>
-          <h3>One-line embed</h3>
-          <p>Drop a script tag on any page. Your testimonials appear instantly, styled to match your brand.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">✅</div>
-          <h3>Moderation controls</h3>
-          <p>Approve or reject before anything goes live. You're always in control of what customers see.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Live dashboard</h3>
-          <p>See every submission, manage approvals, export to CSV, and track performance — all in one place.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔑</div>
-          <h3>API access</h3>
-          <p>Full REST API with API key auth. Automate collection, integrate with your CRM, build anything.</p>
+        <div>
+          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">3</div>
+          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Approve &amp; embed</h3>
+          <p style="color:var(--text-muted);">Approve the testimonial from your dashboard. Add one line to your site. It goes live — and updates automatically.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section style="background:var(--bg-alt);">
+  <!-- FEATURES -->
+  <section id="features" style="background:var(--bg-alt);">
     <div class="container" style="text-align:center;">
-      <p class="section-label">How it works</p>
-      <h2 class="section-title">Up and running in 3 steps</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;margin-top:48px;text-align:left;">
-        <div>
-          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">1</div>
-          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Sign up free</h3>
-          <p style="color:var(--text-muted);">Create your account in seconds. No credit card required. Your first widget is ready immediately.</p>
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Built for business owners, not developers</h2>
+      <p class="section-sub">Everything to collect, manage, and display customer testimonials — without touching code.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Instant collection link</h3>
+          <p>Your collection page is ready on signup. Share it anywhere — no setup, no forms to configure.</p>
         </div>
-        <div>
-          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">2</div>
-          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Send to customers</h3>
-          <p style="color:var(--text-muted);">Share your collection link via email, Slack, or your post-purchase flow. Customers submit in under a minute.</p>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Text & star ratings</h3>
+          <p>Customers submit a written testimonial with a star rating. Real words — not a number on a scale.</p>
         </div>
-        <div>
-          <div style="width:40px;height:40px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:16px;">3</div>
-          <h3 style="font-size:20px;font-weight:700;margin-bottom:8px;">Embed anywhere</h3>
-          <p style="color:var(--text-muted);">Add one line of code to your site. Testimonials appear live, automatically, after you approve them.</p>
+        <div class="feature-card">
+          <div class="feature-icon">🔌</div>
+          <h3>One-line embed</h3>
+          <p>Drop a script tag on any page. Testimonials appear instantly, styled to match your site.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3>You approve everything</h3>
+          <p>Nothing goes live without your sign-off. Approve or archive from a clean dashboard.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Simple dashboard</h3>
+          <p>See all submissions, manage approvals, and export to CSV. No complexity, just clarity.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔑</div>
+          <h3>API & integrations</h3>
+          <p>Full REST API with key auth. Connect to Zapier, your CRM, or post-purchase flows. Pro only.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRICING -->
-  <section id="pricing">
+  <section id="pricing" style="padding:72px 0;">
     <div class="container" style="text-align:center;">
       <p class="section-label">Pricing</p>
-      <h2 class="section-title">Start free, upgrade when you grow</h2>
+      <h2 class="section-title">Start free, upgrade when you're ready</h2>
       <p class="section-sub">No tricks. No hidden fees. Cancel anytime.</p>
       <div class="pricing-grid" style="max-width:900px;margin:0 auto;">
         <div class="pricing-card">
           <p class="pricing-name">Free</p>
           <p class="pricing-price">$0<span>/mo</span></p>
-          <p class="pricing-desc">Everything you need to get started.</p>
+          <p class="pricing-desc">Free forever for 1 active widget.</p>
           <ul class="pricing-features">
-            <li>1 widget</li>
-            <li>Up to 10 testimonials</li>
+            <li>1 active widget</li>
+            <li>Unlimited testimonials</li>
             <li>Text &amp; star ratings</li>
             <li>Moderation dashboard</li>
             <li>SocialProof branding</li>
@@ -122,7 +167,7 @@ import Base from '../layouts/Base.astro';
         <div class="pricing-card popular">
           <p class="pricing-name">Pro</p>
           <p class="pricing-price">$9<span>/mo</span></p>
-          <p class="pricing-desc">For growing teams who need more power.</p>
+          <p class="pricing-desc">For businesses ready to scale their social proof.</p>
           <ul class="pricing-features">
             <li>Unlimited widgets</li>
             <li>Unlimited testimonials</li>
@@ -132,12 +177,12 @@ import Base from '../layouts/Base.astro';
             <li>CSV export</li>
             <li>Priority support</li>
           </ul>
-          <a href="https://app.socialproof.dev/signup?plan=pro" class="btn btn-primary" style="width:100%;justify-content:center;">Start Pro trial</a>
+          <a href="https://app.socialproof.dev/signup?plan=pro" class="btn btn-primary" style="width:100%;justify-content:center;">Start Pro — $9/mo</a>
         </div>
         <div class="pricing-card">
           <p class="pricing-name">Enterprise</p>
           <p class="pricing-price" style="font-size:28px;">Custom</p>
-          <p class="pricing-desc">For large teams with specific needs.</p>
+          <p class="pricing-desc">For teams with specific requirements.</p>
           <ul class="pricing-features">
             <li>Everything in Pro</li>
             <li>SSO / SAML</li>
@@ -151,12 +196,43 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section style="background:var(--bg-alt);padding:72px 0;">
+    <div class="container" style="max-width:720px;">
+      <p class="section-label" style="text-align:center;">FAQ</p>
+      <h2 class="section-title" style="text-align:center;">Common questions</h2>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:24px;">
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Do I need to know how to code?</h3>
+          <p style="color:var(--text-muted);">No. Collecting testimonials requires zero code — just share a link. Embedding them on your site is one line of HTML, or we can walk you through it.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">What's the difference between Free and Pro?</h3>
+          <p style="color:var(--text-muted);">Free gives you 1 widget with SocialProof branding — plenty to get started. Pro removes branding, adds unlimited widgets, API access, CSV export, and a custom collection domain.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">What does "text testimonials" mean?</h3>
+          <p style="color:var(--text-muted);">Customers type a written testimonial and select a star rating. No video, no recording — just real words from real people that you can display anywhere.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Can I embed on any website?</h3>
+          <p style="color:var(--text-muted);">Yes. SocialProof works on any website that allows custom HTML — Squarespace, Wix, Webflow, WordPress, Shopify, hand-coded sites, all of it.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Is there a free trial for Pro?</h3>
+          <p style="color:var(--text-muted);">Start on Free — no credit card needed. Upgrade to Pro at any time for $9/mo. Cancel whenever you want.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section style="background:linear-gradient(135deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:80px 0;">
     <div class="container">
-      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:16px;">Ready to collect your first testimonial?</h2>
-      <p style="font-size:18px;opacity:0.85;margin-bottom:36px;">Join thousands of businesses using SocialProof to turn customers into advocates.</p>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:16px;">Collect your first testimonial today</h2>
+      <p style="font-size:18px;opacity:0.85;margin-bottom:36px;">Sign up free. Share your collection link. See what your customers actually say.</p>
       <a href="https://app.socialproof.dev/signup" class="btn" style="background:#fff;color:var(--brand);font-size:17px;padding:14px 32px;">Start free — no credit card &rarr;</a>
+      <p style="margin-top:16px;font-size:14px;opacity:0.7;">Free forever for 1 active widget.</p>
     </div>
   </section>
 </Base>
