@@ -1,0 +1,145 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonial Widgets for Estheticians | SocialProof" description="Estheticians use SocialProof to collect client reviews and embed them on their website. Show off your skincare results. Free to start." canonical="https://socialproof.dev/for/estheticians">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+    .eyebrow { display: inline-block; background: #fdf4ff; color: #7c3aed; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 em { color: #7c3aed; font-style: normal; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
+    .hero-cta { display: inline-block; background: #7c3aed; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #6d28d9; }
+    .sub-cta { display: block; margin-top: .75rem; font-size: 0.85rem; color: #999; }
+    section { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; }
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .benefit-card { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 1.5rem; }
+    .benefit-card .icon { font-size: 1.75rem; margin-bottom: .75rem; }
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .5rem; }
+    .benefit-card p { font-size: 0.92rem; color: #555; margin: 0; line-height: 1.5; }
+    .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .quote-card { background: #fdf4ff; border: 1px solid #e9d5ff; border-radius: 12px; padding: 1.5rem; }
+    .quote-card blockquote { margin: 0 0 1rem; font-size: 0.95rem; color: #333; line-height: 1.6; font-style: italic; }
+    .quote-card .author { font-size: 0.85rem; font-weight: 600; color: #7c3aed; }
+    .steps { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
+    .steps li { counter-increment: steps; display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1.75rem; }
+    .steps li::before { content: counter(steps); display: flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; background: #7c3aed; color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; margin-top: .1rem; }
+    .steps li .step-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .3rem; }
+    .steps li .step-body p { font-size: 0.9rem; color: #555; margin: 0; line-height: 1.5; }
+    .bottom-cta { text-align: center; background: #7c3aed; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: #ede9fe; margin: 0 auto 2rem; max-width: 480px; }
+    .cta-btn { display: inline-block; background: #fff; color: #7c3aed; padding: .9rem 2.25rem; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 1rem; }
+    footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; }
+    @media (max-width: 640px) { .benefit-grid, .quote-grid { grid-template-columns: 1fr; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for/">Industries</a>
+    <a href="/pricing">Pricing</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">For Estheticians</span>
+  <h1>Turn your best clients into your <em>best marketing</em></h1>
+  <p>New clients research before they book. SocialProof puts your real client testimonials on your website — beautifully — so you get more bookings on autopilot.</p>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Start collecting reviews free</a>
+  <span class="sub-cta">Free forever for 1 widget · No credit card needed</span>
+</div>
+
+<section>
+  <h2>Why testimonials matter for your esthetic practice</h2>
+  <div class="benefit-grid">
+    <div class="benefit-card">
+      <div class="icon">✨</div>
+      <h3>Results speak louder than ads</h3>
+      <p>A new client won't risk their skin on someone they don't trust. Your past clients' words are the proof that tips them from "maybe" to "booked."</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">📅</div>
+      <h3>Fill your appointment book</h3>
+      <p>Testimonials on your booking page convert window-shoppers into paying clients. More social proof = fewer empty time slots.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">🌟</div>
+      <h3>Stand out from the competition</h3>
+      <p>Most estheticians have a pretty Instagram but no proof on their website. A polished testimonial widget sets you apart instantly.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">📲</div>
+      <h3>Works on any website</h3>
+      <p>Squarespace, Wix, WordPress, or a custom site — SocialProof embeds anywhere with one line of code. No developer needed.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What clients say about estheticians using SocialProof</h2>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <blockquote>"My skin has never looked better. She walked me through every step of my custom facial and I left glowing. I've already booked my next three appointments."</blockquote>
+      <span class="author">— Priya M., regular client</span>
+    </div>
+    <div class="quote-card">
+      <blockquote>"I was skeptical about the chemical peel but she made me feel completely at ease. The results were incredible — my friends keep asking what I'm doing differently."</blockquote>
+      <span class="author">— Danielle K., new client</span>
+    </div>
+    <div class="quote-card">
+      <blockquote>"I've been going to the same esthetician for two years now. The consistency and quality keep me coming back. Worth every penny."</blockquote>
+      <span class="author">— Rachel S., loyal client</span>
+    </div>
+  </div>
+  <p style="font-size:0.85rem;color:#999;text-align:center;">Illustrative examples of the types of reviews your clients can leave.</p>
+</section>
+
+<section>
+  <h2>Set up in under 5 minutes</h2>
+  <ol class="steps">
+    <li>
+      <div class="step-body">
+        <h3>Create your free account</h3>
+        <p>Sign up at SocialProof — no credit card needed. You're live in seconds.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Add your first testimonials</h3>
+        <p>Import from Google Reviews or paste in messages you've already received. Most estheticians start with 3–5 existing reviews.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Embed on your website</h3>
+        <p>Copy one script tag and paste it onto your booking page or homepage. Your testimonial widget appears instantly.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Send your collection link to clients</h3>
+        <p>Share your unique testimonial request link after appointments — by text or email. New reviews populate your widget automatically.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Ready to fill your appointment book?</h2>
+    <p>Join estheticians and beauty professionals using SocialProof to turn client love into new bookings.</p>
+    <a href="https://app.socialproof.dev/signup" class="cta-btn">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/privacy" style="color:#999">Privacy</a> · <a href="/terms" style="color:#999">Terms</a> · <a href="/for/" style="color:#999">All industries</a></p>
+</footer>
+</Base>

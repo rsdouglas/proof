@@ -1,0 +1,146 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonial Widgets for Life Coaches | SocialProof" description="Life coaches use SocialProof to display client success stories on their website. Collect testimonials automatically and turn them into bookings. Free to start." canonical="https://socialproof.dev/for/life-coaches">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 740px; margin: 0 auto; }
+    .eyebrow { display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 em { color: #16a34a; font-style: normal; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
+    .hero-cta { display: inline-block; background: #16a34a; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #15803d; }
+    .sub-cta { display: block; margin-top: .75rem; font-size: 0.85rem; color: #999; }
+    section { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.25rem; }
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .benefit-card { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 1.5rem; }
+    .benefit-card .icon { font-size: 1.75rem; margin-bottom: .75rem; }
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .5rem; }
+    .benefit-card p { font-size: 0.92rem; color: #555; margin: 0; line-height: 1.5; }
+    .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .quote-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 1.5rem; }
+    .quote-card blockquote { margin: 0 0 1rem; font-size: 0.95rem; color: #333; line-height: 1.6; font-style: italic; }
+    .quote-card .author { font-size: 0.85rem; font-weight: 600; color: #16a34a; }
+    .steps { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
+    .steps li { counter-increment: steps; display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1.75rem; }
+    .steps li::before { content: counter(steps); display: flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; background: #16a34a; color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; margin-top: .1rem; }
+    .steps li .step-body h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .3rem; }
+    .steps li .step-body p { font-size: 0.9rem; color: #555; margin: 0; line-height: 1.5; }
+    .bottom-cta { text-align: center; background: #16a34a; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: #dcfce7; margin: 0 auto 2rem; max-width: 480px; }
+    .cta-btn { display: inline-block; background: #fff; color: #16a34a; padding: .9rem 2.25rem; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 1rem; }
+    footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; }
+    @media (max-width: 640px) { .benefit-grid, .quote-grid { grid-template-columns: 1fr; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for/">Industries</a>
+    <a href="/pricing">Pricing</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">For Life Coaches</span>
+  <h1>Let your clients' transformations <em>speak for themselves</em></h1>
+  <p>Potential coaching clients are skeptical. They've seen the hype. What they trust is real words from real people who've worked with you. SocialProof makes it effortless to collect and display those words.</p>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Start collecting testimonials free</a>
+  <span class="sub-cta">Free forever for 1 widget · No credit card needed</span>
+</div>
+
+<section>
+  <h2>The trust problem every life coach faces</h2>
+  <p style="color:#555; line-height:1.7; margin-bottom:1.5rem;">Life coaching is a deeply personal purchase. Before someone invests hundreds or thousands of dollars in working with you, they need to believe you can actually help them. Credentials help. A website helps. But nothing moves the needle like a genuine testimonial from someone who was once in their exact position.</p>
+  <div class="benefit-grid">
+    <div class="benefit-card">
+      <div class="icon">💬</div>
+      <h3>Overcome skepticism instantly</h3>
+      <p>When a potential client sees a testimonial from someone with their same struggle — career stuck, relationship issues, confidence problems — the connection is immediate.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">🎯</div>
+      <h3>Convert your discovery calls</h3>
+      <p>Send prospects your testimonial page before your sales call. They arrive warm, convinced, and ready to commit rather than needing convincing.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">🔁</div>
+      <h3>Collect on autopilot</h3>
+      <p>Share your testimonial collection link at the end of every engagement. Clients can submit their review in 2 minutes — and it populates your widget automatically.</p>
+    </div>
+    <div class="benefit-card">
+      <div class="icon">🌐</div>
+      <h3>Works on any platform</h3>
+      <p>Whether you're on WordPress, Squarespace, Kajabi, or a custom site — SocialProof embeds with a single script tag. No tech skills required.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The kind of testimonials that convert coaching clients</h2>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <blockquote>"I came in feeling completely stuck in my career. After 3 months of coaching, I had a clear vision, a plan, and the confidence to execute it. I got the promotion I'd been avoiding asking for."</blockquote>
+      <span class="author">— Marcus T., career coaching client</span>
+    </div>
+    <div class="quote-card">
+      <blockquote>"I was hesitant to spend money on coaching. Within the first session, I realized I'd been holding myself back with beliefs I didn't even know I had. It was worth 10x what I paid."</blockquote>
+      <span class="author">— Sophie L., mindset coaching client</span>
+    </div>
+    <div class="quote-card">
+      <blockquote>"My friends have noticed the change in me. I'm calmer, clearer, and so much more intentional. I recommend working with her to literally everyone I meet."</blockquote>
+      <span class="author">— Aisha W., life coaching client</span>
+    </div>
+  </div>
+  <p style="font-size:0.85rem;color:#999;text-align:center;">Illustrative examples of the types of testimonials your clients can share.</p>
+</section>
+
+<section>
+  <h2>Live in 4 steps</h2>
+  <ol class="steps">
+    <li>
+      <div class="step-body">
+        <h3>Create your free account</h3>
+        <p>Sign up with email — no credit card, no commitment.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Add existing testimonials</h3>
+        <p>Paste in emails, LinkedIn recommendations, or DMs you've already received from clients. You probably have more than you think.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Embed on your coaching website</h3>
+        <p>Copy your widget script tag and drop it into your website. Appears on your homepage, services page, or anywhere you want to build trust.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-body">
+        <h3>Collect new testimonials automatically</h3>
+        <p>At the end of each coaching engagement, share your collection link. Clients submit in 2 minutes and reviews appear on your site automatically.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Your clients' transformations are your best marketing</h2>
+    <p>Start collecting and displaying them today — free forever for 1 widget.</p>
+    <a href="https://app.socialproof.dev/signup" class="cta-btn">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/privacy" style="color:#999">Privacy</a> · <a href="/terms" style="color:#999">Terms</a> · <a href="/for/" style="color:#999">All industries</a></p>
+</footer>
+</Base>
