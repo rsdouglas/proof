@@ -141,6 +141,11 @@ jobs:
         working-directory: apps/marketing-site
         run: npm run build
 
+      - name: Verify marketing redirect artifact
+        run: |
+          test -f apps/marketing-site/dist/_redirects
+          grep -F '/c/* https://api.socialproof.dev/c/:splat 302' apps/marketing-site/dist/_redirects
+
       # Deploy result is only trustworthy if failures are surfaced and the intended Pages/custom domain binding is verified separately.
       - name: Deploy marketing site to Pages
         working-directory: apps/marketing-site
