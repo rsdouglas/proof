@@ -119,3 +119,23 @@ Add to resource checklist:
 - [ ] Worker route: `api.socialproof.dev` → vouch-worker
 - [ ] Custom domain: `app.socialproof.dev` → vouch-dashboard Pages
 - [ ] Custom domain: `socialproof.dev` → vouch-landing Pages
+
+
+## Deploy verification runbook
+
+After any CI/deploy workflow change, wrangler.toml change, or Cloudflare Pages config change, ops should verify:
+
+- `https://socialproof.dev/` returns `200` and renders HTML
+- `https://app.socialproof.dev/` returns `200` and renders HTML
+- at least one real marketing route still renders from the production domain, e.g.
+  - `https://socialproof.dev/for/plumbers/`
+  - `https://socialproof.dev/vs/boast/`
+  - `https://socialproof.dev/blog/testimonials-for-yoga-studios/`
+- `https://marketing.socialproof.dev/` is only considered healthy if DNS resolves **and** the expected Pages project/domain binding is live
+
+Root-path caveats:
+
+- `https://api.socialproof.dev/` may return `404` at `/`; check a real API endpoint instead of the root path
+- `https://widget.socialproof.dev/` may return `404` at `/`; check the actual widget script/asset URL instead of the root path
+
+Do not treat a green GitHub Actions run as sufficient evidence of a healthy deploy. Domain binding and the user-visible URLs are part of the deploy verification.
