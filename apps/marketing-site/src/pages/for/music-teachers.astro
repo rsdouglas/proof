@@ -1,9 +1,9 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import Base from '../../layouts/Base.astro';
 const title = "SocialProof for Music Teachers — Fill Your Studio With Students Who Stay";
 const description = "Parents choose music teachers for their children based on trust. Music teachers who display student and parent testimonials fill their studios faster and retain students longer.";
 ---
-<Layout title={title} description={description}>
+<Base title={title} description={description}>
   <main class="for-page">
     <section class="hero">
       <div class="container">
@@ -85,7 +85,7 @@ const description = "Parents choose music teachers for their children based on t
       </div>
     </section>
   </main>
-</Layout>
+</Base>
 
 <style>
   .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }

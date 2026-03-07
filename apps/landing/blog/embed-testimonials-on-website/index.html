@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/embed-testimonials-on-website/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/embed-testimonials-on-website/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>SocialProof › Blog › How to Embed Testimonials on Your Website</p>
+<p>How-To Guide
+March 2026
+8 min read</p>
+<h1 id="how-to-embed-testimonials-on-your-website-free--easy">How to Embed Testimonials on Your Website (Free &#x26; Easy)</h1>
+<p>Showing real customer testimonials on your website is one of the highest-ROI moves a small business can make. Studies consistently find that displaying social proof near a “buy” button lifts conversions by 15–30%. This guide walks you through how to embed testimonials on any website — Shopify, Squarespace, Wix, Webflow, WordPress, or plain HTML — in under 10 minutes, without a developer.</p>
+<h4 id="in-this-guide">In this guide</h4>
+<ol>
+<li><a href="#why-embed">Why embedding testimonials beats screenshots</a></li>
+<li><a href="#how-it-works">How embedded testimonial widgets work</a></li>
+<li><a href="#step-by-step">Step-by-step: embed on any website</a></li>
+<li><a href="#platforms">Platform-specific instructions</a></li>
+<li><a href="#placement">Where to place testimonials for maximum impact</a></li>
+<li><a href="#collect">How to get more testimonials to display</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+<h2 id="why-embedding-beats-screenshots">Why Embedding Beats Screenshots</h2>
+<p>A lot of small business owners just screenshot their Google reviews or DMs and paste images into their website. It’s understandable — it’s fast. But it creates several problems:</p>
+<ul>
+<li><strong>Static images don’t update.</strong> Add a new testimonial? You’re manually replacing images and re-uploading them forever.</li>
+<li><strong>Images aren’t readable by search engines.</strong> Text inside a screenshot doesn’t help your SEO at all.</li>
+<li><strong>They look amateur.</strong> A polished, branded testimonial widget signals credibility. A cropped iPhone screenshot does not.</li>
+<li><strong>No structured data.</strong> Embedded review widgets can output schema markup that shows star ratings in Google search results.</li>
+</ul>
+<p>An embedded testimonial widget pulls live from a database, auto-updates when you add new testimonials, looks professional on any device, and gives you full control over which testimonials appear and where.</p>
+<h2 id="how-embedded-testimonial-widgets-work">How Embedded Testimonial Widgets Work</h2>
+<p>Modern testimonial tools give you a single snippet of HTML — usually one or two lines — that you paste into your website’s code. The snippet loads a JavaScript widget that:</p>
+<ol>
+<li>Fetches your approved testimonials from the tool’s servers</li>
+<li>Renders them in a styled component that matches your site</li>
+<li>Auto-updates when you add or approve new testimonials</li>
+<li>Handles mobile responsiveness automatically</li>
+</ol>
+<p>No developer needed. Every major website builder — Shopify, Squarespace, Wix, Webflow,
+WordPress — has a way to paste raw HTML or JavaScript into your pages. You don’t need to know how to code.
+You just need to know where to paste it.</p>
+<h2 id="step-by-step-embed-testimonials-on-any-website">Step-by-Step: Embed Testimonials on Any Website</h2>
+<p>We’ll use <strong>SocialProof</strong> (free plan available) in this example, but the process is the same with any testimonial tool that provides an embed code.</p>
+<p>1</p>
+<h3 id="create-a-free-socialproof-account--collect-your-first-testimonials">Create a free SocialProof account &#x26; collect your first testimonials</h3>
+<p>Sign up at <a href="https://app.socialproof.dev/register">app.socialproof.dev/register</a>. You’ll get a collection link (looks like <code>socialproof.dev/c/yourname</code>) that you share with customers via email, text, or after a purchase. Customers submit their testimonial — no account needed on their end.</p>
+<p>Once a few come in, go to your dashboard and click <strong>Approve</strong> on the ones you want to display.</p>
+<p>2</p>
+<h3 id="create-a-widget-and-copy-the-embed-code">Create a widget and copy the embed code</h3>
+<p>In your SocialProof dashboard, go to <strong>Widgets</strong> → <strong>Create widget</strong>. Choose a style (grid, carousel, single quote), set your color theme, and click <strong>Save</strong>.</p>
+<p>Copy the embed snippet. It looks something like this:</p>
+<p>That’s it. Two lines. Now you just need to paste them into your website.</p>
+<p>3</p>
+<h3 id="paste-the-embed-code-into-your-website">Paste the embed code into your website</h3>
+<p>Go to the page on your website where you want testimonials to appear — typically your homepage, a product page, or a pricing page. Find the spot in your page editor where you want the widget, then paste the embed code into an <strong>HTML / Embed / Code</strong> block. See platform-specific instructions below.</p>
+<p>4</p>
+<h3 id="preview-and-publish">Preview and publish</h3>
+<p>Preview the page, confirm the widget looks right on desktop and mobile, then publish. Your testimonials are now live. When you approve new ones in SocialProof, they appear automatically — no re-publishing required.</p>
+<h2 id="platform-specific-instructions">Platform-Specific Instructions</h2>
+<p>🛍️</p>
+<h4 id="shopify">Shopify</h4>
+<p>Theme editor → Add section → Custom HTML</p>
+<p>⬛</p>
+<h4 id="squarespace">Squarespace</h4>
+<p>Page editor → + Add block → Embed (Code block)</p>
+<p>🔵</p>
+<h4 id="wix">Wix</h4>
+<p>Add Elements → Embed → Custom HTML</p>
+<p>🌊</p>
+<h4 id="webflow">Webflow</h4>
+<p>Add Element → Embed → paste in Designer</p>
+<p>🔷</p>
+<h4 id="wordpress">WordPress</h4>
+<p>Gutenberg: + Add block → Custom HTML</p>
+<p>📄</p>
+<h4 id="custom-html">Custom HTML</h4>
+<p>Paste anywhere inside <code> </code></p>
+<h3 id="shopify-1">Shopify</h3>
+<p>In your Shopify admin, go to <strong>Online Store → Themes → Customize</strong>. Navigate to the page where you want testimonials (e.g. your homepage). Click <strong>Add section</strong>, then select <strong>Custom HTML</strong> (or <strong>Liquid</strong>). Paste your SocialProof embed code and save. For a product page, use the theme editor or a <code>.liquid</code> template file if you’re comfortable editing code.</p>
+<p>Alternatively, use the Shopify page editor: go to <strong>Online Store → Pages</strong>, click on a page, switch to HTML view, and paste the embed code where you want it.</p>
+<h3 id="squarespace-1">Squarespace</h3>
+<p>Open your page in the Squarespace editor. Click the <strong>+</strong> to add a block. Search for <strong>Embed</strong> or <strong>Code</strong>. Paste your SocialProof embed snippet and click Apply. Squarespace will render the widget in place. Move the block to your preferred position by dragging.</p>
+<h3 id="wix-1">Wix</h3>
+<p>In the Wix editor, click <strong>Add Elements → Embed → Custom HTML</strong>. An HTML box will appear on your canvas. Click <strong>Enter Code</strong>, paste the embed snippet, and click Apply. Resize and position the HTML box to fit your layout.</p>
+<h3 id="webflow-1">Webflow</h3>
+<p>In the Webflow Designer, drag an <strong>Embed</strong> element (found in the Add Elements panel) to your desired location on the canvas. Double-click to open the code editor, paste the embed snippet, and click Save &#x26; Close. Publish when ready.</p>
+<h3 id="wordpress-gutenberg">WordPress (Gutenberg)</h3>
+<p>In the post or page editor, click <strong>+</strong> to add a new block. Search for <strong>Custom HTML</strong>. Paste the embed code into the block. Preview to confirm it renders, then update/publish the page.</p>
+<p>Using a page builder like Elementor or Divi? Both have an HTML widget — drag it to your section, paste the embed code, and save.</p>
+<h3 id="custom-html-website">Custom HTML Website</h3>
+<p>If you’re working with raw HTML files, paste the embed snippet anywhere inside the <code> </code> tags at the position where you want the widget to appear. The <code> </code> tag can go anywhere — before <code> </code> is best practice for page load performance.</p>
+<h2 id="where-to-place-testimonials-for-maximum-impact">Where to Place Testimonials for Maximum Impact</h2>
+<p>Placement matters as much as the testimonials themselves. Here’s where they convert best:</p>
+<p>Placement
+Why it works
+Best for</p>
+<p>Above the fold (homepage)
+First impression social proof before bounce
+Brand credibility</p>
+<p>Near the “Buy” / CTA button
+Reduces hesitation at decision moment
+Direct conversion lift</p>
+<p>Pricing page
+Addresses price objections with value stories
+Paid plan conversion</p>
+<p>Product pages
+Specific proof for each product/service
+E-commerce, services</p>
+<p>Contact / About page
+Warms up high-intent visitors
+Service businesses</p>
+<p>Checkout page
+Last-mile confidence before payment
+Cart abandonment</p>
+<p>Pro tip: Don’t put all your testimonials in one place. Spread them across multiple pages.
+A visitor who bounces from your homepage might come back through a blog post and see a different testimonial
+at the exact moment they’re considering your product.</p>
+<h2 id="how-to-get-more-testimonials-to-display">How to Get More Testimonials to Display</h2>
+<p>An embedded widget is only as good as the testimonials inside it. The single biggest bottleneck for most small businesses isn’t the technology — it’s asking.</p>
+<p>Here’s what actually works:</p>
+<ul>
+<li><strong>Ask immediately after a win.</strong> The best time to ask for a testimonial is right after a customer succeeds — their package arrived, their project completed, their problem got solved. Send a message within 24 hours of that moment.</li>
+<li><strong>Make it a one-click share.</strong> Don’t ask people to “write a review on Google and send us a screenshot.” Give them a direct link to your collection form: one URL, one page, done.</li>
+<li><strong>Lower the bar.</strong> A short email template like “In one sentence, what did you like about working with us?” gets 3× more responses than “Please write a testimonial.”</li>
+<li><strong>Use post-purchase automation.</strong> Connect your collection link to your order confirmation email or post-service follow-up. Every customer gets asked automatically.</li>
+<li><strong>Remind once.</strong> One follow-up, 3-5 days later, is acceptable. Two or more is annoying.</li>
+</ul>
+<p>With SocialProof, your collection link is always live. Share it in your email signature, your invoice footer, your social bio, and your post-purchase message. Testimonials come in passively once the link is set up.</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="do-i-need-to-know-how-to-code-to-embed-testimonials">Do I need to know how to code to embed testimonials?</h3>
+<p>No. Every major website platform has a way to paste a code snippet without touching any actual programming. If you can copy and paste, you can embed testimonials. The platforms above all have point-and-click ways to add HTML to any page.</p>
+<h3 id="will-the-testimonial-widget-slow-down-my-website">Will the testimonial widget slow down my website?</h3>
+<p>A well-built widget loads asynchronously — meaning it doesn’t block your page from loading. SocialProof’s embed script uses the <code>async</code> attribute, so it loads in parallel with the rest of your page and won’t hurt your Core Web Vitals. We also cache testimonials at the edge for fast global delivery.</p>
+<h3 id="can-i-control-which-testimonials-appear-in-the-widget">Can I control which testimonials appear in the widget?</h3>
+<p>Yes. Every testimonial goes through your approval queue before it appears publicly. You can approve, hide, or delete any submission at any time. Changes take effect immediately — no need to touch your website.</p>
+<h3 id="what-if-i-want-different-testimonials-on-different-pages">What if I want different testimonials on different pages?</h3>
+<p>Create multiple widgets in SocialProof — one per page or product. Each widget gets its own embed code. You can filter each widget to show only specific testimonials (by tag, product, or rating). This lets you put product-specific proof on product pages and general brand testimonials on your homepage.</p>
+<h3 id="is-there-a-free-option">Is there a free option?</h3>
+<p>Yes — SocialProof has a free forever plan that includes 1 active widget. For most small businesses starting out, one widget on your homepage is all you need to start seeing conversion lift. You can upgrade later when you want multiple widgets or advanced customization.</p>
+<h3 id="can-testimonials-show-up-in-google-search-results">Can testimonials show up in Google search results?</h3>
+<p>Yes, if the widget outputs structured data (schema markup). SocialProof widgets include <code>Review</code> and <code>AggregateRating</code> schema markup by default, which gives Google the data it needs to show star ratings in search results for your site — a significant CTR boost.</p>
+<h2 id="ready-to-embed-your-first-testimonial-widget">Ready to embed your first testimonial widget?</h2>
+<p>Create a free SocialProof account, collect your first testimonials, and have a widget live on your website in under 10 minutes.</p>
+<p>Get started free →</p>
+<p>Free forever for 1 active widget. No credit card required.</p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

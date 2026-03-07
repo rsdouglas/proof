@@ -1,157 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testimonials for Salons & Spas — SocialProof</title>
-  <meta name="description" content="Salons and spas: collect client reviews and display them on your website automatically. SocialProof turns happy clients into bookings — no tech skills needed.">
-  <link rel="canonical" href="https://socialproof.dev/for/salons">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
-    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
-    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
-    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
-    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
-    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .steps-section { background: #f5f3ff; padding: 60px 24px; }
-    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
-    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
-    .step { display: flex; gap: 18px; align-items: flex-start; }
-    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
-    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
-    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
-    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
-    .quote-section cite { font-size: 0.9rem; color: #888; }
-    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
-    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
-    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
-    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
-    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
-    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
-  </style>
-</head>
-<body>
-  <nav>
-    <div class="nav-inner">
-      <a href="/" class="logo">SocialProof</a>
-      <div class="nav-links">
-        <a href="/blog/">Blog</a>
-        <a href="/pricing">Pricing</a>
-        <a href="https://app.socialproof.dev/signup" class="btn-nav">Try free</a>
-      </div>
-    </div>
-  </nav>
-
-  <section class="hero">
-    <h1>Turn happy clients into your best marketing</h1>
-    <p>Salons and spas: automatically collect reviews after every appointment and display them where new clients decide to book. No spreadsheets, no chasing Google reviews manually.</p>
-    <div class="cta-group">
-      <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no card needed</a>
-      <a href="/blog/how-to-collect-testimonials" class="btn-secondary">See how it works</a>
-    </div>
-  </section>
-
-  <section class="why-section">
-    <h2>Why salons run on social proof</h2>
-    <p style="text-align:center;color:#555;max-width:580px;margin:0 auto;">New clients can't try before they buy. A wall of real client reviews is the closest thing to a personal referral — and it works 24/7.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>📅 Bookings from browsing</h3>
-        <p>Most salon clients decide who to book from a website search. Real testimonials on your site convert visitors into first-time clients faster than any discount.</p>
-      </div>
-      <div class="why-card">
-        <h3>⭐ Beyond Google reviews</h3>
-        <p>Google reviews are great — but you can't control the layout, the timing, or what they highlight. SocialProof lets you curate your best reviews and embed them exactly where they matter.</p>
-      </div>
-      <div class="why-card">
-        <h3>📱 Collect via text-style link</h3>
-        <p>Send your collection link by SMS or email after checkout. Clients tap, write a quick review, and you're done. No app download, no login required for them.</p>
-      </div>
-      <div class="why-card">
-        <h3>💇 Staff-level testimonials</h3>
-        <p>Ask clients to mention their stylist or therapist by name. Reviews that call out specific staff become your best retention and hiring tool.</p>
-      </div>
-      <div class="why-card">
-        <h3>🔄 Always fresh</h3>
-        <p>New testimonials flow in automatically. Your site always shows recent reviews — not stale ones from two years ago that nobody believes.</p>
-      </div>
-      <div class="why-card">
-        <h3>🎨 Matches your brand</h3>
-        <p>Customise widget colours to match your salon palette. Clean, professional — nothing that looks like a third-party add-on bolted on as an afterthought.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="steps-section">
-    <div class="steps-inner">
-      <h2>Live in under 10 minutes</h2>
-      <div class="steps-list">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Create your free account</h3>
-            <p>Sign up at SocialProof — no credit card, no commitment. Your collection link is ready immediately.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>Share after checkout</h3>
-            <p>Add your link to your checkout text, booking confirmation email, or printed card at reception. Clients tap and leave a review in 60 seconds.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Embed on your site</h3>
-            <p>Paste one line of code into your website — works with Squarespace, Wix, WordPress, and any booking system. Reviews appear automatically as they come in.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <h3>Watch new clients arrive</h3>
-            <p>Visitors see real reviews from real local clients. That's the trust that converts a browser into a booking.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="quote-section">
-    <blockquote>"I used to beg clients to leave Google reviews. Now they just click my link after their appointment. I've collected more reviews in a month than in the previous two years."</blockquote>
-    <cite>— Salon owner, early SocialProof user</cite>
-  </section>
-
-  <section class="cta-section">
-    <h2>Start collecting reviews today</h2>
-    <p>Free forever for one widget. No credit card. Cancel anytime — though you won't want to.</p>
-    <a href="https://app.socialproof.dev/signup" class="btn-white">Get started free</a>
-  </section>
-
-  <footer>
-    <a href="/">Home</a>
-    <a href="/blog/">Blog</a>
-    <a href="/for/restaurants">Restaurants</a>
-    <a href="/for/ecommerce">Ecommerce</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-  </footer>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Testimonials for Salons &amp; Spas — SocialProof</title><meta name="description" content="Salons and spas: collect client reviews and display them on your website automatically. SocialProof turns happy clients into bookings — no tech skills needed."><link rel="canonical" href="https://socialproof.dev/for/salons"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title" content="Testimonials for Salons &#38; Spas — SocialProof"><meta property="og:description" content="Salons and spas: collect client reviews and display them on your website automatically. SocialProof turns happy clients into bookings — no tech skills needed."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/for/salons"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Testimonials for Salons &#38; Spas — SocialProof"><meta name="twitter:description" content="Salons and spas: collect client reviews and display them on your website automatically. SocialProof turns happy clients into bookings — no tech skills needed."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script><link rel="stylesheet" href="/_astro/salons.BMVaiMwu.css"></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>   <section class="hero" data-astro-cid-cypp3elk> <h1 data-astro-cid-cypp3elk>Turn happy clients into your best marketing</h1> <p data-astro-cid-cypp3elk>Salons and spas: automatically collect reviews after every appointment and display them where new clients decide to book. No spreadsheets, no chasing Google reviews manually.</p> <div class="cta-group" data-astro-cid-cypp3elk> <a href="https://app.socialproof.dev/signup" class="btn-primary" data-astro-cid-cypp3elk>Start free — no card needed</a> <a href="/blog/how-to-collect-testimonials" class="btn-secondary" data-astro-cid-cypp3elk>See how it works</a> </div> </section> <section class="why-section" data-astro-cid-cypp3elk> <h2 data-astro-cid-cypp3elk>Why salons run on social proof</h2> <p style="text-align:center;color:#555;max-width:580px;margin:0 auto;" data-astro-cid-cypp3elk>New clients can't try before they buy. A wall of real client reviews is the closest thing to a personal referral — and it works 24/7.</p> <div class="why-grid" data-astro-cid-cypp3elk> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>📅 Bookings from browsing</h3> <p data-astro-cid-cypp3elk>Most salon clients decide who to book from a website search. Real testimonials on your site convert visitors into first-time clients faster than any discount.</p> </div> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>⭐ Beyond Google reviews</h3> <p data-astro-cid-cypp3elk>Google reviews are great — but you can't control the layout, the timing, or what they highlight. SocialProof lets you curate your best reviews and embed them exactly where they matter.</p> </div> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>📱 Collect via text-style link</h3> <p data-astro-cid-cypp3elk>Send your collection link by SMS or email after checkout. Clients tap, write a quick review, and you're done. No app download, no login required for them.</p> </div> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>💇 Staff-level testimonials</h3> <p data-astro-cid-cypp3elk>Ask clients to mention their stylist or therapist by name. Reviews that call out specific staff become your best retention and hiring tool.</p> </div> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>🔄 Always fresh</h3> <p data-astro-cid-cypp3elk>New testimonials flow in automatically. Your site always shows recent reviews — not stale ones from two years ago that nobody believes.</p> </div> <div class="why-card" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>🎨 Matches your brand</h3> <p data-astro-cid-cypp3elk>Customise widget colours to match your salon palette. Clean, professional — nothing that looks like a third-party add-on bolted on as an afterthought.</p> </div> </div> </section> <section class="steps-section" data-astro-cid-cypp3elk> <div class="steps-inner" data-astro-cid-cypp3elk> <h2 data-astro-cid-cypp3elk>Live in under 10 minutes</h2> <div class="steps-list" data-astro-cid-cypp3elk> <div class="step" data-astro-cid-cypp3elk> <div class="step-num" data-astro-cid-cypp3elk>1</div> <div class="step-content" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>Create your free account</h3> <p data-astro-cid-cypp3elk>Sign up at SocialProof — no credit card, no commitment. Your collection link is ready immediately.</p> </div> </div> <div class="step" data-astro-cid-cypp3elk> <div class="step-num" data-astro-cid-cypp3elk>2</div> <div class="step-content" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>Share after checkout</h3> <p data-astro-cid-cypp3elk>Add your link to your checkout text, booking confirmation email, or printed card at reception. Clients tap and leave a review in 60 seconds.</p> </div> </div> <div class="step" data-astro-cid-cypp3elk> <div class="step-num" data-astro-cid-cypp3elk>3</div> <div class="step-content" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>Embed on your site</h3> <p data-astro-cid-cypp3elk>Paste one line of code into your website — works with Squarespace, Wix, WordPress, and any booking system. Reviews appear automatically as they come in.</p> </div> </div> <div class="step" data-astro-cid-cypp3elk> <div class="step-num" data-astro-cid-cypp3elk>4</div> <div class="step-content" data-astro-cid-cypp3elk> <h3 data-astro-cid-cypp3elk>Watch new clients arrive</h3> <p data-astro-cid-cypp3elk>Visitors see real reviews from real local clients. That's the trust that converts a browser into a booking.</p> </div> </div> </div> </div> </section> <section class="quote-section" data-astro-cid-cypp3elk> <blockquote data-astro-cid-cypp3elk>"I used to beg clients to leave Google reviews. Now they just click my link after their appointment. I've collected more reviews in a month than in the previous two years."</blockquote> <cite data-astro-cid-cypp3elk>— Salon owner, early SocialProof user</cite> </section> <section class="cta-section" data-astro-cid-cypp3elk> <h2 data-astro-cid-cypp3elk>Start collecting reviews today</h2> <p data-astro-cid-cypp3elk>Free forever for one widget. No credit card. Cancel anytime — though you won't want to.</p> <a href="https://app.socialproof.dev/signup" class="btn-white" data-astro-cid-cypp3elk>Get started free</a> </section>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><link rel="canonical" href="https://socialproof.dev/blog/ai-agent-testimonials-api/"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:title"><meta property="og:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta property="og:image" content="/og-default.png"><meta property="og:url" content="https://socialproof.dev/blog/ai-agent-testimonials-api/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title"><meta name="twitter:description" content="Turn happy customers into your best marketing. Collect testimonials in 60 seconds — free forever."><meta name="twitter:image" content="/og-default.png"><link rel="stylesheet" href="/style.css"><script>
+    // Announcement banner
+    if (localStorage.getItem('ann-banner-dismissed') === '1') {
+      document.addEventListener('DOMContentLoaded', function() {
+        var b = document.getElementById('ann-banner');
+        if (b) b.style.display = 'none';
+      });
+    }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script></head> <body> <!-- ANNOUNCEMENT BANNER --> <div id="ann-banner" style="background:linear-gradient(90deg,#6d28d9,#4f46e5);color:#fff;text-align:center;padding:10px 48px 10px 16px;font-size:14px;font-weight:500;position:relative;letter-spacing:0.01em;">
+✦ Built in public by AI &mdash; <a href="/blog/built-in-public-by-ai" style="color:#e9d5ff;text-decoration:underline;text-underline-offset:2px;">Read the story &rarr;</a> <button onclick="document.getElementById('ann-banner').style.display='none';localStorage.setItem('ann-banner-dismissed','1');" aria-label="Dismiss" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px;">&times;</button> </div> <!-- NAV --> <nav> <a class="nav-logo" href="/"><img src="/logo.png" alt="SocialProof logo" width="28" height="28"> <span>SocialProof</span></a> <div class="nav-links"> <a href="/#demo">Demo</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev">Log in</a> <a class="btn btn-primary" href="https://app.socialproof.dev/signup">Try free</a> </div> </nav>  <main class="blog-post-page"> <div class="container"> <div class="blog-post-header"> <a href="/blog" class="blog-back">&larr; All posts</a> <h1></h1>  <div class="blog-meta"> <span>SocialProof Team</span> <span>&middot;</span> <time>Invalid Date</time> </div> </div> <article class="blog-post-body"> <p>Developer</p>
+<h1 id="how-to-give-your-ai-agent-the-ability-to-collect-testimonials-with-one-api-call">How to Give Your AI Agent the Ability to Collect Testimonials With One API Call</h1>
+<p>March 5, 2026 · 8 min read</p>
+<p>AI agents are increasingly running real business workflows: booking appointments, answering support tickets, closing sales, onboarding users. But there’s a gap nobody’s talking about. These agents complete tasks, confirm success — and then stop. They never ask for the testimonial.</p>
+<p>That’s a missed opportunity that’s easy to fix. SocialProof exposes a single endpoint — <code>POST /agent/register</code> — that lets any AI agent, automation, or backend process submit a testimonial programmatically. No UI. No link-sharing. One API call, triggered at exactly the right moment.</p>
+<p>Here’s how it works, why it matters, and how to wire it into your agent in about 10 minutes.</p>
+<h2 id="why-agents-are-uniquely-positioned-to-collect-testimonials">Why agents are uniquely positioned to collect testimonials</h2>
+<p>The best time to ask for a testimonial is immediately after a win. When a customer just hit a milestone, got a result, or completed something satisfying — that’s the moment. Ask 30 minutes later and you’ve lost it. Ask 3 days later and you’ve definitely lost it.</p>
+<p>Human processes can’t consistently catch that moment. AI agents can. If your agent just:</p>
+<ul>
+<li>Closed a task the user had been struggling with</li>
+<li>Delivered a report, plan, or analysis the user requested</li>
+<li>Confirmed a booking or transaction</li>
+<li>Helped a customer resolve a support issue</li>
+</ul>
+<p>…it knows exactly when the win happened. And it can immediately fire a testimonial request — or, if the interaction already generated a natural expression of satisfaction, submit that directly as a testimonial.</p>
+<p><strong>The key insight:</strong> An AI agent interacting with a happy user at the peak of satisfaction is the highest-signal moment for testimonial collection. Wiring that moment to an API call is trivial. Not doing it is leaving trust-building on the table.</p>
+<h2 id="the-agentregister-endpoint">The <code>/agent/register</code> endpoint</h2>
+<p>The SocialProof agent registration endpoint is designed for programmatic, automated testimonial submission. It accepts a minimal JSON payload and handles the rest.</p>
+<h3 id="base-url">Base URL</h3>
+<p><code>https://app.socialproof.dev/api/agent/register</code> ### Request <code>POST /api/agent/register Content-Type: application/json Authorization: Bearer YOUR_API_KEY { "widget_id": "your-widget-id", "author": "Jane Smith", "text": "This completely changed how I run my onboarding. Set it up in a morning.", "rating": 5, "source": "ai-agent", "metadata": { "agent": "claude-3-5-sonnet", "trigger": "onboarding-complete", "session_id": "sess_abc123" } }</code> ### Fields - <code>widget_id</code> — Your SocialProof widget ID (from your dashboard) - <code>author</code> — Customer’s name (string, required) - <code>text</code> — The testimonial content (string, required) - <code>rating</code> — Star rating 1–5 (integer, optional) - <code>source</code> — Tag the source for filtering (string, optional) - <code>metadata</code> — Arbitrary key-value pairs for your records (object, optional) ### Response <code>HTTP 201 Created { "id": "t_xyz789", "status": "pending_review", "widget_id": "your-widget-id", "created_at": "2026-03-05T14:32:00Z" }</code> Testimonials submitted via the API go into your review queue by default, same as ones collected through the widget form. You approve and publish from the dashboard. This gives you full editorial control even when submissions are automated.</p>
+<h2 id="wiring-it-into-a-claude-tool">Wiring it into a Claude tool</h2>
+<p>Here’s a minimal tool definition for Claude (using the Anthropic tools API) that lets your agent submit a testimonial:</p>
+<p><code>{ "name": "submit_testimonial", "description": "Submit a customer testimonial to SocialProof when a user expresses satisfaction or completes a milestone. Only call this when the user has explicitly said something positive about their experience.", "input_schema": { "type": "object", "properties": { "author": { "type": "string", "description": "The customer's name" }, "text": { "type": "string", "description": "The testimonial text — either the user's exact words or a clean paraphrase they've confirmed" }, "rating": { "type": "integer", "description": "Star rating 1-5", "minimum": 1, "maximum": 5 } }, "required": ["author", "text"] } }</code> And the Python handler that executes when Claude calls the tool:</p>
+<p><code>import httpx def submit_testimonial(author: str, text: str, rating: int = 5): response = httpx.post( "https://app.socialproof.dev/api/agent/register", headers={ "Authorization": f"Bearer {VOUCH_API_KEY}", "Content-Type": "application/json" }, json={ "widget_id": VOUCH_WIDGET_ID, "author": author, "text": text, "rating": rating, "source": "ai-agent" } ) response.raise_for_status() return response.json()</code> ## Wiring it into a GPT-4 function call Same pattern for OpenAI’s function calling:</p>
+<p><code>tools = [{ "type": "function", "function": { "name": "submit_testimonial", "description": "Submit a customer testimonial when the user expresses satisfaction. Only call after the user has said something genuinely positive about their experience.", "parameters": { "type": "object", "properties": { "author": {"type": "string"}, "text": {"type": "string"}, "rating": {"type": "integer", "minimum": 1, "maximum": 5} }, "required": ["author", "text"] } } }]</code> ## When should the agent call this? Good triggers for automated testimonial submission:</p>
+<ul>
+<li><strong>Task completion:</strong> User says “perfect, that’s exactly what I needed” after the agent delivers something</li>
+<li><strong>Milestone moments:</strong> After successful onboarding, first meaningful result, or key activation event</li>
+<li><strong>Explicit satisfaction:</strong> User says something like “this saved me so much time” in the flow of conversation</li>
+<li><strong>Survey responses:</strong> If your agent runs structured NPS or CSAT, pipe 9-10 responses directly to SocialProof</li>
+</ul>
+<p>What to avoid:</p>
+<ul>
+<li>Don’t submit testimonials mid-task when the user is still in problem-solving mode</li>
+<li>Don’t fabricate or paraphrase without getting the user to confirm the wording</li>
+<li>Don’t submit without the user knowing — the best flow is to ask first, then submit on consent</li>
+</ul>
+<p><strong>Best practice:</strong> Have the agent ask first — “Would it be OK if I saved that as a testimonial for [your business]?” — then call the API on confirmation. This gets consent and often prompts the user to say something even better.</p>
+<h2 id="a-complete-agent-flow">A complete agent flow</h2>
+<p>Here’s what a full interaction looks like when an agent is wired correctly:</p>
+<p><code>User: "This is amazing — you just saved me 3 hours of work." Agent: "Really glad to hear it! Would you mind if I saved that as a testimonial for [Business]? It helps other people discover the service." User: "Sure, go ahead." Agent: [calls submit_testimonial("Alex R.", "This is amazing — saved me 3 hours of work.", 5)] Agent: "Done — saved. Anything else I can help you with?"</code> The whole exchange takes 10 seconds. The testimonial is in the review queue. The user feels good about helping. You have a real, authentic social proof asset that would have otherwise evaporated.</p>
+<h2 id="why-this-matters-for-the-built-in-public-by-ai-angle">Why this matters for the “built in public by AI” angle</h2>
+<p>There’s a meta-story here that’s genuinely interesting: AI agents that build trust for AI-built products. If your SaaS, tool, or service is built by or with AI agents — and you’re collecting testimonials via AI agents — you’re closing a loop that didn’t exist 18 months ago.</p>
+<p>The developer community is paying attention to this. “My AI agent collects its own testimonials” is a genuine distribution hook for developer-focused communities, Hacker News, and anyone building the next generation of AI-native businesses.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>You need two things from your SocialProof dashboard:</p>
+<ol>
+<li>Your API key (Settings → API)</li>
+<li>Your widget ID (from the widget embed code)</li>
+</ol>
+<p>Then it’s one <code>POST</code> request. That’s the entire integration. You can have it running in the time it takes to read this post.</p>
+<h3 id="wire-your-agent-to-collect-testimonials-today">Wire your agent to collect testimonials today</h3>
+<p>Free forever for 1 active widget. API access included on all plans. No credit card required.</p>
+<p>Get your API key free →</p>
+<p>See also: <a href="/blog/what-makes-a-testimonial-compelling">What makes a testimonial compelling</a> · <a href="/blog/best-time-to-ask-for-testimonial">Best time to ask for a testimonial</a> · <a href="/docs/api">API documentation</a></p> </article> </div> </main>  <!-- FOOTER --> <footer> <div class="footer-inner"> <div class="footer-brand"> <a href="/"><img src="/logo.png" alt="SocialProof" width="24" height="24"> SocialProof</a> <p>Turn happy customers into your best marketing.</p> </div> <div class="footer-links"> <div> <strong>Product</strong> <a href="/#features">Features</a> <a href="/#pricing">Pricing</a> <a href="/faq">FAQ</a> <a href="https://app.socialproof.dev/signup">Sign up free</a> </div> <div> <strong>Blog</strong> <a href="/blog">All posts</a> </div> <div> <strong>Legal</strong> <a href="/privacy">Privacy</a> <a href="/terms">Terms</a> </div> </div> </div> <div class="footer-bottom"> <p>&copy; 2026 SocialProof. All rights reserved.</p> </div> </footer> </body></html>
