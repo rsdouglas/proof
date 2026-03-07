@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="SocialProof vs Trustindex — Review Widget Comparison | SocialProof" description="Trustindex starts at $8/mo but charges per-widget. SocialProof is free to start with 1 widget free forever, then $9/mo unlimited. Honest comparison inside." canonical="https://socialproof.dev/vs/trustindex">
+<Base title="SocialProof vs Famewall — Testimonial Tool Comparison | SocialProof" description="Famewall starts at $19/mo. SocialProof is free to start and $9/mo Pro. Both collect and display testimonials — here's the honest comparison." canonical="https://socialproof.dev/vs/famewall">
 <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
     nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
@@ -60,16 +60,16 @@ import Base from '../../layouts/Base.astro';
 
 <div class="hero">
   <div class="vs-badge">Tool Comparison</div>
-  <h1>SocialProof vs <span>Trustindex</span></h1>
-  <p>Trustindex aggregates third-party reviews (Google, Facebook) into widgets. SocialProof collects direct testimonials from your customers. Different tools for different jobs — here's how to choose.</p>
+  <h1>SocialProof vs <span>Famewall</span></h1>
+  <p>Both tools collect and display customer testimonials. One starts free and stays affordable. The other charges $19+/mo before you've proven ROI.</p>
   <div class="price-callout">
     <div class="item vouch">
       <div class="price">Free</div>
       <div class="label">SocialProof to start</div>
     </div>
     <div class="item other">
-      <div class="price">$8+</div>
-      <div class="label">Trustindex per month</div>
+      <div class="price">$19+</div>
+      <div class="label">Famewall per month</div>
     </div>
   </div>
   <a href="https://app.socialproof.dev/register" class="hero-cta">Start free — no credit card</a>
@@ -82,54 +82,59 @@ import Base from '../../layouts/Base.astro';
       <tr>
         <th>Feature</th>
         <th>SocialProof</th>
-        <th>Trustindex</th>
+        <th>Famewall</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Free plan</td>
         <td><span class="yes">✓ Free forever for 1 widget</span></td>
-        <td><span class="partial">✓ Very limited free tier</span></td>
+        <td><span class="no">✗ No free plan</span></td>
       </tr>
       <tr>
         <td>Starting price</td>
         <td><span class="yes">$0 (Pro $9/mo)</span></td>
-        <td><span class="partial">$8/mo per widget platform</span></td>
+        <td><span class="no">$19/mo</span></td>
       </tr>
       <tr>
-        <td>Collect original testimonials</td>
-        <td><span class="yes">✓ Core feature</span></td>
-        <td><span class="no">✗ Aggregates existing reviews only</span></td>
+        <td>Text testimonial collection</td>
+        <td><span class="yes">✓</span></td>
+        <td><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td>Custom collection page</td>
+        <td>Dedicated collection page</td>
         <td><span class="yes">✓ Auto-generated</span></td>
-        <td><span class="no">✗</span></td>
+        <td><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td>Google review display</td>
-        <td><span class="no">✗ Direct testimonials only</span></td>
-        <td><span class="yes">✓ Core feature</span></td>
-      </tr>
-      <tr>
-        <td>Facebook review display</td>
-        <td><span class="no">✗</span></td>
+        <td>Embeddable widget</td>
+        <td><span class="yes">✓ 1-line embed</span></td>
         <td><span class="yes">✓</span></td>
       </tr>
       <tr>
         <td>Approval workflow</td>
-        <td><span class="yes">✓ You control what shows</span></td>
-        <td><span class="no">✗ Pulls all public reviews</span></td>
-      </tr>
-      <tr>
-        <td>No branding (free)</td>
         <td><span class="yes">✓</span></td>
-        <td><span class="no">✗ Trustindex branding on free</span></td>
+        <td><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td>Pricing per widget</td>
-        <td><span class="yes">Flat $9/mo for all widgets</span></td>
-        <td><span class="no">Charges per platform (adds up)</span></td>
+        <td>Wall of Love page</td>
+        <td><span class="yes">✓ Via widget</span></td>
+        <td><span class="yes">✓ Core feature</span></td>
+      </tr>
+      <tr>
+        <td>No credit card to start</td>
+        <td><span class="yes">✓</span></td>
+        <td><span class="no">✗</span></td>
+      </tr>
+      <tr>
+        <td>Custom domain</td>
+        <td><span class="partial">Pro plan</span></td>
+        <td><span class="partial">Paid plan</span></td>
+      </tr>
+      <tr>
+        <td>Automatic email requests</td>
+        <td><span class="yes">✓ Pro plan</span></td>
+        <td><span class="yes">✓ Paid plan</span></td>
       </tr>
     </tbody>
   </table>
@@ -138,31 +143,31 @@ import Base from '../../layouts/Base.astro';
     <div class="winner-card vouch">
       <h3>✅ Choose SocialProof if…</h3>
       <ul>
-        <li>You want to proactively collect testimonials from happy customers</li>
-        <li>You want to curate which testimonials appear on your site</li>
-        <li>You don't want to pay per platform/widget</li>
-        <li>You want to start free with no credit card</li>
+        <li>You want to get started without a monthly fee</li>
+        <li>You need a simple, clean widget that embeds anywhere</li>
+        <li>You want to own your testimonials — no platform lock-in</li>
+        <li>You prefer paying $9/mo Pro instead of $19+/mo</li>
       </ul>
     </div>
     <div class="winner-card other">
-      <h3>Consider Trustindex if…</h3>
+      <h3>Consider Famewall if…</h3>
       <ul>
-        <li>You already have many Google/Facebook reviews to display</li>
-        <li>You want to aggregate third-party review platforms</li>
-        <li>Displaying star ratings from review sites is your primary goal</li>
+        <li>A "Wall of Love" landing page is your primary need</li>
+        <li>You want Twitter/X tweet imports</li>
+        <li>You have budget for $19+/mo from day one</li>
       </ul>
     </div>
   </div>
 
   <div class="savings-box">
-    <h3>💡 Key difference: collection vs aggregation</h3>
-    <p>Trustindex shows reviews you already have elsewhere. SocialProof helps you <em>get new testimonials</em> directly from customers and display them on your site — with full control over what shows up.</p>
+    <h3>💰 Savings over 12 months</h3>
+    <p>Famewall at $19/mo = <strong>$228/year</strong>. SocialProof Pro at $9/mo = <strong>$108/year</strong> — saving you $120. Or start free and pay nothing until you're ready to scale.</p>
   </div>
 </section>
 
 <div class="bottom-cta">
-  <h2>Start collecting testimonials today</h2>
-  <p>No credit card. No monthly fee to start. Your customers' words, your way.</p>
+  <h2>Collect your first testimonial free</h2>
+  <p>No credit card. No monthly commitment. Your customers' words, on your site.</p>
   <a href="https://app.socialproof.dev/register" class="cta-btn">Start free today</a>
 </div>
 
