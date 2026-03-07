@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials for Childcare & Daycare Providers — SocialProof" description="Help parents trust you before they walk through the door. SocialProof helps childcare providers collect parent testimonials with a single shareable link — no app, no hassle." canonical="https://socialproof.dev/for/childcare">
+<style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .steps-section { background: #f5f3ff; padding: 60px 24px; }
+    .steps-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .steps-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
+    .steps-list { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .quote-section { background: #f9f9f9; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; max-width: 600px; margin: 0 auto 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; color: #111; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { color: #555; text-decoration: none; font-size: 0.95rem; }
+</style>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/pricing">Pricing</a>
+      <a href="https://app.socialproof.dev/signup" class="btn-primary" style="padding:10px 20px;font-size:0.9rem;">Start Free</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Parents choose with their gut.<br />Give them the proof they need.</h1>
+  <p>SocialProof helps daycare centers and home childcare providers collect parent testimonials — the fastest way to turn a curious parent into an enrolled family.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start Free — No Credit Card</a>
+    <a href="/demo" class="btn-secondary">See a Live Example</a>
+  </div>
+</section>
+
+<section class="why-section">
+  <h2>Parents don't pick a daycare from a brochure</h2>
+  <p style="text-align:center;color:#555;max-width:620px;margin:0 auto 20px;">When parents search for childcare, they're terrified. They need to know you're trustworthy before they ever tour your facility. Testimonials from other parents are the single most convincing thing you can show them.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>👪 Parents trust other parents</h3>
+      <p>A five-star review from a stranger is nice. A detailed testimonial from a parent describing exactly how their child thrived at your center? That's what fills enrollment spots.</p>
+    </div>
+    <div class="why-card">
+      <h3>🔍 Show up confidently in local searches</h3>
+      <p>When parents Google "daycare near me," your website is your first impression. A testimonial widget shows immediate social proof — before they even call.</p>
+    </div>
+    <div class="why-card">
+      <h3>🏠 Works for home daycares too</h3>
+      <p>You don't need a website or tech skills. Share your testimonial link in a parent newsletter, a Facebook group, or a text — and collect testimonials wherever parents already are.</p>
+    </div>
+    <div class="why-card">
+      <h3>⏱ Busy parents actually respond</h3>
+      <p>No signing up for another app. SocialProof links work in any browser on any device. Parents leave a testimonial in under 60 seconds — while waiting at pickup.</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="steps-inner">
+    <h2>Three steps to more enrolled families</h2>
+    <div class="steps-list">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Create your free SocialProof account</h3>
+          <p>Takes 30 seconds. Free forever for 1 active widget — no credit card required.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Share your testimonial link with current families</h3>
+          <p>Drop it in your parent newsletter, your Facebook group, or your end-of-year email. Parents click, type a few sentences, done — no account needed on their end.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Embed the widget on your site or enrollment page</h3>
+          <p>One line of code. Your testimonials appear automatically — new ones show up the moment they're submitted. Prospective parents see real feedback from real families.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote>"I shared the link in our parent group on a Thursday. By Monday I had 11 testimonials. Two new families mentioned them during tours that week."</blockquote>
+  <cite>— Maria L., home daycare provider</cite>
+</section>
+
+<section class="cta-section">
+  <h2>Build the trust that fills your enrollment</h2>
+  <p>Free forever for 1 active widget. Set up in 10 minutes. No tech skills needed.</p>
+  <a href="https://app.socialproof.dev/signup" class="btn-white">Get Started Free →</a>
+</section>
+</Base>
