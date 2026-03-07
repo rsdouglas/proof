@@ -1,6 +1,6 @@
 -- ============================================================
 -- Proof — Initial D1 schema
--- Run with: wrangler d1 execute proof-db --file=migrations/0001_initial.sql
+-- Run with: wrangler d1 execute vouch-db --file=migrations/0001_initial.sql
 -- ============================================================
 
 -- Accounts

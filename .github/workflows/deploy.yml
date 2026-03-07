@@ -1,5 +1,11 @@
 name: Deploy
 
+# Post-merge ops QA notes:
+# - Verify customer-facing HTML surfaces return 200 after deploy changes: https://socialproof.dev/ and https://app.socialproof.dev/
+# - Verify marketing routes on socialproof.dev still render (example: /for/plumbers/, /vs/boast/, /blog/testimonials-for-yoga-studios/)
+# - Do NOT use root-path checks for api.socialproof.dev or widget.socialproof.dev; their expected health checks are endpoint/asset specific.
+# - A successful Pages deploy is not enough by itself; confirm the intended custom domain is actually bound/live before closing infra issues.
+
 on:
   push:
     branches: [main]

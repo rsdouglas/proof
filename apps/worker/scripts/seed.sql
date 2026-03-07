@@ -1,6 +1,6 @@
 -- ============================================================
 -- Proof — Seed data for local development
--- Run with: wrangler d1 execute proof-db --local --file=migrations/seed.sql
+-- Run with: wrangler d1 execute vouch-db --local --file=migrations/seed.sql
 -- ============================================================
 
 -- Dev account (password: "password123" — SHA-256 hashed with account id as salt)
