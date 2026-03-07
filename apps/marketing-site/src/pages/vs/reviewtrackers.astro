@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs ReviewTrackers — Testimonials for Small Business | SocialProof" description="ReviewTrackers starts at $119/mo for enterprise teams. SocialProof is free to start and $9/mo Pro — built for small businesses that just need to collect and display testimonials. Honest comparison." canonical="https://socialproof.dev/vs/reviewtrackers">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,.8); margin-bottom: 2rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .9rem 2.25rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+</style>
+<main>
+  <div class="hero">
+    <span class="vs-badge">Comparison</span>
+    <h1>SocialProof vs <span>ReviewTrackers</span></h1>
+    <p>ReviewTrackers is built for enterprise reputation management teams. If you're a small business owner just looking to collect testimonials and display them on your site, there's a simpler (and cheaper) path.</p>
+    <div class="price-callout">
+      <div class="item vouch"><div class="price">$0</div><div class="label">SocialProof (Free)</div></div>
+      <div class="item other"><div class="price">$119+/mo</div><div class="label">ReviewTrackers</div></div>
+    </div>
+    <a href="https://app.socialproof.dev/signup" class="hero-cta">Try SocialProof Free →</a>
+  </div>
+
+  <section>
+    <h2>Feature comparison</h2>
+    <table class="compare-table">
+      <thead>
+        <tr><th>Feature</th><th>SocialProof</th><th>ReviewTrackers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Starting price</td><td class="yes">Free forever (1 widget)</td><td class="no">$119/month+</td></tr>
+        <tr><td>Collect text testimonials</td><td class="yes">✓ Yes</td><td class="partial">Enterprise focus</td></tr>
+        <tr><td>Embed widget on your site</td><td class="yes">✓ Yes — copy/paste</td><td class="partial">✓ Yes (complex setup)</td></tr>
+        <tr><td>Review monitoring (Google, Yelp)</td><td class="no">Not included</td><td class="yes">✓ Yes — core feature</td></tr>
+        <tr><td>Setup time</td><td class="yes">Under 5 minutes</td><td class="no">Onboarding call required</td></tr>
+        <tr><td>Multi-location management</td><td class="no">Not included</td><td class="yes">✓ Yes — built for this</td></tr>
+        <tr><td>Response management</td><td class="no">Not included</td><td class="yes">✓ Yes</td></tr>
+        <tr><td>Small business pricing</td><td class="yes">✓ $0–$9/mo</td><td class="no">Enterprise pricing</td></tr>
+        <tr><td>No contract required</td><td class="yes">✓ Month-to-month</td><td class="no">Annual contracts typical</td></tr>
+        <tr><td>Approval workflow</td><td class="yes">✓ One-click approve</td><td class="partial">✓ Available</td></tr>
+      </tbody>
+    </table>
+
+    <div class="savings-box">
+      <h3>💡 Cost reality check</h3>
+      <p>ReviewTrackers targets franchise groups and multi-location enterprises managing dozens of locations. For a single-location business, you'd pay $119–$200+/month for features you may never use. SocialProof Pro is $9/month for everything a small business needs to collect and display testimonials.</p>
+    </div>
+
+    <h2>Who ReviewTrackers is built for</h2>
+    <p>ReviewTrackers is designed for enterprise teams that need to monitor review platforms (Google, Yelp, Facebook) at scale across many locations. It has a dedicated account management model and pricing to match.</p>
+    <p style="margin-top:1rem;">If you're a franchise group with 50+ locations needing centralized review monitoring, ReviewTrackers may be the right fit. But if you're a solo practitioner, independent shop, or small service business, you're paying for complexity you don't need.</p>
+
+    <h2>Who SocialProof is built for</h2>
+    <p>SocialProof is purpose-built for small business owners who want to: (1) collect testimonials from happy clients, and (2) display them on their website to convert new visitors. That's it. Simple, affordable, and takes 5 minutes to set up.</p>
+
+    <div class="bottom-cta">
+      <h2>Don't pay enterprise prices for small business needs</h2>
+      <p>SocialProof is free to start. Collect testimonials, embed a widget, convert more visitors — no credit card required.</p>
+      <a href="https://app.socialproof.dev/signup">Start Free — No Credit Card →</a>
+    </div>
+
+    <p style="font-size:0.9rem;color:#888;margin-top:2rem;">Also compare: <a href="/vs/birdeye">vs Birdeye</a> · <a href="/vs/podium">vs Podium</a> · <a href="/vs/reputation">vs Reputation.com</a> · <a href="/vs/senja">vs Senja</a> · <a href="/vs/testimonial-io">vs Testimonial.io</a></p>
+  </section>
+</main>
+</Base>
