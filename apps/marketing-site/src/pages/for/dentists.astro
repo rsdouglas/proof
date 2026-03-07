@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Social proof for dentists — Collect patient testimonials | SocialProof" description="Patients choose a dentist based on trust. SocialProof helps dental practices collect and display patient testimonials on their website — free to start." canonical="https://socialproof.dev/for/dentists">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 5rem 2rem 3rem; max-width: 760px; margin: 0 auto; }
+    .vertical-badge { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 580px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .hero-sub { margin-top: 1rem; font-size: 0.9rem; color: #888; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .problem-card { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 1.5rem; }
+    .problem-card .emoji { font-size: 1.75rem; margin-bottom: .75rem; }
+    .problem-card h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .5rem; }
+    .problem-card p { font-size: 0.92rem; color: #555; margin: 0; }
+    .steps { counter-reset: steps; margin: 2rem 0; }
+    .step { display: flex; gap: 1.5rem; margin-bottom: 2rem; align-items: flex-start; }
+    .step-num { flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: #4f46e5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
+    .step-body h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 .35rem; }
+    .step-body p { font-size: 0.93rem; color: #555; margin: 0; }
+    .testimonial-example { background: #f8f8ff; border: 1px solid #e0e7ff; border-radius: 12px; padding: 1.75rem; margin: 2rem 0; }
+    .testimonial-example blockquote { font-size: 1.05rem; font-style: italic; color: #333; margin: 0 0 1rem; line-height: 1.65; }
+    .testimonial-example .attribution { font-size: 0.88rem; color: #666; font-weight: 600; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,0.85); margin-bottom: 1.75rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+    .bottom-cta a:hover { background: #e0e7ff; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; margin: 0 .5rem; }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for/dentists">For Dentists</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vertical-badge">For Dental Practices</span>
+  <h1>New patients choose you<br/><span>based on what others say.</span></h1>
+  <p>72% of patients read reviews before booking a dentist. SocialProof makes it easy to collect genuine patient testimonials and display them on your website — turning happy patients into your best marketing.</p>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Start free — no credit card</a>
+  <p class="hero-sub">Free forever for 1 widget · Setup in under 5 minutes</p>
+</div>
+
+<section>
+  <h2>The challenge every dental practice faces</h2>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="emoji">😬</div>
+      <h3>Patients don't leave reviews unprompted</h3>
+      <p>Even your happiest patients forget to leave a review. You need an easy way to ask that doesn't feel pushy.</p>
+    </div>
+    <div class="problem-card">
+      <div class="emoji">🔍</div>
+      <h3>Google reviews are out of your control</h3>
+      <p>You can't curate them, highlight the best ones, or embed them beautifully on your site.</p>
+    </div>
+    <div class="problem-card">
+      <div class="emoji">💸</div>
+      <h3>Reputation tools cost a fortune</h3>
+      <p>Platforms like Podium and Birdeye charge hundreds per month. Most solo practices don't need all that.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>How SocialProof works for dental practices</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Sign up and get your collection link</h3>
+        <p>Create your account in 2 minutes. You get a unique shareable link where patients can leave a testimonial.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Share the link after every appointment</h3>
+        <p>Text it, email it, print it on a card. "Loved your visit? Leave us a few words here →" That's it.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Embed the widget on your website</h3>
+        <p>Paste one script tag on your site. Your testimonials appear in a clean slider or grid — automatically updated as new ones come in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonial-example">
+    <blockquote>"I'd avoided the dentist for years because of anxiety. Dr. Chen's team made me feel completely at ease. The whole experience was gentle, professional, and they explained everything. I actually look forward to my next appointment!"</blockquote>
+    <div class="attribution">— Testimonial example from a dental patient</div>
+  </div>
+</section>
+
+<section>
+  <h2>Why dentists love SocialProof</h2>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="emoji">🚀</div>
+      <h3>Live in 5 minutes</h3>
+      <p>No enterprise contracts, no sales calls, no complicated setup. Paste one line on your site and you're live.</p>
+    </div>
+    <div class="problem-card">
+      <div class="emoji">💬</div>
+      <h3>Real words from real patients</h3>
+      <p>Testimonials written by actual patients beat star ratings every time. Prospective patients want to read stories, not scores.</p>
+    </div>
+    <div class="problem-card">
+      <div class="emoji">💰</div>
+      <h3>Free to start, $9/mo Pro</h3>
+      <p>Less than the cost of one coffee a week. Compare that to Podium at $300+/mo.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Turn your happy patients into your best marketing</h2>
+    <p>Start collecting testimonials today. Free forever for one widget.</p>
+    <a href="https://app.socialproof.dev/signup">Start free →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="/">SocialProof</a> · <a href="/for/lawyers">For Lawyers</a> · <a href="/for/restaurants">For Restaurants</a> · <a href="/for/salons">For Salons</a>
+</footer>
+</Base>
