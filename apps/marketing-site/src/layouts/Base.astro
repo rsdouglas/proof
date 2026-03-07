@@ -49,6 +49,35 @@ const canonicalUrl = canonical ?? Astro.url.href;
       });
     }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Collect, approve, and embed customer testimonials on any website. Free to start.",
+    "url": "https://socialproof.dev",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialProof",
+    "url": "https://socialproof.dev"
+  }
+  </script>
 </head>
 <body>
   <!-- ANNOUNCEMENT BANNER -->
