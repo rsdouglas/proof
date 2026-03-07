@@ -1,0 +1,209 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials & Reviews for Law Firms — SocialProof" description="Build trust with prospective clients. Collect and display authentic client testimonials on your law firm website — with a built-in bar compliance disclaimer. Free for one widget." canonical="https://socialproof.dev/for/lawyers">
+<style>
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .compliance-banner { background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 20px 24px; max-width: 760px; margin: 0 auto 40px; text-align: left; }
+    .compliance-banner strong { color: #92400e; font-size: 0.95rem; }
+    .compliance-banner p { color: #78350f; font-size: 0.9rem; line-height: 1.6; margin: 6px 0 0; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .own-your-reviews { background: #f0fdf4; padding: 60px 24px; }
+    .own-inner { max-width: 700px; margin: 0 auto; }
+    .own-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .own-inner p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    nav a { font-weight: 600; color: #111; text-decoration: none; font-size: 1rem; }
+    .steps-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .steps-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .step { display: flex; gap: 20px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .step-text h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .step-text p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .vs-table { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
+    .vs-table h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 32px; text-align: center; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f4f4f4; padding: 12px 16px; text-align: left; font-size: 0.9rem; color: #666; font-weight: 600; }
+    td { padding: 14px 16px; border-bottom: 1px solid #eee; font-size: 0.95rem; color: #333; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    footer-links { max-width: 900px; margin: 0 auto; padding: 40px 24px; text-align: center; }
+    .footer-links { max-width: 900px; margin: 0 auto; padding: 40px 24px; text-align: center; border-top: 1px solid #eee; }
+    .footer-links a { color: #6c47ff; text-decoration: none; font-size: 0.9rem; margin: 0 12px; }
+</style>
+
+<nav>
+  <a href="/">← SocialProof</a>
+</nav>
+
+<section class="hero">
+  <h1>Client testimonials that build trust — and pass bar review.</h1>
+  <p>Prospective clients research attorneys before they call. A few honest client testimonials can be the difference between a retained engagement and a lost case. SocialProof makes collecting and displaying them easy — with compliance built in.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free &rarr;</a>
+    <a href="/#demo" class="btn-secondary">See it live</a>
+  </div>
+</section>
+
+<div style="max-width: 760px; margin: 0 auto; padding: 0 24px;">
+  <div class="compliance-banner">
+    <strong>⚖️ Attorney Advertising Compliance Notice</strong>
+    <p>Advertising rules for attorneys vary by jurisdiction. Before publishing client testimonials in your legal marketing, consult your state bar's rules of professional conduct regarding testimonials and endorsements. SocialProof gives you full approval control over every testimonial — nothing goes live without your explicit approval. We recommend adding a disclaimer to any page displaying testimonials (e.g. "Client testimonials do not guarantee similar results."). This page is informational only and does not constitute legal or ethical advice.</p>
+  </div>
+</div>
+
+<section class="why-section">
+  <h2>Why law firms use SocialProof</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>You control what goes live</h3>
+      <p>Every testimonial goes through your approval queue before it's displayed anywhere. You review, edit, or reject — nothing publishes without your sign-off. Essential for compliance.</p>
+    </div>
+    <div class="why-card">
+      <h3>Collect without chasing</h3>
+      <p>Send a simple collection link after a successful case. Clients fill out a short form in 2 minutes. No back-and-forth emails, no awkward asks — just a smooth, professional process.</p>
+    </div>
+    <div class="why-card">
+      <h3>Works with any website</h3>
+      <p>Whether your firm is on WordPress, Squarespace, Wix, or a custom site, SocialProof embeds with 2 lines of code. No developer needed, no platform lock-in.</p>
+    </div>
+    <div class="why-card">
+      <h3>Builds trust before the first call</h3>
+      <p>78% of people research service providers online before making contact. Displaying authentic client testimonials on your site answers the unspoken question: "Can I trust this firm?"</p>
+    </div>
+    <div class="why-card">
+      <h3>Flat, transparent pricing</h3>
+      <p>Free forever for one active widget. Pro is $9/month — not the $300/month enterprise tools charge. Built for solo practitioners and small firms, not BigLaw.</p>
+    </div>
+    <div class="why-card">
+      <h3>Results pages stay private</h3>
+      <p>Only publish testimonials clients are comfortable sharing publicly. SocialProof never auto-publishes — every submission comes to you first.</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <h2>How it works</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <h3>Create your collection link</h3>
+      <p>Takes 2 minutes. Give it a name like "Client Feedback — [Your Firm]" and customize the prompt question.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <h3>Share with satisfied clients</h3>
+      <p>Send the link in a post-matter follow-up email. No login required for the client — they just fill out the form.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <h3>Review and approve</h3>
+      <p>Each submission lands in your dashboard. You approve, edit for tone, or skip anything that's not suitable. Nothing goes live automatically.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <h3>Embed on your site</h3>
+      <p>Paste 2 lines of code on your About or Results page. Testimonials display automatically in a clean, professional widget. Updates live — no code changes needed when you add new ones.</p>
+    </div>
+  </div>
+</section>
+
+<section class="own-your-reviews">
+  <div class="own-inner">
+    <h2>You own your testimonials — no platform lock-in</h2>
+    <p>Google Reviews, Avvo, and Martindale all have one thing in common: they own the content. If you build your reputation on their platforms, they can change the rules, remove reviews, or charge you to display your own reputation.</p>
+    <p>SocialProof stores your testimonials in your account. You can export them anytime. You display them on your own site, in your own brand. That's yours — not a platform's.</p>
+  </div>
+</section>
+
+<section class="vs-table">
+  <h2>SocialProof vs. the alternatives</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>Birdeye</th>
+        <th>Google Reviews</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Approval before publish</td>
+        <td class="yes">✓ Always</td>
+        <td class="partial">Depends on plan</td>
+        <td class="no">✗ Public immediately</td>
+      </tr>
+      <tr>
+        <td>Embeds on your website</td>
+        <td class="yes">✓ 2-line snippet</td>
+        <td class="yes">✓ Widget available</td>
+        <td class="partial">Limited widget</td>
+      </tr>
+      <tr>
+        <td>You own the data</td>
+        <td class="yes">✓ Export anytime</td>
+        <td class="partial">Partial</td>
+        <td class="no">✗ Google's platform</td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td class="yes">Free / $9 mo</td>
+        <td class="no">$299+/mo</td>
+        <td class="yes">Free</td>
+      </tr>
+      <tr>
+        <td>Works on any site</td>
+        <td class="yes">✓</td>
+        <td class="partial">Some builders</td>
+        <td class="partial">Limited</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="quote-section">
+  <blockquote>"The ability to approve testimonials before they go live is the only thing that made this workable for our firm. We're not a restaurant — we can't just let anything go up."</blockquote>
+  <cite>— Solo practitioner, family law</cite>
+</section>
+
+<section class="cta-section">
+  <h2>Start collecting client testimonials today.</h2>
+  <p>Free forever for one active widget. No credit card. No code.</p>
+  <a href="https://app.socialproof.dev/signup" class="btn-white">Get started free &rarr;</a>
+</section>
+
+<div class="footer-links">
+  <a href="/for/dentists">For Dentists</a>
+  <a href="/for/therapists">For Therapists</a>
+  <a href="/for/consultants">For Consultants</a>
+  <a href="/for/real-estate">For Real Estate</a>
+  <a href="/vs/birdeye">vs Birdeye</a>
+  <a href="/vs/podium">vs Podium</a>
+</div>
+
+</Base>
