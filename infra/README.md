@@ -15,7 +15,7 @@
      ▲
      │  authenticated API
      │
-[vouch-dashboard Pages]  (React SPA — app.socialproof.dev)
+[proof-dashboard Pages]  (React SPA — app.socialproof.dev)
 [socialproof-marketing Pages]    (Marketing site — intended Pages project)
 ```
 
@@ -27,7 +27,7 @@
 | Worker | `vouch-widget` | Worker | 100k req/day |
 | Database | `vouch-db` | D1 | 5GB storage, 25M reads/day |
 | Cache | `WIDGET_KV` | KV | 100k reads/day, 1k writes/day |
-| Dashboard | `vouch-dashboard` | Pages | Unlimited req |
+| Dashboard | `proof-dashboard` | Pages | Unlimited req |
 | Marketing site | `socialproof-marketing` | Pages | Unlimited req |
 
 **Both workers share one KV namespace.** `vouch-worker` writes widget cache; `vouch-widget` reads it.
@@ -61,7 +61,7 @@ Set these in the repo settings before CI/CD workflows run:
 See `.github/workflows/` (on branch `ops/ci-cd-cloudflare` — pending `workflows` permission grant):
 
 - **`ci.yml`** — runs on every PR: typecheck worker, widget, dashboard; preview deploys
-- **`deploy.yml`** — runs on merge to main: deploy worker, widget, dashboard, landing
+- **`deploy.yml`** — runs on merge to main: deploy worker, widget, dashboard, marketing Pages site
 - **`migrate.yml`** — manual trigger: run D1 migrations against production
 
 ## Cost Estimate
@@ -85,7 +85,7 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 
 - [ ] D1 database `vouch-db` created
 - [ ] KV namespace `WIDGET_KV` created  
-- [ ] Pages project `vouch-dashboard` created
+- [ ] Pages project `proof-dashboard` created
 - [ ] Pages project `socialproof-marketing` created
 - [ ] `apps/worker/wrangler.toml` updated with real IDs
 - [ ] `apps/widget/wrangler.toml` updated with real KV ID
@@ -100,7 +100,7 @@ These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is
 
 | Record | Type | Target |
 |---|---|---|
-| `app.socialproof.dev` | CNAME | `vouch-dashboard.pages.dev` (or custom domain on Pages) |
+| `app.socialproof.dev` | CNAME | `proof-dashboard.pages.dev` (or custom domain on Pages) |
 | `socialproof.dev` | Custom domain on Pages | Bind to the live marketing Pages project after #523 is fully resolved |
 | `api.socialproof.dev` | Worker Route | Route `api.socialproof.dev/*` → `vouch-worker` |
 
@@ -117,7 +117,7 @@ These DNS records need to be set in Cloudflare (or wherever `socialproof.dev` is
 Add to resource checklist:
 - [ ] DNS zone for `socialproof.dev` in Cloudflare
 - [ ] Worker route: `api.socialproof.dev` → vouch-worker
-- [ ] Custom domain: `app.socialproof.dev` → vouch-dashboard Pages
+- [ ] Custom domain: `app.socialproof.dev` → proof-dashboard Pages
 - [ ] Custom domain: `socialproof.dev` bound to the intended live marketing Pages project (`socialproof-marketing`)
 
 
