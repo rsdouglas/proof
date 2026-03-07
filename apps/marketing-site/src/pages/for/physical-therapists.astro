@@ -1,0 +1,121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const title = "SocialProof for Physical Therapists — Turn Patient Outcomes Into New Referrals";
+const description = "Physical therapy practices that collect patient testimonials see more self-pay patients and fewer no-shows. SocialProof helps you gather and display real patient stories — compliantly.";
+---
+<Layout title={title} description={description}>
+  <main class="for-page">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">For Physical Therapists</div>
+        <h1>Your patients' recovery stories are your best marketing.</h1>
+        <p class="subhead">Physical therapy is a trust-based referral business. When potential patients can read real recovery stories from people like them, they book — and they show up. SocialProof makes collecting and displaying those stories effortless.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Start free — no credit card</a>
+      </div>
+    </section>
+
+    <section class="pain-points">
+      <div class="container">
+        <h2>The problem with PT marketing</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="icon">📋</div>
+            <h3>Insurance referrals are drying up</h3>
+            <p>More patients are choosing PT providers themselves rather than just taking whoever their doctor recommends. Social proof is now a deciding factor.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🚪</div>
+            <h3>High no-show anxiety</h3>
+            <p>Patients who feel uncertain about a new PT practice are more likely to cancel. Reading success stories from people with similar injuries builds commitment before the first visit.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🏥</div>
+            <h3>Competing with big PT chains</h3>
+            <p>Corporate PT chains have marketing departments. Your competitive advantage is authentic patient relationships — but only if people can see those stories.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How SocialProof works for PT practices</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3>Send your collection link after discharge</h3>
+              <p>When a patient completes their treatment plan, send your SocialProof link via text or email. The form is mobile-friendly and takes 2 minutes.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3>Collect specific, outcome-focused testimonials</h3>
+              <p>Guided prompts help patients describe their injury, their improvement, and why they'd recommend you. Specific stories ("I went from unable to walk to completing a 5K") convert far better than generic praise.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3>Display on your website and intake pages</h3>
+              <p>Embed a testimonial widget on your website homepage, specialty pages (sports injury, post-surgical, etc.), and your online booking page to reduce dropout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial-example">
+      <div class="container">
+        <h2>The kind of testimonial that fills your schedule</h2>
+        <blockquote>
+          "After my ACL reconstruction, I was terrified I'd never get back to playing soccer. The team here didn't just treat my knee — they treated my fear. 14 months later I played my first full game. I send every injured athlete I know to this practice."
+          <cite>— Former patient, sports injury program</cite>
+        </blockquote>
+        <p class="note">Testimonials like this answer the specific fears of your next potential patient before they even call.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Start collecting patient stories today</h2>
+        <p>Free forever for 1 active widget. No setup fees, no contracts. Most PT practices collect their first testimonial within 48 hours of signing up.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Get started free</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); color: white; padding: 5rem 0 4rem; text-align: center; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin: 0 0 1.2rem; line-height: 1.2; }
+  .subhead { font-size: 1.15rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem; line-height: 1.6; }
+  .cta-btn { display: inline-block; background: #e94560; color: white; padding: 0.9rem 2.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: background 0.2s; }
+  .cta-btn:hover { background: #c73652; }
+  .pain-points { padding: 4rem 0; background: #f8f9ff; }
+  .pain-points h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.6rem; }
+  .card p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .how-it-works { padding: 4rem 0; }
+  .how-it-works h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .steps { display: flex; flex-direction: column; gap: 2rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num { background: #0f3460; color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .step-body h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.4rem; }
+  .step-body p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .testimonial-example { padding: 4rem 0; background: #f8f9ff; }
+  .testimonial-example h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2rem; }
+  blockquote { background: white; border-left: 4px solid #0f3460; border-radius: 0 12px 12px 0; padding: 2rem; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: #333; margin: 0 0 1rem; }
+  cite { display: block; font-style: normal; font-size: 0.9rem; color: #888; margin-top: 0.8rem; }
+  .note { text-align: center; font-size: 0.95rem; color: #666; margin: 0; }
+  .cta-section { padding: 4rem 0; text-align: center; }
+  .cta-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+  .cta-section p { font-size: 1rem; color: #555; max-width: 550px; margin: 0 auto 2rem; line-height: 1.6; }
+</style>

@@ -1,0 +1,121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const title = "SocialProof for Insurance Agents — Build Trust Before the First Call";
+const description = "Insurance is a high-stakes, high-trust purchase. Agents who display real client testimonials get more quote requests and close more policies. SocialProof makes collecting reviews simple.";
+---
+<Layout title={title} description={description}>
+  <main class="for-page">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">For Insurance Agents</div>
+        <h1>People don't choose the cheapest insurance. They choose the agent they trust.</h1>
+        <p class="subhead">Quote comparison sites commoditize your product. Your client relationships don't commoditize. SocialProof helps you capture those relationships as visible, searchable testimonials that convert strangers into clients.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Start free — no credit card</a>
+      </div>
+    </section>
+
+    <section class="pain-points">
+      <div class="container">
+        <h2>Why testimonials matter more for insurance agents</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="icon">🔄</div>
+            <h3>Referrals are invisible online</h3>
+            <p>Your best leads come from referrals — but prospects still Google you before calling. If your website doesn't show happy clients, they click away to a competitor who does.</p>
+          </div>
+          <div class="card">
+            <div class="icon">💰</div>
+            <h3>High-value policies need high trust</h3>
+            <p>Life insurance, business coverage, umbrella policies — the bigger the purchase, the more a prospect needs proof that others made the right call choosing you.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Standing out from captive agents</h3>
+            <p>Independent agents have a service story to tell that captive agents can't match. Testimonials that mention your availability, advocacy, and claims support differentiate you clearly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How SocialProof works for insurance professionals</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3>Request testimonials after a positive moment</h3>
+              <p>After a smooth claims experience, policy renewal, or coverage review, send your SocialProof link. Happy clients are primed to share — you just need to ask.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3>Capture the story that matters to prospects</h3>
+              <p>Guided prompts help clients describe the situation that brought them to you, what you solved, and how they feel now. Those specific details resonate with people in the same situation.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3>Display testimonials where prospects look</h3>
+              <p>Embed a widget on your homepage, your "About" page, and your quote request page. Testimonials near conversion points directly increase form completions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial-example">
+      <div class="container">
+        <h2>The testimonial that gets you the next client</h2>
+        <blockquote>
+          "When our roof was damaged in the storm, I was dreading dealing with the insurance claim. My agent handled every single step — walked me through the entire process, followed up with the adjuster, and had a check in my hands in 12 days. I've since moved all four of our policies here."
+          <cite>— Homeowner, property & auto client</cite>
+        </blockquote>
+        <p class="note">This testimonial answers the #1 fear of insurance buyers: "Will my agent actually be there when I need them?"</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Your next client is comparing agents right now</h2>
+        <p>Free forever for 1 active widget. Setup takes 5 minutes. Start building the trust library that wins quotes before you even pick up the phone.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Get started free</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { background: linear-gradient(135deg, #1a4a2e 0%, #0d2818 100%); color: white; padding: 5rem 0 4rem; text-align: center; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin: 0 0 1.2rem; line-height: 1.2; }
+  .subhead { font-size: 1.15rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem; line-height: 1.6; }
+  .cta-btn { display: inline-block; background: #27ae60; color: white; padding: 0.9rem 2.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: background 0.2s; }
+  .cta-btn:hover { background: #1e8449; }
+  .pain-points { padding: 4rem 0; background: #f8fff9; }
+  .pain-points h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.6rem; }
+  .card p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .how-it-works { padding: 4rem 0; }
+  .how-it-works h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .steps { display: flex; flex-direction: column; gap: 2rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num { background: #1a4a2e; color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .step-body h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.4rem; }
+  .step-body p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .testimonial-example { padding: 4rem 0; background: #f8fff9; }
+  .testimonial-example h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2rem; }
+  blockquote { background: white; border-left: 4px solid #1a4a2e; border-radius: 0 12px 12px 0; padding: 2rem; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: #333; margin: 0 0 1rem; }
+  cite { display: block; font-style: normal; font-size: 0.9rem; color: #888; margin-top: 0.8rem; }
+  .note { text-align: center; font-size: 0.95rem; color: #666; margin: 0; }
+  .cta-section { padding: 4rem 0; text-align: center; }
+  .cta-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+  .cta-section p { font-size: 1rem; color: #555; max-width: 550px; margin: 0 auto 2rem; line-height: 1.6; }
+</style>

@@ -1,0 +1,121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const title = "SocialProof for Music Teachers — Fill Your Studio With Students Who Stay";
+const description = "Parents choose music teachers for their children based on trust. Music teachers who display student and parent testimonials fill their studios faster and retain students longer.";
+---
+<Layout title={title} description={description}>
+  <main class="for-page">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">For Music Teachers</div>
+        <h1>Every student recital is proof. Make sure parents can see it.</h1>
+        <p class="subhead">Parents searching for a piano teacher, guitar teacher, or vocal coach are making a choice for their child's development. The teacher with real parent and student testimonials wins — every time. SocialProof helps you collect and display those stories.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Start free — no credit card</a>
+      </div>
+    </section>
+
+    <section class="pain-points">
+      <div class="container">
+        <h2>Why music teachers need more than a music degree</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="icon">👨‍👩‍👧</div>
+            <h3>Parents are the real buyers</h3>
+            <p>Kids don't Google music teachers — parents do. They're looking for evidence that you're patient, encouraging, and will actually stick with their child through the hard parts.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🔄</div>
+            <h3>Student retention is everything</h3>
+            <p>The most successful studios have waiting lists — not because they're the cheapest, but because parents see other parents raving about their child's progress. Social proof creates social pressure to join.</p>
+          </div>
+          <div class="card">
+            <div class="icon">📱</div>
+            <h3>Word of mouth doesn't scale alone</h3>
+            <p>Referrals are your best source of students, but online word-of-mouth — a widget on your studio website — works 24/7 while you're teaching.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How SocialProof works for music studios</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3>Ask after a milestone moment</h3>
+              <p>After a recital, after a student passes their first grade exam, or after a parent tells you how much their child has grown — send your SocialProof link. Timing the ask right gets better testimonials.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3>Collect stories from both parents and adult students</h3>
+              <p>Parent testimonials speak to other parents. Adult learner testimonials speak to other adults who've always wanted to play. Segment your collection to target both audiences.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3>Display on your studio website and social profiles</h3>
+              <p>Embed a rotating testimonial widget on your homepage, your Instagram link-in-bio page, or your Thumbtack/Lessons.com profile to convert more enquiries into enrolled students.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial-example">
+      <div class="container">
+        <h2>The testimonial that fills your studio</h2>
+        <blockquote>
+          "My daughter had tried two other piano teachers and quit within months both times. With this teacher, she's been playing for two years, practices without being asked, and performed her first solo recital last spring. The patience and encouragement is unlike anything we've experienced."
+          <cite>— Parent of 9-year-old student</cite>
+        </blockquote>
+        <p class="note">This testimonial directly addresses the fear of every parent who's had a child quit lessons before.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Turn happy parents into your best marketing</h2>
+        <p>Free forever for 1 active widget. Most music teachers collect their first testimonial within a week of signing up — often from a parent who was already meaning to say something.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Get started free</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { background: linear-gradient(135deg, #4a1a6b 0%, #2d0f45 100%); color: white; padding: 5rem 0 4rem; text-align: center; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin: 0 0 1.2rem; line-height: 1.2; }
+  .subhead { font-size: 1.15rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem; line-height: 1.6; }
+  .cta-btn { display: inline-block; background: #f39c12; color: white; padding: 0.9rem 2.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: background 0.2s; }
+  .cta-btn:hover { background: #d68910; }
+  .pain-points { padding: 4rem 0; background: #fdf8ff; }
+  .pain-points h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.6rem; }
+  .card p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .how-it-works { padding: 4rem 0; }
+  .how-it-works h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .steps { display: flex; flex-direction: column; gap: 2rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num { background: #4a1a6b; color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .step-body h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.4rem; }
+  .step-body p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .testimonial-example { padding: 4rem 0; background: #fdf8ff; }
+  .testimonial-example h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2rem; }
+  blockquote { background: white; border-left: 4px solid #4a1a6b; border-radius: 0 12px 12px 0; padding: 2rem; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: #333; margin: 0 0 1rem; }
+  cite { display: block; font-style: normal; font-size: 0.9rem; color: #888; margin-top: 0.8rem; }
+  .note { text-align: center; font-size: 0.95rem; color: #666; margin: 0; }
+  .cta-section { padding: 4rem 0; text-align: center; }
+  .cta-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+  .cta-section p { font-size: 1rem; color: #555; max-width: 550px; margin: 0 auto 2rem; line-height: 1.6; }
+</style>
