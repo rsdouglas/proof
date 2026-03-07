@@ -1,0 +1,207 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Kudobuzz — Social Proof Widget Comparison | SocialProof" description="Kudobuzz aggregates social reviews and charges $19+/mo. SocialProof collects direct customer testimonials for free to start, $9/mo Pro. Which is right for your small business?" canonical="https://socialproof.dev/vs/kudobuzz">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .savings-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .savings-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0 1rem; }
+    .bottom-cta h2 { color: #fff; margin-bottom: .75rem; }
+    .bottom-cta p { color: rgba(255,255,255,.85); margin-bottom: 2rem; font-size: 1.05rem; }
+    .bottom-cta a { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; color: #aaa; font-size: 0.85rem; border-top: 1px solid #eee; }
+    @media (max-width: 640px) { .winner-grid { grid-template-columns: 1fr; } .price-callout { flex-direction: column; gap: 1rem; } }
+</style>
+
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/#pricing">Pricing</a>
+    <a href="/vs/">Compare</a>
+    <a href="https://app.socialproof.dev/register" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="vs-badge">SocialProof vs Kudobuzz</div>
+  <h1>A focused alternative to <span>Kudobuzz</span></h1>
+  <p>Kudobuzz pulls reviews from social platforms and charges from $19/mo. SocialProof helps you collect direct customer testimonials and display them beautifully — free to start.</p>
+  <div class="price-callout">
+    <div class="item vouch">
+      <div class="price">Free</div>
+      <div class="label">SocialProof starter</div>
+    </div>
+    <div class="item other">
+      <div class="price">$19+/mo</div>
+      <div class="label">Kudobuzz starting price</div>
+    </div>
+  </div>
+  <a href="https://app.socialproof.dev/register" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>Feature comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>Kudobuzz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Free plan</td>
+        <td><span class="yes">✓ Free forever (1 widget)</span></td>
+        <td><span class="no">✗ No free plan</span></td>
+      </tr>
+      <tr>
+        <td>Starting price</td>
+        <td><span class="yes">Free / $9/mo Pro</span></td>
+        <td><span class="no">$19+/mo</span></td>
+      </tr>
+      <tr>
+        <td>Direct testimonial collection</td>
+        <td><span class="yes">✓ Shareable link → customer fills form</span></td>
+        <td><span class="no">✗ Aggregates social reviews only</span></td>
+      </tr>
+      <tr>
+        <td>Works without social media accounts</td>
+        <td><span class="yes">✓ Fully standalone</span></td>
+        <td><span class="no">✗ Requires social platform connection</span></td>
+      </tr>
+      <tr>
+        <td>Embed widget (script tag)</td>
+        <td><span class="yes">✓ One line of code</span></td>
+        <td><span class="yes">✓ Yes</span></td>
+      </tr>
+      <tr>
+        <td>Testimonial approval control</td>
+        <td><span class="yes">✓ Approve before publishing</span></td>
+        <td><span class="partial">~ Limited moderation</span></td>
+      </tr>
+      <tr>
+        <td>Schema markup (Google rich snippets)</td>
+        <td><span class="yes">✓ Built in</span></td>
+        <td><span class="partial">~ Limited</span></td>
+      </tr>
+      <tr>
+        <td>No-code setup</td>
+        <td><span class="yes">✓ Paste 1 script tag</span></td>
+        <td><span class="partial">~ Plugin-based, more complex</span></td>
+      </tr>
+      <tr>
+        <td>Shopify integration</td>
+        <td><span class="yes">✓ Works via script tag</span></td>
+        <td><span class="yes">✓ Native app</span></td>
+      </tr>
+      <tr>
+        <td>Custom branding</td>
+        <td><span class="yes">✓ Pro plan ($9/mo)</span></td>
+        <td><span class="yes">✓ Higher tiers</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Different tools for different needs</h2>
+  <p style="font-size: 1.05rem; color: #444; line-height: 1.7;">
+    Kudobuzz is built around social aggregation — pulling reviews from Facebook, Google, Twitter/X, and other platforms into one widget. If your business has an established presence on those platforms with hundreds of existing reviews, aggregation makes sense.
+    <br /><br />
+    But if you want to <em>proactively collect</em> testimonials from customers — without asking them to log in to a review platform first — SocialProof is the better tool. You send a link. They write a few sentences. It appears on your site. No third-party platform required.
+  </p>
+
+  <h2>Who wins for small businesses?</h2>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✓ SocialProof is better if you…</h3>
+      <ul>
+        <li>Want to ask customers directly for testimonials</li>
+        <li>Don't have a large social review presence yet</li>
+        <li>Need to start for free with no credit card</li>
+        <li>Want full control over what appears on your site</li>
+        <li>Care about schema markup for search visibility</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Kudobuzz might be better if you…</h3>
+      <ul>
+        <li>Already have many reviews on Facebook or Google</li>
+        <li>Want to aggregate and display reviews from multiple social platforms</li>
+        <li>Run a Shopify store with an existing review base</li>
+        <li>Need the social media feed/aggregation features</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="savings-box">
+    <h3>💰 The math: $0 vs. $19/mo</h3>
+    <p>Kudobuzz starts at $19/mo with no free plan. SocialProof is <strong>free forever</strong> for 1 widget, and only <strong>$9/mo</strong> Pro when you need more. Over a year, that's <strong>$228 saved</strong> at the starting tier alone.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What users say</h2>
+  <blockquote style="border-left: 4px solid #4f46e5; padding: 1rem 1.5rem; background: #f8f8ff; border-radius: 0 8px 8px 0; margin: 0 0 1.5rem; font-style: italic; color: #333;">
+    "I didn't need to pull reviews from Facebook — I needed a way to ask my clients for testimonials. SocialProof solved that in 5 minutes, for free. Exactly what I was looking for."
+    <div style="margin-top: .75rem; font-style: normal; font-weight: 600; font-size: 0.9rem;">— Independent consultant</div>
+  </blockquote>
+</section>
+
+<section>
+  <h2>The bottom line</h2>
+  <p style="font-size: 1.05rem; color: #444; line-height: 1.7;">
+    Kudobuzz has its place — if your marketing strategy revolves around your existing social review presence, it aggregates those well. But for businesses that want to actively build a testimonial library they own and control, SocialProof is simpler, cheaper, and more focused on that job.
+    <br /><br />
+    Start free. No credit card. Your first testimonial widget is live in under 5 minutes.
+  </p>
+
+  <div class="bottom-cta">
+    <h2>Start collecting testimonials today</h2>
+    <p>Free forever for 1 widget. Upgrade to Pro ($9/mo) when you need more.</p>
+    <a href="https://app.socialproof.dev/register">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/vs/" style="color: #aaa;">Compare all tools</a></p>
+</footer>
+</Base>
