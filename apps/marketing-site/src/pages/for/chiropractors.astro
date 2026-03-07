@@ -1,158 +1,166 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="Testimonials & Social Proof for Chiropractors | SocialProof" description="New patients research before booking. Collect patient testimonials and display them on your chiropractic website. Free to start. No code required." canonical="https://socialproof.dev/for/chiropractors">
+<Base title="Testimonials & Reviews for Chiropractors — SocialProof" description="Patients choose chiropractors based on trust. Collect real patient testimonials and display them on your chiropractic website — free for one widget." canonical="https://socialproof.dev/for/chiropractors">
 <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
-    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
-    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
-    nav .cta-nav { background: #111; color: #fff !important; padding: 0.45rem 1rem; border-radius: 6px; }
-    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
-    .for-badge { display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; border: 1px solid #bbf7d0; }
-    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
-    .hero h1 span { color: #4f46e5; }
-    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
-    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
-    .hero-cta:hover { background: #3730a3; }
-    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
-    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
-    .pain-card { background: #f9f9f9; border-radius: 10px; padding: 1.25rem; }
-    .pain-card .icon { font-size: 1.5rem; margin-bottom: .5rem; }
-    .pain-card h3 { margin: 0 0 .5rem; font-size: 0.97rem; font-weight: 700; }
-    .pain-card p { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.6; }
-    .steps { counter-reset: step; list-style: none; padding: 0; margin: 2rem 0; }
-    .steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
-    .steps li::before { content: counter(step); min-width: 2rem; height: 2rem; background: #4f46e5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
-    .steps li .step-text h3 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 700; }
-    .steps li .step-text p { margin: 0; color: #555; font-size: 0.92rem; line-height: 1.6; }
-    .testimonial-example { background: #f8f7ff; border-left: 4px solid #4f46e5; padding: 1.5rem; border-radius: 0 10px 10px 0; margin: 2rem 0; font-size: 1rem; color: #333; line-height: 1.7; font-style: italic; }
-    .testimonial-example cite { display: block; margin-top: .75rem; font-style: normal; font-size: 0.88rem; color: #888; }
-    .skeptic-box { background: #fff5f5; border: 1.5px solid #fecaca; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
-    .skeptic-box h3 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 700; color: #991b1b; }
-    .skeptic-box p { margin: 0; color: #555; font-size: 0.92rem; line-height: 1.7; }
-    .prompt-list { background: #f0fdf4; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
-    .prompt-list h3 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 700; color: #166534; }
-    .prompt-list ul { margin: 0; padding-left: 1.2rem; color: #555; font-size: 0.92rem; line-height: 2; }
-    .cta-section { background: #111; color: #fff; text-align: center; padding: 4rem 2rem; margin-top: 3rem; }
-    .cta-section h2 { color: #fff; }
-    .cta-section p { color: #aaa; margin-bottom: 2rem; }
-    .cta-section a { background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
-    footer { text-align: center; padding: 2rem; color: #888; font-size: 0.85rem; border-top: 1px solid #eee; }
-    footer a { color: #888; text-decoration: none; margin: 0 .75rem; }
+    .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .own-your-reviews { background: #f0fdf4; padding: 60px 24px; }
+    .own-inner { max-width: 700px; margin: 0 auto; }
+    .own-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .own-inner p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
+    .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+    .steps-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .steps-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .step { display: flex; gap: 20px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .step-content h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .faq-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .faq-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .faq-item { margin-bottom: 32px; }
+    .faq-item h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .faq-item p { font-size: 0.95rem; color: #555; line-height: 1.6; }
 </style>
 
 <nav>
-  <a href="/" class="logo">SocialProof</a>
-  <div class="nav-links">
-    <a href="/for/">Who it's for</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/app/signup" class="cta-nav">Try free</a>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/for">Industries</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://app.socialproof.dev/signup" class="btn-nav">Try free</a>
+    </div>
   </div>
 </nav>
 
-<div class="hero">
-  <div class="for-badge">🦴 For Chiropractors</div>
-  <h1>New patients are<br/><span>skeptical by default.</span><br/>Testimonials change that.</h1>
-  <p>Chiropractic care is a considered decision — people research, doubt, and compare before booking. Patient testimonials on your website answer the questions they're too nervous to ask out loud.</p>
-  <a href="/app/signup" class="hero-cta">Start collecting testimonials free</a>
-</div>
-
-<section>
-  <h2>The skeptic's journey to your door</h2>
-  <div class="skeptic-box">
-    <h3>What your next patient is thinking before they call</h3>
-    <p>"Does chiropractic actually work? Will it make things worse? Is this doctor legit? What if it's a scam? My friend said it helped their back but I'm not sure…" — Every credential you list is filtered through this lens of doubt. The one thing that cuts through it: a real person saying "here's what happened to me."</p>
+<section class="hero">
+  <h1>Patient Testimonials for Chiropractors That Build Trust Before the First Visit</h1>
+  <p>Pain relief is personal. A prospective patient choosing a chiropractor for the first time needs to see that real people felt genuinely better. Give them that reassurance on your website.</p>
+  <div class="cta-group">
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no credit card</a>
+    <a href="#how-it-works" class="btn-secondary">See how it works</a>
   </div>
+</section>
 
-  <h2>What holds chiropractors back from great testimonials</h2>
-  <div class="pain-grid">
-    <div class="pain-card">
-      <div class="icon">🔒</div>
-      <h3>HIPAA awareness (real or imagined)</h3>
-      <p>You're cautious about patient information. SocialProof testimonials are 100% patient-initiated — they choose to share, which is completely compliant.</p>
+<section class="why-section">
+  <h2>Why chiropractic practices need patient testimonials</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>Pain relief outcomes are the sell</h3>
+      <p>"I've had back pain for 5 years. After 3 sessions I can finally sleep through the night." That specific story from a real patient is worth more than any credential or explanation of adjustment techniques.</p>
     </div>
-    <div class="pain-card">
-      <div class="icon">😶</div>
-      <h3>Patients feel awkward writing reviews</h3>
-      <p>A blank form is intimidating. When you send a direct link with a short prompt, patients follow through at much higher rates.</p>
+    <div class="why-card">
+      <h3>Overcome chiropractic skepticism</h3>
+      <p>Many patients are skeptical about chiropractic care — they've been burned before, or they're unsure if it's legitimate. Reading testimonials from people who felt the same way and then got results overcomes that doubt.</p>
     </div>
-    <div class="pain-card">
-      <div class="icon">⭐</div>
-      <h3>Reviews go to Google, not your site</h3>
-      <p>Google reviews are great for search. But they don't live on the page where a skeptical visitor is deciding whether to book.</p>
+    <div class="why-card">
+      <h3>Capture it while the relief is fresh</h3>
+      <p>After a patient's first breakthrough session — when they can turn their head fully again, when the shoulder pain is gone — that's the moment to ask. The emotion is real and the words will be too.</p>
     </div>
-    <div class="pain-card">
-      <div class="icon">💻</div>
-      <h3>Tech feels like a project</h3>
-      <p>You run a healthcare practice, not a software company. SocialProof takes 5 minutes to set up — no IT, no code.</p>
+    <div class="why-card">
+      <h3>Stand out in a crowded local market</h3>
+      <p>Every chiropractor has "20 years experience" on their homepage. None of them have a wall of specific, emotional patient outcomes. That differentiation shows up in local search and in conversions.</p>
     </div>
   </div>
 </section>
 
-<section style="background:#f9f9f9; padding: 3rem 2rem;">
-  <div style="max-width:900px; margin: 0 auto;">
-    <h2>How to use SocialProof in your chiropractic practice</h2>
-    <ol class="steps">
-      <li>
-        <div class="step-text">
-          <h3>Sign up for free in 2 minutes</h3>
-          <p>You get a unique collection link immediately. No developer, no credit card.</p>
-        </div>
-      </li>
-      <li>
-        <div class="step-text">
-          <h3>Send the link after a patient has results</h3>
-          <p>Text it after 3-4 visits when they're already feeling better. Email it in your post-appointment follow-up. The timing makes all the difference.</p>
-        </div>
-      </li>
-      <li>
-        <div class="step-text">
-          <h3>Approve testimonials before they go live</h3>
-          <p>You control everything. Nothing appears on your website until you approve it. Pick the most specific, credible patient stories.</p>
-        </div>
-      </li>
-      <li>
-        <div class="step-text">
-          <h3>Embed on your practice website with one click</h3>
-          <p>Copy-paste a single snippet. Works on any website — WordPress, Squarespace, Wix, custom HTML, or your practice management system's site.</p>
-        </div>
-      </li>
-    </ol>
-
-    <div class="testimonial-example">
-      "I'd been dealing with lower back pain for two years. I was skeptical about chiropractic — I thought it was a bit of a scam, honestly. After 6 sessions with Dr. Patel I'm completely pain free for the first time since my injury. I wish I'd come sooner."
-      <cite>— David R., patient</cite>
+<section class="steps-section" id="how-it-works">
+  <h2>How it works for chiropractic practices</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Create your collection page</h3>
+      <p>Sign up free. Get a unique URL your patients use to leave a testimonial in under 2 minutes. Works on any phone, no app needed.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Ask at the right moment</h3>
+      <p>After a successful session or at the end of a care plan, hand patients a card with the link — or text it to them. "Your experience would help other patients find us — would you mind sharing it?"</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>Display on your practice website</h3>
+      <p>Approve submissions and embed the widget on your homepage, services pages, or new patient intake page. One line of code — works on any website platform.</p>
     </div>
   </div>
 </section>
 
-<section>
-  <h2>Great prompts to get specific testimonials</h2>
-  <div class="prompt-list">
-    <h3>💬 Ask patients these questions when requesting a testimonial</h3>
-    <ul>
-      <li>"What were you dealing with before you came in, and what's different now?"</li>
-      <li>"Were you skeptical about chiropractic care before trying it?"</li>
-      <li>"How many sessions did it take before you felt a difference?"</li>
-      <li>"What would you tell a friend who's thinking about chiropractic but isn't sure?"</li>
-      <li>"Is there anything about the experience that surprised you?"</li>
-    </ul>
+<section class="own-your-reviews">
+  <div class="own-inner">
+    <h2>Google reviews are not enough</h2>
+    <p>You've asked patients to leave Google reviews. Some do, some don't — and the ones that do often get filtered or removed by Google's algorithm. You have no control over what stays.</p>
+    <p>Patient testimonials on your own website are yours forever. They appear exactly where someone is considering booking — not on a third-party platform where competitors are listed right beside you.</p>
+    <p>HIPAA note: SocialProof collects testimonials, not medical records or health information. Patients share only what they choose to share publicly. But always consult your compliance advisor for your specific practice.</p>
+    <p>Free forever for one active widget. No credit card required.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary" style="margin-top: 8px; display: inline-block;">Try it free</a>
   </div>
-  <p style="color:#555; font-size:0.92rem; line-height:1.7;">Specific answers convert skeptical visitors. "My back pain is gone" is vague. "I had a disc bulge at L4-L5 and after 8 weeks I'm back to running 5 miles" is specific and credible.</p>
 </section>
 
-<div class="cta-section">
-  <h2>Turn patient results into new patient bookings.</h2>
-  <p>Free forever for 1 widget. No code. Works with any practice website.</p>
-  <a href="/app/signup">Try SocialProof free →</a>
-</div>
+<section class="quote-section">
+  <blockquote>"We had great Google reviews but they were scattered and not showing on our website where new patients were actually deciding. The widget brought them together in one place that converts."</blockquote>
+  <cite>— Chiropractic practice manager, Seattle WA</cite>
+</section>
+
+<section class="faq-section">
+  <h2>Questions from chiropractic practices</h2>
+  <div class="faq-item">
+    <h3>Is collecting testimonials HIPAA-compliant?</h3>
+    <p>Testimonials are voluntary and public — patients are choosing to share their experience, not medical records. SocialProof collects only what patients willingly submit. For specific HIPAA compliance in your practice, consult your compliance advisor. We don't store PHI.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can we use this for multiple doctors in the practice?</h3>
+    <p>Yes. On the Pro plan you can create multiple widgets — one per doctor or per condition type. The free plan gives you one active widget to start, which is enough for most solo practices.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What if a testimonial mentions something I'd rather not display?</h3>
+    <p>Every submission goes through your approval queue. You review before anything goes public. Approve, request changes, or decline — fully in your control.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What's the free plan?</h3>
+    <p>Free forever for one active widget — no credit card, no time limit. Collect unlimited testimonials, display one widget on your website. Upgrade to Pro for unlimited widgets.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Help patients find you — with words from patients who already did</h2>
+  <p>Free forever for one widget. Set up in under 5 minutes.</p>
+  <a href="https://app.socialproof.dev/signup" class="btn-white">Get started free</a>
+</section>
 
 <footer>
-  <a href="/">SocialProof</a>
-  <a href="/for/">Who it's for</a>
+  <a href="/">Home</a>
+  <a href="/for">All Industries</a>
   <a href="/#pricing">Pricing</a>
-  <a href="/app/signup">Sign up free</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
 </footer>
 </Base>

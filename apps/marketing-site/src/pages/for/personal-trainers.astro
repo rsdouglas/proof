@@ -1,174 +1,165 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="Testimonials for Personal Trainers — SocialProof" description="Personal trainers: turn client transformations into testimonials that fill your next 10 spots. Free to start. No tech skills needed." canonical="https://socialproof.dev/for/personal-trainers">
+<Base title="Testimonials & Reviews for Personal Trainers — SocialProof" description="Real client results are your best marketing. Collect transformation testimonials and display them on your personal training website — free for one widget." canonical="https://socialproof.dev/for/personal-trainers">
 <style>
     .hero { padding: 80px 24px 56px; text-align: center; max-width: 760px; margin: 0 auto; }
-    .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
-    .hero p { font-size: 1.2rem; color: #555; margin-bottom: 36px; }
-    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .section { max-width: 860px; margin: 0 auto; padding: 48px 24px; }
-    .section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 28px; }
-    .section p { font-size: 1rem; color: #444; line-height: 1.8; margin-bottom: 16px; }
-    .pain-points { max-width: 860px; margin: 0 auto; padding: 40px 24px; }
-    .pain-points h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 32px; text-align: center; }
-    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .pain-card { background: #fafafa; border-radius: 10px; padding: 24px; border: 1px solid #eee; }
-    .pain-card .emoji { font-size: 1.8rem; margin-bottom: 12px; }
-    .pain-card h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
-    .pain-card p { font-size: 0.9rem; color: #555; line-height: 1.6; }
-    .how-it-works { background: #f9f6ff; padding: 60px 24px; }
-    .how-it-works .inner { max-width: 760px; margin: 0 auto; text-align: center; }
-    .how-it-works h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .step { text-align: center; }
-    .step-num { width: 44px; height: 44px; border-radius: 50%; background: #6c47ff; color: #fff; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-    .step h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 8px; }
-    .step p { font-size: 0.9rem; color: #555; line-height: 1.6; }
-    .testimonial-example { max-width: 760px; margin: 0 auto; padding: 48px 24px; text-align: center; }
-    .testimonial-example h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 32px; }
-    .card { background: #fff; border: 1.5px solid #e8e3ff; border-radius: 12px; padding: 28px; max-width: 520px; margin: 0 auto; text-align: left; box-shadow: 0 4px 16px rgba(108,71,255,.07); }
-    .card .stars { color: #fbbf24; font-size: 1.2rem; margin-bottom: 14px; }
-    .card blockquote { font-size: 1.05rem; color: #222; line-height: 1.7; font-style: italic; margin: 0 0 18px; }
-    .card .attribution { font-size: 0.9rem; color: #666; font-weight: 600; }
-    .pricing { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
-    .pricing h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .pricing p { color: #555; font-size: 1rem; margin-bottom: 32px; }
-    .pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .pricing-card { border-radius: 12px; padding: 28px; border: 1.5px solid #eee; }
-    .pricing-card.featured { border-color: #6c47ff; background: #faf7ff; }
-    .pricing-card h3 { font-size: 1rem; font-weight: 700; color: #555; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .pricing-card .price { font-size: 2.2rem; font-weight: 800; color: #111; margin-bottom: 16px; }
-    .pricing-card .price span { font-size: 1rem; font-weight: 400; color: #777; }
-    .pricing-card ul { padding-left: 18px; color: #444; font-size: 0.92rem; line-height: 1.9; }
-    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; margin-top: 20px; }
-    .cta-section h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 16px; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; color: #111; margin-bottom: 20px; }
+    .hero p { font-size: 1.25rem; color: #555; margin-bottom: 36px; }
+    .hero .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .why-section { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+    .why-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; text-align: center; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; margin-top: 40px; }
+    .why-card { background: #f9f9f9; border-radius: 12px; padding: 28px; }
+    .why-card h3 { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .why-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .own-your-reviews { background: #f0fdf4; padding: 60px 24px; }
+    .own-inner { max-width: 700px; margin: 0 auto; }
+    .own-inner h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+    .own-inner p { font-size: 1.05rem; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .quote-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+    .quote-section blockquote { font-size: 1.3rem; font-style: italic; color: #333; line-height: 1.6; margin-bottom: 16px; }
+    .quote-section cite { font-size: 0.9rem; color: #888; }
+    .cta-section { background: #111; color: #fff; padding: 60px 24px; text-align: center; }
+    .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
     .cta-section p { font-size: 1.1rem; color: #aaa; margin-bottom: 32px; }
     .btn-primary { background: #6c47ff; color: #fff; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
-    .btn-ghost { background: transparent; color: #fff; border: 1.5px solid #555; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
     .btn-secondary { background: transparent; color: #111; border: 1.5px solid #ccc; padding: 13px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .btn-white { background: #fff; color: #111; padding: 14px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-block; }
     nav { border-bottom: 1px solid #eee; padding: 16px 24px; }
-    nav a { font-weight: 600; color: #111; text-decoration: none; font-size: 1rem; }
-    .footer-links { max-width: 900px; margin: 0 auto; padding: 40px 24px; text-align: center; border-top: 1px solid #eee; }
-    .footer-links a { color: #6c47ff; text-decoration: none; font-size: 0.9rem; margin: 0 12px; }
-    @media (max-width: 600px) { .pain-grid, .steps, .pricing-cards { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #111; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 0.95rem; }
+    .btn-nav { background: #6c47ff; color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+    footer { border-top: 1px solid #eee; padding: 32px 24px; text-align: center; }
+    footer a { color: #888; font-size: 0.9rem; text-decoration: none; margin: 0 12px; }
+    .steps-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .steps-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .step { display: flex; gap: 20px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { background: #6c47ff; color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+    .step-content h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .step-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+    .faq-section { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+    .faq-section h2 { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 40px; text-align: center; }
+    .faq-item { margin-bottom: 32px; }
+    .faq-item h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .faq-item p { font-size: 0.95rem; color: #555; line-height: 1.6; }
 </style>
 
-<nav><a href="/">← SocialProof</a></nav>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+      <a href="/for">Industries</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://app.socialproof.dev/signup" class="btn-nav">Try free</a>
+    </div>
+  </div>
+</nav>
 
 <section class="hero">
-  <h1>Turn your best client transformations into testimonials that fill your schedule</h1>
-  <p>Personal trainers: your clients are getting results. Let those results sell your next 10 spots — automatically. No chasing, no copy-paste, no awkward asks.</p>
+  <h1>Client Testimonials for Personal Trainers That Fill Your Schedule</h1>
+  <p>Your clients get real results. Let their words do the selling for you. Collect and display transformation testimonials on your website in minutes — no tech skills needed.</p>
   <div class="cta-group">
-    <a href="https://app.socialproof.dev/signup" class="btn-primary">Get your first testimonial today &rarr;</a>
-    <a href="/#demo" class="btn-secondary">See how the widget looks</a>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary">Start free — no credit card</a>
+    <a href="#how-it-works" class="btn-secondary">See how it works</a>
   </div>
 </section>
 
-<section class="pain-points">
-  <h2>Sound familiar?</h2>
-  <div class="pain-grid">
-    <div class="pain-card">
-      <div class="emoji">📱</div>
-      <h3>"I have great reviews on Google — but I can't get them on my website"</h3>
-      <p>You don't own your Google reviews. You can't embed them cleanly. And copy-pasting them looks fake. SocialProof lets you collect testimonials you actually own and display them your way.</p>
+<section class="why-section">
+  <h2>Why personal trainers need testimonials on their website</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>Results are your product — words prove them</h3>
+      <p>Before-and-after photos are powerful. But a client describing in their own words how their back pain disappeared, how they finally feel confident, or how they hit a goal they'd failed at for years — that's what converts a visitor into a consultation.</p>
     </div>
-    <div class="pain-card">
-      <div class="emoji">😬</div>
-      <h3>"Asking for a testimonial feels awkward"</h3>
-      <p>Your collection link does the asking for you. Send it as a follow-up text: "Hey — would you be willing to share your experience? Here's a quick form." Three minutes for them, forever for you.</p>
+    <div class="why-card">
+      <h3>Overcome price objections before they happen</h3>
+      <p>Personal training isn't cheap. A prospect about to click away because of the cost will stay if they read "I went from barely walking to deadlifting 200 lbs in 6 months." ROI testimonials close deals that price almost lost.</p>
     </div>
-    <div class="pain-card">
-      <div class="emoji">💸</div>
-      <h3>"I know testimonials matter but I can't justify $89/month for a review tool"</h3>
-      <p>SocialProof is free to start. Pro is $9/month — less than a single session. And you can be up and running before your next client appointment.</p>
+    <div class="why-card">
+      <h3>Every training milestone is a collection moment</h3>
+      <p>Client hit a new PR? Finished their first 5K? Lost 20 pounds? That's when you ask — "Can you share that feeling in a testimonial for the site?" Capture emotion in the moment, not months later.</p>
     </div>
-    <div class="pain-card">
-      <div class="emoji">🧑‍💻</div>
-      <h3>"My website is on Squarespace and I'm not a tech person"</h3>
-      <p>Works on every major site builder with a 2-line embed. If you can copy and paste, you can use SocialProof.</p>
+    <div class="why-card">
+      <h3>More than Google — your website, your content</h3>
+      <p>Google reviews get removed, filtered, or hidden. A testimonial widget on your services page or consultation booking form is permanently yours. Show it where it matters most.</p>
     </div>
   </div>
 </section>
 
-<div class="how-it-works">
-  <div class="inner">
-    <h2>How it works for personal trainers</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Share your collection link</h3>
-        <p>Send it after a client hits a milestone — new PR, weight goal, 3-month check-in. The timing is everything. Let the result do the heavy lifting.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Approve before display</h3>
-        <p>Every testimonial lands in your dashboard for review. You approve what shows and keep what doesn't land the way you hoped.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Embed on your site</h3>
-        <p>Two lines of code. Works on Squarespace, Wix, Webflow, or a custom site. Your new clients see real results from real people.</p>
-      </div>
+<section class="steps-section" id="how-it-works">
+  <h2>How it works for personal trainers</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Create your collection page (2 min)</h3>
+      <p>Sign up free. Get a unique link that takes clients to a simple form to leave a testimonial. No app, no login needed for them.</p>
     </div>
   </div>
-</div>
-
-<section class="testimonial-example">
-  <h2>What this looks like for your clients</h2>
-  <div class="card">
-    <div class="stars">★★★★★</div>
-    <blockquote>"I'd been trying to lose the same 20 pounds for three years. Marcus didn't give me a cookie-cutter plan — he actually listened. I hit my goal in four months and I've kept it off for a year. If you're on the fence: don't be."</blockquote>
-    <div class="attribution">— Sarah T., client since 2023</div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Ask at the right moment</h3>
+      <p>When a client hits a milestone, text them the link: "I'm proud of what you've accomplished — would you mind sharing what this has meant to you? It helps me help others." Most clients are honored to be asked.</p>
+    </div>
   </div>
-  <p style="margin-top: 24px; color: #888; font-size: 0.9rem;">A real testimonial from a real client — collected in 3 minutes, live on your website forever.</p>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>Embed on your website or booking page</h3>
+      <p>Approve the testimonials you want to display. Embed the widget with one line of code. Works on Squarespace, Wix, WordPress, Trainual, and any custom site.</p>
+    </div>
+  </div>
 </section>
 
-<section class="pricing">
-  <h2>Simple pricing that makes sense for trainers</h2>
-  <p>We built this for people who are building their own client roster — not for corporations with a marketing team.</p>
-  <div class="pricing-cards">
-    <div class="pricing-card">
-      <h3>Free</h3>
-      <div class="price">$0 <span>/ forever</span></div>
-      <ul>
-        <li>1 active testimonial widget</li>
-        <li>Unlimited testimonial collection</li>
-        <li>Approve before publish</li>
-        <li>Embed on any site</li>
-        <li>SocialProof branding</li>
-      </ul>
-    </div>
-    <div class="pricing-card featured">
-      <h3>Pro</h3>
-      <div class="price">$9 <span>/ month</span></div>
-      <ul>
-        <li>Unlimited widgets</li>
-        <li>Remove SocialProof branding</li>
-        <li>Custom widget styles</li>
-        <li>Priority support</li>
-        <li>Export all testimonials</li>
-      </ul>
-    </div>
+<section class="own-your-reviews">
+  <div class="own-inner">
+    <h2>Stop relying on platforms you don't control</h2>
+    <p>Yelp and Google reviews can disappear overnight. A client's glowing 5-star review of your gym gets removed because of an algorithm flag. Your Instagram DMs of raving feedback are invisible to prospects.</p>
+    <p>With SocialProof, every word your clients share lives on your website, embedded exactly where a new prospect is deciding whether to book. You approve what's shown. You own it forever.</p>
+    <p>Free forever for one active widget. No trial period. No credit card required.</p>
+    <a href="https://app.socialproof.dev/signup" class="btn-primary" style="margin-top: 8px; display: inline-block;">Try it free</a>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote>"I finally had something to show people when they asked if I was 'worth it.' The widget on my booking page made a real difference — I can see people spending time reading the testimonials before they fill out the form."</blockquote>
+  <cite>— Personal trainer, Chicago IL</cite>
+</section>
+
+<section class="faq-section">
+  <h2>Questions from personal trainers</h2>
+  <div class="faq-item">
+    <h3>Can I ask clients about specific results (weight loss, strength, injury recovery)?</h3>
+    <p>Yes. You can customize the questions you ask clients to guide them toward specific types of testimonials. Guide them to write about whatever transformation matters most to your ideal client.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What if a client writes something I don't want displayed?</h3>
+    <p>Everything goes through your approval queue first. You review each submission before it's published. Nothing appears publicly without you clicking approve.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does it work for online trainers?</h3>
+    <p>Absolutely. The collection link works anywhere — you can share it via email, text, WhatsApp, or DM. It's especially powerful for online trainers who need social proof to compete without in-person word of mouth.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What's the free plan?</h3>
+    <p>Free forever for one active widget — no credit card, no time limit. Collect as many testimonials as you want, display one widget on your site. Upgrade to Pro for unlimited widgets.</p>
   </div>
 </section>
 
 <section class="cta-section">
-  <h2>Your next 10 clients are trusting what your current clients say.</h2>
-  <p>Start collecting testimonials today. Free forever, set up in under 5 minutes.</p>
-  <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-    <a href="https://app.socialproof.dev/signup" class="btn-primary">Get started free &rarr;</a>
-    <a href="/#demo" class="btn-ghost">See a live demo</a>
-  </div>
+  <h2>Your clients' results are your best sales pitch</h2>
+  <p>Free forever for one widget. Set up in under 5 minutes.</p>
+  <a href="https://app.socialproof.dev/signup" class="btn-white">Get started free</a>
 </section>
 
-<div class="footer-links">
-  <a href="/for/fitness-studios">For Fitness Studios</a>
-  <a href="/for/yoga-studios">For Yoga Studios</a>
-  <a href="/for/coaches">For Coaches</a>
-  <a href="/for/freelancers">For Freelancers</a>
-  <a href="/vs/birdeye">vs Birdeye</a>
-  <a href="/vs/trustpilot">vs Trustpilot</a>
-</div>
-
+<footer>
+  <a href="/">Home</a>
+  <a href="/for">All Industries</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
 </Base>
