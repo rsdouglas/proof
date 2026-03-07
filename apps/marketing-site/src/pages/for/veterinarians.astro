@@ -1,0 +1,172 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials & Social Proof for Veterinarians | SocialProof" description="Pet owners trust other pet owners. Collect client testimonials and display them on your vet practice website. Free to start. Works on any site builder." canonical="https://socialproof.dev/for/veterinarians">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: 0.45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .for-badge { display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; border: 1px solid #bbf7d0; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+    .stat-row { display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
+    .stat-item { flex: 1; min-width: 180px; text-align: center; background: #f8f7ff; border-radius: 10px; padding: 1.5rem; }
+    .stat-item .number { font-size: 2.2rem; font-weight: 800; color: #4f46e5; }
+    .stat-item .label { font-size: 0.88rem; color: #666; margin-top: .25rem; line-height: 1.4; }
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .pain-card { background: #f9f9f9; border-radius: 10px; padding: 1.25rem; }
+    .pain-card .icon { font-size: 1.5rem; margin-bottom: .5rem; }
+    .pain-card h3 { margin: 0 0 .5rem; font-size: 0.97rem; font-weight: 700; }
+    .pain-card p { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.6; }
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 2rem 0; }
+    .steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .steps li::before { content: counter(step); min-width: 2rem; height: 2rem; background: #4f46e5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+    .steps li .step-text h3 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 700; }
+    .steps li .step-text p { margin: 0; color: #555; font-size: 0.92rem; line-height: 1.6; }
+    .testimonial-example { background: #f8f7ff; border-left: 4px solid #4f46e5; padding: 1.5rem; border-radius: 0 10px 10px 0; margin: 2rem 0; font-size: 1rem; color: #333; line-height: 1.7; font-style: italic; }
+    .testimonial-example cite { display: block; margin-top: .75rem; font-style: normal; font-size: 0.88rem; color: #888; }
+    .trust-box { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .trust-box h3 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 700; color: #166534; }
+    .trust-box ul { margin: 0; padding-left: 1.2rem; color: #555; font-size: 0.92rem; line-height: 1.85; }
+    .cta-section { background: #111; color: #fff; text-align: center; padding: 4rem 2rem; margin-top: 3rem; }
+    .cta-section h2 { color: #fff; }
+    .cta-section p { color: #aaa; margin-bottom: 2rem; }
+    .cta-section a { background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; color: #888; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #888; text-decoration: none; margin: 0 .75rem; }
+</style>
+
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for/">Who it's for</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/app/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="for-badge">🐾 For Veterinarians</div>
+  <h1>Pet owners ask their<br/><span>neighbors first.</span><br/>Be who they recommend.</h1>
+  <p>When a new family moves to town and searches for a vet, they read client stories — not your credentials. SocialProof helps veterinary practices collect and display client testimonials where it counts: on your own website.</p>
+  <a href="/app/signup" class="hero-cta">Start free — no credit card</a>
+</div>
+
+<section>
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="number">82%</div>
+      <div class="label">of pet owners search online before choosing a new vet</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">73%</div>
+      <div class="label">say client reviews are the #1 factor in their decision</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">5 min</div>
+      <div class="label">to set up SocialProof and get your first collection link</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f9f9f9; padding: 3rem 2rem;">
+  <div style="max-width:900px; margin: 0 auto;">
+    <h2>Why most vet practices lose clients before they even call</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon">🔍</div>
+        <h3>Your website says nothing about experience</h3>
+        <p>Your bio lists your DVM and specialties. But pet owners want to know: "Did Dr. Chen actually help someone's dog that looked like mine?"</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🗺️</div>
+        <h3>Google reviews live on Google</h3>
+        <p>When clients leave reviews on Google, they help Google — not your website. New visitors don't see them unless they leave your page.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">💬</div>
+        <h3>Word of mouth is invisible</h3>
+        <p>Clients tell their friends about you. But you have no way to capture and display those recommendations for strangers to see.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">⚕️</div>
+        <h3>Trust is the product</h3>
+        <p>People are handing you their family member. Credentials aren't enough — they need to see that other pet owners trust you too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>How SocialProof works for vet practices</h2>
+  <ol class="steps">
+    <li>
+      <div class="step-text">
+        <h3>Create your account — 2 minutes, free</h3>
+        <p>No credit card, no IT department. You get a collection link immediately.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-text">
+        <h3>Ask happy clients to share their experience</h3>
+        <p>Send the link via text after an appointment, email it in your follow-up, or print a QR code for the waiting room. Clients don't need to create an account.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-text">
+        <h3>Review and approve each testimonial</h3>
+        <p>Nothing appears on your site without your approval. Choose the most specific, trust-building stories to display.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-text">
+        <h3>Embed the widget on your practice website</h3>
+        <p>Paste one snippet of HTML. Works on every major platform — WordPress, Squarespace, Wix, Weebly, custom sites.</p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="testimonial-example">
+    "Our golden retriever needed emergency surgery and Dr. Martinez's team stayed late to make sure he was stable. They called us twice that night with updates. I've never felt so cared for. We won't go anywhere else."
+    <cite>— Jake F., client since 2023</cite>
+  </div>
+</section>
+
+<section style="background:#f9f9f9; padding: 3rem 2rem;">
+  <div style="max-width:900px; margin: 0 auto;">
+    <h2>What great vet testimonials look like</h2>
+    <div class="trust-box">
+      <h3>✅ The stories that convert new clients</h3>
+      <ul>
+        <li>Specific pet name and situation: "Our cat Luna had an emergency at 6pm…"</li>
+        <li>Mentions compassion, not just competence: "The whole team made us feel calm"</li>
+        <li>Describes the outcome: "She fully recovered in 10 days"</li>
+        <li>Addresses cost or communication: "They explained every option before doing anything"</li>
+        <li>Compares to previous experiences: "After switching from our old vet, the difference is night and day"</li>
+      </ul>
+    </div>
+    <p style="color:#555; font-size:0.92rem; line-height:1.7;">When you ask for a testimonial, consider prompting: "What was your pet's situation when you came in, and what was your experience like?" Specific stories outperform generic praise every time.</p>
+  </div>
+</section>
+
+<div class="cta-section">
+  <h2>Let your clients' stories bring in new patients.</h2>
+  <p>Free forever for 1 widget. No code. Works on your existing website.</p>
+  <a href="/app/signup">Try SocialProof free →</a>
+</div>
+
+<footer>
+  <a href="/">SocialProof</a>
+  <a href="/for/">Who it's for</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/app/signup">Sign up free</a>
+</footer>
+</Base>

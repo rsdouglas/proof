@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Testimonials & Reviews for Gyms — SocialProof" description="Collect member testimonials and display them on your gym website. Works with any site builder. Free to start, $9/month Pro. No code required." canonical="https://socialproof.dev/for/gyms">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: 0.45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .for-badge { display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; border: 1px solid #bbf7d0; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+    .pain-card { background: #f9f9f9; border-radius: 10px; padding: 1.25rem; }
+    .pain-card .icon { font-size: 1.5rem; margin-bottom: .5rem; }
+    .pain-card h3 { margin: 0 0 .5rem; font-size: 0.97rem; font-weight: 700; }
+    .pain-card p { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.6; }
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 2rem 0; }
+    .steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .steps li::before { content: counter(step); min-width: 2rem; height: 2rem; background: #4f46e5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+    .steps li .step-text h3 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 700; }
+    .steps li .step-text p { margin: 0; color: #555; font-size: 0.92rem; line-height: 1.6; }
+    .testimonial-example { background: #f8f7ff; border-left: 4px solid #4f46e5; padding: 1.5rem; border-radius: 0 10px 10px 0; margin: 2rem 0; font-size: 1rem; color: #333; line-height: 1.7; font-style: italic; }
+    .testimonial-example cite { display: block; margin-top: .75rem; font-style: normal; font-size: 0.88rem; color: #888; }
+    .timing-box { background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; }
+    .timing-box h3 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 700; color: #92400e; }
+    .timing-box ul { margin: 0; padding-left: 1.2rem; color: #555; font-size: 0.92rem; line-height: 1.85; }
+    .platform-list { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+    .platform-pill { background: #f3f4f6; border-radius: 99px; padding: .4rem 1rem; font-size: 0.88rem; color: #374151; font-weight: 500; }
+    .cta-section { background: #111; color: #fff; text-align: center; padding: 4rem 2rem; margin-top: 3rem; }
+    .cta-section h2 { color: #fff; }
+    .cta-section p { color: #aaa; margin-bottom: 2rem; }
+    .cta-section a { background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; color: #888; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #888; text-decoration: none; margin: 0 .75rem; }
+</style>
+
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for/">Who it's for</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/app/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="for-badge">💪 For Gyms & Fitness Centers</div>
+  <h1>Your members get<br/><span>real results.</span><br/>Show them off.</h1>
+  <p>Before someone buys a membership, they want to know it works. SocialProof helps gyms collect text testimonials from members and display them on your website — automatically, with no tech skills needed.</p>
+  <a href="/app/signup" class="hero-cta">Start collecting testimonials free</a>
+</div>
+
+<section>
+  <h2>Why gym owners struggle with testimonials</h2>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="icon">😬</div>
+      <h3>Asking feels awkward</h3>
+      <p>Pulling a member aside mid-workout to ask for a review is uncomfortable for both of you.</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">⭐</div>
+      <h3>Google reviews go to Google</h3>
+      <p>When members leave reviews, they go to Google — not to the page where your next prospect is deciding to buy.</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">📸</div>
+      <h3>Before/after is complicated</h3>
+      <p>Not every member wants photos shared. A written testimonial respects privacy and still converts visitors.</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🔧</div>
+      <h3>Tech is a barrier</h3>
+      <p>Most gym owners don't have time to learn a new platform. You need something that works in minutes.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f9f9f9; padding: 3rem 2rem;">
+  <div style="max-width:900px; margin: 0 auto;">
+    <h2>How SocialProof works for gyms</h2>
+    <ol class="steps">
+      <li>
+        <div class="step-text">
+          <h3>Sign up and get your collection link</h3>
+          <p>Takes 2 minutes. No credit card required. Your link is ready immediately — share it with members via text, email, or a QR code at the front desk.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-text">
+          <h3>Members type their testimonial — no app download</h3>
+          <p>They click the link, type what they'd like to say, and submit. Works on any phone. Takes under a minute.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-text">
+          <h3>You approve and display it</h3>
+          <p>Review every testimonial before it goes live. Approve the good ones, skip anything vague. Your website only shows what you choose.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-text">
+          <h3>Paste the widget on your gym's website</h3>
+          <p>Copy one line of code. Works on Squarespace, Wix, WordPress, Webflow, or any site with an HTML embed option.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <h2>When to ask for a testimonial</h2>
+  <div class="timing-box">
+    <h3>🎯 Best moments to send your collection link</h3>
+    <ul>
+      <li>After a member hits a milestone — first 5kg lost, first pull-up, first 5K</li>
+      <li>At the end of a challenge or 6-week program</li>
+      <li>After a member renews their membership or upgrades</li>
+      <li>When a member thanks you in person — "Mind if I send you a link to write that down?"</li>
+      <li>30 days into a new membership, once they've seen real progress</li>
+    </ul>
+  </div>
+
+  <div class="testimonial-example">
+    "I'd tried three other gyms in the area and never stuck with it. The coaching here is different — trainers actually check in on you. I've lost 12kg in four months and I look forward to coming in."
+    <cite>— Sarah K., member since 2024</cite>
+  </div>
+  <p style="color:#555; font-size:0.92rem;">That kind of testimonial converts new membership inquiries. It's specific, it's credible, and it addresses the exact objection ("will I actually stick with it?") that holds people back.</p>
+</section>
+
+<section style="background:#f9f9f9; padding: 3rem 2rem;">
+  <div style="max-width:900px; margin: 0 auto;">
+    <h2>Works with your existing website</h2>
+    <p style="color:#555; margin-bottom:1rem;">SocialProof embeds work on every major site builder. You don't need to rebuild your website.</p>
+    <div class="platform-list">
+      <span class="platform-pill">Squarespace</span>
+      <span class="platform-pill">Wix</span>
+      <span class="platform-pill">WordPress</span>
+      <span class="platform-pill">Webflow</span>
+      <span class="platform-pill">GoDaddy Website Builder</span>
+      <span class="platform-pill">Showit</span>
+      <span class="platform-pill">Custom HTML</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Related: other fitness businesses using SocialProof</h2>
+  <p style="color:#555;">SocialProof works across the fitness industry. See how similar businesses use it:</p>
+  <ul style="color:#4f46e5; line-height:2; padding-left:1.5rem;">
+    <li><a href="/for/yoga-studios" style="color:#4f46e5;">Yoga studios</a></li>
+    <li><a href="/for/fitness-studios" style="color:#4f46e5;">Fitness studios</a></li>
+    <li><a href="/for/personal-trainers" style="color:#4f46e5;">Personal trainers</a></li>
+  </ul>
+</section>
+
+<div class="cta-section">
+  <h2>Start collecting gym testimonials today.</h2>
+  <p>Free forever for 1 widget. No credit card. No code needed.</p>
+  <a href="/app/signup">Try SocialProof free →</a>
+</div>
+
+<footer>
+  <a href="/">SocialProof</a>
+  <a href="/for/">Who it's for</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/app/signup">Sign up free</a>
+</footer>
+</Base>

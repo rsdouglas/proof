@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs NiceJob — Honest Comparison | SocialProof" description="NiceJob starts at $75/month for review automation. SocialProof is free forever for 1 widget — no contracts, no minimum spend. Compare features, pricing, and use cases." canonical="https://socialproof.dev/vs/nicejob">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: 0.45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .price-callout { background: #f8f7ff; border: 2px solid #e0e7ff; border-radius: 12px; padding: 2rem; margin: 2rem 0; text-align: center; }
+    .price-callout .price { font-size: 2.5rem; font-weight: 800; color: #4f46e5; }
+    .price-callout .label { font-size: 1rem; color: #666; margin-top: .25rem; }
+    .use-case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+    @media (max-width: 600px) { .use-case-grid { grid-template-columns: 1fr; } }
+    .use-case-card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1.5rem; }
+    .use-case-card h3 { margin: 0 0 .75rem; font-size: 1rem; font-weight: 700; }
+    .use-case-card ul { margin: 0; padding-left: 1.2rem; color: #555; font-size: 0.92rem; line-height: 1.7; }
+    .cta-section { background: #111; color: #fff; text-align: center; padding: 4rem 2rem; margin-top: 3rem; }
+    .cta-section h2 { color: #fff; }
+    .cta-section p { color: #aaa; margin-bottom: 2rem; }
+    .cta-section a { background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; color: #888; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #888; text-decoration: none; margin: 0 .75rem; }
+</style>
+
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/vs/">Comparisons</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/app/signup" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="vs-badge">SocialProof vs NiceJob</div>
+  <h1>NiceJob costs <span>$75/month</span>.<br/>SocialProof starts free.</h1>
+  <p>NiceJob is built for review automation across Google, Facebook, and the web. SocialProof is built for one thing: putting your customers' words on your site. Different tools, different price points.</p>
+  <a href="/app/signup" class="hero-cta">Try SocialProof free — no credit card</a>
+</div>
+
+<section>
+  <h2>Side-by-side comparison</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>SocialProof</th>
+        <th>NiceJob</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Starting price</td>
+        <td class="yes">Free forever (1 widget)</td>
+        <td class="no">$75/month</td>
+      </tr>
+      <tr>
+        <td>Setup time</td>
+        <td class="yes">Under 5 minutes</td>
+        <td class="partial">~30 min (CRM integration required)</td>
+      </tr>
+      <tr>
+        <td>Collect testimonials from customers</td>
+        <td class="yes">Yes — shareable link, no login needed</td>
+        <td class="yes">Yes — automated review requests</td>
+      </tr>
+      <tr>
+        <td>Embed widget on your website</td>
+        <td class="yes">Yes — copy/paste snippet</td>
+        <td class="yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Google review automation</td>
+        <td class="no">No</td>
+        <td class="yes">Yes — core feature</td>
+      </tr>
+      <tr>
+        <td>Facebook review requests</td>
+        <td class="no">No</td>
+        <td class="yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Text testimonials (private)</td>
+        <td class="yes">Yes — keep them on your site</td>
+        <td class="partial">Review platforms only</td>
+      </tr>
+      <tr>
+        <td>CRM required</td>
+        <td class="yes">No — works standalone</td>
+        <td class="partial">Optional but expected</td>
+      </tr>
+      <tr>
+        <td>Contract required</td>
+        <td class="yes">No contract</td>
+        <td class="no">Annual contracts available</td>
+      </tr>
+      <tr>
+        <td>Works on Squarespace / Wix</td>
+        <td class="yes">Yes — any site builder</td>
+        <td class="partial">Limited without CRM</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>The honest answer: who should pick which?</h2>
+  <div class="use-case-grid">
+    <div class="use-case-card">
+      <h3>✅ Pick SocialProof if you…</h3>
+      <ul>
+        <li>Want testimonials on your website, not on Google</li>
+        <li>Run a service business — coaching, consulting, freelancing</li>
+        <li>Don't have a CRM or job management tool</li>
+        <li>Need something live this week for under $10/month</li>
+        <li>Want to start free before committing to paid</li>
+      </ul>
+    </div>
+    <div class="use-case-card">
+      <h3>✅ Pick NiceJob if you…</h3>
+      <ul>
+        <li>Run a home service business (cleaning, HVAC, landscaping)</li>
+        <li>Need automated Google and Facebook review requests</li>
+        <li>Already use a job scheduling or field service CRM</li>
+        <li>Have budget for $75+/month and need multi-platform reach</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="price-callout">
+    <div class="price">$75 vs $0</div>
+    <div class="label">NiceJob's starting price vs SocialProof's free tier — both collect and display testimonials.</div>
+  </div>
+
+  <p style="color:#555; font-size:0.97rem; line-height:1.7;">NiceJob is excellent at what it does — if you're a home service business chasing Google reviews at scale, it's worth considering. But if you're a coach, consultant, agency, or small service business who wants a polished testimonial widget on your site <em>today</em>, paying $75/month to start is overkill. SocialProof is free forever for one widget and $9/month for unlimited.</p>
+</section>
+
+<div class="cta-section">
+  <h2>Not paying $75/month to show testimonials.</h2>
+  <p>SocialProof is free to start. Collect testimonials with a shareable link. Embed them on your site in minutes.</p>
+  <a href="/app/signup">Try SocialProof free →</a>
+</div>
+
+<footer>
+  <a href="/">SocialProof</a>
+  <a href="/vs/">All comparisons</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/app/signup">Sign up free</a>
+</footer>
+</Base>
