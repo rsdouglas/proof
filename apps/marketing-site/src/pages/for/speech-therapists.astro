@@ -1,0 +1,121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const title = "SocialProof for Speech-Language Pathologists — Build a Practice Parents Recommend";
+const description = "Speech therapy is an emotional, high-stakes service. SLPs who display real parent testimonials attract more families, reduce intake anxiety, and build referral networks that grow naturally.";
+---
+<Layout title={title} description={description}>
+  <main class="for-page">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">For Speech-Language Pathologists</div>
+        <h1>Parents in your waiting room are your most powerful marketing asset.</h1>
+        <p class="subhead">Families searching for a speech therapist are often scared and overwhelmed. Reading real stories from parents who found help for their child's stutter, late language, or articulation challenge builds the trust that gets them to call you first.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Start free — no credit card</a>
+      </div>
+    </section>
+
+    <section class="pain-points">
+      <div class="container">
+        <h2>The unique trust challenge in speech therapy</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="icon">💬</div>
+            <h3>High emotional stakes</h3>
+            <p>Parents aren't just choosing a provider — they're placing their child's developmental progress in your hands. Generic credentials don't reassure. Specific success stories do.</p>
+          </div>
+          <div class="card">
+            <div class="icon">⏳</div>
+            <h3>Long treatment timelines need early buy-in</h3>
+            <p>Speech therapy takes months or years. Families who see evidence of real progress from other families commit more fully — and follow through on the homework.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🌐</div>
+            <h3>School and insurance lists aren't enough</h3>
+            <p>Being on a provider list doesn't differentiate you. Testimonials from parents who describe what made you different are what convert a referred name into a booked evaluation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How SocialProof works for speech therapy practices</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3>Capture stories at breakthrough moments</h3>
+              <p>When a child says their first clear sentence, masters a sound, or hits a major milestone — that's when parents are most moved. Send your SocialProof link in that moment. The response rate is remarkable.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3>Guided prompts get specific stories</h3>
+              <p>The form prompts parents to describe their child's initial challenge, what changed, and how their family's daily life improved. Specific, emotional stories resonate with other parents in the same situation.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3>Display on your practice website and intake forms</h3>
+              <p>Embed testimonials on your homepage and your online intake/scheduling page. Social proof at the point of action dramatically reduces the drop-off between "interested" and "booked."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial-example">
+      <div class="container">
+        <h2>The kind of testimonial that moves a family to call</h2>
+        <blockquote>
+          "When my son was 4, I could understand maybe 30% of what he said. Other parents on the playground struggled too. After 8 months working with this practice, strangers can understand him clearly. Last week his teacher told me he's the best storyteller in his class. I still get emotional thinking about it."
+          <cite>— Parent of a former patient, childhood articulation program</cite>
+        </blockquote>
+        <p class="note">This testimonial speaks directly to the fear and hope of every parent with a child who struggles to be understood.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>The families you've helped are your best referral source</h2>
+        <p>Free forever for 1 active widget. Start making your impact visible to the families who need to find you.</p>
+        <a href="https://app.socialproof.dev/register" class="cta-btn">Get started free</a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .for-page { font-family: system-ui, sans-serif; color: #1a1a2e; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+  .hero { background: linear-gradient(135deg, #1a5276 0%, #0e3047 100%); color: white; padding: 5rem 0 4rem; text-align: center; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin: 0 0 1.2rem; line-height: 1.2; }
+  .subhead { font-size: 1.15rem; opacity: 0.9; max-width: 650px; margin: 0 auto 2rem; line-height: 1.6; }
+  .cta-btn { display: inline-block; background: #2ecc71; color: white; padding: 0.9rem 2.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: background 0.2s; }
+  .cta-btn:hover { background: #25a55a; }
+  .pain-points { padding: 4rem 0; background: #f0f9ff; }
+  .pain-points h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { background: white; border-radius: 12px; padding: 1.8rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.6rem; }
+  .card p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .how-it-works { padding: 4rem 0; }
+  .how-it-works h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; }
+  .steps { display: flex; flex-direction: column; gap: 2rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num { background: #1a5276; color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .step-body h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.4rem; }
+  .step-body p { font-size: 0.95rem; color: #555; line-height: 1.6; margin: 0; }
+  .testimonial-example { padding: 4rem 0; background: #f0f9ff; }
+  .testimonial-example h2 { font-size: 1.7rem; font-weight: 700; text-align: center; margin-bottom: 2rem; }
+  blockquote { background: white; border-left: 4px solid #1a5276; border-radius: 0 12px 12px 0; padding: 2rem; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: #333; margin: 0 0 1rem; }
+  cite { display: block; font-style: normal; font-size: 0.9rem; color: #888; margin-top: 0.8rem; }
+  .note { text-align: center; font-size: 0.95rem; color: #666; margin: 0; }
+  .cta-section { padding: 4rem 0; text-align: center; }
+  .cta-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+  .cta-section p { font-size: 1rem; color: #555; max-width: 550px; margin: 0 auto 2rem; line-height: 1.6; }
+</style>
