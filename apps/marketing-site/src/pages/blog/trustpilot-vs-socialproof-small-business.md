@@ -111,7 +111,7 @@ Different tools for different jobs.
 
 - The testimonial content is embedded on *your* site, not a third-party site
 - Structured testimonial content on your own pages can improve on-page SEO
-- Your testimonial collection form page (at collect.socialproof.dev) is brand-adjacent
+- Your testimonial collection form page (at socialproof.dev/c/frm_XXXXXXXXXX) is brand-adjacent
 
 ---
 
