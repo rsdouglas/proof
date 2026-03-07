@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Taggbox — Testimonials without the social media overhead | SocialProof" description="Taggbox aggregates social feeds starting at $19/mo. SocialProof collects direct text testimonials free to start. See which fits your business." canonical="https://socialproof.dev/vs/taggbox">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .savings-box h3 { margin: 0 0 .5rem; font-size: 1rem; }
+    .savings-box p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: 1rem; }
+    .bottom-cta p { color: rgba(255,255,255,.85); max-width: 500px; margin: 0 auto 2rem; font-size: 1.05rem; }
+    .bottom-cta a { background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; border-top: 1px solid #eee; color: #888; font-size: 0.85rem; }
+    @media(max-width:600px) { .price-callout { flex-direction: column; gap: 1rem; } .winner-grid { grid-template-columns: 1fr; } }
+</style>
+<nav>
+  <a href="/" class="logo">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for">Solutions</a>
+    <a href="/vs">Comparisons</a>
+    <a href="https://app.socialproof.dev/signup" class="cta-nav">Try Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="vs-badge">SocialProof vs Taggbox</span>
+  <h1>Social feeds are noisy.<br/><span>Direct testimonials convert.</span></h1>
+  <p>Taggbox aggregates Instagram, Twitter, and Facebook posts onto your site. SocialProof collects verified, curated text testimonials that you approve before they go live. Different tools for different goals.</p>
+  <div class="price-callout">
+    <div class="item vouch"><div class="price">Free</div><div class="label">SocialProof to start</div></div>
+    <div class="item other"><div class="price">$19+</div><div class="label">Taggbox per month</div></div>
+  </div>
+  <a href="https://app.socialproof.dev/signup" class="hero-cta">Start free with SocialProof →</a>
+</div>
+
+<section>
+  <h2>The core difference</h2>
+  <p>Taggbox scrapes public social media posts and aggregates them into a feed widget. It's great if your customers are already talking about you on social media and you want to showcase that activity.</p>
+  <p>SocialProof works differently: you send customers a collection link, they submit a testimonial directly, and you approve it before it's visible. The result is curated, high-quality social proof — not a raw feed that includes complaints, unrelated mentions, or outdated posts.</p>
+
+  <table class="compare-table">
+    <thead><tr><th>Feature</th><th>SocialProof</th><th>Taggbox</th></tr></thead>
+    <tbody>
+      <tr><td>Starting price</td><td class="yes">Free forever (1 widget)</td><td class="no">$19/mo minimum</td></tr>
+      <tr><td>Direct testimonial collection</td><td class="yes">Yes — collection link</td><td class="no">No (social scraping only)</td></tr>
+      <tr><td>Approval/moderation control</td><td class="yes">Full control before publish</td><td class="partial">Filter after scraping</td></tr>
+      <tr><td>Customer needs social media account</td><td class="yes">No — just a link</td><td class="no">Yes (their post must be public)</td></tr>
+      <tr><td>Works for offline/B2B customers</td><td class="yes">Yes</td><td class="no">No</td></tr>
+      <tr><td>Embed on any website</td><td class="yes">Yes — one script tag</td><td class="yes">Yes</td></tr>
+      <tr><td>No credit card to start</td><td class="yes">Yes</td><td class="no">No</td></tr>
+      <tr><td>GDPR-friendly (no 3rd-party scraping)</td><td class="yes">Yes</td><td class="partial">Depends on source</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✅ Choose SocialProof if…</h3>
+      <ul>
+        <li>Your customers aren't active on social media</li>
+        <li>You serve B2B clients or local service businesses</li>
+        <li>You want curated testimonials you approve before publishing</li>
+        <li>You need a free option that actually works</li>
+        <li>You want clean, specific testimonials — not raw social posts</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Consider Taggbox if…</h3>
+      <ul>
+        <li>You have a large social following already tagging your brand</li>
+        <li>You want to showcase UGC from Instagram or TikTok</li>
+        <li>Social proof volume matters more than quality control</li>
+        <li>You have budget for social aggregation tools</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="savings-box">
+    <h3>💰 The price gap is real</h3>
+    <p>Taggbox starts at $19/mo and goes up to $79/mo for e-commerce features. SocialProof is free forever for 1 active widget, and Pro is $9/mo for unlimited widgets. For most small businesses, SocialProof's free tier is all you need.</p>
+  </div>
+</section>
+
+<section>
+  <div class="bottom-cta">
+    <h2>Curated testimonials beat noisy feeds.</h2>
+    <p>Collect direct testimonials from customers, approve them, and embed them anywhere. Free forever for 1 widget — no credit card required.</p>
+    <a href="https://app.socialproof.dev/signup">Get started free →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/vs" style="color:#888">More comparisons</a> · <a href="/" style="color:#888">Home</a></p>
+</footer>
+</Base>
