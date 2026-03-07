@@ -1,0 +1,226 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Typeform for Testimonials — Which Is Better? | SocialProof" description="Typeform is a form builder. SocialProof is a testimonial platform. If you're using Typeform to collect customer reviews, here's why switching saves time and money." canonical="https://socialproof.dev/vs/typeform">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .savings-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; text-align: center; }
+    .savings-box strong { font-size: 1.2rem; }
+    .flow-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
+    .flow-step { text-align: center; padding: 1.5rem; border: 1px solid #e5e5e5; border-radius: 12px; }
+    .flow-step .num { font-size: 2rem; font-weight: 800; color: #4f46e5; margin-bottom: .5rem; }
+    .flow-step p { font-size: 0.9rem; color: #555; margin: 0; }
+    .faq-item { border-bottom: 1px solid #f0f0f0; padding: 1.25rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item h3 { font-size: 1rem; font-weight: 700; margin: 0 0 .5rem; }
+    .faq-item p { font-size: 0.95rem; color: #555; margin: 0; }
+    .cta-section { text-align: center; background: #f5f3ff; border-radius: 16px; padding: 3rem 2rem; margin: 3rem 0; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; text-decoration: none; margin: 0 .75rem; }
+    @media (max-width: 640px) { .price-callout { flex-direction: column; gap: 1rem; } .winner-grid { grid-template-columns: 1fr; } .flow-steps { grid-template-columns: 1fr; } }
+</style>
+<nav>
+    <a href="/" class="logo">SocialProof</a>
+    <div class="nav-links">
+        <a href="/vs/">Comparisons</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="https://app.socialproof.dev" class="cta-nav">Try Free</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <span class="vs-badge">SocialProof vs Typeform</span>
+    <h1>Stop collecting testimonials <span>in a Google Doc</span>.<br>Display them where they convert.</h1>
+    <p>Thousands of small businesses collect testimonials through Typeform — and then those responses sit in a spreadsheet, invisible to potential customers. SocialProof does the whole job: collect, approve, and display.</p>
+    <div class="price-callout">
+        <div class="item vouch">
+            <div class="price">Free</div>
+            <div class="label">SocialProof — collect &amp; display, free forever</div>
+        </div>
+        <div class="item other">
+            <div class="price">$29/mo</div>
+            <div class="label">Typeform Basic — forms only, no display widget</div>
+        </div>
+    </div>
+    <a href="https://app.socialproof.dev" class="hero-cta">Collect + display with SocialProof →</a>
+</div>
+
+<section>
+    <h2>The Typeform testimonial workflow problem</h2>
+    <p>Typeform is an excellent form builder — for surveys, quizzes, and data collection. But if your goal is testimonials, you end up with a workflow that looks like this:</p>
+    <div class="flow-steps">
+        <div class="flow-step">
+            <div class="num">1</div>
+            <p>Build a Typeform survey to collect testimonials. Pay $29/mo for basic access.</p>
+        </div>
+        <div class="flow-step">
+            <div class="num">2</div>
+            <p>Responses land in a spreadsheet. Manually review each one.</p>
+        </div>
+        <div class="flow-step">
+            <div class="num">3</div>
+            <p>Copy and paste quotes into your website manually. Update them forever.</p>
+        </div>
+    </div>
+    <p>SocialProof replaces all three steps. Your collection form, approval queue, and embeddable widget are one system. New testimonial collected → approved → live on your site. Zero manual work.</p>
+</section>
+
+<section>
+    <h2>Side-by-side comparison</h2>
+    <table class="compare-table">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>SocialProof</th>
+                <th>Typeform</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Testimonial collection form</td>
+                <td class="yes">Built in — purpose-built for reviews</td>
+                <td class="partial">Generic form builder — requires DIY setup</td>
+            </tr>
+            <tr>
+                <td>Embeddable display widget</td>
+                <td class="yes">Yes — one line of code</td>
+                <td class="no">None — Typeform doesn't display results</td>
+            </tr>
+            <tr>
+                <td>Testimonial approval workflow</td>
+                <td class="yes">Built-in moderation dashboard</td>
+                <td class="no">Manual — you manage responses yourself</td>
+            </tr>
+            <tr>
+                <td>Star ratings</td>
+                <td class="yes">Yes — displayed in widget</td>
+                <td class="partial">Collect via form, but can't display automatically</td>
+            </tr>
+            <tr>
+                <td>Free plan</td>
+                <td class="yes">Free forever for 1 active widget</td>
+                <td class="partial">Free with 10 responses/month limit</td>
+            </tr>
+            <tr>
+                <td>Pricing at scale</td>
+                <td class="yes">$9/mo Pro — unlimited testimonials</td>
+                <td class="no">$29–99/mo — grows fast</td>
+            </tr>
+            <tr>
+                <td>Purpose-built for testimonials</td>
+                <td class="yes">Yes — this is the whole product</td>
+                <td class="no">Typeform is general-purpose</td>
+            </tr>
+            <tr>
+                <td>Setup time</td>
+                <td class="yes">Under 5 minutes</td>
+                <td class="partial">Form building takes time, display requires extra work</td>
+            </tr>
+            <tr>
+                <td>Customer sends testimonial → it's live</td>
+                <td class="yes">Yes — nearly automatic after approval</td>
+                <td class="no">Manual copy-paste required</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>When Typeform makes sense (and when it doesn't)</h2>
+    <div class="winner-grid">
+        <div class="winner-card vouch">
+            <h3>Use SocialProof when you want to:</h3>
+            <ul>
+                <li>Collect and display testimonials in one place</li>
+                <li>Embed reviews on your website without coding</li>
+                <li>Automate the testimonial → live workflow</li>
+                <li>Start free without a credit card</li>
+                <li>Focus on conversion, not data collection</li>
+            </ul>
+        </div>
+        <div class="winner-card other">
+            <h3>Stick with Typeform when you need:</h3>
+            <ul>
+                <li>Complex conditional logic in surveys</li>
+                <li>Collecting many types of data (not just testimonials)</li>
+                <li>Advanced form analytics and reporting</li>
+                <li>Integrations with your CRM via Zapier/Make</li>
+                <li>You're a researcher or product team doing user research</li>
+            </ul>
+        </div>
+    </div>
+    <div class="savings-box">
+        <strong>Stop paying $29/mo for a form that can't display your testimonials.</strong><br>
+        SocialProof Pro is $9/mo and does collection + display in one. That's $240/year back in your pocket.
+    </div>
+</section>
+
+<section>
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+        <h3>Can I import my existing Typeform testimonials into SocialProof?</h3>
+        <p>Yes. Export your Typeform responses as CSV, then manually add your best testimonials to SocialProof. It takes about 10 minutes for most businesses. Going forward, use SocialProof's built-in collection forms.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Does SocialProof have conditional logic like Typeform?</h3>
+        <p>SocialProof's collection forms are focused on gathering testimonials efficiently — name, photo, rating, and quote. For complex multi-branch surveys, Typeform is the right tool. SocialProof is the right tool when your goal is customer advocacy.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Can I use SocialProof alongside Typeform?</h3>
+        <p>Absolutely. Use Typeform for NPS surveys or onboarding data collection, and SocialProof for testimonials you want to display publicly. They're complementary tools for different jobs.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Is SocialProof really free?</h3>
+        <p>Yes — free forever for 1 active testimonial widget with unlimited testimonials. No credit card required. Upgrade to Pro ($9/mo) for multiple widgets, custom branding, and priority support.</p>
+    </div>
+</section>
+
+<div class="cta-section" style="max-width:900px; margin: 0 auto 3rem;">
+    <h2>Your testimonials should be working for you</h2>
+    <p>Stop letting customer reviews collect dust in a spreadsheet. Start displaying them where new customers will see them.</p>
+    <a href="https://app.socialproof.dev" class="hero-cta">Start free with SocialProof →</a>
+</div>
+
+<footer>
+    <a href="/">SocialProof</a>
+    <a href="/vs/">All Comparisons</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.socialproof.dev">Sign Up Free</a>
+    <br><br>© 2025 SocialProof. All rights reserved.
+</footer>
+</Base>
