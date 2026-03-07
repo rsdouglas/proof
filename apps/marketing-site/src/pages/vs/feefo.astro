@@ -1,0 +1,136 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="SocialProof vs Feefo — Verified Reviews Comparison | SocialProof" description="Feefo requires purchase verification and starts at £99/mo. SocialProof is free to start and £9/mo Pro for service businesses that don't need enterprise review verification." canonical="https://socialproof.dev/vs/feefo">
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #111; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid #eee; }
+    nav a.logo { font-weight: 800; font-size: 1.25rem; color: #111; text-decoration: none; }
+    nav .nav-links a { margin-left: 1.5rem; color: #555; text-decoration: none; font-size: 0.95rem; }
+    nav .cta-nav { background: #111; color: #fff !important; padding: .45rem 1rem; border-radius: 6px; }
+    .hero { text-align: center; padding: 4rem 2rem 2rem; max-width: 760px; margin: 0 auto; }
+    .vs-badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; margin: 0 0 1rem; }
+    .hero h1 span { color: #4f46e5; }
+    .hero p { font-size: 1.15rem; color: #444; max-width: 560px; margin: 0 auto 2rem; }
+    .hero-cta { display: inline-block; background: #4f46e5; color: #fff; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    .hero-cta:hover { background: #3730a3; }
+    .price-callout { display: inline-flex; gap: 2rem; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1.25rem 2rem; margin-bottom: 2rem; }
+    .price-callout .item { text-align: center; }
+    .price-callout .item .price { font-size: 1.8rem; font-weight: 800; }
+    .price-callout .item .label { font-size: 0.85rem; color: #777; margin-top: .2rem; }
+    .price-callout .item.vouch .price { color: #4f46e5; }
+    .price-callout .item.other .price { color: #dc2626; }
+    section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+    .compare-table th { padding: .75rem 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .05em; color: #888; border-bottom: 2px solid #eee; }
+    .compare-table th:nth-child(2) { color: #4f46e5; }
+    .compare-table td { padding: .85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: 0.97rem; vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: #555; font-weight: 500; }
+    .yes { color: #16a34a; font-weight: 600; }
+    .no { color: #dc2626; font-weight: 600; }
+    .partial { color: #d97706; font-weight: 600; }
+    .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .winner-card { border-radius: 12px; padding: 1.75rem; }
+    .winner-card.vouch { background: #f0fdf4; border: 1px solid #86efac; }
+    .winner-card.other { background: #fafafa; border: 1px solid #e5e5e5; }
+    .winner-card h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .75rem; }
+    .winner-card ul { margin: 0; padding-left: 1.2rem; }
+    .winner-card li { font-size: 0.92rem; color: #444; margin-bottom: .4rem; }
+    .callout { background: #f0f4ff; border: 1px solid #c7d2fe; border-radius: 12px; padding: 1.5rem 2rem; margin: 2rem 0; }
+    .callout h3 { margin: 0 0 .5rem; font-size: 1rem; color: #4f46e5; }
+    .callout p { margin: 0; color: #555; font-size: 0.95rem; }
+    .bottom-cta { text-align: center; background: #4f46e5; color: #fff; border-radius: 16px; padding: 3.5rem 2rem; margin: 3rem 0; }
+    .bottom-cta h2 { color: #fff; margin-bottom: 1rem; }
+    .bottom-cta p { color: rgba(255,255,255,.85); margin-bottom: 2rem; font-size: 1.05rem; }
+    .cta-white { display: inline-block; background: #fff; color: #4f46e5; padding: .85rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+    footer { text-align: center; padding: 2rem; color: #999; font-size: 0.85rem; border-top: 1px solid #eee; }
+    footer a { color: #999; }
+    @media (max-width: 600px) { .winner-grid { grid-template-columns: 1fr; } .price-callout { flex-direction: column; gap: 1rem; } }
+</style>
+<nav>
+  <a class="logo" href="/">SocialProof</a>
+  <div class="nav-links">
+    <a href="/for">For your industry</a>
+    <a href="/vs">Compare</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/app" class="cta-nav">Try free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="vs-badge">SocialProof vs Feefo</div>
+  <h1>Feefo is built for retail enterprises. <span>Your service business needs something simpler.</span></h1>
+  <p>Feefo is a verified reviews platform designed for large retailers and brands. It requires transaction-based verification — which means it's largely useless for service businesses, consultants, and local providers. SocialProof is built for you.</p>
+  <div class="price-callout">
+    <div class="item vouch"><div class="price">Free–$9</div><div class="label">SocialProof /mo</div></div>
+    <div class="item other"><div class="price">£99+</div><div class="label">Feefo /mo (enterprise)</div></div>
+  </div>
+  <a href="/app" class="hero-cta">Try SocialProof free →</a>
+</div>
+
+<section>
+  <h2>Feature comparison</h2>
+  <table class="compare-table">
+    <thead><tr><th>Feature</th><th>SocialProof</th><th>Feefo</th></tr></thead>
+    <tbody>
+      <tr><td>Free tier</td><td class="yes">✓ Forever (1 widget)</td><td class="no">✗ Enterprise pricing only</td></tr>
+      <tr><td>Self-service signup</td><td class="yes">✓ Instant</td><td class="no">✗ Sales call required</td></tr>
+      <tr><td>Works for service businesses</td><td class="yes">✓ Built for this</td><td class="partial">Limited — transaction-based</td></tr>
+      <tr><td>Works for consultants / coaches</td><td class="yes">✓ Core use case</td><td class="no">✗ Not designed for this</td></tr>
+      <tr><td>Collect testimonials via form</td><td class="yes">✓</td><td class="partial">Transaction-triggered only</td></tr>
+      <tr><td>Embed widget on any site</td><td class="yes">✓</td><td class="yes">✓ (enterprise)</td></tr>
+      <tr><td>Google review integration</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Pricing transparency</td><td class="yes">✓ Public pricing</td><td class="no">✗ "Contact sales"</td></tr>
+      <tr><td>Setup time</td><td class="yes">~5 minutes</td><td class="no">Days (enterprise onboarding)</td></tr>
+      <tr><td>Designed for small businesses</td><td class="yes">✓ Core audience</td><td class="no">✗ Enterprise-first</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <h3>The Feefo model doesn't fit service businesses</h3>
+    <p>Feefo's core product validates reviews by matching them to transactions in your order system. That works for a clothing retailer. It doesn't work if you're a therapist, a marketing consultant, a personal trainer, or a contractor. SocialProof's testimonial collection form lets any client leave a testimonial — no transaction matching required.</p>
+  </div>
+
+  <div class="winner-grid">
+    <div class="winner-card vouch">
+      <h3>✓ SocialProof wins for…</h3>
+      <ul>
+        <li>Service businesses of any kind</li>
+        <li>Consultants, coaches, freelancers</li>
+        <li>Anyone who wants to start free and upgrade when ready</li>
+        <li>Businesses that don't want a sales call to buy software</li>
+        <li>Small teams who need a working widget in 5 minutes</li>
+      </ul>
+    </div>
+    <div class="winner-card other">
+      <h3>Feefo wins for…</h3>
+      <ul>
+        <li>Large retailers needing transaction-verified reviews</li>
+        <li>Enterprise brands with dedicated review management teams</li>
+        <li>Businesses that need Feefo's specific certifications and trust marks</li>
+        <li>Multi-channel retail with deep Feefo integrations</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The honest comparison</h2>
+  <p>Feefo and SocialProof aren't really in the same market. Feefo is an enterprise review verification platform serving large retailers. SocialProof is a testimonial collection and display tool built for service businesses and small teams.</p>
+  <p>If you found this page, you're probably a small business owner evaluating your options. Feefo's pricing isn't even published — you have to contact their sales team. That's a signal about who their target customer is (not you).</p>
+  <p>SocialProof starts free. You can collect testimonials from your clients today, embed them on your website tomorrow, and decide later if you want the $9/mo Pro plan. No sales call, no enterprise contract, no minimum commitment.</p>
+</section>
+
+<div class="bottom-cta">
+  <h2>No sales call. No enterprise contract. Just testimonials.</h2>
+  <p>Collect text testimonials from your clients and embed them on your site — free forever for 1 widget.</p>
+  <a href="/app" class="cta-white">Get started free →</a>
+</div>
+
+<footer>
+  <p>© 2025 SocialProof · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/vs">Compare all tools</a></p>
+</footer>
+</Base>
