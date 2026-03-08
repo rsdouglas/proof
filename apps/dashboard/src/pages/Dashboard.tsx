@@ -187,13 +187,16 @@ function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
         ))}
       </div>
 
-      <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${colors.brandBorder}`, display: 'flex', gap: 20 }}>
+      <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${colors.brandBorder}`, display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'center' }}>
         <Link to="/collect" style={{ fontSize: 13, color: colors.brand, textDecoration: 'none', fontWeight: 500 }}>
           View collect page →
         </Link>
         <Link to="/widgets" style={{ fontSize: 13, color: colors.gray500, textDecoration: 'none' }}>
           Create a widget
         </Link>
+        <a href="https://socialproof.dev/templates" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: colors.gray500, textDecoration: 'none' }}>
+          Not sure what to write? See free message templates →
+        </a>
       </div>
     </div>
   )
@@ -358,6 +361,9 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
       done: stats.total_testimonials > 0,
       title: 'Share your collection link',
       desc: 'Copy your link and share it with happy customers — via email, text, or social.',
+      hint: 'Need a script? ',
+      hintLink: 'https://socialproof.dev/templates',
+      hintLinkText: 'Free message templates →',
       action: { to: '/collect', label: 'Share your link' },
     },
     {
@@ -428,7 +434,12 @@ function OnboardingChecklist({ stats }: { stats: Stats }) {
               }}>
                 {step.title}
               </div>
-              <div style={{ fontSize: 13, color: colors.gray400 }}>{step.desc}</div>
+              <div style={{ fontSize: 13, color: colors.gray400 }}>
+                {step.desc}
+                {(step as any).hint && (
+                  <span> {(step as any).hint}<a href={(step as any).hintLink} target="_blank" rel="noopener noreferrer" style={{ color: colors.brand, textDecoration: 'none', fontWeight: 500 }}>{(step as any).hintLinkText}</a></span>
+                )}
+              </div>
             </div>
             {!step.done && step.action && (
               <Link to={step.action.to} style={{
