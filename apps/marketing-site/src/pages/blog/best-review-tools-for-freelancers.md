@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Best Review and Testimonial Tools for Freelancers in 2025"
+title: "Best Review and Testimonial Tools for Freelancers in 2026"
 description: "A no-BS comparison of the best tools for collecting client reviews and testimonials as a freelancer. What's actually worth paying for."
 publishedAt: "2025-03-08"
 author: "SocialProof Team"

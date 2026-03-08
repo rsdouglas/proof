@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "5 Email Templates to Get Testimonials from Happy Customers | SocialProof"
+title: "5 Email Templates to Get Testimonials from Happy Customers"
 description: "Copy-paste email templates for requesting customer testimonials. Written to feel personal, not automated — and designed to get a yes."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

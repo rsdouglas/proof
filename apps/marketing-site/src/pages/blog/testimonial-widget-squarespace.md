@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Add a Testimonial Widget to Squarespace (2025)"
+title: "How to Add a Testimonial Widget to Squarespace (2026)"
 description: "Step-by-step guide to embedding a testimonial widget on your Squarespace site. No coding required — works with any Squarespace template."
 publishedAt: "2025-03-08"
 author: "SocialProof Team"

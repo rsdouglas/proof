@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Testimonial Request Email Templates (Copy-Paste Ready) | SocialProof"
+title: "Testimonial Request Email Templates (Copy-Paste Ready)"
 description: "7 proven testimonial request email templates you can copy-paste today. Real subject lines, timing tips, and follow-up sequences that actually get replies from happy customers."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

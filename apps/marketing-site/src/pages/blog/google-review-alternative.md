@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Why Collecting Testimonials Beats Google Reviews (And How to Do Both) | SocialProof"
+title: "Why Collecting Testimonials Beats Google Reviews (And How to Do Both)"
 description: "Google Reviews are powerful but you don't own them, can't control them, and can't embed them easily. Here's why smart small businesses collect direct testimonials alongside Google — and how."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

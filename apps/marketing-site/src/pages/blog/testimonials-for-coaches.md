@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How Coaches Get Powerful Testimonials That Fill Programs (2025 Guide)"
+title: "How Coaches Get Powerful Testimonials That Fill Programs (2026 Guide)"
 description: "Life coaches, business coaches, and online coaches: here's exactly how to collect client testimonials that turn browsers into buyers."
 publishedAt: "2025-01-24"
 author: "SocialProof Team"

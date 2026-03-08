@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "The Best Google Review Alternative for Small Businesses in 2025"
+title: "The Best Google Review Alternative for Small Businesses in 2026"
 description: "Google reviews are out of your control. SocialProof lets you collect, display, and own your customer testimonials — no algorithm, no fake reviews, no platform risk. Free to start."
 publishedAt: "2025-03-01"
 author: "SocialProof Team"

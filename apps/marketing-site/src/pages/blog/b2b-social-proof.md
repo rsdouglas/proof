@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "B2B Social Proof: How to Build Trust With Business Buyers | SocialProof"
+title: "B2B Social Proof: How to Build Trust With Business Buyers"
 description: "B2B buyers need more convincing than consumers. Learn how to collect and display social proof that speaks to business decision-makers—case studies, ROI metrics, logos, and video testimonials."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"
