@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Best Testimonial Software for Small Businesses in 2025 (Honest Comparison)"
+title: "Best Testimonial Software for Small Businesses in 2026 (Honest Comparison)"
 description: "We tested and compared the top 10 testimonial software tools for small businesses. Here's the honest breakdown — features, pricing, and who each one is really for."
 publishedAt: "2025-06-04"
 author: "SocialProof Team"

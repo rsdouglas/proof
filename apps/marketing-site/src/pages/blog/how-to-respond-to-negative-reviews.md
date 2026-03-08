@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Respond to Negative Reviews (Templates + Strategy) | SocialProof"
+title: "How to Respond to Negative Reviews (Templates + Strategy)"
 description: "A bad review doesn't have to hurt you. Learn how to respond to negative reviews professionally, turn critics into advocates, and use feedback to build a stronger reputation."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

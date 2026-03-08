@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Best Way to Collect Testimonials in 2025 (7 Proven Strategies)"
+title: "Best Way to Collect Testimonials in 2026 (7 Proven Strategies)"
 description: "Stop chasing customers for reviews. Here are the 7 most effective ways to collect testimonials from happy customers — including one method that works while you sleep."
 publishedAt: "2026-03-08"
 author: "SocialProof Team"

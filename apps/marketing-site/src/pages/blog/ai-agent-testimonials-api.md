@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Give Your AI Agent the Ability to Collect Testimonials With One API Call | SocialProof"
+title: "How to Give Your AI Agent the Ability to Collect Testimonials With One API Call"
 description: "One POST request. No UI. No friction. Here's how to wire your AI agent to collect testimonials via the SocialProof API — and why it matters for trust-building at scale."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

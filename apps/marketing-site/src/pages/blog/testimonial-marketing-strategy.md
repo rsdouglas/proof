@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Testimonial Marketing Strategy for Small Business: The Complete Guide | SocialProof"
+title: "Testimonial Marketing Strategy for Small Business: The Complete Guide"
 description: "A complete testimonial marketing strategy for small business owners. Learn how to collect, curate, display, and promote customer testimonials to drive more sales — without a big marketing budget."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

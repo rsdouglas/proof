@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Social Proof for AI Agents: One API Call to Start Collecting Testimonials | SocialProof"
+title: "Social Proof for AI Agents: One API Call to Start Collecting Testimonials"
 description: "SocialProof's /agent/register endpoint gives AI agents a collect URL and widget embed code in one POST request. No UI, no waiting — social proof for autonomous products."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How House Cleaners Get More Bookings With Testimonials (2025)"
+title: "How House Cleaners Get More Bookings With Testimonials (2026)"
 description: "House cleaning businesses grow on word-of-mouth. Here's how to turn happy customers into testimonials that get you booked solid."
 publishedAt: "2025-01-24"
 author: "SocialProof Team"
