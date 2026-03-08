@@ -215,14 +215,18 @@ export default function WidgetDetail() {
   }
 
   async function setStatus(testimonialId: string, status: 'approved' | 'rejected') {
+    const previousStatus = testimonials.find(t => t.id === testimonialId)?.status
     setActionLoading(testimonialId)
+    setTestimonials(ts => ts.map(t => t.id === testimonialId ? { ...t, status } : t))
     try {
       await request(`/testimonials/${testimonialId}`, {
         method: 'PATCH',
         body: JSON.stringify({ status }),
       })
-      setTestimonials(ts => ts.map(t => t.id === testimonialId ? { ...t, status } : t))
     } catch (e) {
+      if (previousStatus) {
+        setTestimonials(ts => ts.map(t => t.id === testimonialId ? { ...t, status: previousStatus } : t))
+      }
       showToast((e as Error).message)
     } finally {
       setActionLoading(null)
