@@ -23,10 +23,11 @@ while sleep 300; do
   fi
 
   if curl -fsSL "https://api.github.com/repos/rsdouglas/proof/issues?state=open&per_page=100" -o /tmp/watch_issues.json 2>/dev/null; then
-    python3 - <<'PY' </tmp/watch_issues.json >/tmp/watch_issue_state.txt.new
+    python3 - /tmp/watch_issues.json >/tmp/watch_issue_state.txt.new <<'PY'
 import json,sys
 want={371,563,581}
-items=json.load(sys.stdin)
+with open(sys.argv[1], 'r', encoding='utf-8') as fh:
+    items=json.load(fh)
 for it in items:
     n=it.get('number')
     if n in want:
