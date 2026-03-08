@@ -60,7 +60,7 @@ Use [SocialProof](/) to tag testimonials by:
 
 For VA work, video testimonials are exceptionally powerful. A 60-second video from a client saying "here's what my workload looked like before, here's what it looks like now" is a conversion asset that text can't match.
 
-Ask for video for your best clients. Offer to make it easy — give them 3 bullet points to address. Use [SocialProof](/) to collect and embed video testimonials on your website.
+Ask for video for your best clients. Offer to make it easy — give them 3 bullet points to address. Use [SocialProof](/) to collect and display text testimonials on your website — your clients can submit in 2 minutes with a simple link.
 
 ---
 

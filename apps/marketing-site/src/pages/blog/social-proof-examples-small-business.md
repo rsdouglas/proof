@@ -108,7 +108,6 @@ They don't need to be professionally produced. A customer recording a 60-second 
 
 **How to collect:** Send customers a simple email: "Would you be willing to record a quick video testimonial? Even 30 seconds on your phone is perfect. I'd love to share your story."
 
-Our [video testimonial collection](/features) tool makes this easy — customers can record directly in the browser.
 
 ---
 
