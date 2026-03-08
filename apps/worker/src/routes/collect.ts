@@ -52,7 +52,7 @@ collect.get('/:formId', async (c) => {
            style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;transition:color 0.2s"
            onmouseover="this.style.color='#6C5CE7'" onmouseout="this.style.color='#9ca3af'">
           <span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#6C5CE7;color:#fff;font-size:9px;font-weight:700;line-height:14px;text-align:center;flex-shrink:0">V</span>
-          Powered by Social Proof
+          Powered by SocialProof
         </a>
       </div>`
     : ''
