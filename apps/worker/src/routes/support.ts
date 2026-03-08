@@ -4,6 +4,10 @@ import type { Env } from '../index'
 
 const support = new Hono<{ Bindings: Env }>()
 
+function getAdminKey(env: Env) {
+  return env.ADMIN_TOKEN || env.ADMIN_SECRET
+}
+
 function verifyResendWebhook(body: string, headers: Headers, secret?: string) {
   if (!secret) return false
 
@@ -68,7 +72,8 @@ support.post('/inbound', async (c) => {
 
 support.get('/admin-list', async (c) => {
   const key = c.req.header('x-admin-key')
-  if (!key || key !== c.env.ADMIN_SECRET) {
+  const adminKey = getAdminKey(c.env)
+  if (!key || !adminKey || key !== adminKey) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
@@ -95,7 +100,8 @@ support.get('/admin-list', async (c) => {
 
 support.patch('/admin-list/:id', async (c) => {
   const key = c.req.header('x-admin-key')
-  if (!key || key !== c.env.ADMIN_SECRET) {
+  const adminKey = getAdminKey(c.env)
+  if (!key || !adminKey || key !== adminKey) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
@@ -112,5 +118,5 @@ support.patch('/admin-list/:id', async (c) => {
   return c.json({ ok: true })
 })
 
-export { verifyResendWebhook }
+export { getAdminKey, verifyResendWebhook }
 export default support

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { Webhook } from 'svix'
-import { verifyResendWebhook } from '../src/routes/support'
+import { getAdminKey, verifyResendWebhook } from '../src/routes/support'
 
 function signedHeaders(secret: string, payload: string) {
   const wh = new Webhook(secret)
@@ -37,5 +37,20 @@ describe('verifyResendWebhook', () => {
     const payload = JSON.stringify({ hello: 'world' })
     const ok = verifyResendWebhook(payload, new Headers(), undefined)
     expect(ok).toBe(false)
+  })
+})
+
+
+describe('getAdminKey', () => {
+  it('prefers ADMIN_TOKEN when present', () => {
+    expect(getAdminKey({ ADMIN_TOKEN: 'token-value', ADMIN_SECRET: 'legacy-secret' } as any)).toBe('token-value')
+  })
+
+  it('falls back to ADMIN_SECRET for legacy envs', () => {
+    expect(getAdminKey({ ADMIN_SECRET: 'legacy-secret' } as any)).toBe('legacy-secret')
+  })
+
+  it('returns undefined when no admin secret is configured', () => {
+    expect(getAdminKey({} as any)).toBeUndefined()
   })
 })
