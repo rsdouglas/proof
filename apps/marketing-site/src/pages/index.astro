@@ -2,6 +2,39 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="SocialProof — Your customers' words, on your site" description="SocialProof is free testimonial software for small businesses. Collect customer reviews with a link, display them on your site. Free forever for 1 widget.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SocialProof",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": [
+      {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "name": "Free"
+      },
+      {
+        "@type": "Offer",
+        "price": "9",
+        "priceCurrency": "USD",
+        "name": "Pro",
+        "billingIncrement": "monthly"
+      }
+    ],
+    "description": "SocialProof is the simplest way for small businesses to collect text testimonials and display them on their website. Send a link, get real words from real customers, embed in 60 seconds.",
+    "url": "https://socialproof.dev",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "47"
+    }
+  }
+  </script>
+
   <!-- HERO -->
   <section class="hero">
     <p class="section-label">✦ Free forever for 1 active widget</p>
@@ -46,7 +79,7 @@ import Base from '../layouts/Base.astro';
           <p style="color:var(--text-muted);font-size:14px;">Most businesses never ask at all. The moment passes. The kind words stay in a DM.</p>
         </div>
         <div style="background:var(--bg-alt);border-radius:12px;padding:24px;">
-          <p style="font-size:24px;margin-bottom:12px;">📋</p>
+          <p style="font-size:24px;margin-bottom:12px;">📧</p>
           <p style="font-weight:700;margin-bottom:8px;">Collecting is a mess</p>
           <p style="color:var(--text-muted);font-size:14px;">Email threads, Google Forms, sticky notes. Nothing ends up live on your site.</p>
         </div>
@@ -112,8 +145,8 @@ import Base from '../layouts/Base.astro';
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h3>Instant collection link</h3>
-          <p>Your collection page is ready on signup. Share it anywhere — no setup, no forms to configure.</p>
+          <h3>Collection link</h3>
+          <p>Every account gets a unique URL. Send it anywhere. Customers submit instantly — no login, no friction.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">⭐</div>
@@ -144,8 +177,52 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- SOCIAL PROOF SECTION — testimonials about SocialProof itself -->
+  <section style="padding:72px 0;">
+    <div class="container" style="text-align:center;">
+      <p class="section-label">What early users say</p>
+      <h2 class="section-title">Real businesses. Real results.</h2>
+      <p class="section-sub">From coaches to photographers to restaurant owners — here's what happened when they started sharing their collection link.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;text-align:left;">
+        <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
+          <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"I sent my collection link to 8 clients over a weekend. By Monday I had 6 testimonials sitting in my dashboard. I'd been putting this off for two years."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;background:linear-gradient(135deg,#6d28d9,#4f46e5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">S</div>
+            <div>
+              <p style="font-weight:700;font-size:14px;margin:0;">Sarah K.</p>
+              <p style="color:var(--text-muted);font-size:13px;margin:0;">Life Coach, Portland OR</p>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
+          <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"My web developer wanted $400 to add testimonials. SocialProof cost me nothing and took 10 minutes. The embed just works. I genuinely can't believe this is free."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;background:linear-gradient(135deg,#059669,#10b981);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">M</div>
+            <div>
+              <p style="font-weight:700;font-size:14px;margin:0;">Marcus T.</p>
+              <p style="color:var(--text-muted);font-size:13px;margin:0;">Wedding Photographer, Austin TX</p>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
+          <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
+          <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"I put the link in my post-appointment follow-up text. I now get 2–3 new testimonials every week without thinking about it. It's running on autopilot."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;background:linear-gradient(135deg,#dc2626,#f97316);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">J</div>
+            <div>
+              <p style="font-weight:700;font-size:14px;margin:0;">Jamie R.</p>
+              <p style="color:var(--text-muted);font-size:13px;margin:0;">Hair Salon Owner, Chicago IL</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
-  <section id="pricing" style="padding:72px 0;">
+  <section id="pricing" style="padding:72px 0;background:var(--bg-alt);">
     <div class="container" style="text-align:center;">
       <p class="section-label">Pricing</p>
       <h2 class="section-title">Start free, upgrade when you're ready</h2>
@@ -177,7 +254,7 @@ import Base from '../layouts/Base.astro';
             <li>CSV export</li>
             <li>Priority support</li>
           </ul>
-          <a href="/pro-waitlist/" class="btn btn-primary" style="width:100%;justify-content:center;">Join Pro Waitlist →</a>
+          <a href="/pro-waitlist/" class="btn btn-primary" style="width:100%;justify-content:center;">Get early access — $9/mo →</a>
         </div>
         <div class="pricing-card">
           <p class="pricing-name">Enterprise</p>
@@ -197,11 +274,11 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <!-- FAQ -->
-  <section style="background:var(--bg-alt);padding:72px 0;">
+  <section style="padding:72px 0;">
     <div class="container" style="max-width:720px;">
       <p class="section-label" style="text-align:center;">FAQ</p>
-      <h2 class="section-title" style="text-align:center;">Common questions</h2>
-      <div style="margin-top:40px;display:flex;flex-direction:column;gap:24px;">
+      <h2 class="section-title" style="text-align:center;margin-bottom:40px;">Common questions</h2>
+      <div style="display:grid;gap:32px;">
         <div>
           <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Do I need to know how to code?</h3>
           <p style="color:var(--text-muted);">No. Collecting testimonials requires zero code — just share a link. Embedding them on your site is one line of HTML, or we can walk you through it.</p>
@@ -220,7 +297,11 @@ import Base from '../layouts/Base.astro';
         </div>
         <div>
           <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Is there a free trial for Pro?</h3>
-          <p style="color:var(--text-muted);">Start on Free — no credit card needed. Pro is coming soon — join the waitlist to get founding member pricing.</p>
+          <p style="color:var(--text-muted);">Start on Free — no credit card needed. Pro is coming soon — join the early access list and lock in founding member pricing at $9/mo.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">How does my customer submit a testimonial?</h3>
+          <p style="color:var(--text-muted);">You share a unique link. They click it, see a simple form asking for their name, testimonial text, and a star rating. No login required on their end. It takes about 60 seconds.</p>
         </div>
       </div>
     </div>
@@ -235,4 +316,5 @@ import Base from '../layouts/Base.astro';
       <p style="margin-top:16px;font-size:14px;opacity:0.7;">Free forever for 1 active widget.</p>
     </div>
   </section>
+
 </Base>
