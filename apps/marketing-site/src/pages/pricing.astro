@@ -1,0 +1,457 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Pricing — SocialProof"
+  description="SocialProof is free forever for 1 active widget. Pro unlocks unlimited widgets, custom branding removal, and full API access."
+  canonical="https://socialproof.dev/pricing/"
+>
+  <style>
+    .pricing-wrap {
+      max-width: 960px;
+      margin: 64px auto 120px;
+      padding: 0 24px;
+    }
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .pricing-header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--text, #111);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .pricing-header p {
+      font-size: 1.15rem;
+      color: var(--muted, #666);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 72px;
+    }
+    @media (max-width: 640px) {
+      .plans-grid { grid-template-columns: 1fr; }
+    }
+    .plan-card {
+      border: 2px solid var(--border, #e5e7eb);
+      border-radius: 16px;
+      padding: 40px 36px;
+      background: #fff;
+      position: relative;
+    }
+    .plan-card.featured {
+      border-color: var(--accent, #6366f1);
+      background: #fafafe;
+    }
+    .plan-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent, #6366f1);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted, #666);
+      margin-bottom: 8px;
+    }
+    .plan-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text, #111);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .plan-price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted, #666);
+    }
+    .plan-tagline {
+      font-size: 0.95rem;
+      color: var(--muted, #666);
+      margin-bottom: 32px;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 36px;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--text, #111);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border, #f0f0f0);
+    }
+    .plan-features li:last-child { border-bottom: none; }
+    .plan-features .check { color: #22c55e; font-size: 1rem; flex-shrink: 0; }
+    .plan-features .dash { color: #d1d5db; font-size: 1rem; flex-shrink: 0; }
+    .plan-cta {
+      display: block;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .plan-cta:hover { opacity: 0.85; }
+    .plan-cta.primary {
+      background: var(--accent, #6366f1);
+      color: #fff;
+    }
+    .plan-cta.secondary {
+      background: transparent;
+      border: 2px solid var(--accent, #6366f1);
+      color: var(--accent, #6366f1);
+    }
+
+    /* Comparison table */
+    .compare-section {
+      margin-bottom: 72px;
+    }
+    .compare-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      color: var(--text, #111);
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .compare-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--bg-subtle, #f9fafb);
+      font-weight: 700;
+      color: var(--text, #111);
+      border-bottom: 2px solid var(--border, #e5e7eb);
+    }
+    .compare-table th:nth-child(2),
+    .compare-table th:nth-child(3) {
+      text-align: center;
+      width: 140px;
+    }
+    .compare-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border, #f0f0f0);
+      color: var(--text, #333);
+    }
+    .compare-table td:nth-child(2),
+    .compare-table td:nth-child(3) {
+      text-align: center;
+    }
+    .compare-table tr:hover td { background: #fafafa; }
+    .yes { color: #22c55e; font-size: 1.1rem; }
+    .no { color: #d1d5db; font-size: 1.1rem; }
+
+    /* FAQ */
+    .faq-section {
+      max-width: 680px;
+      margin: 0 auto 72px;
+    }
+    .faq-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 36px;
+      color: var(--text, #111);
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border, #e5e7eb);
+      padding: 20px 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text, #111);
+      margin-bottom: 8px;
+    }
+    .faq-a {
+      font-size: 0.95rem;
+      color: var(--muted, #555);
+      line-height: 1.6;
+    }
+    .faq-a a {
+      color: var(--accent, #6366f1);
+      text-decoration: underline;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--accent, #6366f1);
+      border-radius: 16px;
+      color: #fff;
+    }
+    .bottom-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .bottom-cta p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 28px;
+    }
+    .bottom-cta a {
+      display: inline-block;
+      background: #fff;
+      color: var(--accent, #6366f1);
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: opacity 0.15s;
+    }
+    .bottom-cta a:hover { opacity: 0.9; }
+  </style>
+
+  <div class="pricing-wrap">
+
+    <div class="pricing-header">
+      <h1>Simple, honest pricing.</h1>
+      <p>Start free — no credit card, no trial timer. Upgrade when you're ready to grow.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Free Plan -->
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0 <span>/ forever</span></div>
+        <div class="plan-tagline">Everything you need to get started.</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Unlimited testimonial collection</li>
+          <li><span class="check">✓</span> 1 active embed widget</li>
+          <li><span class="check">✓</span> Moderation dashboard</li>
+          <li><span class="check">✓</span> Copy-paste embed code</li>
+          <li><span class="check">✓</span> Branded collection page</li>
+          <li><span class="dash">—</span> Multiple widgets</li>
+          <li><span class="dash">—</span> Remove SocialProof branding</li>
+          <li><span class="dash">—</span> Custom collection domain</li>
+          <li><span class="dash">—</span> API access + CSV export</li>
+        </ul>
+        <a href="https://app.socialproof.dev/signup" class="plan-cta primary">Start collecting — free</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="plan-card featured">
+        <div class="plan-badge">Coming soon</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$9 <span>/ month</span></div>
+        <div class="plan-tagline">For businesses that want more control.</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Unlimited testimonial collection</li>
+          <li><span class="check">✓</span> Unlimited embed widgets</li>
+          <li><span class="check">✓</span> Moderation dashboard</li>
+          <li><span class="check">✓</span> Copy-paste embed code</li>
+          <li><span class="check">✓</span> Branded collection page</li>
+          <li><span class="check">✓</span> Multiple widgets per site</li>
+          <li><span class="check">✓</span> Remove SocialProof branding</li>
+          <li><span class="check">✓</span> Custom collection domain</li>
+          <li><span class="check">✓</span> API access + CSV export</li>
+        </ul>
+        <a href="/pro-waitlist/" class="plan-cta secondary">Join the Pro waitlist</a>
+      </div>
+    </div>
+
+    <!-- Feature comparison table -->
+    <div class="compare-section">
+      <h2>Everything in one view</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Free</th>
+            <th>Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Testimonial collection (unlimited)</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Moderation &amp; approval dashboard</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Embed widget on your site</td>
+            <td>1 widget</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Copy-paste embed code</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Shareable collection link</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Remove "Powered by SocialProof" badge</td>
+            <td><span class="no">—</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom domain for collection page</td>
+            <td><span class="no">—</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>API access</td>
+            <td><span class="no">—</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>CSV export</td>
+            <td><span class="no">—</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><strong>$0 / forever</strong></td>
+            <td><strong>$9 / month</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <h2>Frequently asked questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">What counts as an "active widget"?</div>
+        <div class="faq-a">
+          A widget is a testimonial display you embed on your website. On the Free plan, you can have one widget live at a time — for example, a testimonials section on your homepage. You can collect unlimited testimonials regardless of plan; the limit is only on how many embed locations you can use simultaneously.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Is the Free plan really free forever?</div>
+        <div class="faq-a">
+          Yes. No credit card required, no trial period. The Free plan is not a limited-time offer — it's how SocialProof works. We only ask you to upgrade if you outgrow one widget or want to remove branding.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">When will Pro launch?</div>
+        <div class="faq-a">
+          Pro is in final development. <a href="/pro-waitlist/">Join the waitlist</a> and you'll be the first to know — founding members get a discount locked in for life.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Can I collect testimonials on the Free plan?</div>
+        <div class="faq-a">
+          Absolutely. Collection is unlimited on every plan. You get a unique link to share with customers — they fill in a short form, you approve it in your dashboard, and it appears in your widget. No plan upgrade needed to start collecting.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What platforms does the embed widget work on?</div>
+        <div class="faq-a">
+          Any site that allows custom HTML: WordPress, Squarespace, Wix, Webflow, Shopify, plain HTML sites, and more. It's a single script tag — drop it in and it renders. See our <a href="/docs/embed-guide">embed guide</a> for step-by-step instructions per platform.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Is there a contract or long-term commitment for Pro?</div>
+        <div class="faq-a">
+          No. Pro is month-to-month. Cancel any time — your data stays yours.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What happens to my testimonials if I downgrade?</div>
+        <div class="faq-a">
+          Nothing is deleted. Your testimonials are always yours. If you downgrade from Pro to Free, your first widget stays active and all your testimonials remain in your dashboard.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+      <h2>Start collecting testimonials today.</h2>
+      <p>Free forever for 1 active widget. No credit card. Takes 2 minutes to set up.</p>
+      <a href="https://app.socialproof.dev/signup">Create your free account →</a>
+    </div>
+
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "SocialProof Pricing",
+    "description": "SocialProof pricing: Free forever for 1 active widget. Pro plan at $9/month for unlimited widgets and custom branding.",
+    "url": "https://socialproof.dev/pricing/",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Offer",
+            "name": "Free Plan",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free forever for 1 active widget. Unlimited testimonial collection, moderation dashboard, and embed code included."
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Offer",
+            "name": "Pro Plan",
+            "price": "9",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "billingDuration": "P1M"
+            },
+            "description": "Unlimited widgets, remove branding, custom domain, API access, and CSV export."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+</Base>
