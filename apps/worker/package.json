@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-"db:migrate": "wrangler d1 migrations apply vouch-db",
+    "db:migrate": "wrangler d1 migrations apply vouch-db",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
-    "hono": "^4.4.0"
+    "hono": "^4.4.0",
+    "svix": "^1.86.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240910.0",

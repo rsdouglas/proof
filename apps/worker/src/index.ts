@@ -28,6 +28,7 @@ export interface Env {
   STRIPE_WEBHOOK_SECRET: string
   STRIPE_PRO_PRICE_ID: string
   RESEND_API_KEY?: string
+  RESEND_WEBHOOK_SECRET?: string
   ADMIN_SECRET?: string
   ADMIN_TOKEN?: string
 }
