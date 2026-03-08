@@ -173,11 +173,11 @@ Create the CF API token at: [dash.cloudflare.com/profile/api-tokens](https://das
 ## Step 9: Verify
 
 ```bash
-# Test the API is live
-curl https://api.socialproof.dev/health
+./scripts/public-health-check.sh
 
-# Test widget script loads
-curl https://widget.socialproof.dev/widget.js | head -5
+# Individual spot checks if needed:
+curl -A 'Mozilla/5.0' https://api.socialproof.dev/health
+curl -A 'Mozilla/5.0' https://widget.socialproof.dev/v1/socialproof.js | head -5
 
 # Test dashboard loads
 open https://app.socialproof.dev
@@ -196,9 +196,9 @@ open https://app.socialproof.dev
 
 ## Post-Deploy Checklist
 
-- [ ] `curl https://api.socialproof.dev/health` returns 200
+- [ ] `./scripts/public-health-check.sh` returns all expected statuses
 - [ ] Can sign up at `https://app.socialproof.dev`
-- [ ] Widget embed script loads from `https://widget.socialproof.dev/widget.js`
+- [ ] Widget embed script loads from `https://widget.socialproof.dev/v1/socialproof.js`
 - [ ] Test testimonial submission end-to-end
 - [ ] Stripe test checkout works (use test card `4242 4242 4242 4242`)
 - [ ] Welcome email arrives on signup
