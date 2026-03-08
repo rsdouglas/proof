@@ -18,7 +18,7 @@ Welcome to SocialProof. You're 3 minutes away from your first testimonial.
 
 Here's your personal collection link:
 
-**[https://collect.socialproof.dev/c/[widget-id]]**
+**[https://socialproof.dev/c/frm_[form-id]]**
 
 Send this link to one customer who you know had a great experience. Just copy this text into an email or DM:
 
@@ -50,7 +50,7 @@ Quick check-in: have you sent your SocialProof link to a customer yet?
 
 Here it is again:
 
-**[https://collect.socialproof.dev/c/[widget-id]]**
+**[https://socialproof.dev/c/frm_[form-id]]**
 
 I know it feels weird to ask for a testimonial. Here's what actually works:
 
@@ -89,7 +89,7 @@ The most common reasons people don't send it:
 - "I feel awkward asking" → Your customers WANT to support you. Asking lets them.
 - "I'll do it when I have more time" → It takes 2 minutes. Now counts.
 
-Your link: **[https://collect.socialproof.dev/c/[widget-id]]**
+Your link: **[https://socialproof.dev/c/frm_[form-id]]**
 
 If there's something about the product that's confusing or broken, reply and tell me. I read every response.
 

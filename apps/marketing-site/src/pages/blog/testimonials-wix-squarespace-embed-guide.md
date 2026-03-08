@@ -46,7 +46,7 @@ Both Wix and Squarespace support embedding custom code, which means you can use 
 
 **Step 1:** Sign up at [socialproof.dev](https://socialproof.dev) — free, no credit card
 
-**Step 2:** You'll get a collection link (like `socialproof.dev/collect/your-handle`). Share this with customers via email, text, or your post-purchase thank-you page.
+**Step 2:** You'll get a collection link (like `socialproof.dev/c/your-handle`). Share this with customers via email, text, or your post-purchase thank-you page.
 
 **Step 3:** When a customer submits a testimonial, you approve it in the SocialProof dashboard.
 

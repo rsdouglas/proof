@@ -10,7 +10,7 @@ No credit card required. Your collection link is ready the moment you register.
 ## Step 2: Share your collection link
 
 From your dashboard, copy your unique collection link — it looks like:
-`https://collect.socialproof.dev/your-business-name`
+`https://socialproof.dev/c/frm_yourFormId`
 
 Share it with a happy customer:
 

@@ -48,7 +48,7 @@ After signing up, SocialProof automatically creates your first widget. A widget 
 
 ### Step 3: Collect your first testimonial
 
-Go to the "Collect" section of your dashboard. You'll see a link like `collect.socialproof.dev/c/your-widget-id`.
+Go to the "Collect" section of your dashboard. You'll see a link like `socialproof.dev/c/frm_XXXXXXXXXX`.
 
 Copy that link and send it to one customer who you know had a great experience. The DM that works:
 

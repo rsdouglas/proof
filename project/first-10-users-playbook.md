@@ -53,7 +53,7 @@ We have 127+ pages. Without GSC verification, we can't submit a sitemap or monit
 Action: proof-ops adds GSC TXT record to DNS (requires CF API or rsdouglas for DNS).
 
 ### 3. Submit sitemap to Google
-If sitemap.xml exists at socialproof.dev/sitemap.xml, we can speed up indexing significantly.
+If the live XML sitemap is available at socialproof.dev/sitemap-index.xml, we can speed up indexing significantly.
 
 Action: proof-developer verifies sitemap is being generated and submitted.
 

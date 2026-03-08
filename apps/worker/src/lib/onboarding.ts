@@ -10,7 +10,7 @@
  */
 
 const FROM = 'SocialProof <hello@socialproof.dev>'
-const COLLECT_BASE = 'https://collect.socialproof.dev/c'
+const COLLECT_BASE = 'https://socialproof.dev/c'
 const DASH = 'https://app.socialproof.dev'
 
 function wrap(body: string): string {

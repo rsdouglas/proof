@@ -87,7 +87,7 @@ We need 10 real users before we optimize anything. These scripts are for direct 
 >
 > Here's how it works:
 > 1. You add one `<script>` tag to your site
-> 2. You email your customer a link (e.g. vouch.socialproof.dev/collect/yourwidget)
+> 2. You email your customer a link (e.g. socialproof.dev/c/frm_yourFormId)
 > 3. They fill out 3 fields in 30 seconds — no account required
 > 4. You approve it in your dashboard
 > 5. It shows up on your site instantly
