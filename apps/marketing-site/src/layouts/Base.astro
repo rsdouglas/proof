@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 const canonicalUrl = canonical ?? Astro.url.href;
+const cfToken = import.meta.env.CF_ANALYTICS_TOKEN;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -78,6 +79,9 @@ const canonicalUrl = canonical ?? Astro.url.href;
     "url": "https://socialproof.dev"
   }
   </script>
+  {cfToken && (
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cfToken}"}`}></script>
+  )}
 </head>
 <body>
   <!-- ANNOUNCEMENT BANNER -->
