@@ -113,7 +113,7 @@ You can manually add testimonials you already have, or share your collection for
 In your SocialProof dashboard, click "Embed" on your widget. You'll get a small HTML snippet — something like this:
 
  <!-- SocialProof testimonial widget -->
-<div id="vouch-widget" data-widget-id="your-widget-id"></div>
+<div id="socialproof-widget" data-widget-id="your-widget-id"></div>
 <script src="https://widget.socialproof.dev/widget.js" async></script>
  
 
