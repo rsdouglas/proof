@@ -72,6 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await res.json() as { token: string; account: Account; error?: string }
     if (!res.ok) throw new Error(data.error || 'Login failed')
     persist(data.token, data.account)
+    localStorage.setItem('proof_just_signed_up', '1')
   }, [])
 
   const signup = useCallback(async (email: string, password: string, name: string) => {
@@ -84,6 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await res.json() as { token: string; account: Account; error?: string }
     if (!res.ok) throw new Error(data.error || 'Signup failed')
     persist(data.token, data.account)
+    localStorage.setItem('proof_just_signed_up', '1')
   }, [])
 
   const loginDemo = useCallback(async () => {
@@ -91,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await res.json() as { token: string; account: Account; demo: boolean; error?: string }
     if (!res.ok) throw new Error(data.error || 'Demo login failed')
     persist(data.token, data.account)
+    localStorage.setItem('proof_just_signed_up', '1')
   }, [])
 
   const logout = useCallback(async () => {

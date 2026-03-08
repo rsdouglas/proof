@@ -115,6 +115,24 @@ export default function Login() {
           </button>
         </form>
 
+        {mode === 'signup' && (
+          <div style={{
+            marginTop: 16,
+            paddingTop: 16,
+            borderTop: `1px solid ${colors.gray100}`,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}>
+            <p style={{ margin: 0, fontSize: 13, color: colors.gray600, lineHeight: 1.5 }}>
+              Free forever for 1 active widget. No credit card required.
+            </p>
+            <p style={{ margin: 0, fontSize: 12, color: colors.gray500, lineHeight: 1.5 }}>
+              Trusted by small businesses to collect testimonials, approve them fast, and embed them anywhere.
+            </p>
+          </div>
+        )}
+
         {mode === 'login' && (
           <p style={{ textAlign: 'center', marginTop: 14, fontSize: 13, color: colors.gray500 }}>
             <Link to="/forgot-password" style={{ color: colors.gray500, textDecoration: 'none' }}>
