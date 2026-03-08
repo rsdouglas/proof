@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useApi, useAuth } from '../lib/auth'
 import {
@@ -483,6 +483,11 @@ const statCards = (stats: Stats) => [
 
 export default function Dashboard() {
   const { account } = useAuth()
+  const isFirstVisit = useMemo(() => localStorage.getItem('proof_just_signed_up') === '1', [])
+
+  useEffect(() => {
+    if (isFirstVisit) localStorage.removeItem('proof_just_signed_up')
+  }, [isFirstVisit])
   const { request } = useApi()
   const [stats, setStats] = useState<Stats>({ total_testimonials: 0, approved: 0, pending: 0, total_widgets: 0 })
   const [recent, setRecent] = useState<Array<{ id: string; display_name: string; display_text: string; status: string }>>([])
@@ -543,7 +548,7 @@ export default function Dashboard() {
           Dashboard
         </h1>
         <p style={{ margin: 0, fontSize: 14, color: colors.gray400 }}>
-          Welcome back{account?.name ? `, ${account.name}` : ''}.
+          {isFirstVisit ? 'Welcome' : 'Welcome back'}{account?.name ? `, ${account.name}` : ''}.
         </p>
       </div>
 
