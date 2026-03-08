@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How Lawyers Get More Clients With Testimonials (What Works in 2025)"
+title: "How Lawyers Get More Clients With Testimonials (What Works in 2026)"
 description: "Learn how law firms and solo attorneys collect client testimonials ethically and display them to win more inquiries. Practical scripts and examples."
 publishedAt: "2025-01-24"
 author: "SocialProof Team"

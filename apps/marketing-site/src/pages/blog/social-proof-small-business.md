@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Social Proof for Small Business: The Complete Guide | SocialProof"
+title: "Social Proof for Small Business: The Complete Guide"
 description: "Everything small business owners need to know about social proof: what it is, why it works, and how to collect and display testimonials, reviews, and trust signals on your website."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

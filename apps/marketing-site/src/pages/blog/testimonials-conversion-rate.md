@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Use Testimonials to Double Your Conversion Rate | SocialProof"
+title: "How to Use Testimonials to Double Your Conversion Rate"
 description: "Testimonials can double—or triple—your conversion rate. Here's the exact strategy for which testimonials to use, where to place them, and how to format them for maximum impact."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

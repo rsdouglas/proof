@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Add a Testimonial Widget to Your Shopify Store (No Code) | SocialProof"
+title: "How to Add a Testimonial Widget to Your Shopify Store (No Code)"
 description: "Add a testimonial widget to your Shopify store in under 5 minutes—no coding required. Step-by-step guide for displaying customer reviews with SocialProof."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Share Customer Testimonials on Social Media (And Why It Works) | SocialProof"
+title: "How to Share Customer Testimonials on Social Media (And Why It Works)"
 description: "Turn your best customer testimonials into social media posts that drive new leads. Learn how to share testimonials on Twitter, Instagram, LinkedIn, and Facebook — with real examples and templates."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

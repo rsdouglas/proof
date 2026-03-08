@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "The Best Alternatives to Every Major Review & Testimonial Tool (2025)"
+title: "The Best Alternatives to Every Major Review & Testimonial Tool (2026)"
 description: "Comparing 59 review and testimonial tools — and why SocialProof is the simplest, most affordable alternative for small businesses. Free forever for 1 widget."
 publishedAt: "2025-06-04"
 author: "SocialProof Team"

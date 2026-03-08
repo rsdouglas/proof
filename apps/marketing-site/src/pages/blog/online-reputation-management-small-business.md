@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Online Reputation Management for Small Businesses (2025 Guide)"
+title: "Online Reputation Management for Small Businesses (2026 Guide)"
 description: "Your online reputation determines whether customers choose you or your competitor. Here's the complete ORM guide for small business owners — without the agency price tag."
 publishedAt: "2026-03-08"
 author: "SocialProof Team"

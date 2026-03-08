@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "42 Social Proof Statistics Every Small Business Owner Should Know (2025)"
+title: "42 Social Proof Statistics Every Small Business Owner Should Know (2026)"
 description: "Data-backed social proof statistics that show why testimonials, reviews, and word-of-mouth are the most powerful marketing tools for small businesses."
 publishedAt: "2025-03-08"
 author: "SocialProof Team"

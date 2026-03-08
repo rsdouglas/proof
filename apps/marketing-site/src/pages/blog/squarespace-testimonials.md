@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Add Testimonials to Your Squarespace Website | SocialProof"
+title: "How to Add Testimonials to Your Squarespace Website"
 description: "Add real customer testimonials to your Squarespace site without plugins or paid add-ons. SocialProof works with one code block — no Squarespace plan upgrade required."
 publishedAt: "2026-03-01"
 author: "SocialProof Team"

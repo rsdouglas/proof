@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How to Embed Testimonials on Any Website (2025 Guide)"
+title: "How to Embed Testimonials on Any Website (2026 Guide)"
 description: "A technical how-to for embedding testimonial widgets on WordPress, Squarespace, Webflow, Wix, Shopify, and any custom site. With real code examples."
 publishedAt: "2025-03-08"
 author: "SocialProof Team"

@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "Customer Success Stories: How to Collect, Write, and Use Them (2025 Guide)"
+title: "Customer Success Stories: How to Collect, Write, and Use Them (2026 Guide)"
 description: "Customer success stories are the most persuasive content a business can produce. This guide shows you how to collect them, structure them for maximum impact, and use them to win new customers."
 publishedAt: "2025-03-15"
 author: "SocialProof Team"
