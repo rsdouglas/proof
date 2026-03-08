@@ -52,7 +52,7 @@ Key elements:
 
 ### Use a simple collection link
 
-Tools like [Proof](https://socialproof.dev) let you send a branded collection link where customers can record directly in their browser — no app download, no technical steps. They just click the link, allow camera access, hit record.
+Dedicated tools like [Vocal Video](https://vocal.video) or [Testimonial.to](https://testimonial.to) let you send a branded collection link where customers can record directly in their browser — no app download, no technical steps. They just click the link, allow camera access, hit record.
 
 This is the difference between a 5% video testimonial response rate and a 25% one.
 
@@ -123,13 +123,13 @@ Doing this manually doesn't scale. Build a system:
 3. **Follow-up:** One reminder 5 days later if no response
 4. **Gratitude:** Automatic thank-you when submitted
 
-With [Proof](https://socialproof.dev), you can set up the collection form, embed the widget on your site, and display submitted videos — all without developer help.
+If you prefer text testimonials — which are faster to collect and just as conversion-effective — [SocialProof](https://socialproof.dev) gives you a simple collection link to send customers. They submit in 2 minutes; you approve and embed with one line of code.
 
 ## Quick-Start Checklist
 
 - [ ] Identify your "moment of delight" — when customers are happiest
 - [ ] Write your video testimonial ask (use the template above)
-- [ ] Set up a collection link (Proof or similar tool)
+- [ ] Set up a collection link (Vocal Video, Testimonial.to, or similar tool)
 - [ ] Choose 2-3 guiding questions to send with your ask
 - [ ] Decide your first placement: homepage hero, testimonials page, or service page
 - [ ] Ask your 3 most enthusiastic recent customers this week
@@ -140,4 +140,4 @@ The best time to start collecting video testimonials was last year. The second b
 
 Start with one customer. Show them what you're building. Make it easy for them. The first video testimonial is the hardest — after that, you'll have a template, a confidence boost, and proof that it works.
 
-Try [Proof free](https://socialproof.dev) — the simplest way to collect and display video testimonials on any website.
+For text testimonials — the fastest way to build social proof — try [SocialProof free](https://socialproof.dev). One link, customer submits in 2 minutes, embeds on any website.
