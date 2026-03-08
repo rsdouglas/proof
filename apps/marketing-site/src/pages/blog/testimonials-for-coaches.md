@@ -94,7 +94,7 @@ Most clients say yes.
 
 ## Collect and Display With Proof
 
-[Proof](https://socialproof.dev) gives you a simple link to send clients — they type (or record video) their testimonial, and it appears in a beautiful embeddable widget on your website. No tech skills required. Free to start.
+[Proof](https://socialproof.dev) gives you a simple link to send clients — they type their testimonial, and it appears in a beautiful embeddable widget on your website. No tech skills required. Free to start.
 
 ---
 

@@ -212,7 +212,7 @@ After two unanswered attempts, drop it. Don't risk the relationship. Some people
 If you're doing this at scale, sending individual emails and tracking responses manually gets exhausting. A testimonial collection tool handles:
 
 - Sending automated requests at the right time
-- Providing a branded form customers fill out (or video record in-browser)
+- Providing a branded form customers fill out
 - Keeping all testimonials in one dashboard
 - One-click embedding on your website
 
