@@ -1,73 +1,67 @@
 ---
 layout: ../../layouts/BlogPost.astro
-title: "How Virtual Assistants Get Client Testimonials That Win Premium Rates"
-description: "VAs and OBMs: learn how to collect client testimonials that prove your value, raise your rates, and attract higher-quality clients."
-publishedAt: "2025-01-24"
+title: "How Virtual Assistants Can Use Client Testimonials to Land Better Clients"
+description: "VAs compete in a crowded, remote market where clients can't see you in person. Testimonials are how you demonstrate reliability, competence, and trustworthiness before the first Zoom call."
+publishedAt: "2026-03-11"
 author: "SocialProof Team"
+tags: ["testimonials", "virtual assistants", "VA marketing", "virtual assistant reviews", "freelance VA"]
 ---
 
-# How Virtual Assistants Get Client Testimonials That Win Premium Rates
+A business owner hiring a virtual assistant is handing over access to their calendar, inbox, and sometimes their finances. The stakes are high and the decision is based almost entirely on perceived trustworthiness.
 
-Virtual assistance is a crowded market. Hundreds of VAs compete for the same clients on Upwork, through social media, and by referral. What separates the VA charging $15/hour from the one charging $65/hour?
+In a market where you can't meet in person and where LinkedIn is full of people with identical "detail-oriented, proactive, reliable" descriptions — testimonials from real clients are what differentiate you.
 
-Proof. Specifically: client testimonials that demonstrate measurable results.
+## Who Is Hiring VAs
 
-## Why VAs Struggle to Get Testimonials
-
-Most VAs work behind the scenes. Their clients' success is partly their success — but clients don't always make that connection explicit. And VAs often don't ask, worried about seeming unprofessional or pushy.
-
-The result: an experienced, skilled VA with no public evidence of their work. That means lower rates and clients who question your value.
+- Solopreneurs and coaches overwhelmed by admin and communications
+- Small business owners who need inbox and calendar management
+- E-commerce sellers who need order fulfillment and customer service support
+- Content creators who need research, scheduling, and repurposing help
+- Real estate agents managing transaction coordination
+- Executives who need travel booking and project management support
 
 ## When to Ask
 
-The best moments to request a testimonial:
+**At the 30-day mark with a new client:**
+> "We've been working together for a month now and I hope things have been running more smoothly. If you're happy with how it's going, I'd love a LinkedIn recommendation — it means a great deal for my practice: [link]"
 
-- **After a specific win** — you organized their inbox, launched their podcast, handled a crisis situation
-- **At a project milestone** — you've been with them 3 months, hit a delivery goal, completed a launch
-- **When they compliment you** — if a client says "You're amazing, I don't know what I'd do without you" — that's your cue: "Would you write that down for me?"
+**When you solve a significant problem:**
+> "Glad we got that sorted out! If that's the kind of work you want people to know I do, a recommendation on LinkedIn would be incredibly helpful: [link]"
 
-## Scripts for Virtual Assistants
+**At contract renewal:**
+> "Really appreciate the renewal — it means a lot. If you're comfortable sharing your experience, a testimonial on my website or LinkedIn would help me find more clients like you: [link]"
 
-**After a specific win (Slack/email):**
-> "I'm so glad that went smoothly! This might be a big ask, but would you be willing to write a quick testimonial about working together? It would mean so much for my business — and it only takes a few minutes. I can send you a link."
+## What a Strong VA Testimonial Looks Like
 
-**Regular client, unprompted:**
-> "I've really loved working together on [project]. As my business grows, would you be open to sharing a short testimonial about our work? It helps me communicate what I do to new clients."
+*"I hired [name] when my inbox had 3,400 unread emails and I was spending 3 hours a day on administrative tasks that were keeping me from client work. Within two weeks, she had built a system, cleared the backlog, and I was down to 30 minutes of email work per day. Six months in, she anticipates things before I ask. I've regained probably 15 hours a month. Hiring her was one of the best business decisions I've made."*
 
-**End of contract:**
-> "Before we wrap up this project, I'd love to capture your perspective on our work together. A testimonial goes a long way for a VA. Would you be willing?"
+Strong elements: quantified starting problem (3,400 emails, 3 hours/day), specific outcome (30 minutes/day), time horizon, proactivity evidence, ROI framing, and endorsement as business decision.
 
-## What a High-Converting VA Testimonial Looks Like
+## Segment Your Testimonials
 
-**Weak:** "Great VA, very organized."
+Use [SocialProof](/) to tag testimonials by:
+- **Email / inbox management**
+- **Calendar / scheduling**
+- **E-commerce / customer service**
+- **Content scheduling / social media**
+- **Research and data entry**
+- **Financial / bookkeeping support**
+- **Real estate transaction coordination**
 
-**Strong:** "Before working with [VA name], I spent 4 hours every Monday catching up on email and admin. She set up my entire inbox system, onboarded my new project management tool, and handles all my client scheduling. Now Mondays are back. I've reclaimed 15 hours a week and my business is growing faster because of it."
+## Where to Collect Testimonials
 
-That second testimonial speaks directly to the client's pain (time drain, chaos) and your specific impact (15 hours/week recovered). It justifies a premium rate.
+1. **LinkedIn recommendations** — The gold standard for B2B/service provider credibility
+2. **Google Business Profile** — If you have one set up
+3. **Upwork / Fiverr** — Platform reviews if you work through these
+4. **Your website** — Portfolio and testimonial by specialty via [SocialProof](/)
+5. **Email / video testimonials** — For high-value clients who know you well
 
-## OBM (Online Business Manager) Testimonials
+## A Note on Video Testimonials
 
-OBMs operate at a higher strategic level. Your testimonials should reflect that:
+For VA work, video testimonials are exceptionally powerful. A 60-second video from a client saying "here's what my workload looked like before, here's what it looks like now" is a conversion asset that text can't match.
 
-> "Before hiring [OBM], I was the bottleneck in my own business. She came in, mapped our operations, built our team SOPs, and ran our product launch end-to-end. We had our biggest launch ever — $180K — and I was barely involved. She didn't just save me time; she scaled my business."
-
-## LinkedIn Recommendations for VAs
-
-LinkedIn is the primary discovery channel for VAs and OBMs. A recommendation from a named CEO, founder, or executive is gold. Ask every satisfied client:
-
-> "Would you be willing to leave a LinkedIn recommendation? Same text as the testimonial you wrote — I'll send you the link."
-
-## Where to Display VA Testimonials
-
-- **Your website's services page** — next to each service offering
-- **LinkedIn profile** — recommendations and featured posts
-- **Portfolio/case study page** — combine testimonials with outcomes data
-- **Proposals** — include 2-3 relevant testimonials in client proposals
-
-## Collect Testimonials With Proof
-
-[Proof](https://socialproof.dev) gives you a simple link to send clients. They leave a testimonial in minutes; it displays on your website immediately. Free forever for 1 active widget.
+Ask for video for your best clients. Offer to make it easy — give them 3 bullet points to address. Use [SocialProof](/) to collect and embed video testimonials on your website.
 
 ---
 
-*Related: [How to Ask for a Testimonial](/blog/how-to-ask-for-a-testimonial) | [Social Proof for Virtual Assistants](/for/virtual-assistants)*
+The VA who has 15 specific, outcome-focused testimonials will fill their client roster while competitors with identical skills stay underbooked. Start asking. [Start collecting VA testimonials →](/)
