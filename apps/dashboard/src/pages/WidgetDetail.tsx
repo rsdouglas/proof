@@ -348,7 +348,16 @@ export default function WidgetDetail() {
           {/* Embed code + install guide */}
           <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Embed code</h3>
-            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>Copy the snippet below and paste it into your site</p>
+            <p style={{ margin: '0 0 8px', fontSize: 12, color: colors.gray500 }}>Copy the snippet below and paste it into your site</p>
+            <a
+              href="https://socialproof.dev/docs/embedding"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'inline-block', margin: '0 0 12px', fontSize: 12, color: colors.brand, fontWeight: 500, textDecoration: 'none' }}
+            >
+              📖 Not sure how to add this? See our embed guide →
+            </a>
+            <p style={{ margin: '0 0 12px', fontSize: 12, color: colors.gray500 }}>Works with WordPress, Squarespace, Wix, Webflow, Shopify, and plain HTML sites.</p>
             <pre style={{
               background: '#1e1e2e', color: '#cdd6f4', borderRadius: radius.sm, padding: 12,
               fontSize: 11, overflow: 'auto', margin: '0 0 8px', lineHeight: 1.6,
