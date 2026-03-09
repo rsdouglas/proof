@@ -77,7 +77,7 @@ Paid Workers plan ($5/month) needed at ~10k+ customers or heavy widget traffic.
 1. `bash infra/setup.sh` — provision all resources
 2. Update `apps/worker/wrangler.toml` with real DB + KV IDs
 3. Update `apps/widget/wrangler.toml` with real KV ID
-4. `cd apps/worker && wrangler secret put JWT_SECRET`
+4. Bind Worker secrets via the approved Cloudflare ops path (`JWT_SECRET`, `RESEND_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and when support inbound is enabled, `RESEND_WEBHOOK_SECRET`)
 5. Set GitHub secrets + variables
 6. Push to main → CI/CD deploys everything
 
