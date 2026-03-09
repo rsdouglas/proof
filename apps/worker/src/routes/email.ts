@@ -18,12 +18,23 @@ export interface EmailPayload {
 const FROM = 'SocialProof <hello@socialproof.dev>'
 const SETTINGS_URL = 'https://app.socialproof.dev/settings'
 
+
+function isNonCriticalEmailPaused(env: any): boolean {
+  const value = env?.PAUSE_NONCRITICAL_EMAIL
+  return value === '1' || value === 'true' || value === 'yes' || value === 'on'
+}
+
 /**
  * Send an email via Resend.
  * Falls back to a no-op in development or when RESEND_API_KEY is not set.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendEmail(payload: EmailPayload, env: any): Promise<void> {
+  if (isNonCriticalEmailPaused(env)) {
+    console.warn('[email] PAUSE_NONCRITICAL_EMAIL enabled — skipping:', payload.subject, 'to', payload.to)
+    return
+  }
+
   if (env?.ENVIRONMENT === 'development' || !env?.RESEND_API_KEY) {
     console.log('[email] Would send:', payload.subject, 'to', payload.to)
     return
