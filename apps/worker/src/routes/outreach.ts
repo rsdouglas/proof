@@ -19,12 +19,19 @@ import { sendEmail } from './email'
 
 const outreach = new Hono<{ Bindings: Env }>()
 
+const NONCRITICAL_EMAIL_PAUSE_HINT = 'Set PAUSE_NONCRITICAL_EMAIL=1 to preserve provider quota for user-facing mail during incidents.'
+
 // ── Auth helper ────────────────────────────────────────────────────────────────
 function checkAuth(c: any): boolean {
   const authHeader = c.req.header('Authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
   const adminToken = c.env.ADMIN_TOKEN ?? c.env.ADMIN_SECRET
   return !!token && token === adminToken
+}
+
+function isNonCriticalEmailPaused(env: Env): boolean {
+  const value = env.PAUSE_NONCRITICAL_EMAIL
+  return value === '1' || value === 'true' || value === 'yes' || value === 'on'
 }
 
 // ── Email templates ────────────────────────────────────────────────────────────
@@ -249,6 +256,10 @@ outreach.post('/targets', async (c) => {
 // ── POST /send — fire pending emails ──────────────────────────────────────────
 outreach.post('/send', async (c) => {
   if (!checkAuth(c)) return c.json({ error: 'Unauthorized' }, 401)
+
+  if (isNonCriticalEmailPaused(c.env)) {
+    return c.json({ error: 'non-critical email paused', hint: NONCRITICAL_EMAIL_PAUSE_HINT }, 503)
+  }
 
   let limit = 25
   let dryRun = false
