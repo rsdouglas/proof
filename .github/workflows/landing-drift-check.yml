@@ -1,0 +1,56 @@
+name: Landing Drift Check
+
+on:
+  pull_request:
+    paths:
+      - 'apps/marketing-site/src/pages/**'
+      - 'apps/landing/**'
+
+jobs:
+  check-landing-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/marketing-site/package-lock.json
+
+      - name: Install dependencies
+        run: cd apps/marketing-site && npm ci
+
+      - name: Build Astro site
+        run: cd apps/marketing-site && npm run build
+
+      - name: Check landing sync
+        run: |
+          set -e
+          DIST="apps/marketing-site/dist"
+          LANDING="apps/landing"
+          FAIL=0
+          
+          for dir in for vs; do
+            # Get pages from dist (subdirectory names = slug names)
+            dist_pages=$(find "$DIST/$dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
+            # Get pages from landing (filename without .html)
+            landing_pages=$(find "$LANDING/$dir" -maxdepth 1 -name '*.html' ! -name 'index.html' -exec basename {} .html \; | sort)
+            
+            # Check for pages in dist that are missing from landing
+            missing=$(comm -23 <(echo "$dist_pages") <(echo "$landing_pages"))
+            if [ -n "$missing" ]; then
+              echo "❌ Missing from apps/landing/$dir/:"
+              echo "$missing" | sed 's/^/  - /'
+              FAIL=1
+            else
+              count=$(echo "$dist_pages" | wc -l | tr -d ' ')
+              echo "✅ apps/landing/$dir/ in sync ($count pages)"
+            fi
+          done
+          
+          if [ "$FAIL" = "1" ]; then
+            echo ""
+            echo "Run: cd apps/marketing-site && npm run build && cd ../.. && bash tools/sync-landing.sh"
+            exit 1
+          fi
