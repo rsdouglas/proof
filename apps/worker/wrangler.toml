@@ -19,6 +19,8 @@ id = "731e18288e9e4de091e01e0a5d6d3cc4"
 
 [vars]
 ENVIRONMENT = "production"
+SES_REGION = "us-west-2"
+SES_FROM_EMAIL = "hello@socialproof.dev"
 
 [triggers]
 crons = ["0 * * * *"]  # Run hourly for drip email sequence
@@ -30,3 +32,6 @@ port = 8787
 # Required for transactional email via Resend:
 #   RESEND_API_KEY  - get from resend.com dashboard
 #                    wrangler secret put RESEND_API_KEY
+# Required for transactional email via Amazon SES:
+#   SES_AWS_ACCESS_KEY_ID      wrangler secret put SES_AWS_ACCESS_KEY_ID
+#   SES_AWS_SECRET_ACCESS_KEY  wrangler secret put SES_AWS_SECRET_ACCESS_KEY
