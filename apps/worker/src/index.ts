@@ -29,6 +29,10 @@ export interface Env {
   STRIPE_PRO_PRICE_ID: string
   RESEND_API_KEY?: string
   RESEND_WEBHOOK_SECRET?: string
+  SES_AWS_ACCESS_KEY_ID?: string
+  SES_AWS_SECRET_ACCESS_KEY?: string
+  SES_REGION?: string
+  SES_FROM_EMAIL?: string
   PAUSE_NONCRITICAL_EMAIL?: string
   ADMIN_SECRET?: string
   ADMIN_TOKEN?: string
