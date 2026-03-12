@@ -41,10 +41,14 @@ collect.get('/form/:formId', async (c) => {
 collect.get('/:formId', async (c) => {
   const formId = c.req.param('formId')
   const form = await c.env.DB.prepare(
-    'SELECT f.id, f.name, a.name as business_name, a.plan FROM collection_forms f JOIN accounts a ON a.id = f.account_id WHERE f.id = ? AND f.active = 1'
-  ).bind(formId).first<{ id: string; name: string; business_name: string; plan: string }>()
+    'SELECT f.id, f.name, a.name as business_name, a.plan, w.config as widget_config FROM collection_forms f JOIN accounts a ON a.id = f.account_id LEFT JOIN widgets w ON w.id = f.widget_id WHERE f.id = ? AND f.active = 1'
+  ).bind(formId).first<{ id: string; name: string; business_name: string; plan: string; widget_config?: string }>()
 
   const isFreePlan = !form || (form.plan ?? 'free') !== 'pro'
+  let googleReviewUrl = ''
+  if (form?.widget_config) {
+    try { googleReviewUrl = JSON.parse(form.widget_config).google_review_url || '' } catch {}
+  }
 
   const poweredByBadge = isFreePlan
     ? `<div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid #f3f4f6">
@@ -96,6 +100,13 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
     <div style="font-size:48px">🎉</div>
     <h2 id="success-heading">Thank you!</h2>
     <p>${escapeHtml(form.business_name)} will review your testimonial shortly. Your words make a real difference for a small business.</p>
+    ${googleReviewUrl ? `<div id="google-cta" style="display:none;margin-top:24px">
+      <p style="font-size:14px;color:#374151;margin:0 0 12px">Loving it? A quick Google review would mean the world to them.</p>
+      <a href="${escapeHtml(googleReviewUrl)}" target="_blank" rel="noopener noreferrer"
+         style="display:inline-block;padding:10px 24px;background:#4285F4;color:#fff;border-radius:6px;font-weight:600;font-size:14px;text-decoration:none">
+        ⭐ Leave a Google Review
+      </a>
+    </div>` : ''}
   </div>
   ${poweredByBadge}
 </div>
@@ -127,6 +138,10 @@ ${!form ? '<div class="card"><h1>Form not found</h1></div>' : `
       document.getElementById('success-heading').textContent = 'Thank you, ' + firstName + '!';
       document.getElementById('form').style.display = 'none';
       document.getElementById('success').style.display = 'block';
+      if (rating >= 4) {
+        var gcta = document.getElementById('google-cta');
+        if (gcta) gcta.style.display = 'block';
+      }
     } else {
       var d = await res.json();
       error.textContent = d.error || 'Something went wrong';
