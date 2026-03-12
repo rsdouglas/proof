@@ -139,8 +139,9 @@ export function buildTestimonialReceivedEmail(opts: {
     </div>
     <!-- Body -->
     <div style="padding: 32px;">
-      <h2 style="margin: 0 0 8px; font-size: 20px; color: #111827;">New testimonial for <em>${opts.widgetName}</em> 🎉</h2>
-      <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px;">Hey ${firstName} — ${opts.customerName} just left you a review.</p>
+      <h2 style="margin: 0 0 8px; font-size: 20px; color: #111827;">1 testimonial waiting for approval</h2>
+      <p style="margin: 0 0 12px; color: #6b7280; font-size: 14px;">Hey ${firstName} — ${opts.customerName} just left a review for <em>${opts.widgetName}</em>.</p>
+      <p style="margin: 0 0 24px; color: #111827; font-size: 14px; line-height: 1.6;"><strong>It will not appear on your site until you approve it.</strong> Open your dashboard, review it, and click approve.</p>
       
       <!-- Card -->
       <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
@@ -149,7 +150,7 @@ export function buildTestimonialReceivedEmail(opts: {
         <div style="font-size: 13px; color: #9ca3af;">— ${opts.customerName}</div>
       </div>
       
-      <a href="${opts.reviewUrl}" style="display: inline-block; background: #6C5CE7; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">Review &amp; Approve →</a>
+      <a href="${opts.reviewUrl}" style="display: inline-block; background: #6C5CE7; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600;">Approve testimonial →</a>
     </div>
     <!-- Footer -->
     <div style="padding: 16px 32px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af;">
@@ -169,7 +170,7 @@ Hey ${firstName} — ${opts.customerName} left you a ${opts.rating}-star review:
 
 — ${opts.customerName}
 
-Review and approve it here: ${opts.reviewUrl}
+Approve it so it appears on your site: ${opts.reviewUrl}
 
 ---
 You're receiving this because you have a SocialProof account.
@@ -177,7 +178,7 @@ To unsubscribe, reply with "unsubscribe".`
 
   return {
     to: opts.ownerEmail,
-    subject: `New testimonial from ${opts.customerName} 🎉`,
+    subject: `${opts.customerName} left a testimonial — approve to publish`,
     html,
     text,
   }
