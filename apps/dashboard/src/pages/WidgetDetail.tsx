@@ -23,6 +23,7 @@ interface Widget {
   created_at: string
   embed_verified_at?: string | null
   embed_domain?: string | null
+  config?: string
 }
 
 type Tab = 'pending' | 'approved' | 'rejected'
@@ -171,6 +172,7 @@ export default function WidgetDetail() {
   const [name, setName] = useState('')
   const [theme, setTheme] = useState('light')
   const [layout, setLayout] = useState('grid')
+  const [googleReviewUrl, setGoogleReviewUrl] = useState('')
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'success' } | null>(null)
 
@@ -187,6 +189,8 @@ export default function WidgetDetail() {
       setName(wRes.widget.name)
       setTheme(wRes.widget.theme || 'light')
       setLayout(wRes.widget.layout || 'grid')
+      const cfg = wRes.widget.config ? JSON.parse(wRes.widget.config as string) : {}
+      setGoogleReviewUrl(cfg.google_review_url || '')
       setTestimonials(tRes.testimonials)
     } catch (e) {
       console.error(e)
@@ -203,7 +207,7 @@ export default function WidgetDetail() {
     try {
       await request(`/widgets/${id}`, {
         method: 'PATCH',
-        body: JSON.stringify({ name, theme, layout }),
+        body: JSON.stringify({ name, theme, layout, config: { google_review_url: googleReviewUrl } }),
       })
       setWidget(w => w ? { ...w, name, theme, layout } : w)
       showToast('Widget saved!', 'success')
@@ -386,6 +390,21 @@ export default function WidgetDetail() {
                 </label>
               ))}
             </div>
+          </div>
+
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: colors.gray700 }}>
+              Google Review URL <span style={{ fontWeight: 400, color: colors.gray500 }}>(optional)</span>
+            </label>
+            <input
+              value={googleReviewUrl}
+              onChange={e => setGoogleReviewUrl(e.target.value)}
+              placeholder="https://g.page/r/your-business/review"
+              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 14, boxSizing: 'border-box' }}
+            />
+            <p style={{ margin: '4px 0 0', fontSize: 11, color: colors.gray500 }}>
+              After submitting 4–5 star feedback, customers are invited to post on Google.
+            </p>
           </div>
 
           {/* Embed code + install guide */}
