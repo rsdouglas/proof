@@ -123,16 +123,24 @@ auth.post('/signup', async (c) => {
     'INSERT INTO collection_forms (id, account_id, name, active, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?)'
   ).bind(formId, id, 'Default', now, now).run()
 
-  // Send welcome email — fire-and-forget (don't block signup if email fails)
+  // Send welcome email off the request path, but keep the side effects coupled + observable.
   if (c.env.RESEND_API_KEY) {
-    sendWelcomeEmail(c.env.RESEND_API_KEY, {
-      email: normalizedEmail,
-      name: name.trim(),
-      formId,
-    }).catch((err) => console.error('[signup] welcome email failed:', err))
-    // Record send timestamp
-    c.env.DB.prepare('UPDATE accounts SET drip_welcome_sent_at = ? WHERE id = ?')
-      .bind(now, id).run().catch(() => {})
+    c.executionCtx.waitUntil((async () => {
+      try {
+        await sendWelcomeEmail(c.env.RESEND_API_KEY!, {
+          email: normalizedEmail,
+          name: name.trim(),
+          formId,
+        })
+        await c.env.DB.prepare('UPDATE accounts SET drip_welcome_sent_at = ? WHERE id = ?')
+          .bind(now, id).run()
+        console.log('[signup] welcome email sent:', normalizedEmail, id)
+      } catch (err) {
+        console.error('[signup] welcome email failed:', err)
+      }
+    })())
+  } else {
+    console.warn('[signup] RESEND_API_KEY not set — skipping welcome email for', normalizedEmail)
   }
 
   const token = await generateToken(id, normalizedEmail, 'free', c.env.JWT_SECRET)

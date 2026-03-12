@@ -1,11 +1,3 @@
-/**
- * Email notification helpers using Resend.
- *
- * All transactional email goes through Resend (https://resend.com).
- * Requires RESEND_API_KEY secret set via `wrangler secret put RESEND_API_KEY`.
- *
- * MailChannels ended their free Cloudflare Workers integration in 2024 — removed.
- */
 
 export interface EmailPayload {
   to: string
@@ -15,40 +7,107 @@ export interface EmailPayload {
   text: string
 }
 
-const FROM = 'SocialProof <hello@socialproof.dev>'
 const SETTINGS_URL = 'https://app.socialproof.dev/settings'
 
-/**
- * Send an email via Resend.
- * Falls back to a no-op in development or when RESEND_API_KEY is not set.
- */
+
+function isNonCriticalEmailPaused(env: any): boolean {
+  const value = env?.PAUSE_NONCRITICAL_EMAIL
+  return value === '1' || value === 'true' || value === 'yes' || value === 'on'
+}
+
+function hasSesConfig(env: any): boolean {
+  return Boolean(
+    env?.SES_AWS_ACCESS_KEY_ID &&
+    env?.SES_AWS_SECRET_ACCESS_KEY &&
+    env?.SES_REGION &&
+    env?.SES_FROM_EMAIL
+  )
+}
+
+function buildSesBody(payload: EmailPayload, env: any): string {
+  return JSON.stringify({
+    FromEmailAddress: env.SES_FROM_EMAIL,
+    Destination: { ToAddresses: [payload.to] },
+    Content: {
+      Simple: {
+        Subject: { Data: payload.subject, Charset: 'UTF-8' },
+        Body: {
+          Html: { Data: payload.html, Charset: 'UTF-8' },
+          Text: { Data: payload.text, Charset: 'UTF-8' },
+        },
+      },
+    },
+  })
+}
+
+async function signAndSendSesEmail(payload: EmailPayload, env: any): Promise<Response> {
+  const endpoint = `https://email.${env.SES_REGION}.amazonaws.com/v2/email/outbound-emails`
+  const body = buildSesBody(payload, env)
+  const url = new URL(endpoint)
+  const now = new Date()
+  const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, '')
+  const dateStamp = amzDate.slice(0, 8)
+
+  const encoder = new TextEncoder()
+  const toHex = (buffer: ArrayBuffer) => Array.from(new Uint8Array(buffer)).map((b) => b.toString(16).padStart(2, '0')).join('')
+  const sha256Hex = async (value: string) => toHex(await crypto.subtle.digest('SHA-256', encoder.encode(value)))
+  const importHmacKey = async (key: BufferSource) => crypto.subtle.importKey('raw', key, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+  const hmac = async (key: BufferSource, value: string) => crypto.subtle.sign('HMAC', await importHmacKey(key), encoder.encode(value))
+
+  const payloadHash = await sha256Hex(body)
+  const canonicalHeaders = [
+    'content-type:application/json',
+    `host:${url.host}`,
+    `x-amz-content-sha256:${payloadHash}`,
+    `x-amz-date:${amzDate}`,
+  ].join('\n')
+  const signedHeaders = 'content-type;host;x-amz-content-sha256;x-amz-date'
+  const canonicalRequest = ['POST', url.pathname, '', `${canonicalHeaders}\n`, signedHeaders, payloadHash].join('\n')
+  const credentialScope = `${dateStamp}/${env.SES_REGION}/ses/aws4_request`
+  const stringToSign = ['AWS4-HMAC-SHA256', amzDate, credentialScope, await sha256Hex(canonicalRequest)].join('\n')
+
+  const kDate = await hmac(encoder.encode(`AWS4${env.SES_AWS_SECRET_ACCESS_KEY}`), dateStamp)
+  const kRegion = await hmac(kDate, env.SES_REGION)
+  const kService = await hmac(kRegion, 'ses')
+  const kSigning = await hmac(kService, 'aws4_request')
+  const signature = toHex(await hmac(kSigning, stringToSign))
+  const authorization = `AWS4-HMAC-SHA256 Credential=${env.SES_AWS_ACCESS_KEY_ID}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-amz-date': amzDate,
+      'x-amz-content-sha256': payloadHash,
+      Authorization: authorization,
+    },
+    body,
+  })
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendEmail(payload: EmailPayload, env: any): Promise<void> {
-  if (env?.ENVIRONMENT === 'development' || !env?.RESEND_API_KEY) {
+  if (isNonCriticalEmailPaused(env)) {
+    console.warn('[email] PAUSE_NONCRITICAL_EMAIL enabled — skipping:', payload.subject, 'to', payload.to)
+    return
+  }
+
+  if (env?.ENVIRONMENT === 'development') {
     console.log('[email] Would send:', payload.subject, 'to', payload.to)
     return
   }
 
-  console.log('[email] Attempting send:', payload.subject, 'to', payload.to)
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: FROM,
-      to: payload.to,
-      subject: payload.subject,
-      html: payload.html,
-      text: payload.text,
-    }),
-  })
+  if (!hasSesConfig(env)) {
+    console.warn('[email] SES config missing — skipping:', payload.subject, 'to', payload.to)
+    return
+  }
+
+  console.log('[email] Attempting SES send:', payload.subject, 'to', payload.to)
+  const res = await signAndSendSesEmail(payload, env)
 
   if (!res.ok) {
     const err = await res.text().catch(() => 'unknown')
-    console.error('[email] Resend error:', res.status, err)
-    // Don't throw — email failure shouldn't break the main flow
+    console.error('[email] SES error:', res.status, err)
   } else {
     console.log('[email] Sent OK:', payload.subject, 'status', res.status)
   }

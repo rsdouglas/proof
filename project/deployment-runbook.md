@@ -8,7 +8,8 @@
 
 - Cloudflare account with `socialproof.dev` domain added
 - Node.js 18+ installed locally
-- Wrangler CLI: `npm install -g wrangler` then `wrangler login`
+- Cloudflare-authenticated ops access for production changes (preferred)
+- Wrangler CLI only if you are the creator/operator performing the approved production change directly
 - Stripe account (for billing secrets)
 - Resend account (for transactional emails)
 
@@ -64,23 +65,27 @@ wrangler d1 execute vouch-db --remote --file=migrations/0005_onboarding.sql
 
 ---
 
-## Step 3: Set Secrets
+## Step 3: Bind Secrets
+
+Use the approved Cloudflare production ops path to bind Worker secrets. Avoid ad-hoc local changes when an authenticated production ops path is available.
+
+Required Worker secrets:
+
+- `JWT_SECRET` — random 32+ character secret
+- `RESEND_API_KEY` — Resend API key for transactional email
+- `STRIPE_SECRET_KEY` — Stripe API secret
+- `STRIPE_WEBHOOK_SECRET` — Stripe webhook signing secret
+- `RESEND_WEBHOOK_SECRET` — Resend inbound webhook signing secret for `/api/support/inbound`
+
+If the creator/operator is intentionally performing the binding directly with Wrangler, the equivalent commands are:
 
 ```bash
 cd apps/worker
-
-# Required
 wrangler secret put JWT_SECRET
-# Enter a random 32+ char string, e.g.: openssl rand -base64 32
-
 wrangler secret put RESEND_API_KEY
-# Enter your Resend API key (from resend.com/api-keys)
-
 wrangler secret put STRIPE_SECRET_KEY
-# Enter your Stripe secret key (sk_live_... or sk_test_... for testing)
-
 wrangler secret put STRIPE_WEBHOOK_SECRET
-# Enter your Stripe webhook signing secret (see Step 4)
+wrangler secret put RESEND_WEBHOOK_SECRET
 ```
 
 ---
