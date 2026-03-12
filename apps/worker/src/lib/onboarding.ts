@@ -159,20 +159,20 @@ export async function sendCelebrationEmail(
   const first = opts.name.split(' ')[0]
   const snippet = `<script src="https://widget.socialproof.dev/v1/socialproof.js" data-widget-id="${opts.widgetId}" async></script>`
   const html = wrap(`
-    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">🎉 Your first testimonial just arrived!</h2>
+    <h2 style="margin:0 0 16px;font-size:22px;color:#111;font-weight:700">Your first testimonial is in — approve it to publish</h2>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Hey ${first},</p>
     <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6"><strong>${opts.testimonialAuthor}</strong> just left you a testimonial:</p>
     <div style="background:#f9fafb;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 24px">
       <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;font-style:italic">"${opts.testimonialText}"</p>
     </div>
-    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">Now put it on your site. Paste this one line of code where you want your widget to appear:</p>
+    <p style="margin:0 0 16px;color:#374151;font-size:15px;line-height:1.6">First, approve it in your dashboard. After approval, you can paste this code on your site to show it live:</p>
     <div style="background:#1e1e2e;border-radius:8px;padding:16px 20px;margin:0 0 20px;overflow-x:auto">
       <code style="color:#a6e3a1;font-size:13px;font-family:'Courier New',monospace;white-space:pre-wrap;word-break:break-all">${snippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>
     </div>
-    <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Go to dashboard →</a>
+    <a href="${DASH}" style="display:inline-block;background:#6C5CE7;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px;margin:0 0 20px">Approve testimonial →</a>
     <p style="margin:16px 0 0;color:#6b7280;font-size:14px">— The SocialProof team</p>
   `)
-  await send(apiKey, opts.email, `🎉 Your first testimonial just arrived`, html)
+  await send(apiKey, opts.email, `${opts.testimonialAuthor} left you a testimonial — approve to publish`, html)
 }
 
 /** Embed nudge email — sent when user has testimonials but hasn't embedded the widget */

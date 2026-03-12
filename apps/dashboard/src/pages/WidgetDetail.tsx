@@ -258,6 +258,8 @@ export default function WidgetDetail() {
   const badgeHtml = `<a href="${wallUrl}">\n  <img src="${badgeUrl}" alt="${widget.name} reviews" width="200" height="56">\n</a>`
 
   const filtered = testimonials.filter(t => t.status === tab)
+  const pendingCount = testimonials.filter(t => t.status === 'pending').length
+  const approvedCount = testimonials.filter(t => t.status === 'approved').length
 
   const tabStyle = (t: Tab) => ({
     padding: '8px 16px',
@@ -303,6 +305,43 @@ export default function WidgetDetail() {
           </span>
         )}
       </div>
+
+      {pendingCount > 0 && (
+        <div style={{
+          marginBottom: 24,
+          padding: 20,
+          borderRadius: radius.md,
+          border: '1px solid #fde68a',
+          background: '#fffbeb',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 6 }}>
+                {pendingCount} testimonial{pendingCount === 1 ? '' : 's'} waiting for approval
+              </div>
+              <div style={{ fontSize: 14, color: '#78350f', lineHeight: 1.6 }}>
+                Pending testimonials do not appear on your site until you approve them.
+                {approvedCount > 0 ? ` You already have ${approvedCount} live testimonial${approvedCount === 1 ? '' : 's'}.` : ' Approve your first one to publish it.'}
+              </div>
+            </div>
+            <button
+              onClick={() => setTab('pending')}
+              style={{
+                padding: '10px 14px',
+                borderRadius: radius.sm,
+                border: '1px solid #f59e0b',
+                background: '#fff',
+                color: '#92400e',
+                cursor: 'pointer',
+                fontSize: 13,
+                fontWeight: 600,
+              }}
+            >
+              Review pending testimonials
+            </button>
+          </div>
+        </div>
+      )}
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
         {/* Settings */}
