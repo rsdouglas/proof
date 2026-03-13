@@ -27,6 +27,7 @@ Key facts:
 - Email verification gates dashboard access (view/approve testimonials)
 - Widgets are optional — only needed if the user wants to embed testimonials on their site
 - `widget_embed` is returned on registration — user can embed immediately after verifying
+- Google Reviews follow-up: after a customer submits a testimonial, they can be prompted to also share on Google (optional, configured per account — add your Google Review link in settings)
 
 ---
 
