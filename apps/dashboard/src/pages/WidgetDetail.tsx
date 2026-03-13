@@ -392,21 +392,6 @@ export default function WidgetDetail() {
             </div>
           </div>
 
-          <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, marginBottom: 6, color: colors.gray700 }}>
-              Google Review URL <span style={{ fontWeight: 400, color: colors.gray500 }}>(optional)</span>
-            </label>
-            <input
-              value={googleReviewUrl}
-              onChange={e => setGoogleReviewUrl(e.target.value)}
-              placeholder="https://g.page/r/your-business/review"
-              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 14, boxSizing: 'border-box' }}
-            />
-            <p style={{ margin: '4px 0 0', fontSize: 11, color: colors.gray500 }}>
-              After submitting 4–5 star feedback, customers are invited to post on Google.
-            </p>
-          </div>
-
           {/* Embed code + install guide */}
           <div style={{ background: colors.white, border: '1px solid #e5e7eb', borderRadius: radius.md, padding: 20 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600 }}>Embed code</h3>
@@ -479,6 +464,25 @@ export default function WidgetDetail() {
               <CopyButton text={collectUrl} />
             </div>
             <div style={{ background: colors.gray50, border: '1px solid #e5e7eb', borderRadius: radius.sm, padding: 10, fontSize: 12, color: colors.gray700, wordBreak: 'break-all' }}>{collectUrl}</div>
+          </div>
+
+
+          <div style={{ marginBottom: 16, padding: 12, background: '#fffaf0', border: '1px solid #fde68a', borderRadius: radius.sm }}>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6, color: colors.gray700 }}>
+              Google Reviews follow-up <span style={{ fontWeight: 400, color: colors.gray500 }}>(optional)</span>
+            </label>
+            <p style={{ margin: '0 0 8px', fontSize: 12, color: colors.gray600, lineHeight: 1.5 }}>
+              This applies to the collection form above — not the display widget. When someone leaves positive feedback, we can nudge them to leave a public Google review too.
+            </p>
+            <input
+              value={googleReviewUrl}
+              onChange={e => setGoogleReviewUrl(e.target.value)}
+              placeholder="Paste your direct Google review link"
+              style={{ width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: radius.sm, fontSize: 14, boxSizing: 'border-box', marginBottom: 8 }}
+            />
+            <p style={{ margin: 0, fontSize: 11, color: colors.gray500, lineHeight: 1.5 }}>
+              Find it in your Google Business Profile by clicking <strong>Ask for reviews</strong>, or search your business on Google Maps and copy the review link Google gives you. Example format: <span style={{ fontFamily: font.mono }}>https://g.page/r/your-business/review</span>
+            </p>
           </div>
 
           <div style={{ marginBottom: 16 }}>
