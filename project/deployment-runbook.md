@@ -106,7 +106,7 @@ Production already includes the `support_messages` table from migration `0014_su
 
 ## CI/CD deployment path
 
-> **Current repo note:** the live repository currently exposes a single `.github/workflows/deploy.yml` workflow that runs tests on PRs and push events and performs deploy jobs only on `main`. Older references to a separate `ci.yml` are stale. Treat `deploy.yml` as the canonical automation file unless/until CI is split again.
+> **Current repo note:** the repository currently has multiple workflow files, including `.github/workflows/ci.yml` for general test coverage and `.github/workflows/deploy.yml` for the main deployment pipeline. Treat `deploy.yml` as the canonical deploy automation file; it is not the only workflow file.
 
 
 The canonical deployment path is GitHub Actions via `.github/workflows/deploy.yml`.
