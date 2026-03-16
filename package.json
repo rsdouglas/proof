@@ -10,8 +10,7 @@
     "deploy:worker": "npm run deploy --workspace=apps/worker",
     "deploy:dashboard": "npm run deploy --workspace=apps/dashboard",
     "test": "npm run test --workspaces --if-present",
-    "build:blog": "node scripts/build-blog.js",
-    "build:landing": "node scripts/build-blog.js"
+    "build:marketing": "npm run build --workspace=apps/marketing-site"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
