@@ -1,5 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
+publishedAt: "2026-03-06"
 title: "Social Proof for Restaurants: How to Turn Happy Regulars Into New Customers"
 description: "Most restaurants have loyal regulars but almost no testimonials online. Here's a simple system to collect and display social proof that brings in new diners."
 pubDate: 2026-03-06

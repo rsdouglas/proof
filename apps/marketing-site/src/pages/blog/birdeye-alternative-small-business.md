@@ -1,5 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
+publishedAt: "2026-03-06"
 title: "Birdeye Alternative for Small Business: Get the Reviews Without the Price Tag"
 description: "Birdeye is powerful but priced for enterprises. If you're a small business owner paying $300–400/month for review management, there's a better option. Here's an honest comparison."
 pubDate: "2026-03-06"
