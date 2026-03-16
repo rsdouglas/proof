@@ -34,3 +34,19 @@ check 'https://app.socialproof.dev/' 200 'dashboard-home'
 check 'https://widget.socialproof.dev/v1/socialproof.js' 200 'widget-asset'
 check 'https://api.socialproof.dev/health' 200 'worker-health'
 check_prefix 'https://api.socialproof.dev/api/admin/stats' 4 'admin-auth-gate'
+
+
+warn_if_contains() {
+  local url="$1" needle="$2" label="$3" message="$4"
+  local body
+  body=$(mktemp)
+  curl -sS -L "$url" > "$body"
+  if grep -Fq "$needle" "$body"; then
+    echo "WARN [$label] $message" >&2
+  else
+    echo "OK   [$label] $message"
+  fi
+  rm -f "$body"
+}
+
+warn_if_contains 'https://socialproof.dev/' 'Sarah K.' 'marketing-mode' 'homepage still shows static fallback testimonial cards'
