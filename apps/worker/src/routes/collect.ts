@@ -1,5 +1,4 @@
 import { fireWebhooks } from './webhooks'
-import { sendCelebrationEmail } from '../lib/onboarding'
 import { sendEmail, buildTestimonialReceivedEmail } from './email'
 import { Hono } from 'hono'
 import type { Env } from '../index'
@@ -193,35 +192,6 @@ collect.post('/submit/:formId', async (c) => {
   ).bind(id, form.account_id, form.widget_id ?? null, cleanName, cleanText,
     body.rating ?? null, cleanCompany, cleanTitle,
     cleanEmail, 'form', 'pending', now, now).run()
-
-  // First testimonial celebration email — check if this is the account's first ever
-  const prevCount = await c.env.DB.prepare(
-    'SELECT COUNT(*) as cnt FROM testimonials WHERE account_id = ? AND id != ?'
-  ).bind(form.account_id, id).first<{ cnt: number }>()
-
-  if (c.env.RESEND_API_KEY && prevCount?.cnt === 0) {
-    // This is the first testimonial — fire celebration email async
-    const celebAccount = await c.env.DB.prepare(
-      'SELECT a.email, a.name, a.drip_celebration_sent_at FROM accounts a WHERE a.id = ?'
-    ).bind(form.account_id).first<{ email: string; name: string; drip_celebration_sent_at: string | null }>()
-    if (celebAccount?.email && !celebAccount.drip_celebration_sent_at) {
-      // Get the first widget for embed snippet
-      const firstWidget = await c.env.DB.prepare(
-        'SELECT id FROM widgets WHERE account_id = ? ORDER BY created_at ASC LIMIT 1'
-      ).bind(form.account_id).first<{ id: string }>()
-      await sendCelebrationEmail(c.env.RESEND_API_KEY, {
-        email: celebAccount.email,
-        name: celebAccount.name ?? celebAccount.email,
-        widgetId: firstWidget?.id ?? '',
-        testimonialAuthor: body.display_name?.trim() ?? 'A customer',
-        testimonialText: body.display_text?.trim() ?? '',
-      })
-      await c.env.DB.prepare(
-        'UPDATE accounts SET drip_celebration_sent_at = ? WHERE id = ?'
-      ).bind(now, form.account_id).run()
-    }
-  }
-
   // Send email notification to the widget owner
   // NOTE: collection_forms.widget_id may be NULL (for auto-created forms), so we join via account_id
   const owner = await c.env.DB.prepare(
