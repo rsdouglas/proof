@@ -180,6 +180,10 @@ wrangler pages deploy dist --project-name=proof-dashboard
 
 ### Marketing Pages
 
+Production dogfooding for the marketing homepage widget depends on the Pages build variable `PUBLIC_MARKETING_WIDGET_ID`.
+If that variable is unset, the site falls back to the static testimonial cards even though the widget code is present.
+When rolling out or verifying dogfooding, confirm the chosen value is bound in the target Pages environment before deploy.
+
 ```bash
 cd apps/marketing-site
 npm install
