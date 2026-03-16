@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const posts = await Astro.glob('./*.md');
+const sorted = posts
+  .filter(p => p.frontmatter?.title)
+  .sort((a, b) => {
+    // Sort by date desc, then title alpha for undated
+    const da = a.frontmatter.publishedAt ? new Date(a.frontmatter.publishedAt).getTime() : 0;
+    const db = b.frontmatter.publishedAt ? new Date(b.frontmatter.publishedAt).getTime() : 0;
+    if (da !== db) return db - da;
+    return (a.frontmatter.title || '').localeCompare(b.frontmatter.title || '');
+  });
+
+// Group by year-month for scannable sections
+const byMonth: Record<string, typeof sorted> = {};
+for (const post of sorted) {
+  const raw = post.frontmatter.publishedAt;
+  const key = raw
+    ? new Date(raw).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
+    : 'Undated';
+  if (!byMonth[key]) byMonth[key] = [];
+  byMonth[key].push(post);
+}
+---
+<Base
+  title="Blog Archive — Every SocialProof Post"
+  description="Complete archive of all SocialProof blog posts: testimonial guides, social proof strategies, comparisons, and how-tos for small business owners."
+  canonical="https://socialproof.dev/blog/archive"
+>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6c5ce7;
+      --purple-light: #a29bfe;
+      --dark: #0f0e17;
+      --text: #e0dff5;
+      --muted: #9b9ab8;
+      --mid: #1a1929;
+      --border: #2e2c47;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--dark); color: var(--text); line-height: 1.6; }
+    a { color: var(--purple-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav { background: var(--dark); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--purple-light); }
+    .nav-cta { background: var(--purple); color: #fff; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
+    .nav-cta:hover { background: var(--purple-light); text-decoration: none; }
+
+    .hero { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .sub { color: var(--muted); margin-bottom: 0.5rem; }
+    .back-link { display: inline-block; color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+    .back-link:hover { color: var(--purple-light); }
+
+    .archive { max-width: 760px; margin: 0 auto; padding: 0 2rem 5rem; }
+    .month-group { margin-bottom: 2.5rem; }
+    .month-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .post-list { list-style: none; }
+    .post-list li { padding: 0.35rem 0; border-bottom: 1px solid rgba(46,44,71,0.5); display: flex; align-items: baseline; gap: 0.75rem; }
+    .post-list li:last-child { border-bottom: none; }
+    .post-date { font-size: 0.8rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    .post-list a { font-size: 0.95rem; color: var(--text); }
+    .post-list a:hover { color: var(--purple-light); }
+
+    .total-count { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--purple-light); }
+  </style>
+
+  <nav>
+    <a href="/" class="nav-logo">Social<span>Proof</span></a>
+    <a href="https://app.socialproof.dev/signup" class="nav-cta">Try free</a>
+  </nav>
+
+  <div class="hero">
+    <a href="/blog" class="back-link">&larr; Back to Blog</a>
+    <h1>Blog Archive</h1>
+    <p class="sub">Every post we've published on testimonials, social proof, and small business growth.</p>
+  </div>
+
+  <div class="archive">
+    <p class="total-count">{sorted.length} articles total</p>
+
+    {Object.entries(byMonth).map(([month, monthPosts]) => (
+      <div class="month-group">
+        <div class="month-label">{month} &mdash; {monthPosts.length} posts</div>
+        <ul class="post-list">
+          {monthPosts.map(post => (
+            <li>
+              {post.frontmatter.publishedAt && (
+                <span class="post-date">
+                  {new Date(post.frontmatter.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                </span>
+              )}
+              <a href={post.url}>{post.frontmatter.title}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <footer>
+    <a href="/blog">Blog home</a> &middot;
+    <a href="/">SocialProof</a> &middot;
+    <a href="/for/">Industries</a>
+  </footer>
+</Base>

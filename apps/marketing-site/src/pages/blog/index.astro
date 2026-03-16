@@ -11,7 +11,7 @@ const sorted = posts
   <main class="blog-list-page">
     <div class="container">
       <h1>Blog</h1>
-      <p class="sub">Tips, guides, and insights on customer testimonials and social proof.</p>
+      <p class="sub">Tips, guides, and insights on customer testimonials and social proof. &nbsp;<a href="/blog/archive" style="font-size:0.9rem;opacity:0.7;">View all {posts.length} posts &rarr;</a></p>
       <div class="blog-grid">
         {sorted.map(post => (
           <a href={post.url} class="blog-card" style="display:block;text-decoration:none;color:inherit;">
