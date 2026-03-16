@@ -5,6 +5,7 @@ author: "SocialProof Team"
 date: "2026-03-06"
 tags: ["testimonials", "home services", "local business", "social proof", "plumbers", "electricians"]
 layout: "../../layouts/BlogPost.astro"
+publishedAt: "2026-03-06"
 ---
 
 When someone invites a plumber, electrician, house cleaner, or landscaper into their home, they're making a trust decision. Not just about competence — about character. Are you someone they want inside their house?

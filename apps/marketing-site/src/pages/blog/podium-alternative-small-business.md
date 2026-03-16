@@ -1,5 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
+publishedAt: "2026-03-06"
 title: "Podium Alternative for Small Business: Stop Paying $300+/Month for Review Management"
 description: "Podium's messaging and review tools are powerful but expensive for solo operators. Here are the best Podium alternatives for small businesses who need social proof without enterprise pricing."
 pubDate: "2026-03-06"

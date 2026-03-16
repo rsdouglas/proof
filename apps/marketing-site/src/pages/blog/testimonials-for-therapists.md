@@ -5,6 +5,7 @@ author: "SocialProof Team"
 date: "2026-03-06"
 tags: ["testimonials", "therapists", "counselors", "mental health", "social proof"]
 layout: "../../layouts/BlogPost.astro"
+publishedAt: "2026-03-06"
 ---
 
 If you're a therapist or counselor, collecting testimonials probably feels awkward. Maybe even wrong.

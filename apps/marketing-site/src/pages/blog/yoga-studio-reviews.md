@@ -1,5 +1,6 @@
 ---
 layout: ../../layouts/BlogPost.astro
+publishedAt: "2026-03-06"
 title: "How to Get More Reviews for Your Yoga Studio (Without Begging)"
 description: "A practical guide for yoga studio owners to collect authentic testimonials from students — and turn them into social proof that fills classes."
 pubDate: 2026-03-06
