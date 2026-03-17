@@ -50,3 +50,4 @@ warn_if_contains() {
 }
 
 warn_if_contains 'https://socialproof.dev/' 'Sarah K.' 'marketing-mode' 'homepage still shows static fallback testimonial cards'
+warn_if_contains 'https://api.socialproof.dev/api/admin/status' '"resend":{"ok":true' 'welcome-email-dependency' 'admin status reports Resend dependency healthy'
