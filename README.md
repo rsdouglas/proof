@@ -25,7 +25,7 @@ apps/
 blog/         Blog (CF Pages)
 docs/         Docs site
 infra/        IaC / config
-project/      Strategy docs, roadmap, status
+project-docs/  Internal strategy docs, runbooks, roadmap, status
 ```
 
 ## Stack
@@ -118,11 +118,11 @@ cd apps/worker && npm run test:watch
 
 ---
 
-## Project Docs
+## Internal Project Docs
 
 | Doc | Description |
 |-----|-------------|
-| [project/vision.md](project/vision.md) | Product vision, positioning, what we build |
-| [project/roadmap.md](project/roadmap.md) | Current sprint and milestones |
-| [project/user-stories.md](project/user-stories.md) | Expected behaviour — use for QA and test writing |
-| [project/activation-first-strategy.md](project/activation-first-strategy.md) | Why activation > conversion right now |
+| [project-docs/vision.md](project-docs/vision.md) | Product vision, positioning, what we build |
+| [project-docs/roadmap.md](project-docs/roadmap.md) | Current sprint and milestones |
+| [project-docs/user-stories.md](project-docs/user-stories.md) | Expected behaviour — use for QA and test writing |
+| [project-docs/activation-first-strategy.md](project-docs/activation-first-strategy.md) | Why activation > conversion right now |

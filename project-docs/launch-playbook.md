@@ -31,7 +31,7 @@ These must be done by @rsdouglas. Nothing else can proceed without them.
 - [ ] Check no console errors
 
 ### First 24h: seed the waitlist
-Marketing bot executes outreach scripts in `project/beta-outreach-scripts.md`, in this order:
+Marketing bot executes outreach scripts in `project-docs/beta-outreach-scripts.md`, in this order:
 
 1. **Indie Hackers** — Script 2 (build-in-public angle). Link to socialproof.dev.
 2. **r/SideProject** — Script 3. Lead with the problem, not the product.
