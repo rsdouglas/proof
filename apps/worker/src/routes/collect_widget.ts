@@ -142,12 +142,12 @@ collectWidget.post('/:widgetId', async (c) => {
   ).bind(widgetId).first<{ id: string; account_id: string; widget_name: string; plan: string; owner_email: string; owner_name: string }>()
   if (!widget) return c.json({ error: 'Widget not found' }, 404)
 
-  // Plan enforcement: Free plan limited to 20 approved testimonials per widget
+  // Plan enforcement: Free plan limited to 25 approved testimonials per account/widget flow
   if (widget.plan !== 'pro') {
     const countRow = await c.env.DB.prepare(
       "SELECT COUNT(*) as count FROM testimonials WHERE widget_id = ? AND status = 'approved'"
     ).bind(widgetId).first<{ count: number }>()
-    if ((countRow?.count ?? 0) >= 20) {
+    if ((countRow?.count ?? 0) >= 25) {
       return c.json({ error: 'This widget has reached its testimonial limit.' }, 402)
     }
   }
