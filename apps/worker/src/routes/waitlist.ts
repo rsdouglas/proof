@@ -53,8 +53,7 @@ waitlist.get('/count', async (c) => {
 /** GET /api/waitlist/export — CSV export (protected by ADMIN_TOKEN header) */
 waitlist.get('/export', async (c) => {
   const token = c.req.header('X-Admin-Token')
-  const env = c.env as Env & { ADMIN_TOKEN?: string }
-  if (!token || !env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+  if (!token || !c.env.ADMIN_TOKEN || token !== c.env.ADMIN_TOKEN) {
     return c.json({ ok: false, error: 'Unauthorized' }, 401)
   }
 

@@ -5,7 +5,7 @@ import type { Env } from '../index'
 const support = new Hono<{ Bindings: Env }>()
 
 function getAdminKey(env: Env) {
-  return env.ADMIN_TOKEN || env.ADMIN_SECRET
+  return env.ADMIN_TOKEN
 }
 
 function verifyResendWebhook(body: string, headers: Headers, secret?: string) {

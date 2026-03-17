@@ -44,7 +44,6 @@ export interface Env {
   SES_REGION?: string
   SES_FROM_EMAIL?: string
   PAUSE_NONCRITICAL_EMAIL?: string
-  ADMIN_SECRET?: string
   ADMIN_TOKEN?: string
 }
 
@@ -105,7 +104,7 @@ app.route('/api/waitlist', waitlist)
 // Agent registration (public, no auth required)
 app.route('/agent', agent)
 
-// Admin metrics (protected by ADMIN_SECRET header)
+// Admin endpoints (protected by ADMIN_TOKEN Bearer auth)
 app.route('/api/admin', admin)
 app.route('/api/admin/outreach', outreach)
 // Support inbox (inbound email via Resend + admin list)

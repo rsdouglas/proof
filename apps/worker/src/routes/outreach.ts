@@ -4,7 +4,7 @@
  * Replaces flat markdown files in the repo with a proper D1-backed
  * table + Resend integration. See GitHub issue #327.
  *
- * Auth: Bearer token via ADMIN_TOKEN env var (falls back to ADMIN_SECRET).
+ * Auth: Bearer token via ADMIN_TOKEN env var.
  *
  * Endpoints:
  *   POST /api/admin/outreach/targets  — bulk insert targets from JSON array
@@ -25,7 +25,7 @@ const NONCRITICAL_EMAIL_PAUSE_HINT = 'Set PAUSE_NONCRITICAL_EMAIL=1 to preserve 
 function checkAuth(c: any): boolean {
   const authHeader = c.req.header('Authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
-  const adminToken = c.env.ADMIN_TOKEN ?? c.env.ADMIN_SECRET
+  const adminToken = c.env.ADMIN_TOKEN
   return !!token && token === adminToken
 }
 

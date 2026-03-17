@@ -71,8 +71,9 @@ async function sesCheckCredentials(
 }
 
 admin.get('/metrics', async (c) => {
-  const key = c.req.header('x-admin-key')
-  if (!key || key !== c.env.ADMIN_SECRET) {
+  const authHeader = c.req.header('Authorization') ?? ''
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
+  if (!token || token !== c.env.ADMIN_TOKEN) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
@@ -133,8 +134,7 @@ admin.get('/metrics', async (c) => {
 admin.get('/stats', async (c) => {
   const authHeader = c.req.header('Authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
-  const adminToken = c.env.ADMIN_TOKEN ?? c.env.ADMIN_SECRET
-  if (!token || token !== adminToken) {
+  if (!token || token !== c.env.ADMIN_TOKEN) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
@@ -193,8 +193,7 @@ async function timed<T extends Record<string, unknown>>(
 admin.get('/status', async (c) => {
   const authHeader = c.req.header('Authorization') ?? ''
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null
-  const adminToken = c.env.ADMIN_TOKEN ?? c.env.ADMIN_SECRET
-  if (!token || token !== adminToken) {
+  if (!token || token !== c.env.ADMIN_TOKEN) {
     return c.json({ error: 'Unauthorized' }, 401)
   }
 
@@ -261,7 +260,6 @@ admin.get('/status', async (c) => {
     ['SES_AWS_SECRET_ACCESS_KEY', env.SES_AWS_SECRET_ACCESS_KEY],
     ['SES_REGION', env.SES_REGION],
     ['SES_FROM_EMAIL', env.SES_FROM_EMAIL],
-    ['ADMIN_SECRET', env.ADMIN_SECRET],
     ['ADMIN_TOKEN', env.ADMIN_TOKEN],
   ]
   const set = secretNames.filter(([, v]) => !!v).map(([k]) => k)
