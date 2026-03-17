@@ -1,24 +1,33 @@
-import { Hono } from 'hono'
-import { cors } from 'hono/cors'
-import { getCookie } from 'hono/cookie'
-import { testimonials } from './routes/testimonials'
-import { widgets } from './routes/widgets'
-import { widget } from './routes/widget'
-import { collect } from './routes/collect'
-import { submit } from './routes/submit'
-import { auth, verifyToken } from './routes/auth'
-import { accounts } from './routes/accounts'
-import { collectWidget } from './routes/collect_widget'
-import { billing } from './routes/billing'
-import { analytics } from './routes/analytics'
-import { wall } from './routes/wall'
-import { webhooks } from './routes/webhooks'
-import { apiKeys, resolveApiKey } from './routes/api_keys'
-import waitlist from './routes/waitlist'
-import { agent } from './routes/agent'
-import { admin } from './routes/admin'
-import { outreach } from './routes/outreach'
-import support from './routes/support'
+import { Hono } from 'hono';
+import { getCookie } from 'hono/cookie';
+import { cors } from 'hono/cors';
+
+// Cloudflare Scheduled handler for drip email cron
+import { handleCron } from './cron';
+import { accounts } from './routes/accounts';
+import { admin } from './routes/admin';
+import { agent } from './routes/agent';
+import { analytics } from './routes/analytics';
+import {
+  apiKeys,
+  resolveApiKey,
+} from './routes/api_keys';
+import {
+  auth,
+  verifyToken,
+} from './routes/auth';
+import { billing } from './routes/billing';
+import { collect } from './routes/collect';
+import { collectWidget } from './routes/collect_widget';
+import { submit } from './routes/submit';
+import support from './routes/support';
+import { testimonials } from './routes/testimonials';
+import waitlist from './routes/waitlist';
+import { wall } from './routes/wall';
+import { webhooks } from './routes/webhooks';
+import { widget } from './routes/widget';
+import { widgets } from './routes/widgets';
+
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -34,7 +43,6 @@ export interface Env {
   SES_REGION?: string
   SES_FROM_EMAIL?: string
   PAUSE_NONCRITICAL_EMAIL?: string
-  ADMIN_SECRET?: string
   ADMIN_TOKEN?: string
 }
 
@@ -95,12 +103,9 @@ app.route('/api/waitlist', waitlist)
 // Agent registration (public, no auth required)
 app.route('/agent', agent)
 
-// Admin metrics (protected by ADMIN_SECRET header)
+// Admin endpoints (protected by ADMIN_TOKEN Bearer auth)
 app.route('/api/admin', admin)
-app.route('/api/admin/outreach', outreach)
-// Support inbox (inbound email via Resend + admin list)
-// POST /api/support/inbound — Resend webhook
-// GET  /api/support/admin-list — admin view (x-admin-key required)
+// Support inbound webhook (public — verified by Resend signature)
 app.route('/api/support', support)
 
 // Stripe webhook (no JWT - validated by signature)
@@ -250,9 +255,6 @@ app.get('/health', (c) => c.json({ ok: true, ts: new Date().toISOString() }))
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
 export default app
-
-// Cloudflare Scheduled handler for drip email cron
-import { handleCron } from './cron'
 
 export const scheduled: ExportedHandlerScheduledHandler<Env> = (ctrl, env, ctx) => {
   ctx.waitUntil(handleCron(ctrl, env))

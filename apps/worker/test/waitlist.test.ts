@@ -142,21 +142,28 @@ describe('GET /api/waitlist/count', () => {
   })
 })
 
-describe('GET /api/waitlist/export', () => {
+describe('GET /api/admin/waitlist/export', () => {
   it('rejects without token', async () => {
-    const res = await app.request('/api/waitlist/export', {}, env)
+    const res = await app.request('/api/admin/waitlist/export', {}, env)
     expect(res.status).toBe(401)
   })
 
-  it('returns CSV with valid token', async () => {
+  it('rejects with wrong token', async () => {
+    const res = await app.request('/api/admin/waitlist/export', {
+      headers: { Authorization: 'Bearer wrong-token' },
+    }, env)
+    expect(res.status).toBe(401)
+  })
+
+  it('returns CSV with valid Bearer token', async () => {
     waitlistRows.set('test@example.com', {
       email: 'test@example.com',
       plan: 'pro',
       created_at: '2026-01-01T00:00:00.000Z',
     })
 
-    const res = await app.request('/api/waitlist/export', {
-      headers: { 'X-Admin-Token': 'admin-test-token' },
+    const res = await app.request('/api/admin/waitlist/export', {
+      headers: { Authorization: `Bearer ${env.ADMIN_TOKEN}` },
     }, env)
 
     expect(res.status).toBe(200)
