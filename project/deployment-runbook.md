@@ -183,6 +183,7 @@ wrangler pages deploy dist --project-name=proof-dashboard
 Production dogfooding for the marketing homepage widget depends on the Pages build variable `PUBLIC_MARKETING_WIDGET_ID`.
 If that variable is unset, the site falls back to the static testimonial cards even though the widget code is present.
 When rolling out or verifying dogfooding, confirm the chosen value is bound in the target Pages environment before deploy.
+The production smoke script (`scripts/post-deploy-smoke.sh`) now also distinguishes mode at a high level: it emits `WARN [marketing-mode]` when the homepage is still serving the static fallback testimonial cards instead of a live widget-backed marketing section. Treat that warning as evidence that `PUBLIC_MARKETING_WIDGET_ID` is still unset or not taking effect in production.
 
 ```bash
 cd apps/marketing-site
