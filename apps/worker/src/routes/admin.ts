@@ -136,16 +136,14 @@ admin.get('/stats', async (c) => {
 // ── GET /status — deep health check for all integrations ───────────────────────
 
 type CheckResult = { ok: boolean; latency_ms: number; error?: string; [k: string]: unknown }
+type CheckInput = { ok: boolean; error?: string; [k: string]: unknown }
 
-async function timed<T extends Record<string, unknown>>(
-  fn: () => Promise<T>,
-): Promise<T & { latency_ms: number }> {
+async function timed(fn: () => Promise<CheckInput>): Promise<CheckResult> {
   const t0 = Date.now()
   try {
-    const result = await fn()
-    return { ...result, latency_ms: Date.now() - t0 }
+    return { ...await fn(), latency_ms: Date.now() - t0 }
   } catch (err: any) {
-    return { ok: false, error: err?.message ?? 'unknown', latency_ms: Date.now() - t0 } as T & { latency_ms: number }
+    return { ok: false, error: err?.message ?? 'unknown', latency_ms: Date.now() - t0 }
   }
 }
 
@@ -155,11 +153,11 @@ admin.get('/status', async (c) => {
   const [d1, kv, resend, stripe, ses] = await Promise.all([
     timed(async () => {
       await env.DB.prepare('SELECT 1').first()
-      return { ok: true } as Record<string, unknown>
+      return { ok: true }
     }),
     timed(async () => {
       await env.WIDGET_KV.get('__healthcheck')
-      return { ok: true } as Record<string, unknown>
+      return { ok: true }
     }),
     timed(async () => {
       if (!env.RESEND_API_KEY) return { ok: false, error: 'RESEND_API_KEY not set' }
@@ -167,7 +165,7 @@ admin.get('/status', async (c) => {
         headers: { Authorization: `Bearer ${env.RESEND_API_KEY}` },
       })
       if (!res.ok) return { ok: false, error: `HTTP ${res.status}` }
-      return { ok: true } as Record<string, unknown>
+      return { ok: true }
     }),
     timed(async () => {
       if (!env.STRIPE_SECRET_KEY) return { ok: false, error: 'STRIPE_SECRET_KEY not set' }
@@ -175,7 +173,7 @@ admin.get('/status', async (c) => {
         headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` },
       })
       if (!res.ok) return { ok: false, error: `HTTP ${res.status}` }
-      return { ok: true } as Record<string, unknown>
+      return { ok: true }
     }),
     timed(async () => {
       if (!env.SES_AWS_ACCESS_KEY_ID || !env.SES_AWS_SECRET_ACCESS_KEY) {
@@ -191,7 +189,7 @@ admin.get('/status', async (c) => {
         ok: true,
         region: env.SES_REGION ?? 'us-east-1',
         from: env.SES_FROM_EMAIL ?? '(not set)',
-      } as Record<string, unknown>
+      }
     }),
   ])
 
