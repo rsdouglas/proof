@@ -19,7 +19,6 @@ import {
 import { billing } from './routes/billing';
 import { collect } from './routes/collect';
 import { collectWidget } from './routes/collect_widget';
-import { outreach } from './routes/outreach';
 import { submit } from './routes/submit';
 import support from './routes/support';
 import { testimonials } from './routes/testimonials';
@@ -106,10 +105,7 @@ app.route('/agent', agent)
 
 // Admin endpoints (protected by ADMIN_TOKEN Bearer auth)
 app.route('/api/admin', admin)
-app.route('/api/admin/outreach', outreach)
-// Support inbox (inbound email via Resend + admin list)
-// POST /api/support/inbound — Resend webhook
-// GET  /api/support/admin-list — admin view (x-admin-key required)
+// Support inbound webhook (public — verified by Resend signature)
 app.route('/api/support', support)
 
 // Stripe webhook (no JWT - validated by signature)

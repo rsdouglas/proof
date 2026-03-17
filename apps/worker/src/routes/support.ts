@@ -4,10 +4,6 @@ import type { Env } from '../index'
 
 const support = new Hono<{ Bindings: Env }>()
 
-function getAdminKey(env: Env) {
-  return env.ADMIN_TOKEN
-}
-
 function verifyResendWebhook(body: string, headers: Headers, secret?: string) {
   if (!secret) return false
 
@@ -70,53 +66,5 @@ support.post('/inbound', async (c) => {
   return c.json({ ok: true, id })
 })
 
-support.get('/admin-list', async (c) => {
-  const key = c.req.header('x-admin-key')
-  const adminKey = getAdminKey(c.env)
-  if (!key || !adminKey || key !== adminKey) {
-    return c.json({ error: 'Unauthorized' }, 401)
-  }
-
-  const status = c.req.query('status')
-  const limit = Math.min(Number(c.req.query('limit') || '50'), 200)
-
-  let query = `SELECT id, from_email, from_name, subject, body_text, received_at, status
-               FROM support_messages`
-  const bindings: unknown[] = []
-
-  if (status) {
-    query += ` WHERE status = ?`
-    bindings.push(status)
-  }
-
-  query += ` ORDER BY received_at DESC LIMIT ?`
-  bindings.push(limit)
-
-  const stmt = c.env.DB.prepare(query)
-  const result = await (bindings.length > 0 ? stmt.bind(...bindings) : stmt).all()
-
-  return c.json({ messages: result.results, total: result.results.length })
-})
-
-support.patch('/admin-list/:id', async (c) => {
-  const key = c.req.header('x-admin-key')
-  const adminKey = getAdminKey(c.env)
-  if (!key || !adminKey || key !== adminKey) {
-    return c.json({ error: 'Unauthorized' }, 401)
-  }
-
-  const id = c.req.param('id')
-  const { status } = await c.req.json<{ status: string }>()
-
-  if (!['open', 'closed'].includes(status)) {
-    return c.json({ error: 'Invalid status' }, 400)
-  }
-
-  await c.env.DB.prepare(`UPDATE support_messages SET status = ? WHERE id = ?`)
-    .bind(status, id).run()
-
-  return c.json({ ok: true })
-})
-
-export { getAdminKey, verifyResendWebhook }
+export { verifyResendWebhook }
 export default support
