@@ -71,7 +71,6 @@ const baseEnv = {
   STRIPE_SECRET_KEY: '',
   STRIPE_WEBHOOK_SECRET: '',
   STRIPE_PRO_PRICE_ID: '',
-  ADMIN_SECRET: 'legacy-secret',
   ADMIN_TOKEN: 'prod-token',
   RESEND_WEBHOOK_SECRET: 'whsec_' + Buffer.from('test_secret_1234567890').toString('base64'),
 }
@@ -159,7 +158,7 @@ describe('POST /api/support/inbound', () => {
   })
 })
 
-describe('support admin auth', () => {
+describe('support admin auth (via /api/admin/support)', () => {
   beforeEach(() => {
     supportRows.set('msg_1', {
       id: 'msg_1',
@@ -173,9 +172,9 @@ describe('support admin auth', () => {
     })
   })
 
-  it('accepts ADMIN_TOKEN for support admin list', async () => {
-    const res = await app.request('/api/support/admin-list', {
-      headers: { 'x-admin-key': baseEnv.ADMIN_TOKEN },
+  it('lists support messages with Bearer auth', async () => {
+    const res = await app.request('/api/admin/support', {
+      headers: { Authorization: `Bearer ${baseEnv.ADMIN_TOKEN}` },
     }, baseEnv)
 
     expect(res.status).toBe(200)
@@ -183,17 +182,29 @@ describe('support admin auth', () => {
     expect(json.total).toBe(1)
   })
 
-  it('accepts ADMIN_TOKEN for support admin status update', async () => {
-    const res = await app.request('/api/support/admin-list/msg_1', {
+  it('updates support message status with Bearer auth', async () => {
+    const res = await app.request('/api/admin/support/msg_1', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'x-admin-key': baseEnv.ADMIN_TOKEN,
+        Authorization: `Bearer ${baseEnv.ADMIN_TOKEN}`,
       },
       body: JSON.stringify({ status: 'closed' }),
     }, baseEnv)
 
     expect(res.status).toBe(200)
     expect(supportRows.get('msg_1')?.status).toBe('closed')
+  })
+
+  it('rejects support admin list without token', async () => {
+    const res = await app.request('/api/admin/support', {}, baseEnv)
+    expect(res.status).toBe(401)
+  })
+
+  it('rejects support admin with wrong token', async () => {
+    const res = await app.request('/api/admin/support', {
+      headers: { Authorization: 'Bearer wrong-token' },
+    }, baseEnv)
+    expect(res.status).toBe(401)
   })
 })

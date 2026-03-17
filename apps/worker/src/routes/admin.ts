@@ -1,8 +1,9 @@
-import { Hono } from 'hono'
-import type { Env } from '../index'
-import { requireAdmin } from '../middleware/auth'
-import { sendEmail } from './email'
-import { getEmailContent } from '../lib/outreach-templates'
+import { Hono } from 'hono';
+
+import type { Env } from '../index';
+import { getEmailContent } from '../lib/outreach-templates';
+import { requireAdmin } from '../middleware/auth';
+import { sendEmail } from './email';
 
 const admin = new Hono<{ Bindings: Env }>()
 
@@ -197,25 +198,9 @@ admin.get('/status', async (c) => {
   const checks: Record<string, CheckResult> = { d1, kv, resend, stripe, ses }
   const allOk = Object.values(checks).every((ch) => ch.ok)
 
-  const secretNames: [string, unknown][] = [
-    ['JWT_SECRET', env.JWT_SECRET],
-    ['STRIPE_SECRET_KEY', env.STRIPE_SECRET_KEY],
-    ['STRIPE_WEBHOOK_SECRET', env.STRIPE_WEBHOOK_SECRET],
-    ['STRIPE_PRO_PRICE_ID', env.STRIPE_PRO_PRICE_ID],
-    ['RESEND_API_KEY', env.RESEND_API_KEY],
-    ['SES_AWS_ACCESS_KEY_ID', env.SES_AWS_ACCESS_KEY_ID],
-    ['SES_AWS_SECRET_ACCESS_KEY', env.SES_AWS_SECRET_ACCESS_KEY],
-    ['SES_REGION', env.SES_REGION],
-    ['SES_FROM_EMAIL', env.SES_FROM_EMAIL],
-    ['ADMIN_TOKEN', env.ADMIN_TOKEN],
-  ]
-  const set = secretNames.filter(([, v]) => !!v).map(([k]) => k)
-  const missing = secretNames.filter(([, v]) => !v).map(([k]) => k)
-
   return c.json({
     ok: allOk,
     checks,
-    secrets: { set, missing },
     env: env.ENVIRONMENT ?? 'unknown',
     ts: new Date().toISOString(),
   }, allOk ? 200 : 502)
@@ -454,4 +439,4 @@ admin.get('/waitlist/export', async (c) => {
   })
 })
 
-export { admin }
+export { admin };
