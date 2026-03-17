@@ -219,6 +219,35 @@ describe('GET /api/admin/status', () => {
     expect(json.checks.stripe.ok).toBe(false)
     expect(json.checks.ses.ok).toBe(false)
   })
+
+  it('returns 200 when only warning-level integrations fail', async () => {
+    const warningEnv = {
+      ...adminEnv,
+      RESEND_API_KEY: 're_test_key',
+      SES_AWS_ACCESS_KEY_ID: '',
+      SES_AWS_SECRET_ACCESS_KEY: '',
+    }
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.includes('api.resend.com/domains')) {
+        return new Response(JSON.stringify({ data: [] }), { status: 200 })
+      }
+      throw new Error(`unexpected fetch ${url}`)
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const res = await app.request('/api/admin/status', {
+      headers: { Authorization: 'Bearer test-admin-token' },
+    }, warningEnv)
+
+    const json = await res.json() as Record<string, any>
+    expect(res.status).toBe(200)
+    expect(json.ok).toBe(true)
+    expect(json.has_warnings).toBe(true)
+    expect(json.checks.stripe.severity).toBe('warning')
+    expect(json.checks.ses.severity).toBe('warning')
+    expect(json.checks.resend.severity).toBe('critical')
+  })
 })
 
 // ── Outreach endpoints ─────────────────────────────────────────────────────────
