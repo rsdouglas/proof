@@ -1,24 +1,34 @@
-import { Hono } from 'hono'
-import { cors } from 'hono/cors'
-import { getCookie } from 'hono/cookie'
-import { testimonials } from './routes/testimonials'
-import { widgets } from './routes/widgets'
-import { widget } from './routes/widget'
-import { collect } from './routes/collect'
-import { submit } from './routes/submit'
-import { auth, verifyToken } from './routes/auth'
-import { accounts } from './routes/accounts'
-import { collectWidget } from './routes/collect_widget'
-import { billing } from './routes/billing'
-import { analytics } from './routes/analytics'
-import { wall } from './routes/wall'
-import { webhooks } from './routes/webhooks'
-import { apiKeys, resolveApiKey } from './routes/api_keys'
-import waitlist from './routes/waitlist'
-import { agent } from './routes/agent'
-import { admin } from './routes/admin'
-import { outreach } from './routes/outreach'
-import support from './routes/support'
+import { Hono } from 'hono';
+import { getCookie } from 'hono/cookie';
+import { cors } from 'hono/cors';
+
+// Cloudflare Scheduled handler for drip email cron
+import { handleCron } from './cron';
+import { accounts } from './routes/accounts';
+import { admin } from './routes/admin';
+import { agent } from './routes/agent';
+import { analytics } from './routes/analytics';
+import {
+  apiKeys,
+  resolveApiKey,
+} from './routes/api_keys';
+import {
+  auth,
+  verifyToken,
+} from './routes/auth';
+import { billing } from './routes/billing';
+import { collect } from './routes/collect';
+import { collectWidget } from './routes/collect_widget';
+import { outreach } from './routes/outreach';
+import { submit } from './routes/submit';
+import support from './routes/support';
+import { testimonials } from './routes/testimonials';
+import waitlist from './routes/waitlist';
+import { wall } from './routes/wall';
+import { webhooks } from './routes/webhooks';
+import { widget } from './routes/widget';
+import { widgets } from './routes/widgets';
+
 export interface Env {
   DB: D1Database
   WIDGET_KV: KVNamespace
@@ -250,9 +260,6 @@ app.get('/health', (c) => c.json({ ok: true, ts: new Date().toISOString() }))
 app.notFound((c) => c.json({ error: 'Not found' }, 404))
 
 export default app
-
-// Cloudflare Scheduled handler for drip email cron
-import { handleCron } from './cron'
 
 export const scheduled: ExportedHandlerScheduledHandler<Env> = (ctrl, env, ctx) => {
   ctx.waitUntil(handleCron(ctrl, env))
