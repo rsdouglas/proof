@@ -55,7 +55,7 @@ Broadly focuses on review platforms (Google, Facebook) rather than native testim
 | Website testimonial widget | Limited | ✅ |
 
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | $200–$400/month | Free–$19/month |
+| Starting price | $200–$400/month | Free–$9/month |
 | Best for | Multi-location service companies | Solo operators, small service businesses |
 
 ---

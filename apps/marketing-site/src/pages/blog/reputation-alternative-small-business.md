@@ -32,7 +32,7 @@ SocialProof is purpose-built for the small end: send a testimonial request link 
 | Website embed widget | ✅ | ✅ |
 | Small business accessible | ❌ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Pricing | Enterprise contract | Free–$19/month |
+| Pricing | Enterprise contract | Free–$9/month |
 
 ---
 

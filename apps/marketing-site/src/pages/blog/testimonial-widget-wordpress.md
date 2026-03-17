@@ -37,7 +37,7 @@ Before comparing options, here's what actually matters:
 ### 1. SocialProof Best for collection + display
 
  Embed code that works anywhere, including WordPress — no plugin required
- Free · Pro from $19/mo
+ Free · Pro from $9/mo
 
 SocialProof isn't a WordPress plugin — it's a testimonial platform with an embed code that works on any website, including WordPress. You paste a ` ` tag into a Custom HTML block (or any widget area), and your testimonial carousel or grid appears. This means no plugin update headaches, no WP compatibility issues, ever.
 

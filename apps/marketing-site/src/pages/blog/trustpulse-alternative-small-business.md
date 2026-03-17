@@ -40,7 +40,7 @@ A popup saying "Maria from Portland just booked" is less convincing than Maria's
 | Works well for service businesses | Limited | ✅ |
 | Requires high purchase volume | Yes | No |
 | Free plan | Limited | ✅ Free forever, 1 widget |
-| Pricing | $5–$39/month | Free–$19/month |
+| Pricing | $5–$39/month | Free–$9/month |
 
 ---
 

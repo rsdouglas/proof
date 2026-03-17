@@ -31,7 +31,7 @@ SocialProof does exactly one thing: helps you ask clients for testimonials and d
 | Website display widget | ✅ | ✅ |
 | Setup time | Complex | Simple (minutes) |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | $29/month | Free–$19/month |
+| Starting price | $29/month | Free–$9/month |
 | Best for | Content brands, agencies | Service businesses, freelancers |
 
 ---

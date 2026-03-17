@@ -32,7 +32,7 @@ What you actually need isn't a managed response team. It's a simple way to colle
 | Website display widget | ❌ | ✅ |
 | Self-service tool | ❌ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Pricing | Enterprise managed service | Free–$19/month |
+| Pricing | Enterprise managed service | Free–$9/month |
 | Best for | Enterprise chains | Freelancers, solo operators |
 
 ---

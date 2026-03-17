@@ -41,7 +41,7 @@ SocialProof offers a free forever plan that covers a single widget — enough to
 | Website embed widget | ✅ | ✅ |
 | Testimonial management | ✅ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | ~$49/month | Free–$19/month |
+| Starting price | ~$49/month | Free–$9/month |
 | Best for | Agencies, established businesses | Freelancers, solo operators, small teams |
 
 ---

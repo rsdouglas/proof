@@ -32,7 +32,7 @@ If you're a service professional trying to get testimonials from your last three
 | Direct testimonial collection | ❌ | ✅ |
 | Website display widget | ❌ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | ~$119/month | Free–$19/month |
+| Starting price | ~$119/month | Free–$9/month |
 | Best for | Enterprise chains | Freelancers, solo operators |
 
 ---

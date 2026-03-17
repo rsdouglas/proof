@@ -49,7 +49,7 @@ Trustmary has a full feature suite which means a learning curve. Small business 
 | A/B testing | ✅ Yes | ❌ Not yet |
 | NPS surveys | ✅ Yes | ❌ No |
 | Free plan | ⚠️ Very limited | ✅ Free forever, 1 widget |
-| Price for full features | $89/month | $19/month |
+| Price for full features | $89/month | $9/month |
 | Setup time | 30–60 min | 5 min |
 | Best for | Agencies, mid-size businesses | Small businesses, solopreneurs |
 

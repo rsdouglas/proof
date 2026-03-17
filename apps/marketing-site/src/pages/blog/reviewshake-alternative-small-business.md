@@ -31,7 +31,7 @@ SocialProof is built for one-person shops and small service businesses. The whol
 | Direct testimonial collection | ✅ | ✅ |
 | Website display widget | ✅ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | ~$39/month | Free–$19/month |
+| Starting price | ~$39/month | Free–$9/month |
 | Best for | Agencies, multi-location | Freelancers, solo operators |
 
 ---

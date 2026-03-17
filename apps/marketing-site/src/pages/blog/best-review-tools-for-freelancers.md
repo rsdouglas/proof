@@ -96,7 +96,7 @@ You can screenshot and use them as graphics, but that looks amateur.
 
 ## 5. Senja — Strong Competitor to SocialProof
 
-**Price:** Free plan · Paid from $19/mo
+**Price:** Free plan · Paid from $9/mo
 
 Senja is a well-designed testimonial tool with a generous free plan and clean widget output. It's very similar to SocialProof in use case.
 

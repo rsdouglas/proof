@@ -16,13 +16,13 @@ This guide cuts through it. We've compared the top tools honestly — including 
 
 ---
 
-## The 10 Best Testimonial Software Tools in 2025
+## The 10 Best Testimonial Software Tools in 2026
 
 ### 1. SocialProof (Best for simplicity + free forever)
 
 **Best for:** Solo operators, freelancers, local service businesses, anyone who wants to be live in under 10 minutes
 
-**Pricing:** Free forever (1 widget) · Pro at $19/month
+**Pricing:** Free forever (1 widget) · Pro at $9/month
 
 SocialProof is the leanest testimonial tool on the market. You create a collection link, share it with customers, and paste a widget code on your site. That's it. No sales calls, no annual contracts, no "contact us for pricing."
 
@@ -106,7 +106,7 @@ Podium combines review requests with messaging — you text customers, they resp
 
 **Why people choose it:** The combination of messaging + reviews in one platform with SMS is unique.
 
-**Limitations:** $399/month makes no sense for a business making less than ~$20k/month. Most small businesses get 80% of the value from a $19/month testimonial tool.
+**Limitations:** $399/month makes no sense for a business making less than ~$20k/month. Most small businesses get 80% of the value from a $9/month testimonial tool.
 
 👉 [Read our full Podium comparison →](/blog/podium-alternative-small-business/)
 
@@ -204,7 +204,7 @@ Here's a simple decision framework:
 
 | Tool | Free Plan | Starting Paid Price | Video | Website Widget | Best For |
 |------|-----------|---------------------|-------|----------------|----------|
-| **SocialProof** | ✅ Free forever (1 widget) | $19/mo | ✅ | ✅ | Small business, simplicity |
+| **SocialProof** | ✅ Free forever (1 widget) | $9/mo | ✅ | ✅ | Small business, simplicity |
 | **Senja** | ✅ (branding shown) | $19/mo | ✅ | ✅ (paid) | Testimonial walls |
 | **Testimonial.to** | ✅ (basic) | $59/mo | ✅ | ✅ (paid) | Video testimonials |
 | **Judge.me** | ✅ | $15/mo | ✅ | ✅ | Shopify product reviews |
