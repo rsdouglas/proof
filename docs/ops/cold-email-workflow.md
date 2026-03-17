@@ -91,6 +91,11 @@ jobs:
           fi
 ```
 
+## Current preferred path
+
+For day-to-day outreach operations, prefer the admin API SOP in `docs/ops/outreach-sop.md`.
+Use the GitHub Actions workflow in this doc only when a human with workflow permission is intentionally running the legacy batch sender.
+
 ## Notes
 
 - The workflow reads `RESEND_API_KEY` from repo secrets — it is **never printed** to logs
