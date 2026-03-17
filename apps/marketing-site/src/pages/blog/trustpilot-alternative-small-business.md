@@ -82,4 +82,4 @@ The goal isn't to pick a review platform. The goal is to build trust with potent
 
 [Try SocialProof free →](https://socialproof.dev)
 
-No credit card. One widget, unlimited testimonials, forever free. Upgrade to Pro ($9/mo) when you're ready for more.
+No credit card. One widget, up to 25 testimonials on Free. Upgrade to Pro ($9/mo) when you're ready for unlimited widgets and testimonials.
