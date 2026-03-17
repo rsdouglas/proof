@@ -57,7 +57,7 @@ That's it. That's the 80% case.
 | Text + video testimonials | ✅ Yes | ✅ Yes |
 | Automated email sequences | ✅ Yes | Coming soon |
 | Free plan | ❌ No | ✅ Free forever, 1 widget |
-| Price | $89–$200+/month | $0–$19/month |
+| Price | $89–$200+/month | $0–$9/month |
 | Setup complexity | High | 5 minutes |
 
 ---
@@ -66,7 +66,7 @@ That's it. That's the 80% case.
 
 If review aggregation across platforms is critical to your business — you're managing your Google reviews, Trustpilot, and other sources in one place — Reviews.io has features that justify the cost at larger scale.
 
-If you're a small business owner who wants to collect and display customer testimonials: SocialProof at $0–$19/month handles what you need.
+If you're a small business owner who wants to collect and display customer testimonials: SocialProof at $0–$9/month handles what you need.
 
 ---
 

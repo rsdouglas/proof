@@ -50,7 +50,7 @@ A 90-second video from a satisfied client answering those questions is worth mor
 | Video testimonials | ❌ | ✅ |
 | Best for | E-commerce, high volume | Service businesses, coaches |
 | Free plan | 14-day trial | ✅ Free forever, 1 widget |
-| Pricing | $16–$80/month | Free–$19/month |
+| Pricing | $16–$80/month | Free–$9/month |
 
 ---
 

@@ -35,7 +35,7 @@ The product is functional and serves its purpose.
 | Embeddable widgets | ✅ | ✅ |
 | Carousel, grid, wall layouts | ✅ | ✅ |
 | Free plan | Limited | ✅ Free forever, 1 widget |
-| Paid plan | $19–$49/month | $19/month |
+| Paid plan | $19–$49/month | $9/month |
 | Setup time | ~15 min | ~5 min |
 | Best for | General use | Small businesses, solopreneurs |
 

@@ -44,7 +44,7 @@ For a freelance photographer, local accountant, or independent therapist, that's
 | Custom collection page | ✅ | ✅ |
 | Third-party imports | ✅ | Coming soon |
 | Free plan | Very limited | ✅ Free forever, 1 widget |
-| Paid plan for full features | $50/month | $19/month |
+| Paid plan for full features | $50/month | $9/month |
 | Best for | SaaS, funded startups | Small businesses, solopreneurs |
 
 ---

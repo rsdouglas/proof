@@ -42,7 +42,7 @@ Service businesses need **testimonials** — open-ended stories about the experi
 | Video testimonials | ✅ | ✅ |
 | Photo reviews | ✅ | ✅ |
 | Works for non-e-commerce businesses | ❌ | ✅ |
-| Price | $19–$299/month | Free–$19/month |
+| Price | $19–$299/month | Free–$9/month |
 | Best for | Shopify DTC brands | Service businesses, any platform |
 
 ---

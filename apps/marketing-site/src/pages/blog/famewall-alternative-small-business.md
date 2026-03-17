@@ -53,7 +53,7 @@ Famewall's paid plans can get expensive as you add more testimonials and widgets
 | Carousel widget | ✅ | ✅ |
 | Best for | SaaS with Twitter presence | Service businesses, freelancers |
 | Free plan | Limited | ✅ Free forever, 1 widget |
-| Paid plan | $19–$49/month | $19/month |
+| Paid plan | $19–$49/month | $9/month |
 
 ---
 

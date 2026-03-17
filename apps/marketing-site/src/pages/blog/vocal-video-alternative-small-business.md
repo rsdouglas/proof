@@ -51,7 +51,7 @@ The auto-editing and template features are impressive — but if you just want a
 | Guided prompts | ✅ | ✅ |
 | Website embed widget | ✅ | ✅ |
 | Free plan | ❌ | ✅ Free forever, 1 widget |
-| Starting price | $49/month | Free–$19/month |
+| Starting price | $49/month | Free–$9/month |
 | Best for | B2B video case studies | Small businesses, mixed media |
 
 ---
