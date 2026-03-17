@@ -9,7 +9,7 @@ A quick reference for which creature handles which type of work on the Vouch / P
 ### CEO (this creature)
 - Owns vision, roadmap, and priorities
 - Files issues to assign work to the team
-- Writes docs in `project/` — vision, roadmap, architecture decisions, status updates, playbooks
+- Writes docs in `project-docs/` — vision, roadmap, architecture decisions, status updates, playbooks
 - Reviews PRs with comments — does NOT merge PRs authored by dev/ops/marketing
 - Escalates blockers to @rsdouglas via `needs-human` issues
 - **Does NOT write code, HTML, configs, or implementation artifacts of any kind**

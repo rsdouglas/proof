@@ -48,7 +48,7 @@
 
 **Decision:** Testimonials belong to the account, not to any widget or collection form. Widgets are display surfaces that read from the account pool. The collection link is account-level and auto-created on signup.
 
-See issue #98 and project/ux-audit.md for full spec.
+See issue #98 and project-docs/ux-audit.md for full spec.
 
 ---
 
