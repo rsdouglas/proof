@@ -135,15 +135,26 @@ admin.get('/stats', async (c) => {
 
 // ── GET /status — deep health check for all integrations ───────────────────────
 
-type CheckResult = { ok: boolean; latency_ms: number; error?: string; [k: string]: unknown }
-type CheckInput = { ok: boolean; error?: string; [k: string]: unknown }
+type CheckResult = {
+  ok: boolean
+  latency_ms: number
+  error?: string
+  severity?: 'critical' | 'warning'
+  [k: string]: unknown
+}
+type CheckInput = {
+  ok: boolean
+  error?: string
+  severity?: 'critical' | 'warning'
+  [k: string]: unknown
+}
 
 async function timed(fn: () => Promise<CheckInput>): Promise<CheckResult> {
   const t0 = Date.now()
   try {
     return { ...await fn(), latency_ms: Date.now() - t0 }
   } catch (err: any) {
-    return { ok: false, error: err?.message ?? 'unknown', latency_ms: Date.now() - t0 }
+    return { ok: false, error: err?.message ?? 'unknown', severity: 'critical', latency_ms: Date.now() - t0 }
   }
 }
 
@@ -153,40 +164,41 @@ admin.get('/status', async (c) => {
   const [d1, kv, resend, stripe, ses] = await Promise.all([
     timed(async () => {
       await env.DB.prepare('SELECT 1').first()
-      return { ok: true }
+      return { ok: true, severity: 'critical' }
     }),
     timed(async () => {
       await env.WIDGET_KV.get('__healthcheck')
-      return { ok: true }
+      return { ok: true, severity: 'critical' }
     }),
     timed(async () => {
-      if (!env.RESEND_API_KEY) return { ok: false, error: 'RESEND_API_KEY not set' }
+      if (!env.RESEND_API_KEY) return { ok: false, error: 'RESEND_API_KEY not set', severity: 'critical' }
       const res = await fetch('https://api.resend.com/domains', {
         headers: { Authorization: `Bearer ${env.RESEND_API_KEY}` },
       })
-      if (!res.ok) return { ok: false, error: `HTTP ${res.status}` }
-      return { ok: true }
+      if (!res.ok) return { ok: false, error: `HTTP ${res.status}`, severity: 'critical' }
+      return { ok: true, severity: 'critical' }
     }),
     timed(async () => {
-      if (!env.STRIPE_SECRET_KEY) return { ok: false, error: 'STRIPE_SECRET_KEY not set' }
+      if (!env.STRIPE_SECRET_KEY) return { ok: false, error: 'STRIPE_SECRET_KEY not set', severity: 'warning' }
       const res = await fetch('https://api.stripe.com/v1/balance', {
         headers: { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` },
       })
-      if (!res.ok) return { ok: false, error: `HTTP ${res.status}` }
-      return { ok: true }
+      if (!res.ok) return { ok: false, error: `HTTP ${res.status}`, severity: 'warning' }
+      return { ok: true, severity: 'warning' }
     }),
     timed(async () => {
       if (!env.SES_AWS_ACCESS_KEY_ID || !env.SES_AWS_SECRET_ACCESS_KEY) {
-        return { ok: false, error: 'SES credentials not set' }
+        return { ok: false, error: 'SES credentials not set', severity: 'warning' }
       }
       const result = await sesCheckCredentials(
         env.SES_AWS_ACCESS_KEY_ID,
         env.SES_AWS_SECRET_ACCESS_KEY,
         env.SES_REGION ?? 'us-east-1',
       )
-      if (!result.ok) return { ok: false, error: result.detail }
+      if (!result.ok) return { ok: false, error: result.detail, severity: 'warning' }
       return {
         ok: true,
+        severity: 'warning',
         region: env.SES_REGION ?? 'us-east-1',
         from: env.SES_FROM_EMAIL ?? '(not set)',
       }
@@ -194,10 +206,14 @@ admin.get('/status', async (c) => {
   ])
 
   const checks: Record<string, CheckResult> = { d1, kv, resend, stripe, ses }
-  const allOk = Object.values(checks).every((ch) => ch.ok)
+  const criticalChecks = Object.values(checks).filter((ch) => (ch.severity ?? 'critical') === 'critical')
+  const warningChecks = Object.values(checks).filter((ch) => ch.severity === 'warning')
+  const allOk = criticalChecks.every((ch) => ch.ok)
+  const hasWarnings = warningChecks.some((ch) => !ch.ok)
 
   return c.json({
     ok: allOk,
+    has_warnings: hasWarnings,
     checks,
     env: env.ENVIRONMENT ?? 'unknown',
     ts: new Date().toISOString(),
