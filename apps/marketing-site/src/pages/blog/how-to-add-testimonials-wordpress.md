@@ -141,7 +141,7 @@ A single async script tag has none of those problems. It loads fast, doesn't int
 
 ## Free Forever for One Widget
 
-SocialProof's free plan includes one active widget — enough for most small WordPress sites. You can collect unlimited testimonials, approve them, and display them on your site at no cost.
+SocialProof's free plan includes one active widget — enough for most small WordPress sites. You can collect unlimited submissions, approve up to 25 testimonials on Free, and display them on your site at no cost.
 
 If you grow and need multiple widgets for different pages or products, the Pro plan is $9/month.
 

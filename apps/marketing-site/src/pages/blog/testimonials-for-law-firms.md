@@ -93,7 +93,7 @@ Do this over text, email, or even a handwritten note. The channel matters less t
 
 **The ethics part is handled:** You control what gets published. You can add your own disclaimer text to the widget. Nothing goes live without your explicit approval.
 
-**It's free to start** — no credit card required, unlimited testimonials, 1 active widget on the free plan. For most solo and small firm attorneys, that's all you need.
+**It's free to start** — no credit card required, up to 25 testimonials, and 1 active widget on the free plan. For most solo and small firm attorneys, that's all you need.
 
 ---
 

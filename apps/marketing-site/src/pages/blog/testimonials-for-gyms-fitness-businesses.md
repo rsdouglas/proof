@@ -105,7 +105,7 @@ The best fitness businesses collect both — Google reviews for discovery, first
 
 No complicated integrations. No design work. No paying before you've tried it.
 
-**Free tier:** 1 widget, unlimited testimonial collection. No credit card required.
+**Free tier:** 1 widget, up to 25 testimonials, unlimited collection. No credit card required.
 
 ---
 

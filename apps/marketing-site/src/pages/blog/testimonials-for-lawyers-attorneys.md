@@ -117,7 +117,7 @@ How it works:
 
 The collection link works via email, text, or anywhere else you communicate with clients. No login required for the client. Takes under two minutes to submit.
 
-**Free tier:** 1 widget, unlimited testimonial collection, no credit card required.
+**Free tier:** 1 widget, up to 25 testimonials, unlimited collection, no credit card required.
 
 ---
 

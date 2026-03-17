@@ -116,4 +116,4 @@ If you're starting from zero:
 
 Within a month, you'll have enough testimonials to populate your homepage and key pages.
 
-[Start collecting free at SocialProof](https://socialproof.dev) — unlimited testimonial collection on the free plan. No credit card.
+[Start collecting free at SocialProof](https://socialproof.dev) — unlimited testimonial collection on the free plan, with up to 25 approved testimonials. No credit card.

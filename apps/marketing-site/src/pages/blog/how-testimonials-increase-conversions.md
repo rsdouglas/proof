@@ -129,7 +129,7 @@ A simple system fixes all three:
 
 No spreadsheets. No copy-pasting. No technical setup beyond one script tag.
 
-**[SocialProof](https://socialproof.dev)** does this for free — one permanent widget, unlimited testimonials, no credit card required.
+**[SocialProof](https://socialproof.dev)** does this for free — one permanent widget, up to 25 testimonials, no credit card required.
 
 ---
 

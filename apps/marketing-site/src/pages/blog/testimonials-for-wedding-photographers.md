@@ -99,7 +99,7 @@ You can encourage this kind of testimonial by sharing prompts with your clients:
 3. **You approve before anything goes public** — nothing shows up on your site without your review
 4. **Embed on your site** — a clean testimonial widget that updates automatically as new reviews come in
 
-The free plan covers unlimited testimonials and 1 active widget — enough for most photographers to run their entire testimonial presence.
+The free plan covers up to 25 testimonials and 1 active widget — enough for most photographers to run their entire testimonial presence.
 
 [Start collecting testimonials free →](https://app.socialproof.dev)
 
