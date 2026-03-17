@@ -176,7 +176,7 @@ The SocialProof widget embeds via a single script tag and works on your Shopify 
 **Best for:** Shopify merchants who want compelling testimonials on their homepage, landing pages, or custom pages — not just automated star ratings on product pages. Also strong for service businesses that happen to use Shopify as their storefront.
 
 
-- Free forever plan (1 active widget, unlimited testimonials)
+- Free forever plan (1 active widget, up to 25 testimonials)
 - Collect via email link — no app install required for customers
 - Display anywhere via embed code (Shopify themes, custom pages, etc.)
 - Auto-rotating carousel and grid display options
@@ -250,7 +250,7 @@ Third: not asking at all. Most customers who had a good experience simply move o
 ### Add a testimonial widget to your Shopify store — free
 
 
-SocialProof works on any Shopify theme via embed code. Collect unlimited testimonials, display them anywhere. Free forever for 1 widget.
+SocialProof works on any Shopify theme via embed code. Collect unlimited testimonial submissions, keep up to 25 active on Free, and display them anywhere. Free forever for 1 widget.
 
  Start free — no credit card
 

@@ -76,7 +76,7 @@ A free or low-cost plan covers this entirely.
 
 [SocialProof](https://socialproof.dev) is designed for small businesses and solopreneurs who don't want to overpay.
 
-- **Free forever:** 1 active widget, unlimited testimonial collection, full approval flow
+- **Free forever:** 1 active widget, up to 25 testimonials, unlimited collection, full approval flow
 - **Paid plans:** Coming soon — multi-widget support, custom domain, priority support
 
 If you need one collection link and one embed on your website, you'll never need to pay.

@@ -43,7 +43,7 @@ Here's what's actually available:
 - Clients don't need an account — they just fill a form
 - You control every testimonial before it goes live
 - One embed code works on any website
-- Free plan is genuinely useful (1 active widget, unlimited testimonials)
+- Free plan is genuinely useful (1 active widget, up to 25 testimonials)
 - Pro is $9/mo — affordable even for early-stage freelancers
 
 **What it lacks:** No Google/Yelp review import (yet), no reputation monitoring.

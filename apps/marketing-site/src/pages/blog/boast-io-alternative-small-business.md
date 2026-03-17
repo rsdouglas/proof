@@ -58,7 +58,7 @@ That's the core loop — and it works.
 
 **Simple embed — one script tag.** Paste a single line of JavaScript. Works on any website: WordPress, Squarespace, Wix, Webflow, custom HTML, Shopify.
 
-**Free forever for one widget.** Not a trial. Not a time-limited free plan. One active widget, unlimited testimonials collected — free as long as you want.
+**Free forever for one widget.** Not a trial. Not a time-limited free plan. One active widget, up to 25 testimonials — free as long as you want.
 
 **No video (by design).** SocialProof collects text testimonials. If you need video specifically, Boast may be the better fit. But if text is sufficient — and for most small businesses it is — you'll find SocialProof faster and simpler.
 

@@ -30,7 +30,7 @@ SocialProof was designed with one customer in mind: the small business owner who
 ### What's different:
 
 **Free forever — not a trial**
-SocialProof's free plan includes 1 active widget with unlimited testimonials collected. No expiration. No credit card required. You can run a real testimonial program without paying anything.
+SocialProof's free plan includes 1 active widget with up to 25 testimonials. No expiration. No credit card required. You can run a real testimonial program without paying anything.
 
 **Collect in 5 minutes**
 After signing up, you get a collection link immediately. Share it via email, text, or link in bio. Your customers click, type their testimonial, submit. Done. No account required on their end.

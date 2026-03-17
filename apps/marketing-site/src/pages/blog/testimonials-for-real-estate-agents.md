@@ -122,6 +122,6 @@ The fastest path to your first real estate testimonial:
 3. **Include your collection link** — make it one click for them
 4. **Add the link to your closing email template** — so every future closing is covered automatically
 
-[Start collecting free at SocialProof](https://socialproof.dev) — the free plan includes unlimited testimonial collection and your first display widget. No credit card needed.
+[Start collecting free at SocialProof](https://socialproof.dev) — the free plan includes unlimited testimonial collection, up to 25 approved testimonials, and your first display widget. No credit card needed.
 
 Real estate runs on reputation. Let the clients who love you prove it.

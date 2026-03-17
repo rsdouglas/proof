@@ -61,7 +61,7 @@ If you're actively collecting testimonials (or plan to), a free SocialProof acco
 
 Every new testimonial you collect shows up on the wall automatically. No manual updates, no copy-pasting.
 
-**What's free:** Up to 1 active widget, unlimited testimonials collected. The wall widget counts as your one free widget, so most small businesses can run this entirely on the free plan.
+**What's free:** Up to 1 active widget and up to 25 testimonials. The wall widget counts as your one free widget, so most small businesses can run this entirely on the free plan.
 
 ---
 

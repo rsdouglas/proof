@@ -26,7 +26,7 @@ This guide cuts through it. We've compared the top tools honestly — including 
 
 SocialProof is the leanest testimonial tool on the market. You create a collection link, share it with customers, and paste a widget code on your site. That's it. No sales calls, no annual contracts, no "contact us for pricing."
 
-The free plan is genuinely free — not a time-limited trial. You get 1 active widget, unlimited testimonials, and full access to the collection link. Upgrade to Pro only if you need multiple widgets or brand customization.
+The free plan is genuinely free — not a time-limited trial. You get 1 active widget, up to 25 testimonials, and full access to the collection link. Upgrade to Pro only if you need multiple widgets or brand customization.
 
 **Why small businesses choose it:** Speed. No other tool gets you from "I should collect testimonials" to "testimonials are live on my homepage" faster.
 
