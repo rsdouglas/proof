@@ -30,7 +30,7 @@ async function sesCheckCredentials(
   accessKeyId: string,
   secretKey: string,
   region: string,
-): Promise<{ ok: boolean; status: number; detail: string }> {
+): Promise<{ ok: boolean; status: number; detail: string; quota?: { max24h?: number; sent24h?: number; maxPerSecond?: number } }> {
   const service = 'ses'
   const host = `email.${region}.amazonaws.com`
   const query = 'Action=GetSendQuota&Version=2010-12-01'
@@ -66,10 +66,20 @@ async function sesCheckCredentials(
   })
 
   const body = await res.text()
+  if (!res.ok) {
+    return {
+      ok: false, status: res.status,
+      detail: body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200),
+    }
+  }
+  const tag = (name: string) => body.match(new RegExp(`<${name}>(.+?)</${name}>`))?.[1]
   return {
-    ok: res.ok,
-    status: res.status,
-    detail: res.ok ? 'credentials valid' : body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 200),
+    ok: true, status: res.status, detail: 'credentials valid',
+    quota: {
+      max24h: Number(tag('Max24HourSend')) || undefined,
+      sent24h: Number(tag('SentLast24Hours')) || undefined,
+      maxPerSecond: Number(tag('MaxSendRate')) || undefined,
+    },
   }
 }
 
@@ -165,7 +175,12 @@ admin.get('/status', async (c) => {
         headers: { Authorization: `Bearer ${env.RESEND_API_KEY}` },
       })
       if (!res.ok) return { ok: false, error: `HTTP ${res.status}` }
-      return { ok: true }
+      const quota: Record<string, string | undefined> = {
+        daily: res.headers.get('x-resend-daily-quota') ?? undefined,
+        monthly: res.headers.get('x-resend-monthly-quota') ?? undefined,
+        ratelimit_remaining: res.headers.get('ratelimit-remaining') ?? undefined,
+      }
+      return { ok: true, quota }
     }),
     timed(async () => {
       if (!env.STRIPE_SECRET_KEY) return { ok: false, error: 'STRIPE_SECRET_KEY not set' }
@@ -189,6 +204,7 @@ admin.get('/status', async (c) => {
         ok: true,
         region: env.SES_REGION ?? 'us-east-1',
         from: env.SES_FROM_EMAIL ?? '(not set)',
+        quota: result.quota,
       }
     }),
   ])
