@@ -91,6 +91,7 @@ function EmbedNudgeBanner({ approvedCount }: { approvedCount: number }) {
 }
 
 function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
+
   const [copied, setCopied] = useState(false)
 
   function copyLink() {
@@ -101,9 +102,9 @@ function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
   }
 
   const steps = [
-    'Share your link',
-    'Get first testimonial',
-    'Approve it',
+    'Import or add existing proof',
+    'Share your link for new proof',
+    'Approve what you want live',
     'Embed widget',
   ]
 
@@ -116,10 +117,13 @@ function ZeroStateBanner({ collectUrl }: { collectUrl: string }) {
       marginBottom: 32,
     }}>
       <h2 style={{ margin: '0 0 6px', fontSize: 18, fontWeight: 700, color: '#1e3a8a' }}>
-        You're one link away from your first testimonial
+        Start with the proof you already have — or collect a new one
       </h2>
+      <p style={{ margin: '0 0 12px', fontSize: 14, color: colors.brand }}>
+        Already have client praise in emails, DMs, or docs? <Link to="/testimonials" style={{ color: '#1d4ed8', fontWeight: 700, textDecoration: 'none' }}>Add it manually or import CSV</Link>.
+      </p>
       <p style={{ margin: '0 0 20px', fontSize: 14, color: colors.brand }}>
-        Send this link to customers — they fill a short form, you approve it, done.
+        Or send this link to customers — they fill a short form, you approve it, done.
       </p>
 
       {/* Collection URL */}
@@ -230,12 +234,11 @@ function NudgeBanner({ collectUrl }: { collectUrl: string }) {
       <AlertTriangle size={20} color="#d97706" style={{ flexShrink: 0, marginTop: 2 }} />
       <div style={{ flex: 1 }}>
         <div style={{ fontWeight: 700, fontSize: 15, color: '#92400e', marginBottom: 4 }}>
-          Still waiting for your first testimonial
+          No testimonials live yet
         </div>
         <div style={{ fontSize: 13, color: '#b45309', lineHeight: 1.5, marginBottom: 14 }}>
-          You signed up over 24 hours ago but haven't received a testimonial yet.
-          The most common reason? The link never got sent.{' '}
-          <strong>Right now, think of 3 happy customers</strong> and send them this link:
+          If you already have praise in emails or docs, <Link to="/testimonials" style={{ color: '#92400e', fontWeight: 700, textDecoration: 'underline' }}>add it manually or import it</Link>.
+          If not, the fastest path is to <strong>pick 3 happy customers</strong> and send them this link:
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <span style={{
