@@ -186,9 +186,9 @@ const marketingWidgetScript = 'https://widget.socialproof.dev/v1/widget.js';
   <!-- SOCIAL PROOF SECTION — dogfood the product on our own marketing site when a widget is configured -->
   <section style="padding:72px 0;">
     <div class="container" style="text-align:center;">
-      <p class="section-label">What early users say</p>
-      <h2 class="section-title">Real businesses. Real results.</h2>
-      <p class="section-sub">From coaches to photographers to restaurant owners — here's what happened when they started sharing their collection link.</p>
+      <p class="section-label">Built in public — no fake social proof</p>
+      <h2 class="section-title">Real testimonials, coming soon.</h2>
+      <p class="section-sub">When our early users collect real testimonials, they'll appear right here — collected and displayed by SocialProof itself.</p>
       {marketingWidgetId ? (
         <>
           <div style="max-width:960px;margin:48px auto 0;text-align:left;">
@@ -197,40 +197,14 @@ const marketingWidgetScript = 'https://widget.socialproof.dev/v1/widget.js';
           <script src={marketingWidgetScript} async></script>
         </>
       ) : (
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;text-align:left;">
-          <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
-            <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"I sent my collection link to 8 clients over a weekend. By Monday I had 6 testimonials sitting in my dashboard. I'd been putting this off for two years."</p>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:40px;height:40px;background:linear-gradient(135deg,#6d28d9,#4f46e5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">S</div>
-              <div>
-                <p style="font-weight:700;font-size:14px;margin:0;">Sarah K.</p>
-                <p style="color:var(--text-muted);font-size:13px;margin:0;">Life Coach, Portland OR</p>
-              </div>
-            </div>
-          </div>
-          <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
-            <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"My web developer wanted $400 to add testimonials. SocialProof cost me nothing and took 10 minutes. The embed just works. I genuinely can't believe this is free."</p>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:40px;height:40px;background:linear-gradient(135deg,#059669,#10b981);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">M</div>
-              <div>
-                <p style="font-weight:700;font-size:14px;margin:0;">Marcus T.</p>
-                <p style="color:var(--text-muted);font-size:13px;margin:0;">Wedding Photographer, Austin TX</p>
-              </div>
-            </div>
-          </div>
-          <div style="background:var(--bg-alt);border-radius:16px;padding:28px;border:1px solid var(--border);">
-            <div style="display:flex;gap:4px;margin-bottom:16px;font-size:18px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size:15px;line-height:1.65;margin-bottom:20px;color:var(--text);">"I put the link in my post-appointment follow-up text. I now get 2–3 new testimonials every week without thinking about it. It's running on autopilot."</p>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:40px;height:40px;background:linear-gradient(135deg,#dc2626,#f97316);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0;">J</div>
-              <div>
-                <p style="font-weight:700;font-size:14px;margin:0;">Jamie R.</p>
-                <p style="color:var(--text-muted);font-size:13px;margin:0;">Hair Salon Owner, Chicago IL</p>
-              </div>
-            </div>
-          </div>
+        <div style="max-width:640px;margin:48px auto 0;background:var(--bg-alt);border-radius:20px;padding:48px 40px;border:1px solid var(--border);text-align:center;">
+          <p style="font-size:40px;margin:0 0 16px;">🌱</p>
+          <h3 style="font-size:20px;font-weight:700;margin:0 0 12px;">Be one of our first featured customers</h3>
+          <p style="font-size:15px;line-height:1.65;color:var(--text-muted);margin:0 0 24px;">We're just getting started. Try SocialProof free — when you collect your first real testimonials, we'd love to feature your story right here.</p>
+          <a href="https://app.socialproof.dev/signup" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+            Start free — get your first testimonial today →
+          </a>
+          <p style="font-size:13px;color:var(--text-muted);margin:16px 0 0;">No credit card. Free forever for 1 active widget.</p>
         </div>
       )}
     </div>
